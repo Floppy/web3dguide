@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - VRML97 Tutorial: tut35.wrl</TITLE>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+</HEAD>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+ 
+ 
+<H1>tut35.wrl</H1>
+
+<PRE>
+<STRONG><FONT COLOR="#5F9EA0">#VRML V2.0 utf8
+</FONT></STRONG>
+<FONT COLOR="#DA70D6"><STRONG>WorldInfo</FONT></STRONG> {
+   title <FONT COLOR="#BC8F8F"><STRONG>&quot;Floppy's VRML97 Tutorial Example 3.5&quot;</FONT></STRONG>
+   info [<FONT COLOR="#BC8F8F"><STRONG>&quot;(C) Copyright 2000 Vapour Technology Ltd.&quot;</FONT></STRONG>
+         <FONT COLOR="#BC8F8F"><STRONG>&quot;&#103;&#117;&#105;&#100;e&#64;&#119;e&#98;&#51;&#100;g&#117;i&#100;&#101;&#46;&#111;&#114;g&#46;&#117;&#107;&quot;</FONT></STRONG>]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>DirectionalLight</FONT></STRONG> {
+   direction 0 -1 -1
+   ambientIntensity .5
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Background</FONT></STRONG> {
+   skyColor 0 0 0
+}
+
+<STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> BACKRED <FONT COLOR="#DA70D6"><STRONG>Background</FONT></STRONG> {
+   skyColor 1 0 0
+}
+
+<STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> BACKGREEN <FONT COLOR="#DA70D6"><STRONG>Background</FONT></STRONG> {
+   skyColor 0 1 0
+}
+
+<STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> BACKBLUE <FONT COLOR="#DA70D6"><STRONG>Background</FONT></STRONG> {
+   skyColor 0 0 1
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Group</FONT></STRONG> {
+   children [
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> WORLDVIEW <FONT COLOR="#DA70D6"><STRONG>Viewpoint</FONT></STRONG> {
+         description <FONT COLOR="#BC8F8F"><STRONG>&quot;EntryWay&quot;</FONT></STRONG>
+         position 0 1.6 7.5
+      }
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> MOVABLE <FONT COLOR="#DA70D6"><STRONG>NavigationInfo</FONT></STRONG> {
+         headlight <STRONG><FONT COLOR="#A020F0">FALSE</FONT></STRONG>
+      }
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> FLOOR <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+         appearance <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> METAL <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+            material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+               shininess .75
+               diffuseColor .75 .75 .75
+               ambientIntensity .5
+            }
+         }
+         geometry <FONT COLOR="#DA70D6"><STRONG>Cylinder</FONT></STRONG> {
+            radius 10
+            height .1
+         }
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         translation 0 5 0
+         children <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> FLOOR
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+         appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+            material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+               transparency 1
+            }
+         }
+         geometry <FONT COLOR="#DA70D6"><STRONG>Cylinder</FONT></STRONG> {
+            radius 10.1
+            height 5
+         }
+      }
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> PILLAR <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         translation 0 2.5 9
+         children [
+            <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+               appearance <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> METAL
+               geometry <FONT COLOR="#DA70D6"><STRONG>Cylinder</FONT></STRONG> {
+                  radius .25
+                  height 5
+               }
+            }
+         ]
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         rotation 0 1 0 .78
+         children <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> PILLAR
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         rotation 0 1 0 1.57
+         children <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> PILLAR
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         rotation 0 1 0 2.36
+         children <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> PILLAR
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         rotation 0 1 0 3.14
+         children <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> PILLAR
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         rotation 0 1 0 3.93
+         children <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> PILLAR
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         rotation 0 1 0 4.71
+         children <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> PILLAR
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         rotation 0 1 0 5.5
+         children <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> PILLAR
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         translation -5 1 -3
+         children [
+            <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> WORLDSWITCH <FONT COLOR="#DA70D6"><STRONG>TouchSensor</FONT></STRONG> {
+            }
+            <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+               appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                  material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+                     emissiveColor 1 1 0
+                  }
+               }
+               geometry <FONT COLOR="#DA70D6"><STRONG>Sphere</FONT></STRONG> {
+                  radius .1
+               }
+            }
+         ]
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         translation -5 .5 -3
+         children [
+            <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+               appearance <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> METAL
+               geometry <FONT COLOR="#DA70D6"><STRONG>Cylinder</FONT></STRONG> {
+                  radius .05
+                  height 1
+               }
+            }
+         ]
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         translation 5 .5 -3
+         children [
+            <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+               appearance <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> METAL
+               geometry <FONT COLOR="#DA70D6"><STRONG>Box</FONT></STRONG> {
+                  size .5 1 2
+               }
+            }
+         ]
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         translation 5 1 -3.5
+         children [
+            <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> REDSWITCH <FONT COLOR="#DA70D6"><STRONG>TouchSensor</FONT></STRONG> {
+            }
+            <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+               appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                  material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+                     emissiveColor 1 0 0
+                  }
+               }
+               geometry <FONT COLOR="#DA70D6"><STRONG>Sphere</FONT></STRONG> {
+                  radius .2
+               }
+            }
+         ]
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         translation 5 1 -3
+         children [
+            <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> GREENSWITCH <FONT COLOR="#DA70D6"><STRONG>TouchSensor</FONT></STRONG> {
+            }
+            <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+               appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                  material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+                     emissiveColor 0 1 0
+                  }
+               }
+               geometry <FONT COLOR="#DA70D6"><STRONG>Sphere</FONT></STRONG> {
+                  radius .2
+               }
+            }
+         ]
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         translation 5 1 -2.5
+         children [
+            <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> BLUESWITCH <FONT COLOR="#DA70D6"><STRONG>TouchSensor</FONT></STRONG> {
+            }
+            <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+               appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                  material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+                     emissiveColor 0 0 1
+                  }
+               }
+               geometry <FONT COLOR="#DA70D6"><STRONG>Sphere</FONT></STRONG> {
+                  radius .2
+               }
+            }
+         ]
+      }
+   ]
+}
+
+<STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> PLATFORMTIMER <FONT COLOR="#DA70D6"><STRONG>TimeSensor</FONT></STRONG> {
+   cycleInterval 60
+   loop <STRONG><FONT COLOR="#A020F0">TRUE</FONT></STRONG>
+}
+
+<STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> PLATFORMINT <FONT COLOR="#DA70D6"><STRONG>OrientationInterpolator</FONT></STRONG> {
+   key [
+      0 .25 .5 .75 1
+   ]
+   keyValue [
+      0 -1 0 0 0 -1 0 1.57 0 -1 0 3.14 0 -1 0 4.71 0 -1 0 0
+   ]
+}
+
+<STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> PLATFORM <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   children [
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         translation 0 0 20
+         children [
+            <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> PLATFORMVIEW <FONT COLOR="#DA70D6"><STRONG>Viewpoint</FONT></STRONG> {
+               position 0 1.6 1
+            }
+            <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+               appearance <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> METAL
+               geometry <FONT COLOR="#DA70D6"><STRONG>Box</FONT></STRONG> {
+                  size 2.2 .1 2.2
+               }
+            }
+         ]
+      }
+   ]
+}
+
+<EM><FONT COLOR="#B22222">#Platform animation
+</FONT></EM><STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> PLATFORMTIMER.fraction_changed <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> PLATFORMINT.set_fraction
+<STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> PLATFORMINT.value_changed <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> PLATFORM.rotation
+
+<EM><FONT COLOR="#B22222">#NavigationInfo updating
+</FONT></EM><STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> WORLDVIEW.isBound <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> MOVABLE.set_bind
+
+<EM><FONT COLOR="#B22222">#Viewpoint binding
+</FONT></EM><STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> WORLDSWITCH.isActive <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> PLATFORMVIEW.set_bind
+
+<EM><FONT COLOR="#B22222">#Background binding
+</FONT></EM><STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> REDSWITCH.isActive <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> BACKRED.set_bind
+<STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> GREENSWITCH.isActive <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> BACKGREEN.set_bind
+<STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> BLUESWITCH.isActive <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> BACKBLUE.set_bind
+</PRE>
+<ADDRESS>Generated by <A HREF="http://people.ssh.fi/mtr/genscript/">GNU enscript 1.6.1</A>.</ADDRESS>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('../pics/guidelogo.gif','Back',document.referrer, 'en', '..');
+</SCRIPT>
+
+</P>
+</BODY>
+</HTML>

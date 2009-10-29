@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,IndexedFaceSet, IndexedLineSet, PointSet, ElevationGrid, Extrusion,mesh, model, arbitrary mesh, height field,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>Floppy's Web3D Guide - VRML97 Tutorial 2.4: IndexedFaceSet, IndexedLineSet, PointSet, ElevationGrid, Extrusion</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Objetos del Deseo</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut23.html','tut25.html');
+</SCRIPT>
+</P><P>
+Es estupendo poder hacer todas estas cosillas, pero si solo somos capaces
+de crear cajas, conos, esferas y cilindros, &iquest;hasta donde podr&eacute;mos
+llegar? No semasiado lejos. Ese es el motivo por el que VRML posee unos
+cuantos nodos geom&eacute;tricos m&aacute;s. Puedes usarlos para construir
+formas sencillas o complejas para tus mundos. Voy a cubrir ahora los campos
+b&aacute;sicos de estos nodos, para que puedas usarlos. Cubrir&eacute;
+campos m&aacute;s complejos que te permitan cambiar el aspecto de estos
+nodos m&aacute;s adelante, en el pr&oacute;ximo cap&iacute;tulo. Bueno,
+comenzaremos con el el nodo fundamental de los que pertenecen a la geometr&iacute;a
+avanzada: el nodo <STRONG>IndexedFaceSet</STRONG>.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+IndexedFaceSet</FONT></P><P>
+El nodo <STRONG>IndexedFaceSet</STRONG> es una colecci&oacute;n de caras, que puedes
+definir manualmente, y permiten construir tus propios objetos con cualquier
+forma. La idea b&aacute;sica es muy sencilla, y se muestra en el diagrama
+inferior:
+<br><IMG SRC="../pics/faces.gif" height=189 width=241 ALT="Faces">
+<p>Supon que quieres definir un cubo, o parte de un cubo. Primero necesitas
+definir los ocho v&eacute;rtices, numerados del 0 al 7 en el diagrama.
+Ahora necesitas definir las caras. Si quieres definir la cara que tiene
+pintada la cruz azul, debes decir que usa los v&eacute;rtices 1,2,6 y 5.&nbsp;
+Y esto es todo lo que hay. Haz lo mismo para cada cara, y lo habr&aacute;s
+acabado. Una palabra de aviso: si los v&eacute;rtices de una cara no son
+coplanares (esto es, no definen un &aacute;rea plana), entonces los navegadores
+se har&aacute;n un l&iacute;o y los resultados ser&aacute;n indefinidos.
+Es mejor usar caras triangulares, con solo tres v&eacute;rtices por cara,
+y de esta manera estar&aacute;s seguro de que siempre ser&aacute;n coplanares.
+Si quieres m&aacute;s v&eacute;rtices por cara, s&eacute; cuidadoso. En
+cualquier caso, simpre puedes construir tus figuras a partir de caras triangulares,
+lo que es probablemente lo mejor que puedes hacer.
+<p>La sintaxis actual de un nodo <STRONG>IndexedFaceSet</STRONG> b&aacute;sico es
+tal y como sigue:
+</P><PRE>IndexedFaceSet {
+&nbsp;&nbsp; SFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; coord&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL
+&nbsp;&nbsp; MFInt32&nbsp;&nbsp;&nbsp;&nbsp; coordIndex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; solid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+}</PRE><P>
+El campo<STRONG> coord</STRONG> contiene un nodo <STRONG>Coordinate</STRONG>, que consiste
+en una simple lista de puntos 3D, tal y como se muestra en el ejemplo de
+abajo. Estos son los puntos en que consistir&aacute; tu <STRONG>indexedFaceSet</STRONG>
+El siguiente campo es <STRONG>coordIndex</STRONG>. Es la lista de las caras. Para
+definir una cara, debes introducir el &iacute;ndice de cada punto en la
+llista, seguido de un -1 para indicar que una cara ha acabado y que otra
+puede comenzar. El &iacute;ndice del punto es el n&uacute;mero en que aparece
+en la lista. Si est&aacute;s de frente a la cara, los valores de los &iacute;ndices
+deben introducirse en sentido contrario a las agujas del reloj. El &uacute;nico
+campo aparte de estos es <STRONG>solid</STRONG> (macizo). Si tu objeto no est&aacute;
+completamente cerrado, deber&aacute;s decir al navegador que se preocupe
+en mostrar tambi&eacute;n el "env&eacute;s" de las caras, de otro modo
+no lo har&aacute;. De manera que puedes dejar <STRONG>solid</STRONG> a FALSE&nbsp;
+en este caso. El ejemplo inferior define una caja sin dos de sus caras,
+por lo que no es maciza. Podr&aacute;s ver el resultado del ejemplo al
+final del cap&iacute;tulo. Hay m&aacute;s cosas que puedes hacer en un
+<STRONG>indexedFaceSet</STRONG>,
+pero implica uso de normales y colores, que todav&iacute;a no hemos visto.
+Lo crubriremos en el pr&oacute;ximo cap&iacute;tulo.
+<p>&nbsp;&nbsp; coord Coordinate {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; point [&nbsp; -2 0 2, 2 0 2, 2 0 -2,
+-2 0 -2
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-2 4 2, 2 4 2, 2 4 -2, -2 4 -2]
+<br>&nbsp;&nbsp; }
+<br>&nbsp;&nbsp; coordIndex [0 4 7 3 -1
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 2 6 5 -1
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+4 5 6 7 -1
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 3 7 6 -1 ]
+<br>&nbsp;&nbsp; solid FALSE
+<br>}
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+IndexedLineSet</FONT></P><P>
+Un nodo relativamente similar al&nbsp; <STRONG>IndexedFaceSet</STRONG> es el <STRONG>IndexedLineSet</STRONG>.
+Este nodo define un n&uacute;mero de l&iacute;neas que se dibujan entre
+una serie de coordenadas. Esto es &uacute;til para tener l&iacute;neas
+muy delgadas, o para representar s&oacute;lo la malla de un objeto. Se
+realiza exactamente de la misma manera que con los <STRONG>indexedFaceSet</STRONG>,
+excepto por el hecho de que no hay un campo <STRONG>solid</STRONG> y el campo <STRONG>coordIndex</STRONG>
+especifica el &iacute;ndice del punto entre cada l&iacute;nea, con un -1
+entre cada una.
+</P><PRE>IndexedLineSet {
+&nbsp;&nbsp; SFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; coord&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL
+&nbsp;&nbsp; MFInt32&nbsp;&nbsp;&nbsp;&nbsp; coordIndex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+}</PRE><P>
+las "cuerdas" del ejemplo se realizan con un <STRONG>IndexedLineSet</STRONG>. Las
+l&iacute;neas son infinitamente delgadas. Pueden colorearse, pero no mapear
+con texturas, ya que no hay nada sobre lo que pueda ponerse una textura.
+Si el campo <EM>color </EM>del&nbsp; <STRONG>IndexedLineSet</STRONG> est&aacute; vac&iacute;o,
+el color se especifica por el campo <EM>emissiveColor </EM>del nodo <STRONG>Appearance</STRONG>.
+Las l&iacute;neas no son afectadas por detecciones de colisi&oacute;n,
+de manera que el usuario puede caminar a trav&eacute;s suya.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+PointSet</FONT></P><P>
+Una vez m&aacute;s, de manera pr&aacute;cticamente id&eacute;ntica al <STRONG>IndexedLineSet</STRONG>,
+<STRONG>PointSet</STRONG>
+define un grupo de puntos en el espacio. Estos son dibujados con el tama&ntilde;o
+que decide el navegador, y no hay manera de cambiar &eacute;ste tama&ntilde;o
+hasta el momento. Este nodo es id&eacute;ntico al anterior, salvo por el
+hecho de que carece del campo <STRONG>coordIndex</STRONG>, dado que no hay conexi&oacute;n
+entre los puntos. Los puntos se dibujan de la misma manera que lasa l&iacute;neas,
+y no son afectadas por las colisiones.
+</P><PRE>PointSet {
+&nbsp;&nbsp; SFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; coord&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL
+}</PRE><P>
+
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+ElevationGrid</FONT></P><P>
+Los siguientes dos nodos son versiones especializadas y optimizadas del
+<STRONG>IndexedFaceSet</STRONG>.
+El&nbsp; primero que cubrir&eacute; es <STRONG>ElevationGrid</STRONG>. En una palabra,
+es habitual querer mostrar un suelo. Ahora, un suelo plano no resulta particularmente
+interesante, de modo que puedes usar un <STRONG>ElevationGrid</STRONG> en su lugar.
+Esto te permite crear un suelo irregular con distintas alturas. Esto se
+hace especificando un n&uacute;mero de alturas, que se asignan a una cuadr&iacute;cula.
+El tama&ntilde;o de la cuadr&iacute;cula se especifica con los campos <STRONG>xDimension</STRONG>
+y <STRONG>zDimension</STRONG> , y&nbsp; <STRONG>xSpacing</STRONG> and <STRONG>zSpacing</STRONG>. Estos
+definen las dimensiones y espaciadoentre los puntos en las direcciones
+X y Z. La lista de puntos comienza con aquel que est&aacute; m&aacute;s
+alejado en la izquierda, preocediendo hacia el que est&aacute; m&aacute;s
+cercano a la derecha, cuando se mira hacia el eje -Z. si el campo <STRONG>solid</STRONG>
+es TRUE el objeto no podr&aacute; ser visto desde abajo.Si es necesario
+que lo sea, dejalo a FALSE. La sintaxis b&aacute;sica se muestra abajo.
+</P><PRE>ElevationGrid {
+&nbsp;&nbsp; MFFloat&nbsp;&nbsp;&nbsp;&nbsp; height&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; solid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; SFInt32&nbsp;&nbsp;&nbsp;&nbsp; xDimension&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; xSpacing&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.0
+&nbsp;&nbsp; SFInt32&nbsp;&nbsp;&nbsp;&nbsp; zDimension&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+&nbsp;&nbsp; SFInt32&nbsp;&nbsp;&nbsp;&nbsp; zSpacing&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.0
+}
+
+ElevationGrid {
+&nbsp;&nbsp; xDimension 6
+&nbsp;&nbsp; zDimension 6
+&nbsp;&nbsp; xSpacing 5.0
+&nbsp;&nbsp; zSpacing 5.0
+&nbsp;&nbsp; height [ 1.5, 1, 0.5, 0.5, 1, 1.5,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1, 0.5, 0.25, 0.25, 0.5, 1,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5, 0.25, 0, 0, 0.25, 0.5,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5, 0.25, 0, 0, 0.25, 0.5,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1, 0.5, 0.25, 0.25, 0.5, 1,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.5, 1, 0.5, 0.5, 1, 1.5]
+}</PRE><P>
+En este ejemplo, hay seis puntos las direcciones X y Z, y los puntos est&aacute;n
+alejados 5 metros en ambas direcciones.Esto genera una cuadr&iacute;cula
+de 25 metros a cada lado. Los valores del campo son las alturas de cada
+punto. El primero se coloca en 0,0, y el &uacute;ltimo a +25, +25.&nbsp;
+Este objeto posee tambi&eacute;n campos m&aacute;s avanzados que podremos
+ver m&aacute;s tarde.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Extrusion</FONT></P><P>
+El &uacute;ltimo de estos nodos geom&eacute;tricos que vamos a cubrir es
+<STRONG>Extrusion</STRONG>. Esto toma una forma o secci&oacute;n en 2D, y la estira
+a lo largo de una ruta, llamada spine. Puedes alterar incluso el tama&ntilde;o
+de cada punto, comprimiendo y expandiendo la secci&oacute;n. La sintaxis
+se muestra abajo:
+</P><PRE>Extrusion {
+&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; beginCap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; MFVec2f&nbsp;&nbsp;&nbsp;&nbsp; crossSection&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1 1, 1 -1, -1 -1, -1 1, 1 1]
+&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; endCap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; MFVec2f&nbsp;&nbsp;&nbsp;&nbsp; scale&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 1
+&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; solid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; MFVec3f&nbsp;&nbsp;&nbsp;&nbsp; spine&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [0 0 0, 0 1 0]
+&nbsp;&nbsp; MFRotation&nbsp; orientation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 1 0
+}</PRE><P>
+El campo&nbsp; <STRONG>crossSection</STRONG> es una lista de puntos, en sentido contrario
+a las agujas del reloj, que definen la forma 2D de el objeto a extruir.
+Esta secci&oacute;n se alarga a trav&eacute;s de la linea definida por
+el campo <STRONG>spine</STRONG>, que es una lista de puntos 3D. A cada punto de esta
+linea, puedes definir un factor de escala, en el campo <STRONG>scale</STRONG>, que
+toma por valor una lista de pares de n&uacute;meros flotantes, uno por
+cada para las direcciones X y Z. El campo <STRONG>solid</STRONG> es igual que antes,
+y los campos <STRONG>beginCap</STRONG> y <STRONG>endCap </STRONG>definen si la extrusi&oacute;n
+posee o no una "tapa" al comienzo o al final. El campo <STRONG>orientation </STRONG>define
+una lista de rotaciones, una para cada punto de la linea. Esto te permite
+un mayor control sobre la forma de tu extrusi&oacute;n. Si no hay rotaciones
+suficientes para cada punto, los puntos restantes usan la &uacute;ltima
+rotaci&oacute;n de la lista. As&iacute;, este ejemplo, crear&iacute;a una
+extrusi&oacute;n de un cauadradoa trav&eacute;s de una linea de cuatro
+puntos con distintos factores de escala:
+</P><PRE>Extrusion {
+&nbsp;&nbsp; crossSection [1 1, 1 -1, -1 -1, -1 1, 1 1]
+&nbsp;&nbsp; spine [0 0 0, 0 2 0, 1 3 0, 2 3 0]
+&nbsp;&nbsp; scale [1 1, 1 0.5, 0.5 1, 0.5 0.5]
+}</PRE><P>
+Puedes ver c&oacute;mo queda esta extrusi&oacute;n observando el&nbsp;
+<A HREF="../worlds/tut24a.wrl" TARGET="_new">ejemplo</a> y el <A HREF="../source/tut24a.html">c&oacute;digo
+correspondiente</a>. Una cosa importante para tener en cuenta con estrusiones
+como esta es que al crear la secci&oacute;n 2D, debes repetir el punto
+de comienzo al final si deseas tener una figura cerrada.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Al Viento</FONT></P><P>
+Puedes ver los efectos de todo este material echando un ojo al escenario
+de ejemplo. La "tienda" es un <STRONG>IndexedFaceSet</STRONG>, las "cuerdas" son
+<STRONG>IndexedLineSet</STRONG>, el suelo es un <STRONG>ElevationGrid</STRONG> y la "cosa"
+es un <STRONG>Extrusion. </STRONG>No hay <STRONG>PointSet</STRONG> ya que no se me ha ocurrido
+nada decente para introducirlo. En cualquier caso, no necesitas un ejemplo
+para todo esto, es todo muy sencillo. En cualquier caso, &eacute;cha un
+ojo al ejemplo de este cap&iacute;tulo:
+<br><A HREF="../worlds/tut24.wrl" TARGET="_new">Tutorial 2.4 World</a> y el&nbsp;
+<A HREF="../source/tut24.html">c&oacute;digo</a>.
+<p>Bien, esto es lo b&aacute;sico sobre los objetos avanzados. En el pr&oacute;ximo
+cap&iacute;tulo cubriremos las normales, colores, y cosas as&iacute; para
+que estos objetos luzcan mejor apariencia.
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut23.html','tut25.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

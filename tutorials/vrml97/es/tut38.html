@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+  <title>Floppy's Web3D Guide - VRML97 Tutorial 3.8: LOD</title>
+  <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+  <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guide, 3D, LOD, Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality, Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds,Realidad Virtual, Cyberspace, Espa&ntilde;ol, Curso, Spanish Tutorial">
+</head>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" vlink="#dd0000">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Son Peque&ntilde;os Pero Est&aacute;n Muy Lejos...</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut37.html','tut41.html');
+</SCRIPT>
+</P><P>
+Como &uacute;ltimo cap&iacute;tulo de esta parte, vamos a cubrir el &uacute;ltimo
+nodo de VRML que nos queda por conocer -<strong>LOD</strong>. Muy bien,
+os oigo decir...-eh, &iexcl;todos los otros nombres de los nodos ten&iacute;an
+sentido! &iquest;pero qu&eacute; infiernos significa LOD? Bien, LOD es la
+abreviatura de <strong>L</strong>evel <strong>O</strong>f <strong>D</strong>etail,
+(en castellano <EM>Nivel De Detalle</EM>) y te permite mostrar distintos
+objetos dependiendo de lo lejos que se encuentre el usuario. </p>
+<p>&iquest;Y por qu&eacute; infiernos ibas a querer hacer eso? Bueno, hay
+unos cuantos motivos -El primero es que puedes crear efectos muy guapos con
+ello. No es un gran motivo para un nodo entero, de todas maneras.
+Despu&eacute;s de todo podr&iacute;as hacerlos con un
+ProximitySensor, un Script y un Switch.El verdadero motivo es la
+velocidad. Si quieres una escena que pueda mostrarse r&aacute;pidamente,
+necesitas reducir al minimo el numero de facetas visibles en ella. Ahora
+imagina que tienes una galer&iacute;a de arte virtual, con una escultura muy
+intrincada en una esquina. La escultura tiene cientos de caras, y
+est&aacute; muy detallada. Si te mueves al otro extremo de la
+habitaci&oacute;n,los detalles seguiran existiendo y dibujandose en la
+pantalla, a pesar de que no puedas apreciarlos con claridad, de modo que
+seguira ralentizando el navegador. Si solo muestras la escultura plenamente
+detallada cuando el usuario se encuentra cerca de ella, y usas una
+versi&oacute;n m&aacute;s ligera el resto del tiempo, no malgastar&aacute;s
+tiempo mostrando detalles que nadie podr&aacute; apreciar. Bueno, esto es
+exactamente lo que hace el nodo <strong>LOD</strong>. Muestra uno de una
+lista de nodos, dependiendo de la distancia del usuario con respecto a un
+punto particular.</p> <p> &iquest;Como se usa este nodo
+<strong>LOD</strong>? Bueno, es muy, muy simple. Funciona de manera similar
+al nodo Switch, pero &eacute;ste selecciona la opci&oacute;n
+correspondientede manera autom&aacute;tica. Vamos a echar un ojo a la
+definici&oacute;n del nodo: &nbsp;
+</P><PRE>
+LOD {
+	exposedField	MFNode		level []
+	field 		SFVec3f 	center 0 0 0
+	field		MFFloat 	range[]
+}
+</PRE><P>Como puedes ver, es un
+nodo muy sencillo. En primer lugar, el campo<em> level</em> es la lista de
+nodos que van a mostrarse. Puede ser cualquier tipo de nodo anidado
+v&aacute;lido, pero mant&eacute;n en la cabeza que solo se mostrar&aacute;
+uno de ellos al mismo tiempo. Si quieres mostrar m&uacute;ltiles
+objetos, ponlos todos dentro de un nodo
+<strong>Group</strong>. <em>center</em> especifica el punto desde el cual se
+toma la medida de la distancia con respecto al usuario. Normalmente
+ser&aacute; el centro del objeto. El &uacute;ltimo campo es <em>range</em>.
+Este campo especifica a que distancias cambia el nivel de detalle. Los
+valores de ese campo deben ser mayores que 0, y especificados en orden
+ascendente. De modo que primero debe ir la distancia m&aacute;s cercana, y
+por &uacute;ltimo las mas lejana. Debe haber 1 valor menos en este campo que
+el mumero de nodos que contenga el campo <em>level</em>. Si la distancia
+desde el usuario es menor que el primer valor de <em>range</em> se
+mostrar&aacute; el primer nodo de la lista. Del mismo modo, si la distancia
+es menor que el segundo valor en <em>range</em>, semotrar&aacute; el
+segundo nodo del campo <em>level</em>, y as&iacute;. Si la distancia no es
+menor que el &uacute;ltimo valor del campo <em>range</em>, se
+mostrar&aacute; el&uacute;ltimo nodo en el campo <em>level</em>.</p>
+<p>Puedes ver el nodo <strong>LOD</strong> en acci&oacute;n en este <a
+href="../worlds/tut38.wrl" target="_new"> ejemplo</a>, y tambi&eacute;n
+c&oacute;mo lo he escrito  <a href="../source/tut38.html">aqu&iacute;</a>.
+Hay tres objetos separados por distintos niveles de detalle.
+'lump_near.wrl'es el de mayor detalle,'lump_medium.wrl' es una
+versi&oacute;n media, y 'lump_far.wrl' es  una versi&oacute;n muy poco
+detallada. Si cambias entre los <strong>Viewpoints</strong> en tu
+navegador, podr&aacute;s ver como cambia el modelo durante la
+transici&oacute;n. Si est&aacute;sen un rango de 15 metros, ver&aacute;s la
+versi&oacute;n de mayor resoluci&oacute;n. Si est&aacute;sentre los 15 y
+los 50, ver&aacute;s el de resoluci&oacute;n media. Finalmente, si
+est&aacute;s m&aacute;s alejado de los 50 metros, ver&aacute;s la de menor
+resoluci&oacute;n. Simple.</p> <p>Hay una cosa m&aacute;s que puedes hacer
+con <strong>LOD</strong>. Si no quieres introducir ning&uacute;n valor en el
+campo <em>level</em>, el navegador se preocupar&aacute; en decidir que nivel
+es el que debe mostrar para mantener alto el n&uacute;mero de frames por
+segundo. Si no te preocupa cuando va a cambiar el nivel de detalle (ya que
+los distintos navegadores y sistemas lo har&aacute;n en momentos
+distintos), puedes utilizarlo para automatizar la optimizaci&oacute;n de tus
+escenarios. En cualquier caso pienso que es m&aacute;s seguro hacerlo uno
+mismo, en tanto que esta caracter&iacute;stica puede no estar soportada en
+todos los navegadores.</p>
+<p>Muy bien, con esto nos hemos ventilado la parte 3, la animaci&oacute;n
+en VRML. Hemos cubierto todos los nodos del VRML, y ahora podemos ponernos
+serios con los scripts y comenzar a crear algunos efectos realmente especiales.
+&iexcl;Sujetaos!</p>
+<P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut37.html','tut41.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</P>
+</body>
+</html>

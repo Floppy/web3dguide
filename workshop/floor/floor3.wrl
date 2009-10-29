@@ -1,0 +1,121 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML Workshop Infinite Floor Example"
+}
+
+NavigationInfo {
+   headlight FALSE
+}
+
+Viewpoint {
+   description "Entryway"
+   position 0 1.5 10
+}
+
+DirectionalLight {
+   direction 0 -1 0
+}
+
+Background {
+   skyColor 1 1 1
+}
+
+Fog {
+   fogType "EXPONENTIAL"
+   color 1 1 1
+   visibilityRange 45
+}
+
+DEF SENSOR ProximitySensor {
+   size 10 10 10
+   center 0 1.5 10
+}
+
+DEF FLOOR Transform {
+   children [
+      Shape {
+         appearance Appearance {
+            texture ImageTexture {
+               url "floor.png"
+            }
+            textureTransform DEF TEXTURE TextureTransform {
+               scale 50 50
+            }
+         }
+         geometry Box {
+            size 100 1e-8 100
+         }
+      }
+   ]
+}
+
+Transform {
+   translation 0 -1 -10
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry Sphere {
+            radius 5
+         }
+      }
+   ]
+}
+
+Transform {
+   translation 20 -1 10
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 0 1 0
+            }
+         }
+         geometry Sphere {
+            radius 5
+         }
+      }
+   ]
+}
+
+Transform {
+   translation -20 -1 10
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 0 0 1
+            }
+         }
+         geometry Sphere {
+            radius 5
+         }
+      }
+   ]
+}
+
+
+DEF FLOORPROC Script {
+   eventIn SFVec3f set_position
+   eventOut SFVec3f translation_changed
+   eventOut SFVec2f textureTranslation_changed
+   url "javascript:
+      function set_position(value,time) {
+         translation_changed.x = value.x;
+         translation_changed.z = value.z;
+         textureTranslation_changed.x = value.x / 100;
+         textureTranslation_changed.y = -value.z / 100;
+      }
+   "
+}
+
+ROUTE SENSOR.position_changed TO FLOORPROC.set_position
+ROUTE SENSOR.position_changed TO SENSOR.set_center
+
+ROUTE FLOORPROC.translation_changed TO FLOOR.set_translation
+ROUTE FLOORPROC.textureTranslation_changed TO TEXTURE.set_translation
+

@@ -1,0 +1,341 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,            JDK, compiling, JSAI, CLASSPATH, Class, compiler, method, instance variable, public,            private, protected, extends, Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>Floppy's Web3D Guide - VRML97 Tutorial 5.1: Hold On To Your Hat</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Ag&aacute;rrate el sombrero</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut45.html','nodes.html');
+</SCRIPT>
+</P><P>
+As&iacute; que, ya sabes como crear scripts en ECMAScript, y ya tienes
+bastante idea sobre como funciona todo esto del scripting. Pero quieres
+mas potencia! El ECMAScript es demasiado lento, demasiado restrictivo,
+demasiado dif&iacute;cil de usar con grandes programas. Bien, la ayuda
+esta en camino, porque el VRML no solo permite el ECMAScript en los nodos
+de script, tambi&eacute;n soporta el Java! Y yo voy a ense&ntilde;arte
+como se utiliza, &iquest;no eres un t&iacute;o con suerte?. En primer lugar,
+sin embargo, tengo que advertirte un par de cosas...
+</P><P>
+ADVERTENCIA PARA LA SALUD PUBLICA #1: &iexcl;Java es un lenguaje de
+programaci&oacute;n completo(full-blown)! Mientras que hemos ido viendo
+casi todo lo que el ECMAScript pod&iacute;a hacer antes de aprender nada
+sobre scripts VRML, no hay manera de que se pueda hacer esto con Java.
+Es sencillamente demasiado grande. Levar&iacute;a un tutorial entero m&aacute;s
+grande que este el darte una base medianamente s&oacute;lida de Java, el
+cual no tengo ni tiempo ni espacio para poder escribir. &iexcl;Despu&eacute;s
+de todo, esto se supone que es un tutorial de VRML! Por esta raz&oacute;n,
+esta parte del tutorial va a omitir un gran numero de detalles sobre el
+lenguaje Java. Todo ira bien a pesar de eso, encontraras que la sintaxis
+es bastante parecida a la del ECMAScript, de manera que ser&aacute;s capaz
+de seguir lo que esta ocurriendo. Explicare cuales son las principales
+diferencias e intentare no dejarte totalmente perdido. Sin embargo, te
+recomiendo que, si vas a tomarte en serio lo de utilizar Java como Script,
+vayas a aprender el lenguaje a cualquier otro lugar al tiempo que lees
+estos tutoriales, ya que habr&aacute; un mont&oacute;n de cosas que yo
+me omitir&eacute;. Yo explicar&eacute; la mayor&iacute;a de las cosas con
+pocas palabras, pero tu tambi&eacute;n deber&iacute;as practicar y obtener
+un conocimiento mas profundo de el. &Eacute;chale un vistazo a la direcci&oacute;n
+<A HREF="http://java.about.com" TARGET="_top">java.about.com</a> como punto
+de partida para buscar informaci&oacute;n sobre Java (java.sun.com).
+</P><P>
+ADVERTENCIA PARA LA SALUD PUBLICA #2: &iexcl;No todos los navegadores
+soportan Java! Desgraciadamente, esto incluye a Blaxxun, as&iacute; que
+ten cuidado con la plataforma para la que estas desarrollando cuando est&eacute;s
+escribiendo (sin embargo esto es siempre importante en VRML). Si quieres
+crear algo bueno para ColonyCity, no pierdas el tiempo ley&eacute;ndote
+esto ni un momento. &iexcl;Conc&eacute;ntrate en el ECMAScript &uacute;nicamente!
+</P><P>
+En cualquier caso ya hay bastante de esto. Entremos en materia, &iquest;de
+acuerdo?, Como dice el titulo, ag&aacute;rrate el sombrero...
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Pero, &iquest;Por qu&eacute;?</FONT>
+</P><P>
+Empecemos en primer lugar echando un vistazo a porque querr&iacute;amos
+utilizar Java. &iquest;Es que no es el ECMAScript lo bastante bueno? Bueno,
+en una palabra, NO. No para proyectos grandes. Si lo que vas a hacer es
+alguna cosa muy simple como lo que ya hemos visto antes esta bien, pero
+si lo que quieres es conectar tu mundo VRMML directamente a un servidor
+central, o a una base de datos, o aun motor de IA para tu juego, eso no
+va a suceder con ECMAScript. Java proporciona la estructura necesaria para
+grandes proyectos, que es totalmente vital. En pocas palabras, si estas
+haciendo algo simple, el ECMAScript es estupendo (por eso esta ah&iacute;),
+pero para aplicaciones complejas, realmente necesitaras utilizar Java.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Conceptos b&aacute;sicos Java</FONT>
+</P><P>
+De acuerdo, si vamos a estar escribiendo c&oacute;digo Java, ser&aacute;
+mejor que veamos algunos conceptos sobre el lenguaje. Realmente escribir
+instrucciones en Java es muy parecido a hacerlo en ECMAScript, as&iacute;
+que una vez que hayas visto algunos ejemplos ya deber&iacute;a bastarte.
+Sin embargo, esas instrucciones se ajustan entre ellas de una manera ligeramente
+distinta. Vamos a hablar durante unos minutos sobre clases, herencia, y
+un par de cosas m&aacute;s.
+</P><P>
+&iquest;Recuerdas los objetos de cuando los vimos con ECMAScript? Eran
+como cajas que pod&iacute;an contener gran cantidad de bits de datos, y
+tambi&eacute;n pod&iacute;an contener m&eacute;todos que manipulaban los
+datos contenidos en la caja (&iquest;Recuerdas los pixies?). Ahora bien,
+en ECMAScript nunca creamos nuestros propios objetos, simplemente utilizamos
+los predefinidos en el VRML-97. En realidad no necesit&aacute;bamos pensar
+en ellos. En Java, sin embargo, el objeto es el rey, y se le denomina clase.
+Java es el principal ejemplo de lenguaje de programaci&oacute;n orientado
+a objetos, y todo lo que se escriba tiene que ser parte de una clase. Todas
+las funciones que se escriban ser&aacute;n m&eacute;todos de una u otra
+clase, y todos los datos se guardaran en variables miembros (conocidas
+en Java como variables de instancia). En estos momentos esto suena innecesariamente
+complicado, pero cuando te encuentres creando una interface entre el VRML-97
+y tu servidor de bases de datos, te sentir&aacute;s agradecido.
+<p>El siguiente concepto a introducir es el concepto de herencia. Hay dos
+maneras de crear clases. Tres si se cuenta "out of paper and string", pero
+podr&iacute;as tener dificultades utilizando esas en l&iacute;nea. La primera
+manera es crear tu propia clase de la nada. Empiezas con una clase vac&iacute;a,
+no habr&aacute; nada en la clase excepto lo que tu hallas puesto ah&iacute;.
+El otro modo es utilizar la herencia. Esto supone coger una clase que ya
+exista (esta ser&aacute; tu clase base), y extenderla para a&ntilde;adir
+tu propia funcionalidad. Ahora bien, esto no es tan simple como editar
+el c&oacute;digo de alguien, sino mas bien como a&ntilde;adirle algunos
+bits. Una clase derivada (la que hemos creado) contiene todas las variables
+de instancia y los m&eacute;todos de la clase base, mas todo lo que la
+hallamos a&ntilde;adido. Si se cambia el comportamiento de la clase base,
+el comportamiento de la clase derivada cambiar&aacute; de la misma manera.
+Veamos un ejemplo...
+<pre>
+Vehiculo {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Color;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Conducir();
+}
+</pre>
+Bien, tenemos una clase base del tipo vehiculo. Esto no es Java, por el
+momento, no te excites aun. El vehiculo tiene una variable de instancia,
+color. Tambi&eacute;n tiene un m&eacute;todo, Conducir(). Ten en cuenta
+que ambas cosas so aplicables a cualquier cosa que pueda considerarse un
+vehiculo. Ahora, si utilizamos la herencia para crear un Coche y un Camion...
+<pre>
+Coche extends Vehiculo {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Num_puertas;
+}
+Camion extends Vehiculo {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Descargar();
+}
+</pre>
+<P>
+Queda una cosa mas sobre la que hablar, y son los modificadores de acceso.
+Suena acojonante, pero de nuevo no lo es. Cada variable o funci&oacute;n
+de una clase tiene un modificador de acceso que indica quien o que est&aacute;
+permitido usar. Tambi&eacute;n tengo que dar una peque&ntilde;a introducci&oacute;n
+sobre los paquetes (packages), que son simplemente una colecci&oacute;n
+de clases. En cualquier caso, aqu&iacute; ten&eacute;is una lista con los
+modificadores de acceso y su significado:
+</P>
+<dl>
+<dt>
+public</dt>
+
+<dd>
+Los miembros (variables de instancia o m&eacute;todos) que se declaran
+como p&uacute;blicos son accesibles desde cualquier sitio y para cualquiera.</dd>
+
+<dt>
+private</dt>
+
+<dd>
+Los miembros privados solo se pueden utilizar por cosas dentro de la misma
+clase donde son definidos.</dd>
+
+<dt>
+<EM>default</EM></dt>
+
+<dd>
+Si un miembro no tiene modificador de acceso, su &aacute;mbito es el del
+paquete que lo contiene.</dd>
+
+<dt>
+protected</dt>
+
+<dd>
+Los miembros privados pueden utilizarse dentro del paquete donde fueron
+definidos y en las clases derivadas, aunque est&eacute;n en distinto paquete.</dd>
+</dl>
+<P>
+NO te preocupes si no entiendes esto ahora, volveremos sobre ello mas adelante.
+Sin embargo es importante hacer una peque&ntilde;a introducci&oacute;n
+para que no te asustes cuando veas todas estas palabras pululando por ah&iacute;.
+Las clases tambi&eacute;n pueden tener un control de acceso, default o
+public, pero hasta que nos metamos con cosas m&aacute;s complejas no necesitas
+preocuparte por ello. Por ahora definiremos todas las calases como public,
+de manera que cualquiera pueda utilizarlas. Bueno, con todo esto superado,
+ahora nos meteremos con Java en s&iacute; mismo y veremos como escribir
+una clase VRML Script b&aacute;sica.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Un buen tutorial sobre objetos Java (Una clase de clases de clases, ja ja)</FONT>
+</P><P>
+Esta secci&oacute;n va a profundizar directamente e introducir en la sintaxis
+del tipo de clase que puedes utilizar directamente en un nodo Script. Creo
+que lo que vamos a hacer es simplemente hacer una clase y ya lo explicare
+luego. All&aacute; vamos...
+<pre>
+import vrml.node.*;
+
+public class NuevoScript extends Script {
+}
+</pre>
+&iexcl;Guau, algo de verdadero Java! Incre&iacute;ble. Bien, vayamos l&iacute;nea
+a l&iacute;nea, comencemos por el principio. La primera l&iacute;nea es
+la declaraci&oacute;n de la clase. En ella se indica que se trata de una
+clase p&uacute;blica (cualquiera puede utilizarla), se llama NuevoScript
+y extiende (hereda de) la clase base llamada Script. Script es la clase
+Java en la que todas los scripts Java para VRML est&aacute;n basadas, y
+proporciona el entorno de trabajo general, necesario para tus scripts.
+Todas tus declaraciones b&aacute;sicas de clases para scripts VRML deber&iacute;an
+ser muy parecidos a esta, con la &uacute;nica diferencia del nombre de
+la clase. Si quieres crear una clase partiendo de cero no tendr&iacute;as
+la parte 'extends Script'. Es algo poco recomendable en cualquier caso
+- a&ntilde;adamos un par de variables de instancia.
+<pre>
+import vrml.node.*;
+
+public class NuevoScript extends Script {
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp; valor_publico;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private int&nbsp;&nbsp;&nbsp;&nbsp; valor_privado;&nbsp;&nbsp;
+}</pre>
+All&aacute; vamos. Ahora tenemos dos variables de instancia, una publica
+y otra privada. Cualquiera ser&aacute; capaz de ver la publica, pero ninguna
+otra clase tendr&aacute; acceso a la privada. Tambi&eacute;n. Date cuenta
+de que aqu&iacute;, en Java, se definen tipos concretos para las variables.
+En ECMAScript, pod&iacute;amos cambiar el tipo de la variable en tiempo
+de ejecuci&oacute;n, e incluso a&ntilde;adir miembros a los objetos. Nunca
+m&aacute;s. En Java, cada variable tiene un tipo concreto, y lo mantiene
+para siempre. No veremos los tipos de datos ahora, ya los veremos todos
+mas adelante. Es suficiente con decir que esas dos variables son de tipo
+entero (todo n&uacute;meros). As&iacute; que, nuestra clase esta creciendo,
+pero &iexcl;no tiene ning&uacute;n m&eacute;todo! Que pasa si queremos
+permitir a la gente que lea el valor de la variable valor_privado, pero
+no escribirlo. &iexcl;Podemos proporcionar una funci&oacute;n que lo haga!
+<pre>
+import vrml.node.*;
+
+public class NuevoScript extends Script {
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp; valor_publico;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private int&nbsp;&nbsp;&nbsp;&nbsp; valor_privado;&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public int ObtenerValorPrivado() {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return valor_privado;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}
+
+</pre>
+Ahora, cualquiera puede llamar a la funci&oacute;n ObtenerValorPrivado()
+para obtener el valor de valor_privado, porque la funci&oacute;n es publica.
+Se puede leer valor_privado porque forma parte de la misma clase. Puede
+observarse que aqu&iacute;, a diferencia de como sucede en otros lenguajes,
+la implementaci&oacute;n de una funci&oacute;n va unida a su declaraci&oacute;n
+( todo de una vez). Es muy parecido a ECMAScript en realidad. Seguro que
+lo comprendes.
+<p>As&iacute; que tenemos una clase muy simple para demostrar como se interrelaccionan
+todas estas cosas entre s&iacute;. Veamos como utilizar&iacute;amos todo
+esto en un mundo VRML. Obviamente esto aun no har&aacute; nada, pero veremos
+como hacer que tus scripts realmente funcionen en un mundo VRML en el siguiente
+asalto.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Ketchup collecting (compiling your source, haha)</FONT>
+</P><P>
+Esta bien, ning&uacute;n otro chiste malo. Lo prometo. Durante un rato,
+al menos. Ahora que has escrito tu clase Java, &iquest;qu&eacute; vas ha
+hacer con ella? Bien, Java no es como ECMAScript en el sentido de que no
+es simplemente un fichero de texto que puedes utilizar en tus mundos. Necesitas
+utilizar algo llamado compilador, que coge tu c&oacute;digo fuente (lo
+que has escrito), y lo compila, transform&aacute;ndolo en un lenguaje que
+la m&aacute;quina pueda comprender directamente. En el caso de Java, el
+compilador crea algo llamado c&oacute;digo byte (bytecode), que puede ejecutarse
+en cualquier sistema que disponga de una maquina virtual Java. Haci&eacute;ndolo
+perfectamente portable entre diferentes sistemas operativos.
+<p>De modo que, &iquest;de donde sacamos un compilador? Bien, nos sirve
+casi cualquier compilador Java siempre que trabaje con Java est&aacute;ndar.
+Aquellos de vosotros que utilic&eacute;is el Visual J ++ de Microsoft podr&iacute;ais
+tener alg&uacute;n problema. Hay cantidad por ah&iacute;, pero hay uno
+que es totalmente gratuito y tiene todo lo que necesitas. Es la plataforma
+oficial de Sun del Java 2. Puedes conseguirlo de la web de Sun <A HREF="http://java.sun.com" TARGET="_top">java.sun.com</a>.
+B&aacute;jatelo, inst&aacute;lalo, &iexcl;y ya esta!. No proporciona una
+interfaz muy amigable, pero es gratis y tiene todo lo que precisas. Utiliza
+simplemente un editor de textos para escribir el c&oacute;digo y la l&iacute;nea
+de comandos para utilizar el compilador. Yo lo utilizo para todo lo que
+hago en Java, as&iacute; que es lo que usar&eacute; para los ejemplos en
+este y subsiguientes tutoriales.
+</P><P>
+Para conseguir obtener una clase a partir de nuestro ejemplo NuevoScript,
+debemos seguir los siguientes pasos. Salvar el c&oacute;digo fuente en
+un archivo llamado NuevoScript.java (es importante que tenga el mismo nombre
+que la clase definida dentro, adem&aacute;s, cada archivo solo puede contener
+una clase). Despu&eacute;s ejecuta la siguiente instrucci&oacute;n:
+<pre>
+javac -target 1.1 NuevoScript.java
+</pre>
+<P>
+Esto deber&iacute;a ejecutar el compilador (suponiendo que este instalado
+correctamente) y crea un archivo llamado NuevoScript.class. Este es el
+c&oacute;digo byte para la clase que acabas de escribir. Si hay alg&uacute;n
+error en lo que has escrito, el compilador te lo dir&aacute; cuando lo
+ejecutes.
+</P><P>
+Hay una solo cosa m&aacute;s que necesitas hacer para crear el script
+Java para VRML, y es decirle al compilador Java donde puede encontrar las
+clases est&aacute;ndar VRML. La instalaci&oacute;n del JDK establece una
+variable de entorno en tu sistema operativo llamada CLASSPATH, que contiene
+las rutas para todas las clases est&aacute;ndar. Necesitas a&ntilde;adir
+las clases VML a esta variable CLASSPATH para que puedas compilar los scripts
+correctamente.
+<p>Las clases VRML se suministran junto con tu visualizador VRML. El Cosmo
+tiene un archivo llamado npcosmop21.zip, que las contiene, y el Cortona
+tiene un archivo llamado classes.zip. Deber&iacute;as de ser capaz de encontrar
+estos archivos en el directorio de instalaci&oacute;n del visualizador.
+No se nada del resto de visualizadores pero, si alguien sabe algo, comunic&aacute;dmelo
+por favor para que incluya la informaci&oacute;n. Esta informaci&oacute;n
+se recopilar&aacute; en la pagina FAQ de la Gu&iacute;a. Echar un vistazo
+all&iacute; para obtener m&aacute;s informaci&oacute;n. En cualquier caso,
+necesitar&aacute;s a&ntilde;adir esos ficheros a la variable CLASSPATH.
+El c&oacute;mo hacerlo depender&aacute; de tu visualizador, el sistema
+operativo y la configuraci&oacute;n. Consulta la documentaci&oacute;n de
+cada uno o p&iacute;dele a un amigo que sepa hacerlo que lo haga por ti
+si no eres capaz de arregl&aacute;rtelas solo.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Utilizando clases en tus mundos</FONT>
+</P><P>
+Bien, una vez que tienes tu clase, querr&aacute;s saber como utilizarla
+en tus mundos VRML. Bueno, todo lo que necesitas hacer es simplemente usar
+su nombre en un nodo script como lo har&iacute;as normalmente, algo as&iacute;:
+<pre>
+Script {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; url "NuevoScript.class"
+}
+</pre>
+<P>
+Evidentemente, tendr&aacute;s un gran numero de campos, eventos de entrada,
+eventos de salida y todo eso en tu Script pero los he omitido arriba. El
+visualizador buscar&aacute; en la URL el script, e ir&aacute; a la direcci&oacute;n
+que le hayamos indicado a buscarlo.
+</P><P>
+Bien, creo que es suficiente para digerir por el momento. Os dejare
+con esto por ahora, y la pr&oacute;xima vez entraremos en como hacer scripts
+&uacute;tiles que puedan enviar y recibir eventos y todo eso. &iexcl;Hasta
+la pr&oacute;xima vez!
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut45.html','nodes.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

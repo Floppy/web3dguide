@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,Background, Fog,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>La Guia de VRML de Floppy - VRML97 Tutorial 8: El fondo &amp; la Niebla</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Sobre las Colinas y m&aacute;s Allá...</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut21.html','tut23.html');
+</SCRIPT>
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+El fondo</FONT></P><P>
+Hasta ahora, los mundos que nosotros hemos creado lucen bastante bien,
+pero est&aacute; faltando algo. Tienes un objeto que flota en el espacio,
+y eso es todo. Vale para algunas cosas, pero para que quede bien, necesitamos
+alg&uacute;n tipo de fondo. El fondo predefinido es negro, pero eso no
+es muy agradable. Hagamos algo sobre eso.
+<p>Hay dos maneras en que nosotros podemos cambiar el fondo de nuestra
+escena. Una es especificar el color para el fondo, y la otra es proporcionar
+im&aacute;genes a ser proyectadas en el fondo. Estas dos se llevan a cabo
+con el nodo <STRONG>Background.</STRONG> En primer lugar, yo describir&eacute; c&oacute;mo
+agregar el color al fondo de tu escena.
+<p>El nodo <STRONG>Background </STRONG>tiene varios campos usados para el color del
+fondo. &Eacute;stos son:
+</P><PRE>Background {
+&nbsp;&nbsp; MFFloat&nbsp;&nbsp;&nbsp;&nbsp; groundAngle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; MFColor&nbsp;&nbsp;&nbsp;&nbsp; groundColor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; MFFloat&nbsp;&nbsp;&nbsp;&nbsp; skyAngle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; MFColor&nbsp;&nbsp;&nbsp;&nbsp; skyColor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [0 0 0]
+}</PRE><P>
+S&oacute;lo una nota r&aacute;pida sobre el formato de las definiciones
+del nodo. Hasta ahora, he estado mostr&aacute;ndote los ejemplos de los
+nodos con el valor en su lugar, que es c&oacute;mo lo usar&iacute;as realmente.
+De aqu&iacute; en adelante, sin embargo, yo te dare la definici&oacute;n
+real de los campos. &Eacute;sto es el nombre del campo, el tipo, y el valor
+predefinido. Sigues usando los nodos de la misma manera (como se muestra
+en el ejemplo un poco mas abajo). Pero te dare un poco mas de informaci&oacute;n.
+Si le&iacute;ste el cap&iacute;tulo sobre las <A HREF="tut17.html">Aspectos
+T&eacute;cnicos</a>, comprender&aacute;s qu&eacute; esta pasando.
+<p>Bien, ahora podemos continuar... Los valores predefinidos se muestran
+anteriormente. El valor por defecto es un solo <STRONG>skyColor </STRONG>de 0 0 0,
+negro. El<STRONG> skyColor </STRONG>es una lista de valores SFColor, correspondiendo
+a la secuencia de colores a ser desplegados en el fondo, desde el punto
+mas arriba, hacia abajo. As&iacute; que el primer valor se muestra arriba,
+y el pr&oacute;ximo se despliega debajo suyo, y as&iacute; sucesivamente.
+El<STRONG> skyAngle </STRONG>es el &aacute;ngulo en que cada banda de color se va
+a mostrar. El primer color se despliega autom&aacute;ticamente a un &aacute;ngulo
+de 0 (recto), as&iacute; que&nbsp; no precisas incluir ese . Habr&aacute;
+siempre, por consiguiente, un &aacute;ngulo menos que colores. El navegador
+interpola entre los colores en el fondo para que consigas un efecto mezclado
+suave. Por ejemplo, el c&oacute;digo siguiente dar&iacute;a una mezcla
+entre rojo (recto arriba), verde (a 45 grados), y azul (recto delante).
+</P><PRE>Background {
+&nbsp;&nbsp; skyColor [1 0 0, 0 1 0, 0 0 1]
+&nbsp;&nbsp; skyAngle [0.78, 1.57]
+}</PRE><P>
+Esto aparecer&aacute; mostrado como en este <A HREF="../worlds/tut22a.wrl" TARGET="_new">ejemplo
+</a>y <A HREF="../source/tut22a.html">c&oacute;digo.</a>
+<p><STRONG>groundColor </STRONG>y <STRONG>groundAngle </STRONG>tienen el mismo efecto que arriba,
+pero un &aacute;ngulo de 0 corresponde a la recta debajo, en lugar de la
+recta de arriba en el cielo. Para tener un solo color como fondo, simplemente
+especifica un solo <STRONG>skyColor </STRONG>y nada m&aacute;s. Para conseguir un
+horizonte afilado, necesitas usar <STRONG>groundColor </STRONG>y <STRONG>skyColor</STRONG>,
+dado que si s&oacute;lo usas uno, interpolar&aacute; suavemente entre los
+colores.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Los panoramas</FONT></P><P>
+Hay otra manera de proveer un fondo tu mundo. &Eacute;sto es proporcionar
+varios texturas a ser trazadas en un cubo alrededor del mundo. Este cubo
+siempre esta centrado en el espectador, entonces nunca podra acercarse
+a este cubo, sin importar cuan lejos se mueva. Esto se hace con otros seis
+campos en el nodo <STRONG>Background.</STRONG> &Eacute;stos especifican seis urls
+de im&aacute;genes a ser trazadas en el cubo, tal y como se muestra abajo.
+</P><PRE>Background {
+&nbsp;&nbsp; MFString&nbsp;&nbsp;&nbsp; backUrl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; MFString&nbsp;&nbsp;&nbsp; bottomUrl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; MFString&nbsp;&nbsp;&nbsp; frontUrl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; MFString&nbsp;&nbsp;&nbsp; leftUrl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; MFString&nbsp;&nbsp;&nbsp; rightUrl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; MFString&nbsp;&nbsp;&nbsp; topUrl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+}</PRE><P>
+<IMG SRC="../pics/panorama.gif" height=200 width=320 ALT="Panorama"> 
+<p>Si especificas im&aacute;genes con transparencia, el color de fondo
+especificado previamente en los campos descritos se mostrar&aacute; a trav&eacute;s
+suyo. Normalmente, si no tienes transparencias, no deber&iacute;as especificar
+el color del fondo, ya que &eacute;l el navegador bajar&aacute; su rendimiento.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+La niebla</FONT></P><P>
+&iexcl;Si quieres un efecto de niebla, VRML puede hacer eso tambi&eacute;n!
+&iexcl;S&oacute;lo tienes que incluir un nodo <STRONG>Fog </STRONG>en el archivo,
+y a tirar millas! Los objetos en la distancia ser&aacute;n disimulados
+entonces por la niebla, y apareceran cuando te acerques a ellos. La sintaxis
+de un nodo de <STRONG>Fog </STRONG>es como sigue:
+</P><PRE>Fog {
+&nbsp;&nbsp; SFColor&nbsp;&nbsp;&nbsp;&nbsp; color&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 1 1
+&nbsp;&nbsp; SFString&nbsp;&nbsp;&nbsp; fogType&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "LINEAR"
+&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; visibilityRange&nbsp;&nbsp; 0
+}</PRE><P>
+El campo <STRONG>color </STRONG>especifica el color, entonces puedes tener niebla,
+smog, humo, una llovizna roja o algo igualmente raro. El<STRONG> type </STRONG>es
+el tipo de niebla que gobierna cuan rapidamente los objetos se desvanecen
+en la niebla. Hay dos opciones aqu&iacute;: "LINEAR" y "EXPONENTIAL." "LINEAR"
+da un desvanecimiento lineal en la niebla, y "EXPONENTIAL" da el ocultamiento
+m&aacute;s exponencial, dando una apariencia de niebla m&aacute;s natural.
+El &uacute;ltimo campo es <STRONG>visibilityRange.</STRONG> M&aacute;s all&aacute;
+de esta distancia del espectador, nada es visible. Dentro de este rango,
+los objetos son disimulados parcialmente por la niebla. Un <STRONG>visibilityRange
+</STRONG>de 0 significa que la niebla no afecta nada, cualquiera sea su distancia.
+<p>El nodo <STRONG>Fog es</STRONG> &uacute;til para la optimizaci&oacute;n, as&iacute;
+como para efectos de fantas&iacute;a. Si tienes un nodo <STRONG>Fog </STRONG>y un
+nodo <STRONG>Background</STRONG>, el fondo no es es afectado por la niebla, as&iacute;
+que se muestra a trav&eacute;s normalmente. Esto podr&iacute;a dar efectos
+muy raros, entonces es mejor si haces el mismo color al fondo que a la
+niebla. &iexcl;Todav&iacute;a se muestra a trav&eacute;s de, pero tu no
+puedes hacer distinci&oacute;n entre ellos!
+<p>Puedes ver los efectos de la niebla en este <A HREF="../worlds/tut22b.wrl" TARGET="_new">ejemplo,
+</a>con el <A HREF="../source/tut22b.html">c&oacute;digo.</a>
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+En el Ocaso...</FONT></P><P>
+&Eacute;sto es todo para los fondos empa&ntilde;ados en niebla. Puedes
+echar un ojo a un mundo con un panorama de fondo pulsando el enlace de
+abajo:
+<br><A HREF="../worlds/tut22.wrl" TARGET="_new">Tutorial Mundo 8</a> y <A HREF="../source/tut22.html">c&oacute;digo.</a>
+<p>En el pr&oacute;ximo cap&iacute;tulo, voy a mostrarte c&oacute;mo puedes
+agregar sonido y m&uacute;sica a tus mundos.&nbsp;
+</P><P>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut21.html','tut23.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

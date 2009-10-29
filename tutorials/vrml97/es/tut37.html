@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guide, 3D, Switch,    Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,    Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>El Web3D Guide de disco blando - VRML97 Gu&iacute;a did&aacute;ctica 3.7: El interruptor</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#BB0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Abofetea Mi Interruptor.</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut36.html','tut38.html');
+</SCRIPT>
+</P><P>
+Lo &uacute;ltimo que vamos a cubrir en esta parte de la guia did&aacute;ctica
+es algo que puede permitirte cambiar facilmente la apariencia de tus mundos
+sin demasiado uso de Scripts. Este es el nodo <STRONG>Switch</STRONG>, que permite
+tener varias opciones para un nodo, y cambiar a voluntad entre las opciones.
+La sintaxis es como se muetra abajo.
+</P><PRE>Switch {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; choice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFInt32&nbsp;&nbsp;&nbsp;&nbsp; whichChoice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1
+}</PRE><P>
+El campo <EM>choice</EM> contiene varios nodos, todos los cuales deben ser
+nodos children <EM>v&aacute;lidos.</EM> Esto significa que no puedes cambiar
+entre nodos de <STRONG>Apariencia</STRONG>, si no que tienes que cambiar entre <STRONG>Shape</STRONG>s
+con apariencias diferentes.
+<p>El campo <EM>whichChoice </EM>es el n&uacute;mero de la selecci&oacute;n
+actual. Los nodos choice se enumeran de 0 a x, donde x es uno menos del
+n&uacute;mero de nodos. As&iacute;, si tienes 3 nodos en el campo <EM>choice</EM>,
+se numerar&aacute;n de 0 a 2. Si el valor de este campo est&aacute; debajo
+de 0 o es superior al n&uacute;mero m&aacute;ximo, no est&aacute; seleccionado
+ning&uacute;n nodo. As&iacute;, si no especificas un valor para el <EM>whichChoice
+</EM>en la declaraci&oacute;n del nodo, nada ser&aacute; mostrado hasta
+que selecciones uno.
+<p>Los nodos dentro de un <STRONG>Switch </STRONG>pertenecen a la escena pese a que
+no sean visibles. Esto significa que podr&aacute;n enviar, recibir y procesar
+eventos aunque no est&eacute;n seleccionados. As&iacute;, un <STRONG>TimeSensor</STRONG>
+que est&eacute; en el interior de un <STRONG>Switch </STRONG>generar&aacute; eventos
+tanto si est&aacute; escogido o como si no.
+<p>Casi con toda certeza necesitar&aacute;s un Script para hacer la selecci&oacute;n,
+dado que el nodo precisa un valor SFInt32 para realizar la selecci&oacute;n,
+pero no ser&aacute; un trabajo excesivamente duro. Hay un peque&ntilde;o
+script de muestra en el ejemplo de este cap&iacute;tulo, incluido el c&oacute;digo
+que maneja la sucesi&oacute;n de elecciones.
+<p>El nodo <STRONG>Switch</STRONG> es realmente simple. Por consiguiente, esto es
+todo lo que puedo decir de &eacute;l en este cap&iacute;tulo. &Eacute;chale
+unaa ojeada a este <A HREF="../worlds/tut37.wrl" TARGET="_new">ejemplo</a>
+para observar una muetra de c&oacute;mo trabaja el modo. Cada vez que pulses
+el bot&oacute;n de la esfera, el ciclo pasa al pr&oacute;ximo nodo en el
+<STRONG>Switch.</STRONG> Echa un vistazo al <A HREF="../source/tut37.html">c&oacute;digo</a>
+para ver c&oacute;mo funciona. Sobre todo, f&iacute;jate en el script para
+ver c&oacute;mo se realiza el ciclo. Si necesitas usar el <STRONG>Switch </STRONG>antes
+de que pasemos al scripting, deber&iacute;as poder adaptar el c&oacute;digo
+para tus propias necesidades.
+<p>
+Solo queda una cosa por cubrir en la tercera parte, y habremos visto todos
+los nodos del VRML. La proxima vez, echaremos un ojo al LOD. Nos vemos
+all&iacute;!
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut36.html','tut38.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

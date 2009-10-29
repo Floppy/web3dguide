@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - VRML Debugging Workshop</TITLE>
+<META NAME="DESCRIPTION" CONTENT="Guide to the world of VRML, with one of the best tutorials on the web.">
+<META NAME="KEYWORDS" CONTENT="VRML, VRML97, Virtual Reality Modeling Language,	Tutorial, Guide, 3D,
+				Debugging VRML Scripts, workshop, debugging,
+				Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,
+				Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+</HEAD>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+<H1>How can I debug VRML events and scripts?</H1>
+<P>
+Over the last few weeks, I'm been doing some quite heavy scripting in VRML, ECMAScript and Java. One
+of the things I've found is that it can be quite awkward to find a way to debug scripts and event
+chains in different browsers. In normal programming, you can trace values as you go througb your
+program, and find out where the errors are occuring. The problem is that VRML has no fixed way of
+writing text output. In this workshop, we're going to develop a way to get around this problem.
+</P><P>
+The simplest way to write text output is to write it to the VRML Console. Most browser have a
+console window that they write error messages and other information into. You can use this to output
+information from inside scripts. Cosmo Player, for instance, allows you to write to the console
+using the <EM>print()</EM> function in ECMAScript and the <EM>Browser.print()</EM> function in Java. I'm
+going to use these throughout this workshop. It may be that your browser doesn't support them. If
+this is the case, we're going to create a debugging method that doesn't use these later on.
+Otherwise, you can look up the function used by your browser in the release ntoes that came with it
+or in the <A HREF="/info/faq.html">FAQ</A> section of this site.
+</P><P>
+These print functions take strings as arguments, although most of the time they can also convert
+data to strings automatically. So, you can write something like
+</P><PRE>
+print("vector: ");
+print(vector);
+</PRE><P>
+or
+</P><PRE>
+print("vector: " + vector);
+</PRE><P>
+in most cases. So, the simplest way to debug a script is to use the built-in print functions to
+write to the console. We can now use this to write a node that acts as an event debugger for
+standard VRML files. A few people have asked for a way to tell what events are being sent and when,
+in an effort to debug animation and interaction in their worlds. Well, now we're going to create a
+node that will do it for you.
+</P><P>
+What we want to do is create a node that will sit in an event chain and pass events through it, but
+also writes the value and time of that event to the console. So, the first thing that we'll need is
+a PROTO definition for our debug node. I'm going to concentrate on debugging an SFTime event chain,
+but just change the types and it'll work perfectly well for any VRML type. So, the PROTO:
+</P><PRE>
+PROTO SFTimeDebugger [
+   eventIn  SFTime input
+   eventOut SFTime output
+]
+</PRE><P>
+So, this will give us a definition of a new node with one input and one output.
+Now, we need to implement it. This is done
+with a very simple piece of ECMAScript. If your browser doesn't support ECMAScript, try substituting
+<EM>"vrmlscript:</EM> for <EM>"javascript:</EM>. Right, here we go...
+</P><PRE>
+{
+   Script {
+      eventIn  SFTime input           IS input
+      eventOut SFTime output          IS output
+      url "javascript:
+         function input(value,time) {
+            print(value);
+            output = value;
+         }
+      "
+   }
+}
+</PRE><P>
+And that's it! Simple. The script will print the value, and then output the value so that the event
+chain can continue. All you do is plug it in between an event's source and destination, and watch
+the values come tumbling out.
+</P><P>
+Now, this is all well and good if you've got a print() function that works, but what if you don't?
+What if you've got a browser that doesn't have any way of writing to the console from a script?
+Then, surely, you're done for. But no, help is at hand. Now, we're going to forget our reliance on a
+print function and design a debugging console that works purely in VRML. This also has the advantage
+that you can have both your world and the console visible and active at the same time. How? Yes, you
+guessed it, we're going to recycle the HUD technology from the previous workshop and create a small
+text display that is permanently present in front of you actually in your virtual world. Before we
+do that, though, we're going to need an event debugger that can write either to the console or give
+a string output, otherwise we won't be able to get any output onto our console. We simply expand the
+old <STRONG>SFTimeDebugger</STRONG> by adding another eventOut to carry the strings we want to print. I'm also
+going to add a couple of fields to allow you to set the output style for the node.
+</P><PRE>
+PROTO SFTimeDebugger [
+   eventIn  SFTime   input
+   field    SFBool   consoleOutput   TRUE
+   field    SFBool   stringOutput    TRUE
+   eventOut SFString debugString
+   eventOut SFTime   output
+]
+{
+   Script {
+      eventIn  SFTime   input           IS input
+      field    SFBool   consoleOutput   IS consoleOutput
+      field    SFBool   stringOutput    IS stringOutput
+      eventOut SFString debugString     IS debugString
+      eventOut SFTime   output          IS output
+      url "javascript:
+         function input(value,time) {
+            if (consoleOutput) print(value);
+            if (stringOutput) debugString = value.toString();
+            output = value;
+         }
+      "
+   }
+}
+</PRE><P>
+As you can see, this new event debugger gives you the option of writing the value that passes
+through it into either the console (if <EM>consoleOutput</EM> is TRUE) or a string output event (if
+<EM>stringOutput</EM> is TRUE). This is only a little more complex than the previous version, and it
+makes everything a lot more flexible. The file with this PROTO in is available as <A
+HREF="SFTimeDebugger.wrl">SFTimeDebugger.wrl</A> for you to use and adapt.
+</P><P>
+Right then, now we need to create something that will take these string events and display them on
+our own VRML console. First of all we need the PROTO for the node.
+</P><PRE>
+PROTO DebugConsole [
+   eventIn SFString nextString
+   field   SFVec3f  offset       0.11 0 -0.2
+]
+</PRE><P>
+This is pretty simple, isn't it? We've just got an input for the strings we want to display, an
+offset for the position of the console (which is by default in the correct position on a normal
+screen), and that's it. Well, as you've probably guessed, it's not so simple inside. Inside is that
+same sort of arragement we had before in the HUD workshop (<A HREF="../hud/index.html">have a read</A> if you
+haven't already). However, the interesting bits come in the script inside the console. You can have
+a look at the complete <A HREF="DebugConsole.html">code</A>, or download the <A
+HREF="DebugConsole.wrl">DebugConsole.wrl</A> file containing the complete PROTO for the node. In the
+meantime, let's look at the script.
+</P><PRE>
+DEF CONTROLLER Script {
+   eventIn  SFString input IS nextString
+   eventIn  SFTime   clear
+   field    MFString contents []
+   eventOut MFString output
+   url "javascript:
+      function initialize() {
+         contents = new MFString('DebugConsole v1.0');
+         output = contents;
+      }
+      function input(value, time) {
+         var length = contents.length;
+         if (length > 25) {
+            for (i=0; i<25; i++) {
+               contents[i] = contents[i+1];
+            }
+            contents[25] = value;
+         }
+         else {
+            contents[length] = value;
+         }
+      }
+      function clear(value, time) {
+         contents = new MFString();
+      }
+      function eventsProcessed() {
+         output = contents;
+      }
+   "
+}
+</PRE><P>
+The text display is implemented as a <STRONG>Text</STRONG> node, which contains a MFString field with the text
+in. So, to set the text on the console, we simply need to assign an MFString value to the output,
+which is ROUTEd within the console to the <EM>string</EM> field. So, when we start the script, we make
+the text say a little bit of information about the console by making a new MFString and assigning it
+to the output. The same is done when the <EM>clear</EM> eventIn is activated, except this one creates an
+empty MFString.
+</P><P>
+The current contents of the string are stored in the <EM>contents</EM> field. So, when we receive a
+new string to display, we need to determine whether it can just be added at the end or whether
+everything else needs to be scrolled upwards. The maximum length is 26 strings, so if the length is
+less than or equal to 25, we're OK and can just add the string at the end. Otherwise, we need to go
+through the entire list of strings, copying the next string in the list into each position, thus
+scrolling the lines up. The new item can then be added at the end in position 25. The actual
+contents object is only sent out in the <EM>eventsProcessed()</EM> function, as this is normally
+called once per frame, which is the only time we need to update the screen.
+</P><P>
+So, that should all make sense to you. You can take a look at the <A
+HREF="DebugTest.wrl" TARGET=_new>results</A> here (along with the world's <A HREF="DebugTest.html">code</A>).
+As you can see, this test world is debugging the values sent from a simple <STRONG>TimeSensor</STRONG>. Also,
+the console moves with the user, so it always remains in view. There is one problem with the
+console, in that it will drop the frame rate of your worlds a fair amount, as there is a lot more
+geometry to render, with all the text and everything.
+</P><P>
+Please feel free to use both the SFTimeDebugger and the DebugConsole if you need to, I only hope
+they're of some use to you.
+</P>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="/utils/footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('/pics/menu_lit/workshop.gif','Workshop','../');
+</SCRIPT> 
+
+
+</BODY>
+</HTML>

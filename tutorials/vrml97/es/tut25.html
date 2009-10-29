@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,normals, colours, colors, Normal, Color, colorPerVertex, normalPerVertex,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>Floppy's Web3D Guide - VRML97 Tutorial 2.5: Normal, Color</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">&iquest;Eres Normal?</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut24.html','tut26.html');
+</SCRIPT>
+</P><P>
+El &uacute;ltimo cap&iacute;tulo, cubrimos algunas cosas de los objetos
+avanzados, como <STRONG>IndexedFaceSet</STRONG>s, <STRONG>Extrusion</STRONG>s, y <STRONG>ElevationGrid</STRONG>s.
+Bueno, son todos bastante impresionantes, pero podemos hacer muchas cosas
+m&aacute;s con ellas. Estos nodos geom&eacute;tricos te permiten especificar
+normales, colores, y otros par&aacute;metros para disponer de distintos
+modos la apariencia de estos objetos. Voy a explicar ahora algo acerca
+de todo esto, y a ense&ntilde;arte c&oacute;mo puede aplicarse.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Normales</FONT></P><P>
+Vale, lo primero es lo primero. Un normal es un vector asociado a una cara,
+que por regla general permanece perpendicular a ella apuntando hacia fuera
+desde la cara visible. Las normales son usadas en visores VRML para c&aacute;lculos
+de iluminaci&oacute;n.
+<br><IMG SRC="../pics/normals.gif" ALT="Normals" height=200 width=320>
+<br>En el diagrama superior, las normales de cada cara est&aacute;n dibujadas
+en azul. Apuntan hacia fuera, perpendicularmente a cada faceta.
+<p>Todo esto est&aacute; muy bien, pero &iquest;A t&iacute; qu&eacute;
+te importa?&nbsp; Despues de todo, no est&aacute;s aqu&iacute; para recibir
+un curso de progemaci&oacute;n de gr&aacute;ficos tridimensionales. Bien,
+como mencionaba, el navegador usar&aacute; las normales para c&aacute;lculos
+de iluminaci&oacute;n. Dependiendo de la direcci&oacute;n que tome la normal,
+el navegador sobrear&aacute; la cara de manera diferente. Si dos caras
+tienen un &aacute;ngulo entre ellas menor a una cantidad determinada, el
+navegador suavizar&aacute; la uni&oacute;n entre ellas, dando a la esquina
+la apariencia de una curva. Si el &aacute;ngulo es mayor que eta cantidad,
+el navegador sombrear&aacute; esta uni&oacute;n de manera afilada, dando
+una apariencia de facetas. Este &aacute;ngulo es <EM>creaseAngle</EM>, que
+es un campo que aparece en las <STRONG>Extrusion</STRONG>s, <STRONG>ElevationGrid</STRONG>s,
+y <STRONG>IndexedFaceSet</STRONG>s. Us&aacute;ndolo, puedes cambiar la apariencia
+de tus objetos dr&aacute;sticamente, haci&eacute;ndolos suaves o afilados,
+dependiendo de su valor.
+<p>Echa un ojo a este <A HREF="../worlds/tut25a.wrl" TARGET="_new">ejemplo</a>&nbsp;
+y a su <A HREF="../source/tut25a.html">c&oacute;digo</a> para ver c&oacute;mo
+<EM>creaseAngle</EM>
+afecta la apariencia de los objetos. El de la izquierda tiene un <EM>creaseAngle
+</EM>de 0.5, (su valor por defecto), d&aacute;ndole una apariencia facetada.
+El del centro, tiene un <EM>creaseAngle </EM>de 2, dando una apariencia m&aacute;s
+suave en las junturas, y m&aacute;s afilada en la base. El de la derecha
+tiene un <EM>creaseAngle </EM>de tres, sombreando suavemente todas las junturas.
+No olvides que el <EM>creaseAngle</EM>, como todos los &aacute;ngulos usados
+en VRML, est&aacute; especificado en radianes, no en grados.
+<p>Bien, de vuelta a las normales. El navegador generar&aacute; las normales
+por defecto para todos los tipos de nodo, incluidos los objetos avanzados.
+Sin embargo, estos objetos avanzados tienen un campo <EM>normal</EM>, que
+contiene un nodo <STRONG>Normal</STRONG> . Esto te permite especificar las normales
+explicitamente, y as&iacute; puedes crear tus propios efectos de&nbsp;
+luz. Estas normales pueden ser especificadas tanto por v&eacute;rtice como
+por cara, usando el campo <EM>normalPerVertex</EM>. Si este campo est&aacute;
+a TRUE, las normales se especifican por cada v&eacute;rtice. Si est&aacute;
+a FALSE, son especificadas por cada cara.Si no especificas normales, el
+navegador lo har&aacute; &eacute;l s&oacute;lo asign&aacute;ndoles sus
+valores por defecto. Es la mejor soluci&oacute;n la amyor&iacute;a de las
+veces. Realmente s&oacute;lo usas normales cuando tratas de conseguir un
+efecto particular. Especificar tus propias normales significar&aacute;
+ocupar un gran espacio en el archivo, que retardar&aacute; la descarga
+del mismo, as&iacute; que &uacute;salas lo m&iacute;nimo, s&oacute;lo cuando
+sea absolutamente necesario.
+<p>Fale. Eso fue la teor&iacute;a. Ahora vamos a la pr&aacute;ctica. Dejando
+aparte los campos <EM>creaseAngle</EM> y <EM>normalPerVertex</EM>, que ya hemos
+cubierto, todav&iacute;a nos quedan unos cuantos nodos y campos por ver.
+Comenzaremos con el nodo <STRONG>Normal</STRONG>. Este tipo de nodo contiene un conjunto
+de normales, que s&oacute;lo se usa en el campo <EM>normal</EM> de un nodo.
+</P><PRE>Normal {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFVec3f&nbsp;&nbsp;&nbsp;&nbsp; vector&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+}</PRE><P>
+Este nodo s&oacute;lo tiene un campo: <EM>vector</EM>. Contiene un conjunto
+de valores MFVec3f, que son los vectores de las normales para cada cara.
+Este <A HREF="../worlds/tut25b.wrl" TARGET="_new">ejemplo</a> (<A HREF="../source/tut25b.html">c&oacute;digo</a>)
+muestra el efecto de aplicar normales por cara y por v&eacute;rtice. El
+objeto de la izquierda permanece inafectado. El objeto del centro tiene
+sus normales aplicadas por cara, cambiando el modo en que es iluminada
+cada cara. El de la derecha del todo tiene sus normales aplicadas por v&eacute;rtice.
+En este caso, para dar una apariencia compleja y curvada a un objeto simple
+y afilado. Por ejemplo, puedes hacer a un objeto c&uacute;bico tan suave
+como un cilindro con las normales adecuadas.
+<p>Los nodos de geometr&iacute;a contienen adem&aacute;s el campo <EM>ccw</EM>,
+que especifica si los vertices de una cara se especifican en el sentido
+de las agujas del reloj. Esto afecta a la direcci&oacute;n de las normales
+establecidas por defecto, que se usan para c&aacute;lculos de visibilidad.
+Si observas directamente una cara con v&eacute;rtices en el orden contrario
+a las agujas del reloj, la normal apuntar&aacute; hacia ti. En cambio,&nbsp;
+si lo haces en el sentido de las agujas del reloj, apuntar&aacute; hacia
+el otro lado, con lo que la cara no ser&aacute; visible. Disponer los valores
+de este campo incorrectamente, puede crear efectos muy interesantes, como
+objetos a los que les falta alg&uacute;n pedazo.el campo <EM>ccw</EM> est&aacute;
+a TRUE por defecto. Este <A HREF="../worlds/tut25c.wrl" TARGET="_new">ejemplo</a>,
+con su <A HREF="../source/tut25c.html">c&oacute;digo</a> , demuestra el efecto
+del campo <EM>ccw</EM>. El objeto de la izquierda tiene su <EM>ccw</EM> a<EM>
+</EM>TRUE, el otro lo tiene a FALSE, de modo que lo que se muestra es el
+interior del objeto.
+<p>El pr&oacute;ximo campo que debemos considerar es <EM>normalIndex</EM>.
+Contiene una lista de n&uacute;meros de caras o v&eacute;rtices, dependiendo
+de lo que hayamos puesto en el campo <EM>normalPerVertex.</EM> La primera
+cara o v&eacute;rtice especificada en el campo coordIndex/coord ser&aacute;
+la n&uacute;mero 0, hasta el n&uacute;mero total de caras o v&eacute;rtices
+menos 1. El campo <EM>normalIndex</EM> especifica qu&eacute; normales se
+corresponden con qu&eacute; v&eacute;rtices o caras. De esta manera, no
+tienes por qu&eacute; especificar las normales en el mismo orden en que
+est&eacute;n dispuestos estos. En cambio, si dejas este campo en blanco,
+las normales ser&aacute;n aplicadas en este orden.
+<p>Los nodos <STRONG>Extrusion</STRONG> y <STRONG>IndexedFaceSet</STRONG> tienen adem&aacute;s
+el campo <EM>convex</EM>. Si lo dejamos en TRUE, el navegador no se preocupar&aacute;
+por objetos overlapping. Por defecto su valor ser&aacute; FALSE, lo que
+es m&aacute;s seguro. Cambialo s&oacute;lo si est&aacute;s convencido de
+que el objeto va a ser completamemte convexo.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Colores</FONT></P><P>
+Exactamente de la misma manera que las normales, podemos aplicar diferentes
+colores por cara o por v&eacute;rtice. Esto puede hacerse con el campo
+<EM>color</EM>, que contiene un nodo <STRONG>Color</STRONG>, de la misma manera que
+el campo <EM>normals</EM>. Existe adem&aacute;s un campo <EM>colorIndex</EM>
+y otro <EM>colorPerVertex</EM> , que hacen lo mismo que sus equivalentes
+en el campo <EM>normals</EM>. Este <A HREF="../worlds/tut25d.wrl" TARGET="_new">ejemplo</a>
+(<A HREF="../source/tut25d.html">c&oacute;digo</a>) muestra como queda un
+objeto con colores especificados por v&eacute;rtice. El ejemplo es un cubo
+de colores RGB. La sintaxis del nodo <STRONG>Color</STRONG> se muestra abajo.
+</P><PRE>Color {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFColor&nbsp;&nbsp;&nbsp;&nbsp; color&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+}</PRE><P>
+
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Intacto</FONT></P><P>
+Bien, ya habido suficientes ejemplos para este cap&iacute;tulo, de modo
+que no voy a hacer otro para su final. Podr&iacute;a combinarlos todos,
+pero no conseguir&iacute;amos nada nuevo, as&iacute; que no voy a hacerlo.
+S&oacute;lo dir&eacute; que en el pr&oacute;ximo cap&iacute;tulo cubrir&eacute;
+la luz, y explicar&eacute; c&oacute;mo a&ntilde;adir luces a tus escenas,
+y detallar&eacute; un poco m&aacute;s sobre la manera en que el VRML realiza
+c&aacute;lculos de luz y c&oacute;mo interactuan con los materiales de
+tus objetos. Oh, y la primera persona que adivin&oacute; porqu&eacute;
+esta secci&oacute;n se llama 'Intacto' <font size=-1>(Intact en el original,
+sin g&eacute;nero)</FONT></P><P> fue Hank Zill. &iexcl;Si alguien m&aacute;s lo
+logra, ganar&aacute; mi eterno respeto!
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut24.html','tut26.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

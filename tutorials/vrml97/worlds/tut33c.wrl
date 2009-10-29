@@ -1,0 +1,168 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 3.3c"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+NavigationInfo {
+   type "EXAMINE"
+}
+
+Viewpoint {
+   position 0 0 4
+}
+
+Transform {
+   translation -1.5 0 0
+   children [
+      DEF SENSOR1 CylinderSensor {   
+         diskAngle 0.78
+      }
+      DEF OBJECT1 Transform {
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     diffuseColor 1 1 1
+                  }
+               }
+               geometry Cylinder {
+                  height 0.8
+                  radius 0.25
+               }
+            }
+            Transform {
+               translation 0 0 0
+               rotation 0 0 1 1.57
+               children [
+                  Shape {
+                     appearance Appearance {
+                        material Material {
+                           diffuseColor 1 0 0
+                        }
+                     }
+                     geometry Cylinder {
+                        height 1.6
+                        radius 0.1
+                     }
+                  }      
+               ]
+            }
+            Transform {
+               translation 0 0 0.4
+               rotation 1 0 0 1.57
+               children [
+                  Shape {
+                     appearance Appearance {
+                        material Material {
+                           diffuseColor 0 1 0
+                        }
+                     }
+                     geometry Cylinder {
+                        height 0.8
+                        radius 0.1
+                     }
+                  }      
+               ]
+            }
+            Transform {
+               translation 0 0 -0.4
+               rotation 1 0 0 -1.57
+               children [
+                  Shape {
+                     appearance Appearance {
+                        material Material {
+                           diffuseColor 0 0 1
+                        }
+                     }
+                     geometry Cylinder {
+                        height 0.8
+                        radius 0.1
+                     }
+                  }      
+               ]
+            }
+         ]
+      }
+   ]
+}
+
+Transform {
+   translation 1.5 0 0
+   rotation 1 0 0 1.54
+   children [
+      DEF SENSOR2 CylinderSensor {   
+         diskAngle 0.78
+      }
+      DEF OBJECT2 Transform {
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     diffuseColor 1 1 1
+                  }
+               }
+               geometry Cylinder {
+                  height 0.4
+                  radius 0.25
+               }
+            }
+            Transform {
+               translation 0 0 0
+               rotation 0 0 1 1.57
+               children [
+                  Shape {
+                     appearance Appearance {
+                        material Material {
+                           diffuseColor 1 0 0
+                        }
+                     }
+                     geometry Cylinder {
+                        height 1.6
+                        radius 0.1
+                     }
+                  }      
+               ]
+            }
+            Transform {
+               translation 0 0 0.4
+               rotation 1 0 0 1.57
+               children [
+                  Shape {
+                     appearance Appearance {
+                        material Material {
+                           diffuseColor 0 1 0
+                        }
+                     }
+                     geometry Cylinder {
+                        height 0.8
+                        radius 0.1
+                     }
+                  }      
+               ]
+            }
+            Transform {
+               translation 0 0 -0.4
+               rotation 1 0 0 -1.57
+               children [
+                  Shape {
+                     appearance Appearance {
+                        material Material {
+                           diffuseColor 0 0 1
+                        }
+                     }
+                     geometry Cylinder {
+                        height 0.8
+                        radius 0.1
+                     }
+                  }      
+               ]
+            }
+         ]
+      }
+   ]
+}
+ROUTE SENSOR1.rotation_changed TO OBJECT1.rotation
+ROUTE SENSOR2.rotation_changed TO OBJECT2.rotation

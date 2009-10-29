@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - Embedding VRML Workshop</TITLE>
+<META NAME="DESCRIPTION" CONTENT="Guide to the world of VRML, with one of the best tutorials on the web.">
+<META NAME="KEYWORDS" CONTENT="VRML, VRML97, Virtual Reality Modeling Language,	Tutorial, Guide, 3D,
+				Embedding VRML, embedding, EMBED, workshop,
+				Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,
+				Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+</HEAD>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+<H1>How do I embed VRML into my web pages?</H1>
+<P>
+Quite often, you will want to embed VRML worlds into your web pages, for use as adverts, animations,
+whatever. This is one of the nicest uses of VRML, in fact, as it allows complex animations with very
+low download time. The main title on this site is a piece of embedded VRML, and it comes in total to
+15k. The static JPG image that you get if you don't have a VRML plugin is 10k. As you can see, the
+increase in size is very small for the amount of extra interest that you get.
+</P><P>
+This discussion of the site logo brings me to the main point of this workshop. It's easy to embed a
+piece of VRML in a web page, you can just use the &lt;EMBED&gt; tag in your HTML documents, like so:
+</P><PRE>
+&lt;EMBED SRC="vrml.wrl"&gt;
+</PRE><P>
+This is all well and good, and that's the easy way to do it. However, what if someone doesn't have a
+VRML plugin installed? What happens then? Well, they get a horrible "No Plugin" box in their page!
+Very unattractive. On the main page of this site, I have a piece of code in the page that detects
+whether the user has a plugin or not. If they do, the VRML world is shown. If not, it shows a normal
+image! Much better, I'm sure you'll agree. So, how's it done?
+</P><P>
+Well, here we're just going to deal with the two major internet browsers, Internet Explorer and
+Netscape, although it's quite expandable. Because web browsers are all so different from one
+another (a fact that makes the serious web designers life hell), we have to detect the plugins in
+different ways in different browsers. So, we're going to start by writing a detector function for
+each browser first. At this point, it'll help your understanding if you've done some Javascript and
+VBScript before, though it's not vital.
+</P><P>
+Let's start with Netscape, because it's easiest. In our HTML page, we put a Javascript function into
+the &lt;HEAD&gt;, like so:
+</P><PRE>
+&lt;HTML&gt;
+&lt;HEAD&gt;
+&lt;SCRIPT LANGUAGE="JavaScript"&gt;
+&lt;!--
+function DetectNetscape() {
+	var retVal = 0;
+	var version = parseFloat(navigator.appVersion);
+	if (version>=3) {
+		var plugin = navigator.mimeTypes["model/vrml"];
+		if (plugin != null) {
+			retVal = 1;
+		}
+	}
+	return retVal;
+}
+// --&gt;
+</PRE><P>
+This function will detect a VRML plugin in Netscape, and return 1 if it finds one, and returns 0 if
+not. First, it checks the version of the browser. This will only work in Netscape 3.0 or greater. If
+that's OK, it checks a property of the <STRONG>navigator</STRONG> object called <EM>mimeTypes</EM>.
+This is an array that stores all the MIME types that the browser can handle. We can search this by
+putting the VRML MIME type, model/vrml, into the array offset. If there is a VRML plugin, the result
+will be a reference to the plugin that handles the MIME type. If not, it will be null. Then, it's
+just a simple check of this value to see if we have a plugin. Easy! Hmmm, now we get to the bit
+that's just awkward. Microsoft Internet Explorer. Trust them to be difficult!
+</P><P>
+IE doesn't support the <EM>mimeTypes</EM> array, making life really difficult for us. We write
+another function to check for Internet Explorer. This goes in the same &lt;SCRIPT&gt; block as the
+Netscape function above.
+</P><PRE>
+function DetectIE() {
+	var retVal = 0;
+	var version = parseFloat(navigator.appVersion);
+	if (version>=2) {
+		var pluginArray = (new VBArray(GetPluginArray())).toArray();
+		for (i = 0; i < pluginArray.length; i++) {
+			if (pluginArray[i]==true) retVal = 1;
+		}
+	}
+	return retVal;
+}
+</PRE><P>
+This is fairly similar really. First, we check the version, and then we get some information from
+the browser about it's plugins. However, IE doesn't support anything to do this in JavaScript, so we
+have to write our own, in a fairly roundabout way. We write a VBscript function called
+GetPluginArray() which checks for the presence of certain plugins. Unlike Netscape, we can't just
+say "Can you do VRML?", we have to ask about each browser in turn. Awkward, eh? Anyway, here's the
+GetPluginArray function, which also goes in the &lt;HEAD&gt;.
+</P><PRE>
+&lt;SCRIPT LANGUAGE="VBScript"&gt;
+&lt;!--
+function GetPluginArray()
+	On error resume next
+	pluginArray = Array(false,false,false,false)
+	' Detect Cortona
+	pluginArray(0) = NOT IsNull(CreateObject("Cortona.Control"))
+	' Detect Blaxxun CC3D
+	pluginArray(1) = NOT IsNull(CreateObject("blaxxunCC3D.blaxxunCC3D"))
+	' Detect Cosmo Player 1 & 2
+	pluginArray(2) = NOT IsNull(CreateObject("SGI.CosmoPlayer.1"))
+	pluginArray(3) = NOT IsNull(CreateObject("SGI.CosmoPlayer.2"))
+	' Detect Pivoron Player
+	pluginArray(4) = NOT IsNull(CreateObject("Nexternet.NexternetPlayer.1"))
+	' Return
+	GetPluginArray = pluginArray
+end function
+// --&gt;
+&lt;/SCRIPT&gt;
+</PRE><P>
+Nice, isn't it? Hmmm. Anyway, what it does is creates an array of four values (I only know the names
+for four browsers), and then tries to create an object for each browser it knows about. Then it
+stores the result, true or false, into the array and returns it. It really is damn awkward. Each
+browser has a unique name which we use in the CreateObject function call. To detect a plugin, you
+have to know it's name. At the moment, I only know names for Cortona, Blaxxun, Cosmo and Pivoron, but if
+anyone knows any more, please let me know and I'll put them in. Once we've created this array, we
+can convert it to a JavaScript array with the <EM>var pluginArray = new
+VBArray(GetPluginArray()).toArray();</EM> line, and then test each value in our Javascript function,
+which then returns a 0 or 1 in the same way as before.
+</P><P>
+These three functions provide the infrastructure needed to intelligently embed VRML files in your
+pages. All you need to do, whenever you want to embed VRML, is use the following block of code:
+</P><PRE>
+&lt;SCRIPT LANGUAGE="JavaScript"&gt;
+&lt;!--
+var browser = navigator.appName;
+var displayVRML = 0;
+
+if (browser=="Netscape") displayVRML = DetectNetscape();
+else if (browser=="Microsoft Internet Explorer") displayVRML = DetectIE();
+
+if (displayVRML==1) {
+	document.writeln('&lt;EMBED SRC="vrml.wrl"&gt;');
+}
+else {
+	document.writeln('&lt;IMG SRC="image.gif"&gt;');
+}
+// --&gt;
+&lt;/SCRIPT&gt;
+&lt;NOSCRIPT&gt;
+&lt;IMG SRC="image.gif"&gt;
+&lt;/NOSCRIPT&gt;
+</PRE><P>
+All this does is check the browser name, and then call the appropriate function to detect the
+plugin. If it finds one, it uses the &lt;EMBED&gt; to display a VRML world, otherwise it shows a
+normal image. Notice the use of the &lt;NOSCRIPT&gt; tag to display an image if scripts cannot be
+run for some reason. Also, the image will be displayed if the browser is not supported, meaning that
+you will never get a nasty broken plugin symbol, or whatever.
+</P><P>
+Test out your browser now! <A HREF="detect.html">Click here</A> to see if you have a supported VRML
+plugin. Feel free to use this technique in your own pages, and show people what VRML can do! Full
+source is available to download in a <A HREF="detect.txt">text file</A> (more reliable than saving an
+HTML document).
+</P><P>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="/utils/footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('/pics/menu_lit/workshop.gif','Workshop','../');
+</SCRIPT> 
+
+</BODY>
+</HTML>

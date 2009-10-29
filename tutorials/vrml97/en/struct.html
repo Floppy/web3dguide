@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - VRML97 File Structure Summary</TITLE>
+<META NAME="DESCRIPTION" CONTENT="Guide to the world of VRML, with one of the best tutorials on the web.">
+<META NAME="KEYWORDS" CONTENT="VRML, VRML97, Virtual Reality Modeling Language,	Tutorial, Guide, 3D,
+				VRML97 file structure, summary, file, VRML file,
+				Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,
+				Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+</HEAD>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">File Structure Summary</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index.html','nodes.html','index.html');
+</SCRIPT>
+</P><P>
+This file is a summary of the way a VRML scene should be arranged. It lists the valid grouping nodes, root-level nodes, and children nodes, amongst other useful bits and pieces.</P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">VRML97 File Header</FONT><P>
+<P>The header (i.e. the first line) for a VRML97 file is as follows:</P>
+<PRE>
+#VRML V2.0 utf8
+</PRE>
+<P>
+Any succeeding line with a # at the start is seen as a comment and ignored.
+</P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">VRML97 MIME Types</FONT><P>
+<P>The MIME types for VRML are:</P>
+<PRE>
+x-world/x-vrml
+model/vrml
+</PRE>
+<P>
+The first is old, and new applications should assume the second one.
+</P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Grouping Nodes</FONT><P>
+<P>
+The following nodes are <EM>grouping</EM> nodes, which means that they can contain other nodes in their <EM>children</EM> field.
+</P>
+<UL>
+<LI><STRONG>Anchor</STRONG></LI>
+<LI><STRONG>Billboard</STRONG></LI>
+<LI><STRONG>Collision</STRONG></LI>
+<LI><STRONG>Group</STRONG></LI>
+<LI><STRONG>LOD</STRONG></LI>
+<LI><STRONG>Switch</STRONG></LI>
+<LI><STRONG>Transform</STRONG></LI>
+</UL>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Child Nodes</FONT><P>
+<P>
+The following nodes are legal <EM>child</EM> nodes, which means that they do not <EM>need</EM> to be contained within anything else,
+but can be contained within grouping nodes. Therefore, they can go either at the root of the scene graph or further down, contained
+within one of the grouping nodes described earlier.
+</P>
+<UL>
+<LI><STRONG>Anchor</STRONG></LI>
+<LI><STRONG>Background</STRONG></LI>
+<LI><STRONG>Billboard</STRONG></LI>
+<LI><STRONG>Collision</STRONG></LI>
+<LI><STRONG>ColorInterpolator</STRONG></LI>
+<LI><STRONG>CoordinateInterpolator</STRONG></LI>
+<LI><STRONG>CylinderSensor</STRONG></LI>
+<LI><STRONG>DirectionalLight</STRONG></LI>
+<LI><STRONG>Fog</STRONG></LI>
+<LI><STRONG>Group</STRONG></LI>
+<LI><STRONG>Inline</STRONG></LI>
+<LI><STRONG>LOD</STRONG></LI>
+<LI><STRONG>NavigationInfo</STRONG></LI>
+<LI><STRONG>NormalInterpolator</STRONG></LI>
+<LI><STRONG>OrientationInterpolator</STRONG></LI>
+<LI><STRONG>PlaneSensor</STRONG></LI>
+<LI><STRONG>PointLight</STRONG></LI>
+<LI><STRONG>PositionInterpolator</STRONG></LI>
+<LI><STRONG>ProximitySensor</STRONG></LI>
+<LI><STRONG>ScalarInterpolator</STRONG></LI>
+<LI><STRONG>Script</STRONG></LI>
+<LI><STRONG>Shape</STRONG></LI>
+<LI><STRONG>Sound</STRONG></LI>
+<LI><STRONG>SpotLight</STRONG></LI>
+<LI><STRONG>SphereSensor</STRONG></LI>
+<LI><STRONG>Switch</STRONG></LI>
+<LI><STRONG>TimeSensor</STRONG></LI>
+<LI><STRONG>TouchSensor</STRONG></LI>
+<LI><STRONG>Transform</STRONG></LI>
+<LI><STRONG>Viewpoint</STRONG></LI>
+<LI><STRONG>VisibilitySensor</STRONG></LI>
+<LI><STRONG>WorldInfo</STRONG></LI>
+<LI><STRONG>Child nodes redefined with PROTO</STRONG></LI>
+</UL>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Bindable Nodes</FONT><P>
+<P>The following nodes are <EM>bindable</EM>.
+</P>
+<UL>
+<LI><STRONG>Background</STRONG></LI>
+<LI><STRONG>Fog</STRONG></LI>
+<LI><STRONG>NavigationInfo</STRONG></LI>
+<LI><STRONG>Viewpoint</STRONG></LI>
+</UL>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Geometry Nodes</FONT><P>
+<P>The following nodes are <EM>geometry</EM> nodes, and can only be contained inside a <STRONG>Shape</STRONG>s <EM>geometry</EM> field.
+</P>
+<UL>
+<LI><STRONG>Box</STRONG></LI>
+<LI><STRONG>Cone</STRONG></LI>
+<LI><STRONG>Cylinder</STRONG></LI>
+<LI><STRONG>ElevationGrid</STRONG></LI>
+<LI><STRONG>Extrusion</STRONG></LI>
+<LI><STRONG>IndexedFaceSet</STRONG></LI>
+<LI><STRONG>IndexedLineSet</STRONG></LI>
+<LI><STRONG>PointSet</STRONG></LI>
+<LI><STRONG>Sphere</STRONG></LI>
+<LI><STRONG>Text</STRONG></LI>
+</UL>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Special Nodes</FONT><P>
+<P>The following are special nodes, and can only be contained within certain fields in certain nodes.
+<TABLE BORDER=5>
+<TR><TD WIDTH=100><STRONG>Node</STRONG></TD><TD WIDTH=100><STRONG>Parent</STRONG></TD><TD WIDTH=100><EM>Field</EM></TD></TR>
+<TR><TD>Appearance</TD><TD>Shape</TD><TD>appearance</TD></TR>
+<TR><TD>AudioClip</TD><TD>Sound</TD><TD>source</TD></TR>
+<TR><TD>Color</TD><TD>ElevationGrid<BR>IndexedFaceSet<BR>IndexedLineSet</TD><TD>color<BR>color<BR>color</TD></TR>
+<TR><TD>Coordinate</TD><TD>IndexedFaceSet<BR>IndexedLineSet<BR>PointSet</TD><TD>coord<BR>coord<BR>coord</TD></TR>
+<TR><TD>FontStyle</TD><TD>Text</TD><TD>fontStyle</TD></TR>
+<TR><TD>ImageTexture</TD><TD>Appearance</TD><TD>texture</TD></TR>
+<TR><TD>Material</TD><TD>Appearance</TD><TD>material</TD></TR>
+<TR><TD>MovieTexture</TD><TD>Appearance<BR>Sound</TD><TD>texture<BR>source</TD></TR>
+<TR><TD>Normal</TD><TD>ElevationGrid<BR>IndexedFaceSet</TD><TD>normal<BR>normal</TD></TR>
+<TR><TD>PixelTexture</TD><TD>Appearance</TD><TD>texture</TD></TR>
+<TR><TD>TextureCoordinate</TD><TD>ElevationGrid<BR>IndexedFaceSet</TD><TD>texCoord<BR>texCoord</TD></TR>
+<TR><TD>TextureTransform</TD><TD>Appearance</TD><TD>textureTransform</TD></TR>
+</TABLE>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index.html','nodes.html','index.html');
+footer('../pics/guidelogo.gif','Index','../index.html', 'en', '..');
+</SCRIPT>
+
+
+</BODY>
+</HTML>

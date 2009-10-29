@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - VRML Debugging Workshop</TITLE>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+</HEAD>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+ 
+ 
+<H1>DebugConsole.wrl</H1>
+
+<PRE>
+<STRONG><FONT COLOR="#5F9EA0">#VRML V2.0 utf8
+</FONT></STRONG>
+<STRONG><FONT COLOR="#A020F0">PROTO</FONT></STRONG> DebugConsole [
+   <STRONG><FONT COLOR="#A020F0">eventIn</FONT></STRONG> <FONT COLOR="#228B22"><STRONG>SFString</FONT></STRONG> nextString
+   <STRONG><FONT COLOR="#A020F0">field</FONT></STRONG>   <FONT COLOR="#228B22"><STRONG>SFVec3f</FONT></STRONG>  offset       0.11 0 -0.2   
+]
+{
+   <FONT COLOR="#DA70D6"><STRONG>Group</FONT></STRONG> {
+      children [
+         <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> SENSOR <FONT COLOR="#DA70D6"><STRONG>ProximitySensor</FONT></STRONG> {
+            center 0 0 10
+            size 10 10 10
+         }
+         <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> HUD <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+            children [
+               <FONT COLOR="#DA70D6"><STRONG>DirectionalLight</FONT></STRONG> {
+                  ambientIntensity 0.8
+               }
+               <FONT COLOR="#DA70D6"><STRONG>Collision</FONT></STRONG> {
+                  collide <STRONG><FONT COLOR="#A020F0">FALSE</FONT></STRONG>
+                  children [
+                     <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> CONTROLLER <FONT COLOR="#DA70D6"><STRONG>Script</FONT></STRONG> {
+                        <STRONG><FONT COLOR="#A020F0">eventIn</FONT></STRONG>  <FONT COLOR="#228B22"><STRONG>SFString</FONT></STRONG> input <STRONG><FONT COLOR="#A020F0">IS</FONT></STRONG> nextString
+                        <STRONG><FONT COLOR="#A020F0">eventIn</FONT></STRONG>  <FONT COLOR="#228B22"><STRONG>SFTime</FONT></STRONG>   clear
+                        <STRONG><FONT COLOR="#A020F0">field</FONT></STRONG>    <FONT COLOR="#228B22"><STRONG>MFString</FONT></STRONG> contents []
+                        <STRONG><FONT COLOR="#A020F0">eventOut</FONT></STRONG> <FONT COLOR="#228B22"><STRONG>MFString</FONT></STRONG> output
+                        url <STRONG><FONT COLOR="#5F9EA0">&quot;javascript:</FONT></STRONG>
+                           <STRONG><FONT COLOR="#A020F0">function</FONT></STRONG> <STRONG><FONT COLOR="#0000FF">initialize</FONT></STRONG>() {
+                              contents = <STRONG><FONT COLOR="#A020F0">new</FONT></STRONG> MFString(<FONT COLOR="#BC8F8F"><STRONG>'DebugConsole v1.0'</FONT></STRONG>);
+                              output = contents;
+                           }
+                           <STRONG><FONT COLOR="#A020F0">function</FONT></STRONG> <STRONG><FONT COLOR="#0000FF">input</FONT></STRONG>(value, time) {
+                              <STRONG><FONT COLOR="#A020F0">var</FONT></STRONG> length = contents.length;
+                              <STRONG><FONT COLOR="#A020F0">if</FONT></STRONG> (length &gt; 25) {
+                                 <STRONG><FONT COLOR="#A020F0">for</FONT></STRONG> (i=0; i&lt;25; i++) {
+                                    contents[i] = contents[i+1];
+                                 }
+                                 contents[25] = value;
+                              }
+                              <STRONG><FONT COLOR="#A020F0">else</FONT></STRONG> {
+                                 contents[length] = value;
+                              }
+                              output = contents;
+                           }
+                           <STRONG><FONT COLOR="#A020F0">function</FONT></STRONG> <STRONG><FONT COLOR="#0000FF">clear</FONT></STRONG>(value, time) {
+                              contents = <STRONG><FONT COLOR="#A020F0">new</FONT></STRONG> MFString();
+                              output = contents;
+                           }
+                        <STRONG><FONT COLOR="#5F9EA0">&quot;</FONT></STRONG>
+                     }
+                     <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+                        translation <STRONG><FONT COLOR="#A020F0">IS</FONT></STRONG> offset
+                        children [
+                           <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+                              appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                                 material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+                                    diffuseColor 0.25 0 0
+                                 }
+                              }
+                              geometry <FONT COLOR="#DA70D6"><STRONG>Box</FONT></STRONG> {
+                                 size 0.075 0.16 1e-8
+                              }
+                           }
+                           <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+                              translation -0.04 0.07 0.01
+                              children [
+                                 <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+                                    appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                                       material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+                                          diffuseColor 1 1 1
+                                       }
+                                    }
+                                    geometry <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> DISPLAY <FONT COLOR="#DA70D6"><STRONG>Text</FONT></STRONG> {
+                                       maxExtent 0.07
+                                       fontStyle <FONT COLOR="#DA70D6"><STRONG>FontStyle</FONT></STRONG> {
+                                          family <FONT COLOR="#BC8F8F"><STRONG>&quot;SANS&quot;</FONT></STRONG>
+                                          justify <FONT COLOR="#BC8F8F"><STRONG>&quot;BEGIN&quot;</FONT></STRONG>
+                                          size 0.005
+                                          spacing 1.08
+                                       }
+                                    }
+                                 }
+                              ]
+                           }
+                           <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+                              translation 0.03 -0.075 0
+                              children [
+                                 <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> CLEARBUTTON <FONT COLOR="#DA70D6"><STRONG>TouchSensor</FONT></STRONG> {}
+                                 <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+                                 	appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                                 	   material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+                                 	      diffuseColor 1 1 0
+                                 	   }
+                                 	}
+                                 	geometry <FONT COLOR="#DA70D6"><STRONG>Sphere</FONT></STRONG> {
+                                 	   radius 0.003
+                                 	}
+                                 }
+                                 <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+                                    translation -0.04 0.001 0.01
+                                    children [
+                                       <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+                                       	appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                                       	   material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+                                       	      diffuseColor 1 1 0
+                                       	   }
+                                       	}
+                                       	geometry <FONT COLOR="#DA70D6"><STRONG>Text</FONT></STRONG> {
+                                       	   string [<FONT COLOR="#BC8F8F"><STRONG>&quot;Clear Console&quot;</FONT></STRONG>]
+                                       	   maxExtent 0.06
+                                       	   fontStyle <FONT COLOR="#DA70D6"><STRONG>FontStyle</FONT></STRONG> {
+                                       	      justify <FONT COLOR="#BC8F8F"><STRONG>&quot;MIDDLE&quot;</FONT></STRONG>
+                                       	      family <FONT COLOR="#BC8F8F"><STRONG>&quot;SANS&quot;</FONT></STRONG>
+                                       	      size 0.009
+                                       	      spacing 1.1
+                                             }
+                                          }
+                                       }
+                                    ]
+                                 }
+                              ]
+                           }
+                        ]
+                     }
+                  ]
+               }
+            ]
+         }
+      ]
+   }
+   <STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> SENSOR.position_changed <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> SENSOR.set_center
+   <STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> SENSOR.position_changed <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> HUD.set_translation
+   <STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> SENSOR.orientation_changed <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> HUD.set_rotation
+   <STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> CLEARBUTTON.touchTime <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> CONTROLLER.clear
+   <STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> CONTROLLER.output <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> DISPLAY.string
+}
+</PRE>
+
+<P><ADDRESS>Generated by <A HREF="http://people.ssh.fi/mtr/genscript/">GNU enscript 1.6.1</A>.</ADDRESS></P>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="/utils/footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('/pics/menu_lit/workshop.gif','Workshop','./');
+</SCRIPT> 
+
+</BODY>
+</HTML>

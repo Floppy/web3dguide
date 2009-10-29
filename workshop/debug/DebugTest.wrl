@@ -1,0 +1,62 @@
+#VRML V2.0 utf8
+
+EXTERNPROTO DebugConsole [
+   eventIn SFString   nextString
+   field   SFVec3f    offset
+]
+[
+   "DebugConsole.wrl"
+]
+
+EXTERNPROTO SFTimeDebugger [
+   eventIn  SFTime   input
+   field    SFBool   consoleOutput
+   field    SFBool   stringOutput
+   eventOut SFString debugString
+   eventOut SFTime   output
+]
+[
+   "SFTimeDebugger.wrl"
+]
+
+WorldInfo {
+   title "Floppy's VRML Workshop Debugging Example"
+}
+
+NavigationInfo {
+   headlight FALSE
+   type ["WALK", "ANY"]
+}
+
+Transform {
+   children [
+      DirectionalLight {
+         ambientIntensity 0.8
+      }
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 0 1 0
+            }
+         }
+         geometry Sphere {
+         }
+      }
+   ]
+}
+
+DEF TIMER TimeSensor {
+   cycleInterval 0.5
+   loop TRUE
+   startTime 0
+   stopTime -1
+}
+
+DEF TIMEDEBUGGER SFTimeDebugger {}
+
+DEF DEBUGCONSOLE DebugConsole {
+   offset 0.10 0 -0.2
+}
+
+ROUTE TIMER.cycleTime TO TIMEDEBUGGER.input
+ROUTE TIMEDEBUGGER.debugString TO DEBUGCONSOLE.nextString

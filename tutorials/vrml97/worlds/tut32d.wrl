@@ -1,0 +1,92 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 3.2d"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+DEF COLLIDER1 Collision {
+   children [
+      Transform {
+         translation -10 0 0
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     emissiveColor 0 1 1
+                  }
+               }
+               geometry Sphere {}
+            }
+         ]
+      }
+   ]
+   collide FALSE
+}
+
+DEF COLLIDER2 Collision {
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               emissiveColor 1 0 1
+            }
+         }
+         geometry Sphere {}
+      }
+      Sound {
+         minFront 10
+         minBack 10
+         maxFront 50
+         maxBack 50
+         source DEF SOUND2 AudioClip {
+            url "pop.wav"
+         }
+      }
+   ]
+   collide TRUE
+}
+
+DEF COLLIDER3 Collision {
+   children [
+      Transform {
+         translation 10 0 0
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     emissiveColor 1 1 0
+                  }
+               }
+               geometry Sphere {}
+            }
+            Sound {
+               minFront 10
+               minBack 10
+               maxFront 50
+               maxBack 50
+               source DEF SOUND3 AudioClip {
+                  url "boing.wav"
+               }
+            }
+         ]
+      }
+   ]
+   proxy Transform {
+      translation 10 0 0
+      children [
+         Shape {
+            geometry Box {
+               size 4 4 4
+            }
+         }
+      ]
+   }
+   collide TRUE
+}
+
+ROUTE COLLIDER2.collideTime TO SOUND2.startTime
+ROUTE COLLIDER3.collideTime TO SOUND3.startTime
+
+

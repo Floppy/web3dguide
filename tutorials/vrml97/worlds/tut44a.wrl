@@ -1,0 +1,75 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 4.4a"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+NavigationInfo {
+   type ["NONE"]
+}
+
+Viewpoint {
+   description "Default View"
+   position 5 5 13
+}
+
+Transform {
+   translation 5 5 0
+   children [
+      Shape {
+         appearance Appearance {            
+            texture ImageTexture {
+               url "linux.png"
+            }
+            textureTransform DEF TEXTRANS TextureTransform {}
+         }
+         geometry Box {
+            size 10 10 1e-8
+         }
+      }
+   ]
+}
+
+Group {
+   children [
+      DEF SENSOR PlaneSensor {
+         minPosition 0 0
+         maxPosition 10 10
+         offset 10 10 0
+      }
+      DEF BUTTON Transform {
+         translation 10 10 0
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     emissiveColor 1 0 0
+                  }
+               }
+               geometry Sphere {
+                  radius 0.1
+               }
+            }
+         ]
+      }
+   ]
+}
+
+DEF SCRIPT Script {
+   eventIn  SFVec3f  set_translation
+   eventOut SFVec2f  scale_changed
+   url "javascript:
+      function set_translation(value,time) {
+         if (value.x < 1e-8) value.x = 1e-8;
+         if (value.y < 1e-8) value.y = 1e-8;
+         var newScale = new SFVec2f(10/value.x, 10/value.y);
+         scale_changed = newScale;
+      }
+   "
+}
+
+ROUTE SENSOR.translation_changed TO BUTTON.set_translation
+ROUTE SENSOR.translation_changed TO SCRIPT.set_translation
+ROUTE SCRIPT.scale_changed TO TEXTRANS.set_scale

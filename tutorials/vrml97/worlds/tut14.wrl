@@ -1,0 +1,34 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 1.4"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+Shape {
+   appearance Appearance {
+      material Material {
+         emissiveColor 0 0.8 0
+         transparency 0.5
+      }
+   }
+   geometry Box {
+   }
+}
+  
+Transform {
+   scale 2 0.5 2
+   rotation 0 1 0 0.78
+   translation 0 -1.5 0
+   children [
+      Shape {
+         appearance Appearance {
+            texture ImageTexture {
+               url "brick.jpg"
+            }
+         }
+         geometry Box {}
+      }
+   ]
+}

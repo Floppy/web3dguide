@@ -1,0 +1,35 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 3.2c"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+DEF SENSOR ProximitySensor {
+   size 8 8 8
+}
+
+Sound {
+   minFront 10
+   minBack 10
+   maxFront 50
+   maxBack 50
+   source DEF SOUND AudioClip {
+      loop TRUE
+      url "boing.wav"
+      startTime -1
+   }
+}
+
+Shape {
+   appearance Appearance {
+      material Material {
+         emissiveColor 0 0 1
+      }   
+   }
+   geometry Box {}
+}
+
+ROUTE SENSOR.enterTime TO SOUND.startTime
+ROUTE SENSOR.exitTime TO SOUND.stopTime

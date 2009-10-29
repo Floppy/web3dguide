@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,shapes, Box, Cone, Cylinder, Sphere, Text, FontStyle, fonts,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>La guia de VRML de Floppy - VRML97 Tutorial 4: Box, Cylinder, Cone, Sphere, Text, FontStyle</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">El Advenimiento de las Formas</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut14.html','tut16.html');
+</SCRIPT>
+</P><P>
+Esta secci&oacute;n del Tutorial va a cubrir los tipos b&aacute;sicos de
+nodo de la geometr&iacute;a. &Eacute;stos son Box, (Caja), Cylinder (Cilindro),
+Sphere (Esfera), Cone (Cono) y Text (Texto). Hay m&aacute;s tipos, pero
+son m&aacute;s avanzados y se explicar&aacute;n despu&eacute;s en otra
+secci&oacute;n. &iexcl;As&iacute;, sin m&aacute;s objeciones, sigamos con
+&eacute;l! Este capitulo no deber&iacute;a llevarnos mucho tiempo...
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Box</FONT></P><P>
+<STRONG>Box </STRONG>es exactamente lo que dice ser, un cubo o paralelepipedo. El
+<STRONG>Box </STRONG>predefinido es un cubo, de dos metros por lado, centrado en
+el origen. Para realizar un <STRONG>Box </STRONG>de un tama&ntilde;o diferente, puedes
+definirlo con un tama&ntilde;o expl&iacute;cito:
+</P><PRE>geometry Box {
+&nbsp;&nbsp; size 5.5 3.75 1.0
+}</PRE><P>
+Esto crea un <STRONG>Box </STRONG>con X, Y y dimensiones de Z como fueron especificadas
+en el par&aacute;metro <STRONG>size.</STRONG>
+<p>Las texturas se mapean sobre el <STRONG>Box </STRONG>aplic&aacute;ndose individualmente
+sobre cada cara. La textura se aplica de la manera obvia hacia arriba en
+los lados, y en la cara de arriba se aplicar&aacute; de manera que, si
+se inclina esta cara hacia la c&aacute;mara, la textura se ver&aacute;
+de manera correcta. El fondo se mapea del modo opuesto, de modo que si
+el fondo se inclina hacia la c&aacute;mara, la textura se visualice de
+la manera correcta.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+El cilindro</FONT></P><P>
+El nodo <STRONG>Cylinder </STRONG>es ligeramente m&aacute;s complejo. El valor por
+defecto es un cilindro de +1 a -1 en todas las dimensiones, igual que el
+<STRONG>Box</STRONG> explicado mas arriba, (radius 1, height 2). Tambi&eacute;n queda
+centrada en el origen. Para especificar un tama&ntilde;o diferente, nosotros
+podemos usar los campos <STRONG>radius </STRONG>(<STRONG>radio</STRONG>) y <STRONG>height (altura).</STRONG>
+Hay tambi&eacute;n otros tres campos, <STRONG>side</STRONG>, <STRONG>top</STRONG>, y <STRONG>bottom.</STRONG>
+&Eacute;stos son valores Booleanos (TRUE o FALSE), y dicen al navegador
+si debe mostrar la secci&oacute;n apropiada del cilindro. &Eacute;stos
+valores predefinidos estan en TRUE,&nbsp; gracias a lo cual no necesitas
+especificarlos mayor&iacute;a de las veces. Sin embargo, si tuvieras un
+cilindro d&oacute;nde un extremo este oculto por otro objeto, merecer&iacute;a
+la pena quitar ese extremo, ya que con esto se reducir&iacute;a gran cantidad
+de trabajo del navegador, acelerando la ejecuci&oacute;n de tu mundo.
+</P><PRE>geometry Cylinder {
+&nbsp;&nbsp; radius 0.5
+&nbsp;&nbsp; height 10
+&nbsp;&nbsp; top FALSE
+}</PRE><P>
+Esto da un cilindro alto, delgado sin la cara superior (top).
+<p>Las texturas se envuelven alrededor de los <STRONG>Cilindros </STRONG>para que<STRONG>
+</STRONG>los bordes de la textura se encuentren en la parte de atr&aacute;s.
+Los piezas circulares se recortan y se aplican a la cima y base del objeto
+en la misma orientaci&oacute;n que la <STRONG>Caja.</STRONG>
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+El cono</FONT></P><P>
+De nuevo, muy parecido al cilindro, s&oacute;lo que en lugar del campo
+<STRONG>radius,</STRONG> tenemos un <STRONG>bottomRadius </STRONG>que hace exactamente lo que
+sugiere: especifica el radio de la base. No hay tampoco ning&uacute;n campo
+<STRONG>top</STRONG>, ya que los conos no tienden a tener cimas. Generalmente.
+</P><PRE>geometry Cone {
+&nbsp;&nbsp; bottomRadius 5
+&nbsp;&nbsp; height 10
+&nbsp;&nbsp; side TRUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #Esto no es realmente necesario, ya que est&aacute; por defecto.
+&nbsp;&nbsp; bottom FALSE
+}</PRE><P>
+Las texturas son aplicadas de la misma manera que en los cilindros. El
+valor predefinido es un cono con las mismas dimensiones como en el <STRONG>Cyllinder
+</STRONG>y el <STRONG>Box.</STRONG> El centro de este es un poco m&aacute;s dif&iacute;cil
+de visualizar. El centro est&aacute; en el medio, a medio camino del cono.
+Ahora, cuando tu consideras la caja que contiene el cono parece obvio,
+pero no es totalmente intuitivo. As&iacute; que, un cono predefinido se
+extender&aacute; 1 metro sobre el plano Y y 1 metro debajo de este plano,
+teniendo un radio de 1 en la base.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+La esfera</FONT></P><P>
+El nodo <STRONG>Sphere </STRONG>tiene s&oacute;lo un campo que es su <STRONG>radius</STRONG>(radio)<STRONG>.</STRONG>
+Hmmmm, qu&eacute; sencillo ha sido esto.
+</P><PRE>geometry Sphere {
+&nbsp;&nbsp; radius 10,000,000
+}</PRE><P>
+&iexcl;Esta es una GRAN esfera!. Las texturas son aplicadas envolviendose
+alrededor de la esfera estrechandose en los polos. Si tuvieras una textura
+con una cuadr&iacute;cula en ella, las l&iacute;neas verticales se acercar&iacute;an
+cada vez mas cuando esten proximas a los dos polos, mientras que las l&iacute;neas
+horizontales quedar&iacute;an con las mismas distancias todo el tiempo.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+El texto &amp; FontStyle</FONT></P><P>
+Este nodo crea textos 2D en el mundo virtual. Realmente es muy simple,
+a menos que quieras hacer cosas m&aacute;s complejas. Entonces usar&iacute;as
+FontStyle. El nodo <STRONG>Text </STRONG>tiene s&oacute;lo cuatro campos. El primero
+es <STRONG>string </STRONG>(serie de caract&eacute;res manipulados como un grupo)
+d&oacute;nde defines una cadena de caracteres o una lista de cadenas a
+desplegar. El campo <STRONG>fontStyle </STRONG>contiene un nodo <STRONG>FontStyle </STRONG>que
+cubrir&eacute; en un minuto. Los &uacute;ltimos dos campos son <STRONG>maxExtent
+</STRONG>d&oacute;nde especificas la anchura m&aacute;xima (en metros) del texto,
+y <STRONG>length </STRONG>que es una lista de longitudes (de nuevo en metros) para
+cada string, para que puedas especificar una anchura espec&iacute;fica
+para cada uno de ellos. Si se especifican las <STRONG>length</STRONG>, el navegador
+modificara el tama&ntilde;o del texto para ajustarlas a ese tama&ntilde;o.
+</P><PRE>geometry Text {
+&nbsp;&nbsp; string ["Hola", "Mundo"]
+&nbsp;&nbsp; fontStyle USE HELLOFONT
+&nbsp;&nbsp; maxExtent 5
+&nbsp;&nbsp; length [3, 3]
+}</PRE><P>
+OK este es entonces el nodo <STRONG>Text, </STRONG>bastante simple. <STRONG>FontStyle
+</STRONG>es m&aacute;s complejo. La mejor manera de empezar aqu&iacute; es mostrar
+todos los campos.
+</P><PRE>FontStyle {
+&nbsp;&nbsp; size
+&nbsp;&nbsp; family
+&nbsp;&nbsp; style
+&nbsp;&nbsp; horizontal
+&nbsp;&nbsp; leftToRight
+&nbsp;&nbsp; topToBottom
+&nbsp;&nbsp; language
+&nbsp;&nbsp; justify
+&nbsp;&nbsp; spacing
+}</PRE><P>
+OK entonces. El<STRONG> size </STRONG>es la altura, en metros, de la l&iacute;nea
+de texto. El campo <STRONG>family </STRONG>puede<STRONG> </STRONG>tomar uno de tres valores,
+y altera la tipografia de los caracteres. Los tres tipos son "SERIF", "SANS",
+o "TYPEWRITER". Para cambiar la apariencia del texto, puedes usar el campo
+<STRONG>style.</STRONG> Puede tomar cualquiera de estos valores: "PLAIN", "BOLD",
+"ITALIC", o "BOLD ITALIC". <STRONG>horizontal </STRONG>es un valor booleano que muestra
+si el texto es horizontal ("TRUE") o vertical ("FALSE"). <STRONG>leftToRight
+(Izquierda a derecha) </STRONG>y <STRONG>topToBottom (De arriba a abajo) </STRONG>tambi&eacute;n
+son booleanos, y su operaci&oacute;n es un poco obvia. Con&nbsp; <STRONG>language</STRONG>,
+el sistema de caracteres utf-8 puede aparecer de manera distinta, depende
+en que idioma se lea. &Eacute;ste es un c&oacute;digo de dos-car&aacute;cteres
+para el idioma. Realmente no s&eacute; lo que son estos c&oacute;digos,
+por eso probablemente ser&aacute; mejor ignorar este campo<A HREF="#*">*</a>.&nbsp;
+<STRONG>justify </STRONG>es muy &uacute;til, y puede ser cualquiera de estos "BEGIN",
+"MIDDLE", o "END." <STRONG>spacing </STRONG>es la cantidad de espacio entre las l&iacute;neas
+de texto. 1 es normal, y 2 corresponden a doble-espacio (una l&iacute;nea
+en blanco entre cada l&iacute;nea).
+<p>&Eacute;se es entonces <STRONG>FontStyle.</STRONG> Realmente puedes ignorar la
+mayor&iacute;a de los campos, pero cosas como <STRONG>style, family</STRONG>, y <STRONG>justify
+</STRONG>son muy &uacute;tiles.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Y vivieron felices...</FONT></P><P>
+Todos los nodos de la geometr&iacute;a vistos hasta ahora (y todos los
+otros que encontraremos despu&eacute;s) se centran en el origen del sistema
+de coordenadas local. Cuando nos adentremos en el estudio de objetos m&aacute;s
+complejos, los que acabamos de ver te resultar&aacute;n obvios. Por ahora,
+s&oacute;lo recuerda que el punto para transformar la posici&oacute;n de
+los objetos y todo lo dem&aacute;s es el centro del objeto. Pues bien entonces,
+eso es todo sobre este cap&iacute;tulo. Para ver lo que hemos hecho hasta
+ahora, &eacute;chale un ojo al <A HREF="../worlds/tut15.wrl" TARGET="_new">Tutorial
+Mundo 1.5</a> y a su <A HREF="../source/tut15.html">c&oacute;digo</a> correspondiente.
+<p>As&iacute; que, por ahora tenemos una especie de monumento peque&ntilde;o,
+cubierto por una columna pl&aacute;stica verde con una r&eacute;plica de
+mi cabeza en la cima. Genial. &Eacute;so es todo entonces. Contin&uacute;a
+a la pr&oacute;xima lecci&oacute;n que es un peque&ntilde;a y corta explicaci&oacute;n
+sobre c&oacute;mo realizar enlaces al mundo exterior. Deber&iacute;a ser
+f&aacute;cil...
+<p><a NAME="*"></a>*<font size=-1>Esto no es as&iacute; para nosotros,
+que utilizamos una acracterizaci&oacute;n que incluye acentos, e&ntilde;es,
+y signos de apertura para las interrogaciones y las exclamaciones. Prometo
+incluir qu&eacute; valor necesita ese campo para mostrarla... &iexcl;en
+cuanto me entere!</FONT></P><P>
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut14.html','tut16.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 3.3b"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+NavigationInfo {
+   type "NONE"
+}
+
+Viewpoint {
+   position 0 0 12
+}
+
+Transform {
+   translation -4 -3 0
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 1 1 0
+            }
+         }
+         geometry Text {
+            string ["autoOffset FALSE"]
+            fontStyle FontStyle {
+               justify "MIDDLE"
+            }
+         }
+      }
+   ]   
+}
+
+Transform  {
+   translation -4 1 0
+   children [
+      DEF SENSOR1 SphereSensor {
+         autoOffset FALSE
+      }
+      DEF TRAN1 Transform {
+         children [
+            DEF AXIS Group {
+               children [
+                  Shape {
+                     appearance DEF WHITE Appearance {
+                        material Material {
+                           diffuseColor 1 1 1
+                        }   
+                     }
+                     geometry Sphere {
+                        radius 1.5
+                     }   
+                  }
+                  Shape {
+                     appearance  Appearance {
+                        material Material {
+                           diffuseColor 1 0 0
+                        }   
+                     }
+                     geometry Cylinder {
+                        height 6
+                        radius 0.2
+                     }
+                  }
+                  Transform {   
+                     rotation 1 0 0 1.57
+                     children [
+                        Shape {
+                           appearance Appearance {      
+                              material Material {
+                                 diffuseColor 0 1 0
+                              }   
+                           }
+                           geometry Cylinder {
+                              height 6
+                              radius 0.2
+                           }
+                        }
+                     ]
+                  }
+                  Transform {
+                     rotation 0 0 1 1.57
+                     children [
+                        Shape {
+                           appearance Appearance {
+                                 material Material {
+                                 diffuseColor 0 0 1
+                              }   
+                           }      
+                           geometry Cylinder {
+                              height 6
+                              radius 0.2
+                           }      
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]   
+      }
+   ]
+}
+
+Transform {
+   translation 4 -3 0
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 1 1 0
+            }
+         }
+         geometry Text {
+            string ["autoOffset TRUE"]
+            fontStyle FontStyle {
+               justify "MIDDLE"
+            }
+         }
+      }
+   ]   
+}
+
+Transform  {
+   translation 4 1 0
+   children [
+      DEF SENSOR2 SphereSensor {
+         autoOffset TRUE
+      }
+      DEF TRAN2 Transform {
+         children [
+            USE AXIS
+         ]
+      }
+   ]
+}
+
+ROUTE SENSOR1.rotation_changed TO TRAN1.rotation
+ROUTE SENSOR2.rotation_changed TO TRAN2.rotation

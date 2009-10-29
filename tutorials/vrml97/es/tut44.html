@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guide, 3D, objects, object oriented, OOD, OOP, ECMAScript objects, functions, properties, this, Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,    Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>Tutorial VRML de Floppy - VRML97 tema 4.4: Objetos propios de ECMAScript</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#BB0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Objetos Voladores No Identificados</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut43.html','tut45.html');
+</SCRIPT>
+</P><P>
+En este cap&iacute;tulo, vamos a cubrir aspectos m&aacute;s avanzados de
+ECMAScript. Ya conoces los tipos de datos simples, el <EM>number, el boolean</EM>,
+y todos los dem&aacute;s. Ahora vamos a introducir <EM>objetos, </EM>que
+simplemente son colecciones de variables que puedes usar como si fueran
+variables sencillas. Imaginate las variables normales como pedazos de papel
+sobre los que puedes escribir informaci&oacute;n. Pudes, igualmente, imaginar
+los objetos como cajas en las que puedes guardar un mont&oacute;n de papeles
+como estos. As&iacute; puedes manejar la caja como si fuese un s&oacute;lo
+papel, pero manejando de una sola vez una gran cantidad de informaci&oacute;n,
+ya que dentro de esa caja hay muchos papeles. As&iacute; puedes guardar
+varias variables relaccionadas como un solo objeto. Por ejemplo, si quisieras
+guardar un vector, en vez de tener tres variables num&eacute;ricas independientes
+X, Y y Z, crear&iacute;as el objeto Vector, dentro del cual estar&iacute;an
+esas tres variables. El vector es ahora un objeto, y es mucho m&aacute;s
+f&aacute;cil de manejar en tu programa. &iquest;Lo ves?
+<p>Hay varias cosas que puedes guardar en tus objetos, y de momento vamos
+a empezar mirando un cierto tipo de estos pedazos de papel: las <EM>propiedades.</EM>
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Las propiedades</FONT></P><P>
+Una propiedad es simplemente una variable que vive dentro del objeto, es
+decir, es equivalente a uno de los pedazos de papel que puedes guardar
+dentro de la caja . Si <EM>miObjeto </EM>es un objeto y <EM>x </EM>es una de
+sus propiedades, para usar la variable <EM>x</EM> dentro de <EM>miObjeto </EM>tendr&iacute;as
+que escribir:
+</P><PRE>miObjeto.x</PRE><P>
+Puedes emplear esto para c&aacute;lculos, asignaciones, o lo que sea. Por
+ejemplo:
+</P><PRE>miObjeto.x = 3;
+print(miObjeto.x);</PRE><P>
+e imprime el valor 3. Todo bastante claro hasta ahora, &iquest;bien?
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Los m&eacute;todos</FONT></P><P>
+Ahora, las propiedades no son lo &uacute;nico que puedes tener dentro de
+tus objetos. Tambi&eacute;n pueden contener <EM>m&eacute;todos.</EM> &Eacute;stos
+son exactamente iguales que las funciones de ECMAScript normales, excepto
+por el motivo de que s&oacute;lo existen como una parte de un objeto. No
+puedes usar una funci&oacute;n propia de un objeto si no tienes una instancia
+de ese objeto (es decir, si ese objeto no existe en tu programa). Puedes
+imaginar los m&eacute;todos como duendes que se sientan al borde de esa
+caja, si lo prefieres. Cada duende tiene una funci&oacute;n particular.
+Uno de ellos podr&iacute;a borrar un n&uacute;mero de un pedazo de papel
+de la caja y escribir en su lugar una cadena de caracteres, o cualquier
+cosa. Lo principal es que puedes decirles que trabajen para ti. Desaparecen
+por un segundo dentro de la caja (buscando el papel) y regresan con los
+resultados. Puedes pasar par&aacute;metros a estos m&eacute;todos de la
+misma manera que con las funciones normales.
+<p>Ahora, &iquest;a que no adivinas como usar estos m&eacute;todos? Sip,
+lo has cogido. Exactamente igual que cuando usas una propiedad. Si <EM>miObjeto
+</EM>tiene un m&eacute;todo llamado <EM>multiplicalo(num) </EM>que multiplica
+<EM>x </EM>por <EM>num</EM>, podemos hacer lo siguiente:
+</P><PRE>miObjeto.x = 3;
+resultado = miObjeto.multiplicalo(4);
+print(resultado);</PRE><P>
+Esto nos dar&aacute; el valor 12. No olvides que siempre puedes tomar un
+ojeto completo como si fuera una variable normal y corriente, as&iacute;
+que podr&iacute;amos hacer algo como lo siguiente, asumiendo que tenemos
+dos objetos y el c&oacute;digo apropiado dentro del m&eacute;todo <EM>multiplicalo
+():</EM>
+</P><PRE>miObjeto.x = 3;
+miOtroObjeto.x = 4;
+resultado = miObjeto.multiplicalo(miOtroObjeto);
+
+</PRE><P>
+Esto tomar&iacute;a el objeto entero como un par&aacute;metro y recibir&iacute;a
+la informaci&oacute;n apropiada dentro del m&eacute;todo. Y de nuevo, imprimir&iacute;a
+12.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Creando objetos</FONT></P><P>
+Vale, pero &iquest;de d&oacute;nde vienen estos objetos? Bien, se crean
+objetos usando un tipo especial de funci&oacute;n llamada <EM>constructor.</EM>
+Esto se usa para crear un objeto de un cierto tipo definido por ti. Continuemos
+con nuestro objeto Vector. Si queremos crear un nuevo tipo del objeto llamado
+Vector, nosotros necesitamos emplear un constructor. Esto resultar&iacute;a
+as&iacute;:
+</P><PRE>function Vector(x, y, z) {
+&nbsp;&nbsp; this.x = x;
+&nbsp;&nbsp; this.y = y;
+&nbsp;&nbsp; this.z = z;
+}</PRE><P>
+&Eacute;ste constructor toma algunos par&aacute;metros, pero puedes hacerlo
+sin ellos de esta manera:
+</P><PRE>function Vector() {
+&nbsp;&nbsp; this.x = 0;
+&nbsp;&nbsp; this.y = 0;
+&nbsp;&nbsp; this.z = 0;
+}</PRE><P>
+Echemos un vistazo m&aacute;s profundo al constructor. Lo primero de lo
+que debemos darnos cuenta es que el nombre de la funci&oacute;n es el mismo
+que el del objeto que crea. As&iacute; es como el navegador-int&eacute;rprete
+sabe qu&eacute; funci&oacute;n emplear. La segunda es la palabra <EM>this</EM>
+empleada dentro de la funci&oacute;n. <EM>this</EM> (o, literalmente, <EM>esto</EM>)
+es una palabra muy importante, en tanto que se refiere siempre al objeto
+actual. Tambi&eacute;n aviso que el constructor no devuelve a nada. Como
+estamos modificando las propiedades del objeto, no necesitamos devolver
+ningun valor.
+<p>&iquest;C&oacute;mo instanciamos finalmente el objeto dentro del programa?
+Bien, usaremos otra palabra clave: <EM>new, </EM>de esta manera:
+</P><PRE>miVector1 = new Vector();
+miVector2 = new Vector(1,2,3);</PRE><P>
+la palabra reservada new dice al programa que estamos creando un nuevo
+objeto, para lo que debe llamar a la funci&oacute;n constructora que ya
+hemos definido antes. Si te fijas en el c&oacute;digo anterior, te dar&aacute;s
+cuenta de que miVector1 tendr&aacute; sus variables inicializadas a cero,
+por que no se le pasa ning&uacute;n par&aacute;metro, mientras que miVector2
+tendr&aacute; los valores 1 para X, 2 para Y y 3 para Z, dado que se le
+pasan en este orden mediante un par&aacute;metro.
+<p>Una vez que tienes un objeto, puedes agregarle nuevas propiedades simplemente
+asignandole valores adecuados. Si ves la necesidad de que miVector2 tenga
+un nombre, por ejemplo, puedes darle uno escribiendo:
+</P><PRE>miVector2.name = "bob";</PRE><P>
+Ahora intentemos agregar un m&eacute;todo a nuestro objeto. Esto es bastnte
+sencillo. Pongamos que queremos escribir un m&eacute;todo que multiplique
+el vector, esto es, un escalar. Escribir&iacute;amos el c&oacute;digo de
+esta manera:
+</P><PRE>function multiplicaVector(scalar) {
+&nbsp;&nbsp; this.x *= scalar;
+&nbsp;&nbsp; this.y *= scalar;
+&nbsp;&nbsp; this.z *= scalar;
+}</PRE><P>
+&Eacute;sta es la funci&oacute;n que har&aacute; el trabajo. Multiplicar&aacute;
+cada propiedad del objeto por el valor del scalar pasado como par&aacute;metro.
+&iquest;Ahora, c&oacute;mo lo a&ntilde;adimos al objeto como un m&eacute;todo?
+Bien, veamos al constructor de nuevo...
+</P><PRE>function Vector() {
+&nbsp;&nbsp; this.x = 0;
+&nbsp;&nbsp; this.y = 0;
+&nbsp;&nbsp; this.z = 0;
+&nbsp;&nbsp; this.multiplicalo = multiplicaVector;
+}
+
+</PRE><P>
+Hemos agregado el m&eacute;todo <EM>multiplicalo </EM>al objeto, que lleva
+directamente a la funci&oacute;n <EM>multiplicaVector</EM>. As&iacute;, si
+escribimos miVector2.multiplicalo(2), se llamar&aacute; inmediatamente
+a la funci&oacute;n multiplicaVector() y har&aacute; todo el trabajo, alterando
+los valores en el objeto <EM>miVector2</EM>.
+<p>Echa una ojeada a este <A HREF="../worlds/tut44a.wrl" TARGET="_new">ejemplo</a>
+y al <A HREF="../source/tut44a.html">c&oacute;digo.</a> &Eacute;ste es un
+ejemplo de un script que usa un constructor para crear un nuevo objeto.
+El resultado es una textura cubriendo una caja que puedes extender tanto
+como quieras arrastrando la pelota roja sobre la imagen. La esfera roja
+siempre corresponder&aacute; a la esquina superior derecha de la imagen.
+<p>Como puedes ver, cuando la posici&oacute;n de la esfera cambia, se llama
+a la funci&oacute;n set_translation (). En primer lugar, &eacute;sta verifica
+dos de las propiedades del objeto que se le ha pasado (SFVec3f) para asegurarse
+de que nunca van a dar 0 (lo cual romper&iacute;a el <STRONG>TextureTransform</STRONG>).
+Se crea un nuevo objeto SFVec2f, usando los valores calculados por las
+propiedades del objeto pasadas en la funci&oacute;n. Se pasa el resultado
+al <STRONG>TextureTransform</STRONG>, donde se actualiza el mapeado de la textura.
+En este ejemplo usamos un script que realiza un caso elemental de conversi&oacute;n
+de tipos, en este caso, una entrada de datos de una posici&oacute;n tridimensional
+desde un <STRONG>PlaneSensor</STRONG> para controlar la escala o proporci&oacute;n
+2D de una textura. &iquest;No comienzas a ver las enormes posibilidades
+que ofrece usar scripts?
+<p>Los objetos SFVec3f y SFVec2f usados en este script son objetos de VRML/ECMAScript
+que proporciona cualquier navegador de VRML. Los veremos en un minuto,
+despu&eacute;s de mencionar brevemente los <EM>Arrays (o tablas).</EM>
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Los Arrays</FONT></P><P>
+No quiero emplear demasiado tiempo en esto. Cuando acabes con este tutorial,
+ser&aacute; mejor que encuentres una referencia apropiada de ECMAscript/JavaScript
+en otro lugar, de manera que tratar&eacute; de cepill&aacute;rmelas en
+un segundito. Los <EM>Arrays </EM>son una colecci&oacute;n de variables del
+mismo tipo. Se referencia a ellos por su nombre, seguido del &iacute;ndice
+de la variable pasado entre corchetes (el cual comienza desde cero). As&iacute;,
+si tuvieras un Array de n&uacute;meros, miArray[0] contendr&iacute;a el
+primer n&uacute;mero, miArray[1] el segundo, y as&iacute; sucesivamente.
+El motivo de plantear esto ahora es por que algunos de los tipos de VRML
+son b&aacute;sicamente Arrays, por lo que pens&eacute; que deb&iacute;a
+decirte qu&eacute; son y c&oacute;mo funcionan, sin embargo creo que debemos
+dejarlo aqu&iacute;. Si m&aacute;s tarde los necesitamos, los explicar&eacute;
+debidamente, pero creo que es mejor que lo leas en un buen libro o en un
+tutorial dedicado en exclusiva a ello. De momento, seguiremos viendo material
+pr&aacute;crico sobre c&oacute;mo VRML97 usa los objetos ECMAScript.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Objetos VRML</FONT></P><P>
+Si quieres crear scripts en VRML que s&oacute;lo hagan un par de cosas,
+vas a necesitar usar los objetos VRML de ECMAScript. &Eacute;stos son objetos
+de ECMAScript que provee el propio navegador (aunque no en todos los navegadores
+tienen las mismas funcionalidades), qu&eacute; tienen un standard compuesto
+por una selecci&oacute;n de propiedades, constructores y funciones que
+puedes usar. Por ejemplo, el objeto SFVec3f provee de una serie de operaciones
+geom&eacute;tricas que puedes emplear sin tener que definirlas t&uacute;
+mismo con anterioridad.
+<p>La mayor&iacute;a de los tipos de datos en VRML tienen un equivalente
+en ECMAScript, por lo que un valor SFVec3f en VRML es equivalente a un
+objeto SFVec3f en ECMAScript. Sin embargo, los tipos simples se trazan
+directamente a los tipos ECMAScript:
+<ul>
+<li>
+<EM>SFFloat</EM>, <EM>SFInt32 </EM>y <EM>SFTime </EM>refieren todos a un tipo
+de dato num&eacute;rico.</li>
+
+<li>
+<EM>SFBool </EM>lleva directamente a un tipo de dato <EM>boolean.</EM>
+Puedes usar los valores ECMAScript <EM>true </EM>y <EM>false</EM>, y tambi&eacute;n
+los de VRML <EM>TRUE </EM>y <EM>FALSE.</EM></li>
+
+<li>
+<EM>SFString </EM>dirige al objeto ECMAScript <EM>String</EM>.</li>
+</ul>
+Todos los otros tipos de datos VRML llevan a objetos ECMAScript, como SFVec3f,
+SFColor, MFNode y as&iacute; sucesivamente. Adem&aacute;s de los tipos
+standard, se proporcionan otros dos objetos m&aacute;s a trav&eacute;s
+del navegador. &Eacute;stos son el objeto <EM>Browser, </EM>que puede usarse
+para recibir informaci&oacute;n del navegador y el objeto <EM>VrmlMatrix</EM>
+que es una matriz 4x4 &uacute;til para la geometr&iacute;a 3D seria. Si
+necesitas usar &eacute;ste ultimo, probablemente tendr&aacute;s ya conocimientos
+avanzados de geometr&iacute;a 3D, por lo que supongo que sabr&aacute;s
+usarlo.
+<p>Los objetos de tipo SFxxx son todos diferentes, y tienen sus propias
+funciones y comportamientos apropiados para sus tipos. Dado que son todos
+diferentes, no voy a cubrirlos aqu&iacute;. Para m&aacute;s informaci&oacute;n
+sobre lo que puedes hacer con cada tipo, Dir&iacute;gete a la secci&oacute;n
+adecuada del <A HREF="http://www.web3d.org/technicalinfo/specifications/vrml97/part1/javascript.html" target="_new">Anexo C,</a>
+esto es, la referencia de ECMAScript. Ah&iacute; se describe detalladamente
+c&oacute;mo construir objetos y c&oacute;mo darles empleo.
+<p>Mencionar&eacute; sin embargo los de tipo MFxxx, dado que todos ellos
+son muy similares. B&aacute;sicamente son Arrays de sus correspondientes
+tipos SF, con alguna funci&oacute;n a&ntilde;adida. Todos tienen la propiedad
+<EM>length</EM> que determina el n&uacute;mero de elementos que est&aacute;n
+en ese momento en la lista. Tienen tambi&eacute;n la funci&oacute;n, <EM>toString
+() </EM>que convierte un valor de un determinado tipo (por ejemplo, num&eacute;rico)
+a un valor de tipo cadena de texto. Y Tienen un constructor que toma una
+lista de objetos SF para introducirlos en un nuevo objeto MF. Este puede
+estar vac&iacute;a si lo deseas para comenzar. Puedes acceder los objetos
+SF dentro de un objeto MF de la misma manera en que accedes a cualquier
+Array, usando el &iacute;ndice entre los corchetes. As&iacute;, <EM>vectors[0]
+</EM>resulta el primer elemento del objeto MFVec3f <EM>vectors</EM>, y <EM>vectors[7]
+</EM>el octavo. Si quieres introducir un objeto SF en un objeto MF, deberas
+usar la misma notaci&oacute;n. Por ejemplo, esto:
+</P><PRE>var vectores = new MFVec3f();
+vectores[5] = new SFVec3f(0,1,0);</PRE><P>
+asigna el nuevo SFVec3f(0,1,0) al sexto elemento de los <EM>vectores.</EM>
+Si colocas un objeto en un &iacute;ndice superior al &uacute;ltimo elemento
+del objeto MFxxx, este se expandir&aacute; hasta el &iacute;ndice que le
+indiques. As&iacute; que puedes crear una serie vac&iacute;a al comienzo
+del programa e ir a&ntilde;adiendo elementos donde quieras.
+<p>Este <A HREF="../worlds/tut44b.wrl" TARGET="_new">ejemplo </a>muestra c&oacute;mo
+puedes usar muchas funciones propias del VRML97 para realizar grandes efectos.
+Muestra como se comporta el producto cruzado de dos vectores cuando los
+mueves. Imag&iacute;nate lo &uacute;til que resultar&iacute;a en un curso
+on-line de matem&aacute;ticas, o algo por el estilo. &iquest;Sin embargo,
+qu&eacute; tenemos realmente aqu&iacute;? Para empezar, hay dos cilindros
+(rojo y verde) qu&eacute; representan los dos vectores de la unidad. Est&aacute;n
+unidos a <STRONG>SphereSensors</STRONG>, para que puedan moverse con la acci&oacute;n
+del rat&oacute;n. El tercero (azul) es el cilindro que representa el producto
+cruzado de los dos vectores, es decir el verde multiplixado por el rojo.
+El producto es un vector ortogonal a ambos vectores, y su longitud depende
+del &aacute;ngulo entre ellos. No es posible mover el cilindro azul, porque
+su posicion se genera mediante un <STRONG>script</STRONG> basado en las posiciones
+de los otros dos cilindros. Juguetea durante alg&uacute;n tiempo con el
+ejemplo, hasta que entiendas lo que hace, y entonces &eacute;chale un ojo
+al <A HREF="../source/tut44b.html">c&oacute;digo </a>ver c&oacute;mo hemos
+conseguido el efecto.
+<p>Para generar el producto cruzado necesitamos dos vectores. Como lo que
+obtenemos a partir de un <STRONG>SphereSensor</STRONG> son rotaciones, lo primero
+que tenemos que hacer es convertir este resultado en vectores. Esto se
+hace en los dos manejadores de eventos creando un vector de la unidad y
+rot&aacute;ndolo por el nuevo valor de la rotaci&oacute;n del <EM>eventIn</EM>
+que usa la funci&oacute;n <EM>multVec ()</EM> del objeto de <EM>SFRotation.</EM>
+El resultado se guarda en un objeto de SFVec3f para calcular el producto
+cruzado. As&iacute; que, cada vez que se recibe un evento(o cuando el
+mundo est&aacute; cargado), nosotros recalculamos el producto cruzado y
+lo aplicamos. Esto se hace en la funci&oacute;n del <EM>calc_cross_product.</EM>
+La primera l&iacute;nea hace el trabajo duro de calcular el producto. El
+resto lo convierte de forma que podemos usarlo. As&iacute;, primero calculamos
+el producto de <EM>vector1 </EM>y <EM>vector2</EM>, y al obtener el resultado,
+el <EM>crossVec.</EM> Sin embargo, para introducir este vector en nuestro
+mundo VRML, necesitamos convertirlo en una rotaci&oacute;n sobre el origen
+(para conseguir la orientaci&oacute;n actual) y una longitud (para usar
+como un factor de la balanza). &Eacute;stos pueden aplicarse entonces al
+cilindro azul en nuestro mundo con un resultado perfecto.
+<p>OK, tratemos primero con el factor de la escala. Podemos conseguir la
+longitud usando la simplemente la propiedad <EM>length()</EM> de la funci&oacute;n
+SFVec3f. Sin embargo, no podemos tener un factor de escala de 0, por lo
+que necesitamos asegurarnos de que nunca llega all&iacute; con una sentencia
+<STRONG>if</STRONG>. Ahora queremos escalar por esta cantidad en la direcci&oacute;n
+del eje Y nuestro objeto, para lo que creamos un nuevo SFVec3f para usar
+como un <EM>eventOut</EM> de scale con 1s en el X y Z, y nuestro nuevo factor
+de la escala en el Y. Ahora, necesitamos poner la rotaci&oacute;n correctamente.
+Lo que haremos es hacer uso de uno de los constructores del tipo de SFRotation.
+Esto te permite crear una nueva rotaci&oacute;n que usa dos vectores, uno
+<EM>desde</EM>, y uno <EM>hacia.</EM> La rotaci&oacute;n creada ser&aacute;
+la que rota <EM>del </EM>vector <EM>al </EM>vector. Creamos un vector en la
+direcci&oacute;n de Y (la posici&oacute;n predefinida para nuestro cilindro)
+y crea una rotaci&oacute;n que usa para el output. Inteligente, &iquest;no?
+<p>Puedes ver en este ejemplo que hay todas clase de funciones &uacute;tiles
+disponibles en los objetos de VRML97 normales, y yo no puedo cubrirlo todo
+aqu&iacute;. &iexcl;Ciertamente merece la pena que te sientes y leas las especificaciones
+del lenguaje antes de que hagas cualquier script, ya que podr&iacute;as
+saltarte algo que te har&iacute;a la vida m&aacute;s f&aacute;cil diez
+veces!
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+El &Aacute;ngel ca&iacute;do</FONT></P><P>
+Bien, ahora est&aacute;s preparado para el rock &amp; roll en lo que respecta
+al ECMAscript. Si necesitas una referencia sobre los objetosVRML97 y ECMAScript,
+hay unas cuantas p&aacute;ginas &uacute;tiles disponibles en la p&aacute;gina
+de las <A HREF="http://web3d.vapourtech.com/info/index.html" target="_blank">especificaciones.</a>
+Tiene un resumen r&aacute;pido de todas las propiedades, constructores
+y funciones para todos los Objetos de VRML97. Si est&aacute;s programando
+scripts en ECMAScript, es algo bueno que tener al lado. Tambi&eacute;n
+te sugerir&iacute;a que le eches un ojo a algunas referencias de javascript,
+y aprendas un poco m&aacute;s sobre otros objetos, como Date, Math, Array,
+y todo eso.
+<p>Bien, s&eacute; que ha sido un cap&iacute;tulo muy &aacute;rido, quiz&aacute;
+con excesivo volumen de contenido, pero no es sencillo ense&ntilde;ar a
+programar en cuatro cap&iacute;tulos. &iexcl;Sin embargo, has llegado lejos,
+y creo que est&aacute;s suficientemente familiarizado con la materia como
+para apa&ntilde;artelas! Hemos cubierto todos los conceptos que necesitas
+para hacer scripts, y de ahora en adelante todo ser&aacute; mas sencillo.
+Hasta que lleguemos a Java, claro...
+<p>En el pr&oacute;ximo cap&iacute;tulo, vamos a cubrir el objeto Browser.
+&Eacute;ste es un objeto especial que ofrece toda clase de informaci&oacute;n,
+y tambi&eacute;n le permite programar sobre tu mundo a un nivel muy bajo.
+&iexcl;Ser&aacute; divertido!
+<p><EM>El Logotipo del Ping&uuml;ino Linux &copy; Larry Ewing</EM>
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut43.html','tut45.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,WorldInfo, Shape, Inline,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, VRML Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>La Guia de VRML de Floppy - VRML97 Tutorial 1: WorldInfo, Shape, Inline</title>
+</head>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Al principio...</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut11.html','tut13.html');
+</SCRIPT>
+</P><P>
+Ahora vamos a cubrir tipos de nodo b&aacute;sicos en un archivo VRML, el
+nodo <STRONG>WorldInfo</STRONG>, y el nodo <STRONG>Shape.</STRONG>
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">WorldInfo</FONT>
+</P><P>
+OK, ahora comenzaremos a agregar informaci&oacute;n al archivo. El primer
+nodo a cubrir es el nodo <STRONG>WorldInfo.</STRONG> Este nodo contiene la informaci&oacute;n
+general sobre el mundo, es como un t&iacute;tulo para el mundo. Este se
+despliega en la barra del t&iacute;tulo de la ventana del navegador, igual
+que la etiqueta &lt;TITLE> en HTML. <STRONG>WorldInfo </STRONG>tambi&eacute;n puede
+contener mas informaci&oacute;n sobre el archivo. Puedes poner lo que desees
+aqui, como las palabras claves para los motores de b&uacute;squeda, o cualquier
+cosa. Una muestra del nodo <STRONG>WorldInfo se </STRONG>muestra debajo:
+</P><PRE>
+WorldInfo {
+&nbsp;&nbsp; title "Floppy's VRML97 Tutorial Example 1"
+&nbsp;&nbsp; info ["(C) Copyright 1999 Vapour Technology"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "&#103;&#117;&#105;&#100;e&#64;&#119;e&#98;&#51;&#100;g&#117;i&#100;&#101;&#46;&#111;&#114;g&#46;&#117;&#107;"]
+}
+</PRE><P>
+Se pueden tener m&uacute;ltiples cadenas de texto en el campo info,
+siempre colocandolos entre corchetes. Un archivo de VRML puede tener tantos
+<STRONG>WorldInfo </STRONG>como gustes, pero s&oacute;lo se analizar&aacute; el primero
+. El resto se ignorar&aacute;.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Las Formas b&aacute;sicas</FONT>
+</P><P>
+&iexcl;Muy bien, esto esta todo muy lindo, pero nada bueno por el momento,
+porque por ahora no tenemos nada para ver! Agreguemos un objeto simple
+a la escena. Vamos a colocar un objeto <STRONG>Box, </STRONG>con los valores predefinidos,
+pero solo para que te puedas hacer una idea de c&oacute;mo va la estructura
+de todo esto. Hay un par de nodos requeridos como el <STRONG>Appearance</STRONG> y
+otros; pero de momento ignoralos, son para otro cap&iacute;tulo.
+Simplemente recuerda, si no especificas un valor para un campo, usar&aacute;
+el valor por defecto. As&iacute; que &eacute;ste usar&aacute; los valores predefinidos.
+Ahora agregaremos un nodo <STRONG>Shape </STRONG>al mundo, como se muestra
+debajo.
+</P><PRE>Shape {
+&nbsp;&nbsp; appearance Appearance {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; material Material {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp; }
+&nbsp;&nbsp; geometry Box {
+&nbsp;&nbsp; }
+}</PRE><P>
+Dentro del nodo <STRONG>Shape </STRONG>existen dos campos para describir al objeto.
+&Eacute;stos son <STRONG>appearance </STRONG>y <STRONG>geometry</STRONG> que describen la apariencia
+y forma del objeto respectivamente. &Eacute;stos se cubrir&aacute;n en
+el tutorial m&aacute;s adelante. Por ahora, esto es suficiente como para
+tener un Box con los valores y colores predefinidos en nuestro mundo.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Reusar un Objeto</FONT>
+</P><P>
+Si tienes muchos objetos id&eacute;nticos, seria rid&iacute;culo escribir muchas
+veces objetos del mismo tipo exacto. Por consiguiente, puedes reusar las
+definiciones anteriores. Usando nuestra caja, podr&iacute;amos
+definirla con el nombre FBOX. Entonces, siempre que querramos usar esa
+caja de nuevo, simplemente podemos teclear USE FBOX en lugar de la definici&oacute;n
+completa. Veamos el ejemplo debajo.
+</P><PRE>DEF FBOX Shape {
+&nbsp;&nbsp; appearance Appearance {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; material Material {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp; }
+&nbsp;&nbsp; geometry Box {
+&nbsp;&nbsp; }
+}
+
+USE FBOX</PRE><P>
+Piensa que este es un ejemplo tonto, ya que las dos cajas se crear&iacute;an
+en exactamente el mismo lugar. No es normalmente lo que desearias. Usualmente,
+utilizarás USE en alguna parte del codigo que sea mas significativo.
+Puedes utilizar DEF/USE con cualquier tipo de nodo. Por ejemplo, si quisieras
+reusar el nodo <STRONG>Appareance </STRONG>de un objeto, podrias hacerlo.
+</P><PRE>Shape {
+&nbsp;&nbsp; appearance DEF APP1 Appearance {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; material Material {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp; }
+&nbsp;&nbsp; geometry Box {
+&nbsp;&nbsp; }
+}
+
+Shape {
+&nbsp;&nbsp; appearance USE APP1
+&nbsp;&nbsp; geometry Box {
+&nbsp;&nbsp; }
+}</PRE><P>
+De nuevo, no vas a ver nada espectacular en este ejemplo, ya que la caja
+estar&aacute; en la misma posici&oacute;n. Pero seguro que has cogido la
+idea.
+</p><P>
+Otra manera de reusar el c&oacute;digo de VRML es usar los nodos <STRONG>Inline.</STRONG>
+&Eacute;stos toman los datos de un archivo externo y lo insertan en tu
+archivo. Entonces, si tuvieses un archivo llamado <EM>chair.wrl </EM>lo podr&iacute;as
+insertar en la escena de este modo:
+</P><PRE>Inline {
+&nbsp;&nbsp; url "silla.wrl"
+}</PRE><P>
+El archivo que est&aacute;s incluyendo de esta manera con Inline, tiene
+que ser VRML v&aacute;lido, debe tener la cabecera y todo lo que un archivo
+VRML normal tiene que tener. Si no puedes cargarlo en un navegador por
+la v&iacute;a legal, entonces no podras insertar el inline.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Bocados Finales</FONT>
+</P><P>
+El c&oacute;digo completo de todo lo expuesto hasta ahora se muestra <A HREF="../source/tut12.html">aqu&iacute;.</a>
+Nota que aunque nosotros tenemos DEFinida la caja llamada FBOX, no
+la hemos usado en ninguna parte. Eso es porque nosotros s&oacute;lo queremos
+una caja por el momento. Emplearemos USE con la caja proximamente
+cuando aprendamos a posicionar los objetos alrededor del mundo.
+</P><P>
+Puedes comenzar a ver como luce (no particularmente impresionante todav&iacute;a)
+para comenzar a darte una idea de lo que quiero decir. Puedes utilizar
+esto para acostumbrarte a moverte en tu navegador, y usar los diferentes
+tipos de movimiento.
+<br><A HREF="../worlds/tut12.wrl" TARGET="_new">Tutorial Mundo 1</a>
+</P><P>
+Eso concluye el tutorial para los elementos esenciales absolutos, con
+una caja gris en, por ahora, un mundo vac&iacute;o. Emocionante, &iquest;no
+es asi?. No importa, luego conseguiremos realizar cosas m&aacute;s complejas.
+Hay PointSets, Backgrounds, Animaci&oacute;n, Sensores, Luces, C&aacute;maras
+y todo. &iexcl;Ya lo ver&aacute;s! Realmente esto se pondra mucho mas interesante,
+conf&iacute;a en m&iacute;.
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut11.html','tut13.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - The VRML Developers Library</TITLE>
+<META NAME="DESCRIPTION" CONTENT="Guide to the world of VRML, with one of the best tutorials on the web.">
+<META NAME="KEYWORDS" CONTENT="VRML, VRML97, Virtual Reality Modeling Language,	Tutorial, Guide, 3D, FAQ,
+				Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,
+				Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace">
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+<!--
+function ThrowError(element,message) {
+	window.alert(message);
+	element.select();
+	element.focus();
+}
+
+function Validate() {
+	//Ensure a name is entered
+	if (document.SUBMITFORM.NAME.value.length == 0) {
+		ThrowError(document.SUBMITFORM.NAME,"You have not entered a name!");
+		return false;
+	}
+	//Ensure a valid email is entered
+	if ((document.SUBMITFORM.EMAIL.value.length < 5) ||
+            (document.SUBMITFORM.EMAIL.value.indexOf('@',0) == -1) ||
+            (document.SUBMITFORM.EMAIL.value.indexOf('.',0) == -1)) {
+		ThrowError(document.SUBMITFORM.EMAIL,"Invalid email address!");
+		return false;
+	}
+	//Ensure some categories have been selected
+	if ((document.SUBMITFORM.PROTO.checked == false) &&
+	    (document.SUBMITFORM.WORLDS.checked == false) &&
+	    (document.SUBMITFORM.SHAPES.checked == false) &&
+	    (document.SUBMITFORM.APPEARANCE.checked == false) &&
+	    (document.SUBMITFORM.ANIMATION.checked == false) &&
+	    (document.SUBMITFORM.INTERACTION.checked == false) &&
+	    (document.SUBMITFORM.JAVA.checked == false) &&
+	    (document.SUBMITFORM.ECMA.checked == false) &&
+	    (document.SUBMITFORM.EAI.checked == false) &&
+	    (document.SUBMITFORM.HANIM.checked == false) &&
+	    (document.SUBMITFORM.MISC.checked == false)) {
+		ThrowError(document.SUBMITFORM.PROTO,"You have not selected any categories!");
+		return false;
+	}
+	//Ensure some code has been entered
+	if (document.SUBMITFORM.CODE.value.length == 0) {
+		ThrowError(document.SUBMITFORM.CODE,"You have not entered any code!");
+		return false;
+	}
+	//Ensure a short description has been entered
+	if (document.SUBMITFORM.SHORTDESCRIPTION.value.length == 0) {
+		ThrowError(document.SUBMITFORM.SHORTDESCRIPTION,"You have not entered a short description!");
+		return false;
+	}
+	//Ensure a detailed description has been entered
+	if (document.SUBMITFORM.DETAILDESCRIPTION.value.length == 0) {
+		ThrowError(document.SUBMITFORM.DETAILDESCRIPTION,"You have not entered a detailed description!");
+		return false;
+	}
+	return true;
+}
+
+//-->
+</SCRIPT>
+</HEAD>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+<CENTER><IMG SRC="/pics/titles/library.gif" WIDTH=213 HEIGHT=60 ALT="Library"></CENTER>
+<P>
+If you want to submit a piece of code to the VRML developers library, fill in the form below. Enter
+your name and email address; both of these are compulsory. Submissions without a name or email
+address can not be entered into the repository.
+</P><P>
+Submissions of all kinds will be accepted, from complete VRML worlds to single lines of Java code.
+As long as it's related to VRML and will be useful to content developers, it can go in. As the
+colection is divided into sections, you can select which sections your code will be linked into.
+Don't pick too many, though, or some will be removed!
+</P><P>
+Then, fill out the boxes below. The first thing to enter is the code itself. Also, we need a short
+description of the code and a detailed one. The short description will be used so that people can
+find what they want, so make it descriptive but only a single sentence. The detailed description
+should contain everything that people will need to know about the code, and along with the code
+itself will form the web page for your submission. It should explain what your code does, and how
+it does it. Feel free to include URLs for examples, downloads, screenshots, anything you want.
+</P><P>
+By submitting code to the library, you agree to let the Web3D Guide distribute and publish it. If
+there are any copyright issues, they should be stated in a WorldInfo node in the code. However, all
+code submitted to the library must be free for other people to use as they see fit, without any
+restrictions. 
+</P>
+<FORM NAME="SUBMITFORM" onSubmit="return Validate();" ACTION="http://web3d.vapourtech.com/cgi-bin/emailform.pl" METHOD="POST">
+<INPUT TYPE="HIDDEN" NAME="MAILTO" VALUE="&#103;&#117;&#105;&#100;e&#64;&#119;e&#98;&#51;&#100;g&#117;i&#100;&#101;&#46;&#111;&#114;g&#46;&#117;&#107;">
+<INPUT TYPE="HIDDEN" NAME="SUBJECT" VALUE="VRML Developer's Library Submission">
+<INPUT TYPE="HIDDEN" NAME="RESULTPAGE" VALUE="http://web3d.vapourtech.com/library/result.html">
+<INPUT TYPE="HIDDEN" NAME="BODYTAG" VALUE="<BODY BGCOLOR='#DDDDDD' TEXT='#000000' LINK='#ff0000' ALINK='#ffff00' VLINK='#DD0000'>">
+<TABLE BORDER="0">
+<TR><TD ALIGN=RIGHT><STRONG>Name:</STRONG></TD><TD><INPUT TYPE="TEXT" SIZE="40" NAME="NAME"></TD></TR>
+<TR><TD ALIGN=RIGHT><STRONG>Email address:</STRONG></TD><TD><INPUT TYPE="TEXT" SIZE="40" NAME="EMAIL"></TD></TR>
+</TABLE>
+<P>
+<STRONG>Which sections does your code apply to?</STRONG>
+<TABLE BORDER="0">
+<TR><TD ALIGN=RIGHT>PROTOs <INPUT TYPE="CHECKBOX" NAME="PROTO"></TD><TD ALIGN=LEFT><INPUT TYPE="CHECKBOX" NAME="WORLDS"> Complete Worlds</TD></TR>
+<TR><TD ALIGN=RIGHT>Shapes/Objects <INPUT TYPE="CHECKBOX" NAME="SHAPES"></TD><TD ALIGN=LEFT><INPUT TYPE="CHECKBOX" NAME="APPEARANCE"> Appearances</TD></TR>
+<TR><TD ALIGN=RIGHT>Animation <INPUT TYPE="CHECKBOX" NAME="ANIMATION"></TD><TD ALIGN=LEFT><INPUT TYPE="CHECKBOX" NAME="INTERACTION"> Interaction</TD></TR>
+<TR><TD ALIGN=RIGHT>Java <INPUT TYPE="CHECKBOX" NAME="JAVA"></TD><TD ALIGN=LEFT><INPUT TYPE="CHECKBOX" NAME="ECMA"> ECMAScript</TD></TR>
+<TR><TD ALIGN=RIGHT>VRML & HTML <INPUT TYPE="CHECKBOX" NAME="HTML"></TD><TD ALIGN=LEFT><INPUT TYPE="CHECKBOX" NAME="HANIM"> H-Anim</TD></TR>
+<TR><TD ALIGN=RIGHT>EAI <INPUT TYPE="CHECKBOX" NAME="EAI"></TD><TD ALIGN=LEFT><INPUT TYPE="CHECKBOX" NAME="MISC"> Miscellaneous</TD></TR>
+</TABLE>
+<P>
+<STRONG>Enter your code here:</STRONG><BR>
+<TEXTAREA COLS="80" ROWS="10" NAME="CODE"></TEXTAREA>
+</P><P>
+<STRONG>Type a one-sentence description of the code here:</STRONG><BR>
+<INPUT TYPE="TEXT" SIZE="80" NAME="SHORTDESCRIPTION">
+</P><P>
+<STRONG>Write a detailed description of the code here:</STRONG><BR>
+<TEXTAREA COLS="80" ROWS="10" NAME="DETAILDESCRIPTION"></TEXTAREA>
+</P><P>
+<INPUT TYPE="SUBMIT" VALUE="Submit Code"> <INPUT TYPE="RESET" VALUE="Reset">
+</FORM>
+<P>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="/utils/footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('/pics/menu_lit/library.gif','Library','./');
+</SCRIPT> 
+
+</P>
+</BODY>
+</HTML>

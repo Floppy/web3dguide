@@ -1,0 +1,165 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 4.5b"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+NavigationInfo {
+   type ["NONE"]
+}
+
+Viewpoint {
+   description "Default View"
+   position 0 0.5 2
+}
+
+Transform {
+   translation -0.25 -0.15 0
+   children [
+      DEF CUBESENSOR TouchSensor {
+      }
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry Box {
+            size 0.1 0.1 0.17
+         }
+      }
+   ]
+}
+
+Transform {
+   translation 0 -0.15 0
+   children [
+      DEF SPHERESENSOR TouchSensor {
+      }
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 0 1 0
+            }
+         }
+         geometry Sphere {
+            radius 0.05
+         }
+      }
+   ]
+}
+
+Transform {
+   translation 0.25 -0.15 0
+   children [
+      DEF CONESENSOR TouchSensor {
+      }
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 0 0 1
+            }
+         }
+         geometry Cone {
+            bottomRadius 0.05
+            height 0.1
+         }
+      }
+   ]
+}
+
+DEF TOP Transform {
+   translation 0 0.5 0
+   children [
+      Transform {
+         rotation 1 0 0 1.57   
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     diffuseColor 0.4 0.4 0.4
+                  }
+               }
+               geometry Box {
+                  size 1 1e-8 1
+               }
+            }
+         ]
+      }
+   ]
+}
+
+DEF CREATOR Script {
+   eventIn SFTime cube_touchTime
+   eventIn SFTime sphere_touchTime
+   eventIn SFTime cone_touchTime
+   field SFNode parentNode USE TOP
+   eventOut MFNode newChildren
+   mustEvaluate TRUE
+   url "javascript:
+      function cube_touchTime(value,time) {
+         newVRML =  'Group {';
+         newVRML += '   children [';
+         newVRML += '      DEF SENSOR PlaneSensor {';
+         newVRML += '         maxPosition 0.45 0.45';
+         newVRML += '         minPosition -0.45 -0.45';
+         newVRML += '      }';
+         newVRML += '      DEF OBJECT Transform {';
+         newVRML += '         children [';
+         newVRML += '            Shape {';
+         newVRML += '               appearance Appearance {';
+         newVRML += '                  material Material {';
+         newVRML += '                     diffuseColor 1 0 0';
+         newVRML += '                  }';
+         newVRML += '               }';
+         newVRML += '               geometry Box {';
+         newVRML += '                  size 0.1 0.1 0.1';
+         newVRML += '               }';
+         newVRML += '            }';
+         newVRML += '         ]';
+         newVRML += '      }';
+         newVRML += '   ]';        
+         newVRML += '}';
+         newVRML += 'ROUTE SENSOR.translation_changed TO OBJECT.set_translation';
+         newChildren = Browser.createVrmlFromString(newVRML);
+      }
+      function sphere_touchTime(value,time) {
+         newVRML =  'Group {';
+         newVRML += '   children [';
+         newVRML += '      DEF SENSOR PlaneSensor {';
+         newVRML += '         maxPosition 0.45 0.45';
+         newVRML += '         minPosition -0.45 -0.45';
+         newVRML += '      }';
+         newVRML += '      DEF OBJECT Transform {';
+         newVRML += '         children [';
+         newVRML += '            Shape {';
+         newVRML += '               appearance Appearance {';
+         newVRML += '                  material Material {';
+         newVRML += '                     diffuseColor 0 1 0';
+         newVRML += '                  }';
+         newVRML += '               }';
+         newVRML += '               geometry Sphere {';
+         newVRML += '                  radius 0.05';
+         newVRML += '               }';
+         newVRML += '            }';
+         newVRML += '         ]';
+         newVRML += '      }';
+         newVRML += '   ]';        
+         newVRML += '}';
+         newVRML += 'ROUTE SENSOR.translation_changed TO OBJECT.set_translation';
+         newChildren = Browser.createVrmlFromString(newVRML);
+      }
+      function cone_touchTime(value,time) {
+         urlString = new MFString('cone.wrl');
+         Browser.createVrmlFromURL(urlString, parentNode, 'addChildren');
+      }
+   "
+}
+
+ROUTE CUBESENSOR.touchTime TO CREATOR.cube_touchTime
+ROUTE SPHERESENSOR.touchTime TO CREATOR.sphere_touchTime
+ROUTE CONESENSOR.touchTime TO CREATOR.cone_touchTime
+
+ROUTE CREATOR.newChildren TO TOP.addChildren

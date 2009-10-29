@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guide, 3D,    VRML Scripting functions, initialize, shutdown, eventsProcessed,    Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,    Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>Tutorial de VRML de Floppy - VRML97 cap&iacute;tulo 4.3: Las  Funciones</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#BB0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Funciones Corporales</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut42.html','tut44.html');
+</SCRIPT>
+</P><P>
+En este momento ya conoces suficiente ECMAscript como para comenzar a crear
+scripts que te resulten de utilidad. Este cap&iacute;tulo del tutorial
+tratar&aacute; de la estructura que debe tomar un script cualquiera, explicando
+como se integra todo para funcionar en conjunto. &iexcl;Al final de &eacute;ste,
+podr&aacute;s comenzar a escribir directamente tus scripts! Lo cual es
+bueno...
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+La estructura de un script</FONT></P><P>
+Lo primero que vamos a mirar es la estructura de un script. Ya hemos visto
+el nodo <STRONG>script</STRONG>, y ya sabes un poquito de ECMAscript, de modo que
+no creo que encuentres ning&uacute;n problema. Un script de VRML consiste
+b&aacute;sicamente en un conjunto de funciones que se ejecutan en un momento
+determinado. Todas las funciones en el script tienen acceso a los campos
+y eventos definidos en el nodo <STRONG>Script.</STRONG>
+</P><PRE>url "javascript:
+&nbsp;&nbsp; function initialize() {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // C&oacute;digo de inicializaci&oacute;n
+&nbsp;&nbsp; }
+&nbsp;&nbsp; function shutdown() {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // C&oacute;digo de finalizaci&oacute;n
+&nbsp;&nbsp; }
+&nbsp;&nbsp; function eventsProcessed() {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // C&oacute;digo de captura de eventos.
+&nbsp;&nbsp; }
+"
+
+</PRE><P>
+Anteriormente ten&iacute;amos una estructura muy general para la definici&oacute;n
+del script. Ahora echemos un vistazo a algunas de las funciones que tendr&aacute;s
+en tus scripts.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Inicio y Cierre</FONT></P><P>
+En primer lugar, echaremos una mirada a la funci&oacute;n <EM>initialize()</EM>.
+Es llamada en el momento de cargar el escenario e inmediatamente antes
+de mostrarlo. El escenario acaba de cargarse en el momento en que esta
+funci&oacute;n se ejecuta. La funci&oacute;n se declara tal y como se muestra
+abajo:
+</P><PRE>function initialize() {
+&nbsp;&nbsp; // c&oacute;digo de comienzo&nbsp;
+}</PRE><P>
+Las declaraciones que quieras ejecutar en el comienzo van dentro del cuerpo
+de la funci&oacute;n, en lugar del comentario.
+<p>Al igual que hay una funci&oacute;n de apertura, hay otra de cierre.
+Se ejecuta cuando se cierra la ventana del navegador, cuando se carga otro
+escenario, o en general cuando el escenario que contiene esta funci&oacute;n
+se descarga.
+</P><PRE>function shutdown() {
+&nbsp;&nbsp; // c&oacute;digo de finalizaci&oacute;n
+}</PRE><P>
+Esto es &uacute;til para aclarar cualquier enredo que el script pueda haber
+dejado. No necesitar&aacute;s usarlo muy a menudo: s&oacute;lo cuando empieces
+a hacer cosas bastante complejas.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Captura y manejo de eventos.</FONT></P><P>
+Vamos ahora al fragmento de verdadera utilidad: la gesti&oacute;n de eventos.
+Sus scripts reaccionar&aacute;n siempre al mundo externo, recibiendo eventIns
+de otros nodos. Vas a necesitar alg&uacute;n c&oacute;digo que se ejecute
+cuando se reciban estos eventos. &Eacute;stas son las funciones de gesti&oacute;n
+de eventos. Tomemos un ejemplo peque&ntilde;o para ver c&oacute;mo va esto.
+</P><PRE>Script {
+&nbsp;&nbsp; eventIn SFTime touchTime
+&nbsp;&nbsp; url "javascript:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function touchTime (valor, tiempo) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Gesti&oacute;n de eventos
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp; "
+}
+
+</PRE><P>
+En este ejemplo, puedes ver que la funci&oacute;n de gesti&oacute;n de
+eventos tienen el mismo nombre que el eventIns a que corresponde. Tiene
+dos par&aacute;metros que puedes llamar como quieras, pero yo he usado <EM>valor
+</EM>y <EM>tiempo.</EM> <EM>el valor </EM>es el valor del evento recibido, y
+<EM>tiempo </EM>es el momento de recepci&oacute;n del evento. En este ejemplo,
+cuando se recibe un evento de un <EM>touchTime</EM>, el c&oacute;digo de
+la funci&oacute;n <EM>touchTime se </EM>ejecuta. Todo muy sencillo hasta
+ahora.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+el eventsProcessed y eventOuts</FONT></P><P>
+Hay una par de cosas m&aacute;s que cubrir. Primero, la funci&oacute;n
+<EM>eventsProcessed ()</EM> es otra funci&oacute;n com&uacute;n. Se la llama
+despu&eacute;s de que un grupo de eventos se ha procesado. Desafortunadamente,
+muy a menudo ocurre que esto dependa del navegador. En general, si tienes
+que realizar alg&uacute;n c&aacute;lculo que no deba realizarse cada vez
+que reciba un evento, pon ese c&aacute;lculo aqu&iacute;.
+</P><PRE>function eventsProcessed() {
+&nbsp;&nbsp; // c&oacute;digo ejecutado al final la recepci&oacute;n de eventos
+}</PRE><P>
+Solo una cosa m&aacute;s: &iquest;C&oacute;mo enviamos eventos a trav&eacute;s
+de ECMAScript? Es muy, muy facil. Incluso compar&aacute;ndolo con el resto
+del cap&iacute;tulo:
+</P><PRE>Script {
+&nbsp;&nbsp; eventOut SFInt32 choice
+&nbsp;&nbsp; url "javascript:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function initialize() {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; choice = 2;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp; "
+}
+
+</PRE><P>
+Para enviar un eventOut, simplemente asigna un valor al nombre del eventOut.
+Es incre&iacute;blemente f&aacute;cil. Este es el motivo por el que ense&ntilde;o
+primero ECMAScript, Java es ligeramente m&aacute;s complejo.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+La Funci&oacute;n Disfunci&oacute;n</FONT></P><P>
+Bueno, esto ha cubierto la estructura b&aacute;sica de un script VRML.
+He mostrado las funciones que usar&aacute;s con frecuencia en tus scripts,
+y c&oacute;mo puedes manejarlas. Este es el <A HREF="../worlds/tut43.wrl" TARGET="_new">ejemplo
+</a>para este cap&iacute;tulo y es el <A HREF="../source/tut43.html">c&oacute;digo
+</a>que le acompa&ntilde;a. Cuando el Script comienza, la funci&oacute;n
+<EM>initialize()</EM> escribe un mensaje en la consola y manda la cadena
+"ready..." al nodo <STRONG>text. </STRONG>Cuando pulses el bot&oacute;n en el <STRONG>TouchSensor</STRONG>,
+se enviar&aacute; un evento al script, y se ejecutar&aacute; la funci&oacute;n
+<EM>touchTime ()</EM>. Esto escribe la cuenta del numero de veces que se
+recibe un evento <EM>touchTime, </EM>pasada (la cuenta) a una cadena temporal
+de texto, con un mensaje por consola. El <EM>eventsProcessed </EM>escribe
+el n&uacute;mero de veces que se ha llamado en la cadena temporal, que
+es entonces el output del nodo <STRONG>Text.</STRONG> Por consiguiente, cada vez
+que se ejecuta la funci&oacute;n <EM>eventsProcessed ()</EM>, el texto del
+escenario se actualiza. Si se llama al <EM>eventsProcessed </EM>despu&eacute;s
+de cada <EM>touchTime ()</EM>, los n&uacute;meros ser&aacute;n el mismo,
+de otra manera ser&aacute;n diferentes, y tendr&aacute;s que pulsar el
+bot&oacute;n para actualizar el resultado. Esto muestra c&oacute;mo su
+navegador trata el <EM>eventsProcessed ().</EM>
+<P><STRONG>NOTA:</STRONG> El ejemplo hace uso de la funci&oacute;n<EM> print()
+</EM>para imprimir en la consola de VRML. Sin embargo, no todos los navegadores
+de VRML soportan esta funci&oacute;n. Si tienes problemas con esto, prueba
+este <A HREF="../worlds/tut43a.wrl" TARGET="_new">ejemplo </a>alternativo
+y ojea el <A HREF="../source/tut43a.html">c&oacute;digo.</a> Tambi&eacute;n,
+por favor <A HREF="mailto:&#103;&#117;&#105;&#100;e&#64;&#119;e&#98;&#51;&#100;g&#117;i&#100;&#101;&#46;&#111;&#114;g&#46;&#117;&#107;">escr&iacute;beme</a>
+y dime qu&eacute; navegador est&aacute;s usando y el error de que informa.
+&iexcl;Gracias!
+<p>En el pr&oacute;ximo cap&iacute;tulo, vamos a cubrir la relaci&oacute;n
+entre VRML y tipos de ECMAScript. Vamos a necesitar una leve introducci&oacute;n
+tambi&eacute;n a los objetos. &iexcl;Hasta entonces!
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut42.html','tut44.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

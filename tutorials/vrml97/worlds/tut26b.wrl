@@ -1,0 +1,102 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 2.6b"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+NavigationInfo {
+   headlight FALSE
+   type "EXAMINE"
+}
+
+Transform {
+   translation -5 0 0
+   children [
+      PointLight {
+         color 1 1 1
+         intensity 1
+         ambientIntensity 0.5
+         location 0 0 0
+         radius 5
+         attenuation 0 1 0
+      }
+      DEF SPHERETHING Group {
+         children [
+            Transform {
+               translation 0 1 0
+               children [
+                  DEF SPHERE Shape {
+                     appearance Appearance {
+                        material Material {
+                           diffuseColor 1 0 0
+                        }
+                     }
+                     geometry Sphere {
+                        radius 0.5
+                     }
+                  }
+               ]
+            }
+            Transform {
+               translation 0 2 0
+               children [
+                  USE SPHERE
+               ]
+            }
+            Transform {
+               translation 0 3 0
+               children [
+                  USE SPHERE
+               ]
+            }
+            Transform {
+               translation 0 -1 0
+               children [
+                  USE SPHERE
+               ]
+            }
+            Transform {
+               translation 0 -2 0
+               children [
+                  USE SPHERE
+               ]
+            }
+            Transform {
+               translation 0 -3 0
+               children [
+                  USE SPHERE
+               ]
+            }
+         ]
+      } 
+      Transform {
+         rotation 0 0 1 1.57
+         children [
+            USE SPHERETHING
+         ]
+      }
+   ]
+}
+
+Transform {
+   translation 5 0 0
+   children [
+      PointLight {
+         color 1 1 1
+         intensity 1
+         ambientIntensity 0.5
+         location 0 0 0
+         radius 5
+         attenuation 0 0 1
+      }
+      USE SPHERETHING
+      Transform {
+         rotation 0 0 1 1.57
+         children [
+            USE SPHERETHING
+         ]
+      }
+   ]
+}

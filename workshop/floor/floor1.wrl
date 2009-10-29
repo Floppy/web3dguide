@@ -1,0 +1,88 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML Workshop Infinite Floor Example"
+}
+
+NavigationInfo {
+   headlight FALSE
+}
+
+Viewpoint {
+   description "Entryway"
+   position 0 1.5 10
+}
+
+DirectionalLight {
+   direction 0 -1 0
+}
+
+Background {
+   skyColor 1 1 1
+}
+
+DEF FLOOR Transform {
+   children [
+      Shape {
+         appearance Appearance {
+            texture ImageTexture {
+               url "floor.png"
+            }
+            textureTransform TextureTransform {
+               scale 50 50
+            }
+         }
+         geometry Box {
+            size 100 1e-8 100
+         }
+      }
+   ]
+}
+
+Transform {
+   translation 0 -1 -10
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry Sphere {
+            radius 5
+         }
+      }
+   ]
+}
+
+Transform {
+   translation 20 -1 10
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 0 1 0
+            }
+         }
+         geometry Sphere {
+            radius 5
+         }
+      }
+   ]
+}
+
+Transform {
+   translation -20 -1 10
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 0 0 1
+            }
+         }
+         geometry Sphere {
+            radius 5
+         }
+      }
+   ]
+}

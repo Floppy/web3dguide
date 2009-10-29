@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guide, 3D,    TimeSensor, VisibilitySensor, ProximitySensor, Collision, Sensors, animation,    Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,    Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>La Guia VRML de Floppy - VRML97 capitulo 3.2: TimeSensor, VisibilitySensor, ProximitySensor, Colisiones,</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#BB0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Hay Klingons Virando A Estribor...</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut31.html','tut33.html');
+</SCRIPT>
+</P><P>
+Ahora que conoces la arquitectura b&aacute;sica del sistema de animaci&oacute;n
+VRML, vamos a empezar cubriendo los nodos que usar&aacute;s normalmente
+para la interacci&oacute;n y animaci&oacute;n de tus mundos. Hay tres clases
+principales de nodos sobre los que vamos a aprender: Los sensores, Interpoladores
+y Scripts. &Eacute;stos, a su vez, pueden ser divididos en subcategor&iacute;as.
+Ahora vamos a mirar los Sensores. En este primer cap&iacute;tulo vamos
+a aprender algo sobre Sensores Medioambientales. &Eacute;stos no aceptan
+la entrada directamente del usuario, pero en cambio captan eventos medioambientales,
+como el paso de tiempo, la posici&oacute;n del usuario, y otras cosas &uacute;tiles.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+TimeSensor</FONT></P><P>
+El TimeSensor es b&aacute;sicamente un timer (cron&oacute;metro). Es &uacute;nico
+en VRML, no tiene ninguna posici&oacute;n en el mundo, y ninguna geometr&iacute;a
+asociada. Simplemente es un cron&oacute;metro abstracto, sentado tranquilamente
+mientras cuenta. Tambi&eacute;n es uno de los nodos m&aacute;s importantes
+en la animaci&oacute;n de VRML. Puede usarse generar eventos regulares,
+proporcionar eventos cronometrados, o manejar los nodos interpoladores.
+La sintaxis es como sigue. Explicar&eacute; cada campo individualmente
+en un minuto...
+</P><PRE>TimeSensor {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cycleInterval&nbsp;&nbsp;&nbsp;&nbsp; 1
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enabled&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; loop&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FALSE
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; startTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stopTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cycleTime
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; fraction_changed
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isActive
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time
+}</PRE><P>
+Vale. En primer lugar est&aacute; el campo <EM>cycleInterval.</EM> Es bastante
+autoexplicativo: devuelve el tiempo que el timer correr&aacute; antes de
+restablecestse. <EM>enabled </EM>(habilitado) es tambi&eacute;n un campo
+bastante obvio, y muy &uacute;til para activar y detener los timers. El
+campo <EM>loop </EM>especifica si el timer se ejecutar&aacute; continuamente
+o si simplemente lo har&aacute; una vez. Si est&aacute; a true, se generar&aacute;
+un evento cada <EM>cycleInterval.</EM> De otra manera s&oacute;lo se generar&aacute;
+uno, despu&eacute;s del <EM>cycleInterval. </EM>Los campos<EM> startTime </EM>y
+<EM>stopTime poseen</EM> valores SFTime que especifican cu&aacute;ndo comienza
+a contar el cron&oacute;metro y cu&aacute;ndo se detiene, igual que para
+el nodo <STRONG>Sound.</STRONG>
+<p>Ahora, los eventos. Son partes muy importantes del <STRONG>TimeSensor.</STRONG>
+El primero es el <EM>cycleTime.</EM> Este evento se env&iacute;a cada vez
+el cron&oacute;metro alcanza el <EM>cycleInterval</EM>, tanto si se repite
+con el loop como si no. El valor enviado es el tiempo actual. As&iacute;,
+si tuvieras un <STRONG>TimeSensor </STRONG>repitiendose continuamente con un <EM>cycleInterval
+</EM>de
+1 segundo, el evento del <EM>cycleTime</EM> se enviar&iacute;a todos los
+segundos con un valor del tiempo actual (qu&eacute; aumentar&iacute;a en
+1 cada vez). Esto es &uacute;til para eventos regulares y y se&ntilde;ales
+intermitentes. Para manejar animaciones continuadas, como las producidas
+con nodos Interpoladores, necesitamos un riego continuo de se&ntilde;ales.
+Esto se logra mediante el eventOut del <EM>fraction_changed.</EM> Esto genera
+eventos tan r&aacute;pido como puede (aunque no hay ninguna garant&iacute;a
+sobre la regularidad de esos eventos) y devuelve un valor SFFloat que es
+el fragmento del <EM>cycleInterval </EM>que est&aacute; actualmente completo.
+Por ejemplo, si tuvieras un <EM>cycleInterval </EM>de 10 segundos, esto es
+lo que un <EM>fraction_changed </EM>devuelve en un bucle <STRONG>TimeSensor.</STRONG>
+<br><IMG SRC="../pics/timesensor.gif" ALT="{short description of image}" height=200 width=320>
+<p>Piensa, sin embargo, que no hay garant&iacute;a de que un evento se
+generar&aacute; en este momento particular, s&oacute;lo de que se generar&aacute;n
+eventos en general. Este evento es muy &uacute;til para interpoladores,
+que emplean claves para enviar valores que interpolan en distintos nodos,
+unido a fracciones de tiempo particulares. Todo esto ser&aacute; cubierto
+m&aacute;s adelante, de todos modos, o sea que no te preocupes en entenderlo
+de momento. El evento <EM>time </EM>se genera al mismo tiempo que <EM>fraction_changed</EM>,
+y contiene un valor que corresponde al tiempo absoluto del evento. <EM>isActive
+se </EM>genera siempre que el cron&oacute;metro empiece y se detenga. El
+valor del SFBool es TRUE o FALSE, dependiendo si el cron&oacute;metro ha
+comenzado o ha detenido su funcionamiento.
+<p>Este <A HREF="../worlds/tut32a.wrl" TARGET="_new">ejemplo</a>( y su <A HREF="../source/tut32a.html">c&oacute;digo</a>)
+son muy simples, muestra el evento <EM>cycleTime </EM>de un <STRONG>TimeSensor
+</STRONG>que
+se repite dirigido (route) al exposedField del <EM>startTime </EM>del nodo
+<STRONG>AudioClip.</STRONG> Este mundo se compone s&oacute;lo de un texto y el sonido
+que se activa cada 2 segundos. Es una manera muy obvia y sencilla de realizar
+el ejemplo, pero transmite el mecanismo, &iquest;no?. Aprender&aacute;s
+m&aacute;s sobre como usar el <EM>fraction_changed </EM>cuando lleguemos
+a los interpoladores.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+VisibilitySensor</FONT></P><P>
+El pr&oacute;ximo tipo de sensor es el <STRONG>VisibilitySensor.</STRONG> Es m&aacute;s
+un sensor para la interacci&oacute;n; en &eacute;l se define una caja invisible
+que env&iacute;a eventos cuando entra y sale del campo de visi&oacute;n
+del usuario. Si la caja entra el campo de visi&oacute;n, el evento <EM>isActive
+</EM>env&iacute;a
+un valor de TRUE, y el evento <EM>enterTime </EM>el momento de entrada. Si
+sale, el evento <EM>isActive </EM>env&iacute;a un valor de FALSE. Los campos
+<EM>exitTimecenter </EM>y <EM>size </EM>definen el tama&ntilde;o de la caja.
+La definici&oacute;n completa se muestra debajo:
+</P><PRE>VisibilitySensor {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; center&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enabled&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enterTime
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; exitTime
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isActive
+}</PRE><P>
+<STRONG>VisibilitySensor </STRONG>ser&aacute; muy &uacute;til para optimizar tus
+escenas. Tener un n&uacute;mero grande de animaciones que corren al mismo
+tiempo puede ser un trabajo muy duro para la CPU, y reducir&aacute; horriblemente
+la velocidad de tus mundos. Usando <STRONG>VisibilitySensor </STRONG>para detener
+animaciones que est&aacute;n fuera del campo de visi&oacute;n de los usuarios,
+podr&aacute;s acelerar las animaciones de tus mundos tranquilamente hasta
+el l&iacute;mite que consideres conveniente. Esto puede hacerse sencillamente
+enviando el evento <EM>isActive </EM>al campo <EM>enabled </EM>del <STRONG>TimeSensor
+</STRONG>apropiado.
+<p>Ahora, echa un vistazo a este <A HREF="../worlds/tut32b.wrl" TARGET="_new">ejemplo</a>
+y a su <A HREF="../source/tut32b.html">c&oacute;digo</a>. Consiste en una
+caja, con un VisibilitySensor en la misma posici&oacute;n. Cuando miras
+hacia la caja, puedes oir el sonido. Si miras a otra parte, mientras la
+caja est&eacute; fuera del borde de la pantalla, el no se oir&aacute; el
+sonido. Y volver&aacute; a sonar cuando tengas de nuevo la caja a la vista.
+Esto se hace de una manera muy simple. El sonido es un <STRONG>AudioClip </STRONG>en
+un loop, y el <EM>enterTime </EM>y el <EM>exitTime</EM> del <STRONG>VisibilitySensor</STRONG>
+se envia al <EM>startTime </EM>y <EM>stopTime </EM>del <STRONG>AudioClip.</STRONG>
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+ProximitySensor</FONT></P><P>
+Un <STRONG>ProximitySensor </STRONG>es muy similar a un <STRONG>VisibilitySensor</STRONG>,
+s&oacute;lo que genera eventos <EM>isActive </EM>cuando el usuario entra
+o sale de la caja definida por el nodo. Los eventos <EM>enterTime </EM>y
+<EM>exitTime
+</EM>funcionan como antes, como el evento <EM>isActive.</EM> Mientras el usuario
+est&eacute; dentro del <STRONG>ProximitySensor </STRONG>se lanzaran eventos, siempre
+que su posici&oacute;n u orientaci&oacute;n relativas al <STRONG>ProximitySensor</STRONG>
+cambien, a trav&eacute;s de los eventOut <STRONG>position_changed </STRONG>y<STRONG> <EM>orientation_changed.</EM></STRONG>
+&Eacute;stos contendr&aacute;n el valor de la nueva posici&oacute;n u orientaci&oacute;n
+del avatar, cualquiera que sea. Recuerda, &eacute;stos est&aacute;n en
+el sistema de la coordenada local del <STRONG>ProximitySensor</STRONG>, que ser&aacute;
+relativo al centro del sensor.
+</P><PRE>ProximitySensor {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; center&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enabled&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isActive
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; position_changed
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFRotation&nbsp; orientation_changed
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enterTime
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; exitTime
+}</PRE><P>
+Este mundo de <A HREF="../worlds/tut32c.wrl" TARGET="_new">ejemplo </a>(con
+el <A HREF="../source/tut32c.html">c&oacute;digo</a>) muestra un <STRONG>ProximitySensor
+</STRONG>en
+acci&oacute;n. Si el usuario se acerca a una cierta distancia de la caja,
+entra en el <STRONG>ProximitySensor </STRONG>y el sonido comienza. Cuando sale, se
+detiene. Este ejemplo usa las mismas asignaciones de ruta que en el ejemplo
+anterior, dirigiendo el <EM>enterTime </EM>y <EM>exitTime </EM>al
+<EM>startTime
+</EM>y <EM>stopTime </EM>del <STRONG>AudioClip.</STRONG>
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Collision</FONT></P><P>
+Este nodo quiz&aacute;s es ligeramente distinto de los que ya hemos visto.
+Se usa para detectar colisiones en las escenas, aunque tambi&eacute;n se
+puede usar como un sensor de colisiones para las animaciones. B&aacute;sicamente,
+es un nodo de agrupaci&oacute;n que puedes usar para habilitar o deshabilitar
+la detecci&oacute;n de colisiones entre el usuario y los children. Si su
+campo <EM>collide</EM> tiene el valor TRUE, la colisi&oacute;n ser&aacute;
+detectada, y el objeto parecer&aacute; s&oacute;lido. Si tiene el valor
+FALSE, no se comprobar&aacute;n las colisiones, y el usuario podr&aacute;
+atravesar directamente el objeto en cuesti&oacute;n. Tambi&eacute;n puedes
+especificar un campo <EM>proxy,</EM> que es un campo que puede usarse para
+la detecci&oacute;n de clisiones EN VEZ DE <EM>geometry</EM> en el campo
+<EM>children</EM>.
+Tiene los campos normales de cualquier nodo de agrupaci&oacute;n,
+<EM>addChildren</EM>,
+<EM>removeChildren</EM>, <EM>bboxCenter</EM>, y <EM>bboxSize.</EM> De momento
+no te preocupes por ellos. Luego los veremos con calma. La raz&oacute;n
+de incluir esto aqu&iacute; se encuentra en el eventOut <EM>collideTime.</EM>
+Puede usarse para activar eventos cuando el usuario colisiona con la geometria.
+Es un eventOut de SFTime, y se genera siempre que el usuario colisione
+con la geometr&iacute;a apropiada (<EM>ni&ntilde;os </EM>o <EM>proxy</EM>),
+con el valor del tiempo en que la colisi&oacute;n ocurri&oacute;.
+</P><PRE>Collision {
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addChildren
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; removeChildren
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; children&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; collide&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; bboxCenter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0
+&nbsp;&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; bboxSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1 -1 -1
+&nbsp;&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; proxy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; collideTime
+}</PRE><P>
+El nodo <STRONG>Collision </STRONG>puede ser muy &uacute;til para acelerar la velocidad
+de representaci&oacute;n. Si por ejemplo tienes un objeto con una geometr&iacute;a
+muy compleja, puedes sustituir la colisi&oacute;n con ese objeto por la
+colisi&oacute;n con una simple caja asign&aacute;ndosela, simplemente,
+al campo proxy. Esto reducir&aacute; el realismo ligeramente, pero aumentar&aacute;
+la velocidad hasta extremos impensables. Puedes tambi&eacute;n utilizar
+el campo <EM>proxy</EM> para poner l&iacute;mites a ciertas partes del mundo,
+por ejemplo, colocando una pared invisible que el usuario no sea capaz
+de traspasar. Esto har&aacute; tus escenas mucho m&aacute;s sencillas de
+explorar y usar.
+<p>Este <A HREF="../worlds/tut32d.wrl" TARGET="_new">ejemplo </a>y su <A HREF="../source/tut32d.html">c&oacute;digo
+</a>demuestran
+el uso del nodo <STRONG>Collision </STRONG>como sensor, pero tambi&eacute;n c&oacute;mo
+la geometr&iacute;a del proxy y el campo <EM>collision</EM> afectar&aacute;n
+a tus escenas. La esfera cian de la izquierda tiene el campo <EM>collision</EM>
+puesto a FALSE. La esfera magenta lo tiene a TRUE y su <EM>collideTime </EM>est&aacute;
+dirigido al <EM>startTime </EM>del <STRONG>AudioClip</STRONG> de manera que suene una
+vez al detectar la colision. La esfera amarilla de la derecha tiene en
+su proxy una caja de 4 metros. El <EM>collideTime
+</EM>de este nodo est&aacute;
+dirigido a un <STRONG>AudioClip diferente.</STRONG> Fijate en que no puedes aproximarte
+a la esfera amarilla a tanta distancia como a la magenta antes e que se
+oiga el sonido, y que ya no puedes aproximarte m&aacute;s.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Ara&ntilde;&eacute;moslos, Jim</FONT></P><P>
+Bueno, esto fue todo para los sensores medioambientales por el momento.
+En el pr&oacute;ximo cap&iacute;tulo cubriremos los sensores de tipo "point
+device", con los que podremos tomar y controlar datos por parte del usuario.
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut31.html','tut33.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

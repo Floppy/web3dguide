@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,Viewpoint, camera, orientation, look, see, view, Peek, Vapour,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>La Guia de VRML de Floppy - VRML97 Tutorial 7: El punto de vista</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">&iexcl;Yo puedo Ver Mi Casa Desde Aqu&iacute;!</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut17.html','tut22.html');
+</SCRIPT>
+</P><P>
+En la segunda parte de este Tutorial, voy a cubrir c&oacute;mo puedes hacer
+que tus escenas luzcan m&aacute;s realistas. Esto cubre las c&aacute;maras,
+luces, sonido, fondos, y muchas otras cosas. Lo primero, sin embargo, es
+anular el punto de entrada predefinido y echar un ojo a las c&aacute;maras.
+<p>Los navegadores de VRML crean un punto de entrada predefinido para una
+escena que normalmente est&aacute; a lo largo del eje +Z a la distancia
+necesaria para que todo el mundo se despliegue en la ventana. Sin embargo,
+podr&iacute;as no querer empezar desde esta posici&oacute;n, o podr&iacute;as
+querer que el espectador pudiera seleccionar uno de varios puntos de vista.
+Para hacer esto,&nbsp; debes poner c&aacute;maras extras en tu escena usando
+el nodo <STRONG>Viewpoint.</STRONG>
+<p>El nodo<STRONG>Viewpoint</STRONG> tiene varios campos. El primero es el campo
+<STRONG>position </STRONG>que es un <STRONG>SFVec3f </STRONG>(es decir, un triple valor de
+punto flotante que representan la posici&oacute;n de X, Y y Z). Esto define
+la posici&oacute;n de la c&aacute;mara en el mundo. El pr&oacute;ximo es
+el campo <STRONG>orientation </STRONG>que es un SFRotation. Este tiene tres n&uacute;meros
+de punto flotante que definen la rotaci&oacute;n de la c&aacute;mara, de
+la misma manera que una rotaci&oacute;n normal. La <STRONG>orientation </STRONG>predefinida
+est&aacute; mirando en la direcci&oacute;n de -Z con +X al derecho y +Y
+encima.
+<p>El pr&oacute;ximo campo es <STRONG>fieldOfView. </STRONG>Este es un n&uacute;mero
+de punto flotante en radianes entre 0 y pi, definiendo el angulo del campo
+visual. Esto se muestra en el diagrama debajo. Los valores m&aacute;s peque&ntilde;os
+corresponden a un campo estrecho de vista, dando un efecto de teleobjetivo,
+mientras los &aacute;ngulos m&aacute;s grandes dan un efecto de lente gran
+angular. El valor por defecto es 0.78 radi&aacute;n, que da un campo de
+vista normal.
+<br><IMG SRC="../pics/fov.gif" height=200 width=320 ALT="FOV">
+<p>El nodo <STRONG>Viewpoint </STRONG>tambi&eacute;n tiene un campo <STRONG>description
+</STRONG>que el navegador puede usar para desplegar una descripci&oacute;n de
+la c&aacute;mara. Es un campo <STRONG>SFString.</STRONG> La sintaxis completa para
+el nodo<STRONG>Viewpoint</STRONG> es algo como esto:
+</P><PRE>Viewpoint {
+&nbsp;&nbsp; position 0 5 5
+&nbsp;&nbsp; orientation 1 0 0 0.39
+&nbsp;&nbsp; fieldOfView 0.39
+&nbsp;&nbsp; description "Camara 1"
+}</PRE><P>
+Esto define una c&aacute;mara en 0 5 5 mirando hacia abajo ligeramente
+a 22.5 grados, con un FOV estrecho, y una descripci&oacute;n "C&aacute;mera
+1"
+<p>Puedes usar diferentes c&aacute;maras para crear entradas diferentes
+a tu escena. Especificando el nombre de la c&aacute;mara en un v&iacute;nculo
+de la p&aacute;gina, esa c&aacute;mara se utiliza en la entrada a la escena.
+Por ejemplo, para entrar en una escena en una c&aacute;mara llamada "CAM1"
+tu podrias vincularla as&iacute;:
+</P><PRE>world.wrl#CAM1</PRE><P>
+Esto significa que la c&aacute;mara ha sido previamente DEFinida para llamarse
+CAM1. La descripci&oacute;n se usa en el navegador, pero este m&eacute;todo
+usa el nombre especificado en DEF.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Fuera de Pel&iacute;cula</FONT></P><P>
+El navegador empezar&aacute; viendo tu mundo en la primera c&aacute;mara
+que &eacute;l encuentre en el archivo, as&iacute; que aseg&uacute;rate
+que el punto de entrada predefinido sea el primero que escribas en el archivo.
+Otra peque&ntilde;a cosa , planear los Viewpoint puede ser un poco dificil,&nbsp;
+ya que puedes saber donde esta tu c&aacute;mara , y a donde quieres mirar,
+pero puede ser dif&iacute;cil encontrar la orientaci&oacute;n correcta.
+Hay sin embargo, una herramienta en <A HREF="http://www.vapourtech.com/" TARGET="_top">Vapour
+Technology</a> que puede hacer todo por ti llamada <A HREF="http://www.vapourtech.com/dev/vrmltools.php#Peek" TARGET="_top">Peek</a>.
+Quiza podr&iacute;as encontrarlo &uacute;til mientras estes haciendo esta
+clase de cosas.
+<p>Eso es todo con las c&aacute;maras, simple y bello. Tu puedes observar
+mi mundo con tres camaras pulsando en uno de los vinculos que hay debajo.
+<EM>Entrar&aacute;s</EM> a puntos de entrada diferentes dependiendo en qu&eacute;
+enlace pulses.
+<br><A HREF="../worlds/tut21.wrl#norm" TARGET="_new">Normal View</a>
+<br><A HREF="../worlds/tut21.wrl#aerial" TARGET="_new">Aereal View</a>
+<br><A HREF="../worlds/tut21.wrl#headcam" TARGET="_new">HeadCam View</a>
+<br><A HREF="../source/tut21.html">El c&oacute;digo</a>
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut17.html','tut22.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

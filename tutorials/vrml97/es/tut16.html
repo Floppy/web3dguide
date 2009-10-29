@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,Anchor, WWWAnchor, link,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>La Guia de VRML de Floppy - VRML97 Tutorial 5: Anchor</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">&iexcl;Fuera de Mi Tierra!</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut15.html','tut17.html');
+</SCRIPT>
+</P><P>
+Este va a ser muy corto, dado que convertir cualquier cosa en un vinculo
+es muy muy simple. &iexcl;Estupendo, no vamos a tener mucho para escribir!
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Anchor</FONT></P><P>
+Tu cuando navegas entre p&aacute;ginas VRML lo haces de la misma manera
+que en HTML . Tienes un objeto que, cuando el usuario pulsa sobre &eacute;l,
+lo lleva a otra p&aacute;gina. En VRML, esto se hace con el nodo <STRONG>Anchor.</STRONG>
+</P><PRE>Anchor {
+&nbsp;&nbsp; children [
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; USE HEAD
+&nbsp;&nbsp; ]
+&nbsp;&nbsp; description "Vuelta al Tutorial"
+&nbsp;&nbsp; url "tut16.html"
+}</PRE><P>
+El nodo <STRONG>Anchor se </STRONG>activa siempre que se pulse el bot&oacute;n en
+uno de sus children, y abre la p&aacute;gina especificada en el <STRONG>url.</STRONG>
+El campo <STRONG>description </STRONG>es un texto que aparece en alguna parte del
+navegador cuando el rat&oacute;n est&eacute; encima del hipervinculo, igual
+que en HTML.
+<p>Hay un par de campos extras no mostrados arriba. Uno de &eacute;stos
+es el campo <STRONG>parameter </STRONG>que puede tomar informaci&oacute;n extra como
+el nombre del marco.
+</P><PRE>parameter [ "target=main_frame" ]</PRE><P>
+Hay tambi&eacute;n dos campos en relaci&oacute;n con los limites de las
+bounding box (las cajas contenedoras). &Eacute;stos campos se preocupan
+por crear una caja contenedora de los children, limitando al navegador
+de VRML para as&iacute;, acelerar sus c&aacute;lculos al representar la
+escena. Los dos campos son <STRONG>bboxCenter </STRONG>y <STRONG>bboxSize.</STRONG> Yo no me
+preocupar&iacute;a por ellos, pero si lo haces, estate seguro que las bounding
+box son tan grandes como para contener todos los children dentro de ella.
+Los dos campos toman valores X Y Z como argumentos.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Eso fue muy r&aacute;pido</FONT></P><P>
+&Eacute;so es todo. &iexcl;Guau! Echale una mirada ahora al mundo. Puedes
+pulsar el bot&oacute;n en la cabeza para regresar aqu&iacute;.
+<br><A HREF="../worlds/tut16.wrl" TARGET="_new">Tutorial Mundo 1.6</a> con
+su <A HREF="../source/tut16.html">c&oacute;digo.</a>
+<p>As&iacute; que ahora sabes bastante para crear un mundo utilizable y
+&uacute;til. Sin embargo vemos que no es <EM>muy </EM>excitante todav&iacute;a.
+Pronto cubriremos iluminaci&oacute;n, c&aacute;maras, animaci&oacute;n
+y scripting, y entonces empezaremos a ver material impresionante.
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut15.html','tut17.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

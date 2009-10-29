@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+	<meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,NavigationInfo, headlight, avatarSize, Avatar, speed, visibility limit,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+	<meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+	<title>Floppy's Web3D Guide - VRML97 Tutorial 2.8: NavigationInfo</title>
+	</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Ap&aacute;rtate, Que Yo Conduzco</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut27.html','tut29.html');
+</SCRIPT>
+</P><P>
+Muy bien, antes de meternos con la animaci&oacute;n, hay un nodo que he
+prometido cubrir antes de que sea demasiado tarde. Este es <STRONG>NavigationInfo</STRONG>,
+y puedes usarlo para cambiar el modo en que el usuario experimente tu escenario. Te
+permite personalizar varios par&aacute;metros del navegador relativos al
+usuario. Muchos navegadores permiten que el propio usuario los cambie,
+pero puedes decirle como debe dejarlos al entrar en tu escena. La definici&oacute;n
+es tal como sigue:
+</P><PRE>NavigationInfo {
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set_bind
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFFloat&nbsp;&nbsp;&nbsp;&nbsp; avatarSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [0.25, 1.6, 0.75]
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; headlight&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; speed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFString&nbsp;&nbsp;&nbsp; type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "WALK"
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; visibilityLimit&nbsp;&nbsp; 0.0
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isBound
+}</PRE><P>
+El nodo tiene dos eventos, <EM>set_bind</EM> y <EM>isBound</EM>. Esto es as&iacute;
+por que se trata de un nodo <STRONG>bindable.</STRONG> Esto es, en cualquier caso,
+algo que cubriremos posteriormente, en su propio cap&iacute;tulo. Por ahora,
+simplemente, ignoralos. El nodo es un nodo de raiz, de modo que puede ir
+en la cabeza de la jerarqu&iacute;a del grafo de la escena, de un nodo
+children, y as&iacute;. Si tienes varios en un mismo archivo, s&oacute;lo
+uno podr&aacute; estar ligado en un momento dado (pero, una vez m&aacute;s,
+esto lo veremos m&aacute;s tarde). De momento, s&oacute;lo uno por archivo.
+Luego nos meteremos con material avanzado.
+<p>Las cosas que puedes manipular est&aacute;n representadas por los campos
+de nodo. El primero que veremos es <EM>headlight</EM>. El usuario puede cambiarlo,
+pero tu puedes especificar el que est&eacute; por defecto. Si no especificas
+lo contrario, un archivo VRML tiene por defecto su valor a ON, lo cual
+es &uacute;til para escenas sin iluminar. Pero, en mundos elaboradamente
+iluminados, resulta innecesario e irritante. As&iacute; que puedes apagarla
+poniendola a FALSE en tu nodo <STRONG>NavigationInfo</STRONG>. Puedes especificar
+adem&aacute;s un l&iacute;mite de visivilidad (<EM>visibilityLimit</EM>)
+a tu mundo. Esta es la distancia desde el usuario tras la cual nada ser&aacute;
+dibujado en pantalla. Puedes usarlo para aumentar la velocidad de ejecuci&oacute;n
+en escenarios muy grandes. Si est&aacute; determinado a 0 0 0 (tal y como
+viene por defecto), no habr&aacute; limite de visibilidad. El siguiente
+campo es <EM>speed</EM>. Es un multiplicador que el navegador usa para determinar
+la velocidad del usuario mientras se mueve. Como algunos navegadores pemiten
+velocidades variables, esto es una indicaci&oacute;n al navegador para
+indicar cu&aacute;n r&aacute;pido puede moverse el usuario. Un valor de
+3.0 permitir&aacute; al usuario moverse tres veces m&aacute;s r&aacute;pido
+de lo normal. Una velocidad de 0.5 dividir&aacute; su velocidad.
+<p>el campo <EM>type </EM>es el que determina como se mueve el uusuario a
+trav&eacute;s de tu mundo. El campo campo puede tomar diferentes valores.
+Estos son:
+<ul>
+<li>
+"WALK", Donde el usuario camina normalmente siendo afectado por la gravedad,</li>
+
+<li>
+"FLY", donde el usuario se mueve sin ser afectado por la gravedad,</li>
+
+<li>
+"EXAMINE", donde el usuario permanece inmovil, pero puede rotar el mundo
+para verlo desde distintos &aacute;ngulos, y</li>
+
+<li>
+"NONE", donde el usuario no tiene control de movimiento en absoluto.</li>
+</ul>
+Puedes ver distintos estilos en los cuatro escenarios de abajo. Podr&aacute;s
+darte cuenta de que WALK y FLY son exactamente lo mismo, con la diferencia
+de que WALK nunca te levantar&aacute; del suelo, mientras que FLY si.
+<br><A HREF="../worlds/tut28a.wrl" TARGET="_new">"WALK"</a> (<A HREF="../source/tut28a.html">c&oacute;digo</a>)
+<br><A HREF="../worlds/tut28b.wrl" TARGET="_new">"FLY"</a> (<A HREF="../source/tut28b.html">c&oacute;digo</a>)
+<br><A HREF="../worlds/tut28c.wrl" TARGET="_new">"EXAMINE"</a> (<A HREF="../source/tut28c.html">c&oacute;digo</a>)
+<br><A HREF="../worlds/tut28d.wrl" TARGET="_new">"NONE"</a> (<A HREF="../source/tut28d.html">c&oacute;digo</a>)
+<p>La elecci&oacute;n del tipo de navegaci&oacute;n da una gran flexibilidad
+en c&oacute;mo puede usarse el VRML. Con el campo a WALK o FLY, podr&aacute;s
+tener la cl&aacute;sica senscai&oacute;n de mundo virtual. Con EXAMINE
+podr&aacute;s tener un modelo de un coche u otro producto, de manera que
+pueda examinarse f&aacute;cilemente. Finalmente, con NONE, podr&aacute;s
+poner al usuario a mirar lo que pones en frente suya. Puede ser usada para
+pel&iacute;culas 3D, animaciones, o anuncios. El logo de la <A HREF="http://web3d.vapourtech.com/" target="_blank">p&aacute;gina
+principal</a> del tutorial usa este modo de interacci&oacute;n.
+<p>Lo &uacute;ltimo que tenemos que tratar es el campo <EM>avatarSize</EM>.
+Te permite determinar el espacio f&iacute;sico de la presencia del usuario
+(o <EM>avatar</EM>) en el mundo. Tiene tres valores de escala. Estos representan,
+en orden, al avatar:
+<ul>
+<li>
+radio,</li>
+
+<li>
+altura de los ojos,</li>
+
+<li>
+altura de las rodillas.</li>
+</ul>
+<P>
+El avatar se trata como una forma cilindrica para la detecci&oacute;n de
+las colisiones. El cilindro tiene unas proporciones tal y como se muestra
+en el diagrama inferior:
+</P>
+<IMG SRC="../pics/avatar.gif" height=200 width=320 ALT="Avatar">
+<P>
+El radio y la altura total son bastante evidentes, pero la altura de
+las rodillas requiere una peque&ntilde;a explicaci&oacute;n. Cuando el
+usuario est&aacute; en modo WALK, puede subir y bajar escaleras, pero sus
+pasos estar&aacute;n condicionados por la altura de sus rodillas. El avatar
+s&oacute;lo podr&aacute; subir escalones de altura inferior a la de sus
+rodillas. Esto te permite crear escalones adecuados, mientras siguen existiendo
+muros que el usuario no puede escalar.
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut27.html','tut29.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

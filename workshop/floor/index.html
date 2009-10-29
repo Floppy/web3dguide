@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - VRML Infinite Floor Workshop</TITLE>
+<META NAME="DESCRIPTION" CONTENT="Guide to the world of VRML, with one of the best tutorials on the web.">
+<META NAME="KEYWORDS" CONTENT="VRML, VRML97, Virtual Reality Modeling Language,	Tutorial, Guide, 3D,
+				Infinite floor, infinite plane, textured floor,
+				Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,
+				Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+</HEAD>
+<BODY BGCOLOR='#DDDDDD' TEXT='#000000' LINK="#ff0000" ALINK="#ffff00" VLINK="#DD0000">
+<H1>How do I create an infinite textured floor?</H1>
+<P>
+In your worlds, you may want to create an infinite floor plane, stretching off in all directions as
+far as the user can travel. This workshop is going to go through the stages of creating such a
+surface, and then making sure the texturing works right.
+</P><P>
+First, imagine you have a world, in which there are a number of objects, and a floor plane. For the
+purposes of this workshop, we're going to work with a flat floor plane made out of a simple
+<STRONG>Box</STRONG> node. You can make more complex floors easily with the <STRONG>ElevationGrid</STRONG> node, but
+they will be more complex to make infinite. For the moment, let's assume we want a world with a flat
+floor plane.
+</P><P>
+'Simple!' you may shout, I'll just create a <EM>huge</EM> <STRONG>Box</STRONG> that extends further than the
+user will ever want to go. Well, there are a couple of disadvantages to that approach:
+</P><OL>
+<LI>You might get a really adventurous visitor, who decides to head off a light-year into the
+distance, where your <STRONG>Box</STRONG> runs out.
+<LI>Texturing such a huge object is going to give you problems in some way, either with a huge
+texture or a silly <STRONG>TextureTransform</STRONG>.
+<LI>Drawing the enourmous triangles that make up the object is bound to put a strain on your browser.
+</OL><P>
+There has to be a better way, so let's start thinking about it. First of all, let's create a simple
+world to try out our ideas on. We'll have a small ground plane, about 100 metres square, with a
+checkered texture on. We'll also have a few structures in the world, to give us an idea of how
+everything's moving. Take a look at this <A HREF="floor1.wrl" TARGET=_new>first world</A> and its
+<A HREF="floor1.html">code</A>, and get familiar with its layout and content.
+</P><P>
+The structures are just <STRONG>Sphere</STRONG>s, and the floor is just a <STRONG>Box</STRONG>. The texture is done with
+a single black & white checkered 128x128 PNG file, as shown below, but scaled down with a
+<STRONG>TextureTransform</STRONG>. The image is 128x128 because it's always a good idea to keep texture sizes
+to a power of 2. The hardware prefers it that way, apparently.
+</P><P>
+<IMG SRC="floor.gif" ALT="Floor" WIDTH=128 HEIGHT=128 BORDER=1>
+</P><P>
+OK, now we have our world, how are we going to improve it? Well, the first problem is that the user
+can walk off the edge of the floor. This is no good at all in an infinite floor, is it? So, what can
+we do. Well, we use the same technique as we used for the heads-up display, for making stuff move
+with the user, with a slight modification. If you haven't read the HUD workshop, <A
+HREF="../hud/index.html">have a read</A> now, you'll need to understand what's going on.
+</P><P>
+As for the HUD, we first of all need to detect the user's position in the world. This then needs to
+be fed into a <STRONG>Transform</STRONG> governing the position of the user-following geometry, in this case
+the floor. So, we add a ProximitySensor that follows the user, as explained in the previous workshop.
+However, we don't want the normal HUD behaviour exactly. When
+the user moves, we want the floor to follow him in the X and Z directions, but not the Y. So, we
+can't use the <EM>position_changed</EM> eventOut from the sensor to feed directly into the
+<STRONG>Transform</STRONG>, we have to add a little bit of scripting. We're also not going to bother dealing
+with the orientation of the user, as it turns out not to be necessary in the end. So, we need a
+script that removes the Y component of an SFVec3f event. This is fairly simple...
+</P><PRE>
+DEF FLOORPROC Script {
+   eventIn SFVec3f set_position
+   eventOut SFVec3f translation_changed
+   url "javascript:
+      function set_position(value,time) {
+         translation_changed.x = value.x;
+         translation_changed.z = value.z;
+      }
+   "
+}
+</PRE><P>
+This piece of code simply makes a new vector with the same X and Z values, but a Y value of 0. So,
+whenever the user moves, the floor will move with him, staying at the same Y position but moving in
+X and Z. Now we have all this in place, take a look at the <A HREF="floor2.wrl" TARGET=_new>second
+world</A> and its <A HREF="floor2.html">code</A>. In the code, notice the large
+<STRONG>ProximitySensor</STRONG>, the <STRONG>Script</STRONG> and the ROUTEs that have been added. In the world itself,
+notice how the floor moves with the user, even when the user moves up into the air.
+</P><P>
+Now, we have something of a strange effect here. The floor moves with the user, creating an infinite
+surface, but the texture does not. Also, we can still see the edges of our small piece of floor.
+We'll deal with these now. First, we add a <STRONG>Fog</STRONG> node to disguise the edge of the <STRONG>Box</STRONG>.
+If you don't want to do this, you could use a <STRONG>Cylinder</STRONG> instead of a <STRONG>Box</STRONG> to get rid of
+the visible corners. However, using fog also removes nasty aliasing effects of the floor texture. If
+you look at the first world, you'll see some nasty effects towards the edge of the <STRONG>Box</STRONG> as you
+move around; the fog obscures these, making your world more realistic. Now for the texture.
+</P><P>
+Notice that the <STRONG>TextureTransform</STRONG> we're using has a translation field, which takes a 2D
+translation for the texture on the surface. We could probably feed the same translation information
+(with a bit of processing) into the <STRONG>TextureTransform</STRONG> as we fed into the main floor
+<STRONG>Transform</STRONG>. Our updated script looks like this:
+</P><PRE>
+DEF FLOORPROC Script {
+   eventIn SFVec3f set_position
+   eventOut SFVec3f translation_changed
+   eventOut SFVec2f textureTranslation_changed
+   url "javascript:
+      function set_position(value,time) {
+         translation_changed.x = value.x;
+         translation_changed.z = value.z;
+         textureTranslation_changed.x = value.x / 100;
+         textureTranslation_changed.y = -value.z / 100;
+      }
+   "
+}
+</PRE><P>
+We need to invert the Z value, because of how we've positioned our box, and divide each component by 100
+to allow for the fact that the texture is mapped onto an area that is 100 by 100 before being scaled
+down.
+</P><P>
+Now that you understand that, take a look at the <A HREF="floor3.wrl" TARGET=_new>final world</A> in
+our sequence, and its <A HREF="floor3.html">code</A>. Notice the expanded script, the DEF name for
+the <STRONG>TextureTransform</STRONG> and the extra ROUTE. In the world, see how the texture appears to stay
+still as the user moves. You can check this by going up to one of the spheres and walking around it
+very slowly. You will see that the texture stays perfectly still relative to the real-world objects,
+giving a perfect illusion of an infinite, seamlessly-textured plane.
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="/utils/footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('/pics/menu_lit/workshop.gif','Workshop','../');
+</SCRIPT> 
+
+</BODY>
+</HTML>

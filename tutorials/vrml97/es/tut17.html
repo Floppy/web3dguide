@@ -1,0 +1,299 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,types, Events, ROUTE, TO, PROTO, EXTERNPROTO,SFBool, SFColor, MFColor, SFFloat, MFFloat, SFImage, SFInt32,MFInt32, SFNode, MFNode, SFRotation, MFRotation, SFString, MFString,SFTime, MFTime, SFVec2f, MFVec2f, SFVec3f, MFVec3f,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>La Guia de VRML de Floppy - VRML97 Tutorial 6: Los Tipos, los Eventos, RUTA, PROTO, EXTERNPROTO.</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Asuntos T&eacute;cnicos</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut16.html','tut21.html');
+</SCRIPT>
+</P><P>
+OK. Vamos a empezar a entrar ahora en el interior del VRML. Hemos cubierto
+hasta ahora los elementos escenciales, y continuaremos. Ahora, necesitamos
+empezar a ponernos serios sobre todo esto. Este cap&iacute;tulo va a entrar
+en detalles de tipos de campos y eventos que un nodo puede tener, y explica
+sobre el Prototyping (uso de protos o prototipos) que es &uacute;til para
+reusar el c&oacute;digo. Tambi&eacute;n cubriremos los "routes" que son
+la base para toda animaci&oacute;n en VRML. Realmente no vamos a aplicar
+este material hasta despu&eacute;s, pero es &uacute;til comenzar a conocerlo.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Fields &amp; Types</FONT></P><P>
+Entonces vale. Como probablemente sabr&aacute;s ya de los tutoriales anteriores,
+los archivos VRML consisten en grupos de nodos. Estos nodos tambi&eacute;n
+pueden contener otros nodos, y tambi&eacute;n puede contener campos. Cada
+campo tiene un tipo que gobierna qu&eacute; datos puede contener, y cu&aacute;ntos
+de &eacute;l. Hay varios tipos diferentes en VRML que se describen debajo.
+Ser&aacute; mejor que te acostumbres a &eacute;stos, porque voy a usarlos
+para describir los nodos de ahora en adelante.
+<dl>
+<dt>
+<STRONG>SFBool</STRONG></dt>
+
+<dd>
+Este es un valor booleano simple que puede tomar el valor "TRUE" o "FALSE".</dd>
+
+<dt>
+<STRONG>SFColor &amp; MFColor</STRONG></dt>
+
+<dd>
+Este campo contiene un color simple conformado por tres n&uacute;meros
+de punto flotante entre 0 y 1 que corresponden a los valores rojos, verdes
+y azules de ese color, por ejemplo 0 1 0 es verde. MFColor es un campo
+que contiene colores m&uacute;ltiples, por ejemplo [0 1 0, 1 0 0, 0 0 1].</dd>
+
+<dt>
+<STRONG>SFFloat &amp; MFFloat</STRONG></dt>
+
+<dd>
+SFFloat es un valor simple de punto flotante, por ejemplo 7.5. MFFloat
+son varios valores de punto flotante, por ejemplo [1.0, 3.4, 76.54].</dd>
+
+<dt>
+<STRONG>SFImage</STRONG></dt>
+
+<dd>
+SFImage es una imagen bidimensional, ya sea en color o gris. Consiste de:
+
+<ul>
+<li>
+Dos enteros, representando la anchura y altura de la imagen.</li>
+
+<li>
+Un entero que representa el n&uacute;mero de componentes en la imagen.
+1 es s&oacute;lo los niveles grises, 2 son grises con transparencia, 3
+son el color en RGB, y 4 son RGB con transparencia.</li>
+
+<li>
+Despu&eacute;s de &eacute;stos, hay <EM>anchura * altura </EM>en<EM> </EM>hexadecimales,
+consistiendo en 2 digitos para cada componente. As&iacute; que, 0xFF ser&iacute;a
+blanco en una imagen de un componente, y 0xFF00007F ser&iacute;a rojo medio
+transparente en una imagen del 4 componente.</li>
+</ul>
+Los pixeles se especifican de izquierda a derecha y de abajo hacia arriba.</dd>
+<dt>
+<STRONG>SFInt32 &amp; MFInt32</STRONG></dt>
+
+<dd>
+Uno solo o una lista de n&uacute;meros enteros de 32 bits. &Eacute;stos
+pueden estar en formato decimal o hexadecimal. Los n&uacute;meros en hexadecimal
+comienzan con el 0x, por ejemplo el 0xFF es 255 en decimal.</dd>
+
+<dt>
+<STRONG>SFNode &amp; MFNode</STRONG></dt>
+
+<dd>
+SFNode es un solo nodo, y MFNode es una lista de nodos. Nota que los campos
+<STRONG>children </STRONG>en muchos nodos es del tipo MFNode.</dd>
+
+<dt>
+<STRONG>SFRotation &amp; MFRotation</STRONG></dt>
+
+<dd>
+Estos campos especifican una rotaci&oacute;n sobre un eje. Esto es realizado
+por cuatro n&uacute;meros del punto flotante. Los primeros tres especifican
+las coordenadas X Y Z para el vector correspondiente al eje sobre el cual
+rotar, y el cuarto es el n&uacute;mero (&aacute;ngulo) en radi&aacute;nes
+para rotar. Para m&aacute;s explicaci&oacute;n ir a la secci&oacute;n de
+<STRONG>rotaci&oacute;n </STRONG>del <A HREF="tut13.html">cap&iacute;tulo 1.3.</a>
+SFRotation es un solo set de valores, MFRotation es una lista.</dd>
+
+<dt>
+<STRONG>SFString &amp; MFString</STRONG></dt>
+
+<dd>
+Este tipo contiene una lista de caracteres en el set de caracteres utf-8.
+ASCII es un subconjunto de utf-8, de modo que&nbsp; no necesitas preocuparte
+sobre car&aacute;cteres diferentes o algo as&iacute;. Un string (SFString)
+se especifica como "Hola", entre comillas. Una lista (MFString) se parecer&iacute;a
+a: ["Hola", "Mundo"].</dd>
+
+<dt>
+<STRONG>SFTime &amp; MFTime</STRONG></dt>
+
+<dd>
+Uno solo o una lista de valores de tiempo. Estos se especifican como n&uacute;meros
+de punto flotante que representan el n&uacute;mero de segundos transcurridos
+desde que pas&oacute; la medianoche del 1 de enero1970. Esto tendr&aacute;
+m&aacute;s sentido cuando&nbsp; cubramos los eventos.</dd>
+
+<dt>
+<STRONG>SFVec2f &amp; MFVec2f</STRONG></dt>
+
+<dd>
+Uno solo o una lista de vectores 2D. Un vector 2D es un par de n&uacute;meros
+de punto flotante.</dd>
+
+<dt>
+<STRONG>SFVec3f &amp; MFVec3f</STRONG></dt>
+
+<dd>
+Uno solo o una lista de vectores 3D. Un vector 3D es un triple de n&uacute;meros
+de punto flotante.</dd>
+</dl>
+<P>
+Ahora que conoces todos los tipos de valores que acepta campo y c&oacute;mo
+especificarlos, podemos seguir avanzando para cubrir los eventos. Estamos
+ahora en la fase donde necesitas alg&uacute;n tipo de referencia de nodos
+detallada. Tengo idea de hacer uno, pero no en este momento. Si usas Windows,
+consigue soporte del VRML Helpfile del Dr. Clue. Si no, puedes usar las
+especificaciones de VRML. Los dos se encuentran en la secci&oacute;n de
+<A HREF="http://web3d.vapourtech.com/links.php" target="_blank">Vinculos.</a>
+Tambi&eacute;n, verifica el VRML Repository para informaci&oacute;n.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Events</FONT></P><P>
+Mu bien, eventos. As&iacute; como los campos, la mayor&iacute;a de los
+nodos contienen <EM>eventos.</EM> Hay dos tipos de eventos, <STRONG>eventIn </STRONG>y
+<STRONG>eventOut.</STRONG> Los<STRONG> eventOut</STRONG>s<STRONG> </STRONG>son eventos emergentes (salientes)
+que generan informaci&oacute;n como el cambiar un valor o el tiempo de
+un clic del rat&oacute;n. Los<STRONG> eventIn</STRONG>s<STRONG> </STRONG>son eventos entrantes
+que aceptan informaci&oacute;n de fuera del nodo y hacen algo con &eacute;l.
+Cada evento tiene un tipo de dato asociado a &eacute;l, tal como fue descrito
+anteriormente.
+<p>Algunos nodos tienen campos que son <EM>exposed (expuestos).</EM> Esto
+significa que el nodo tiene dos eventos definidos para ese campo, <STRONG>set_nombredecampo
+</STRONG>y <STRONG>nombredecampo_changed.</STRONG> &Eacute;stos son un <STRONG>eventIn </STRONG>y
+<STRONG>eventOut </STRONG>para el campo que puede usarse para cambiar su valor y
+notificar al mundo externo cuando ha cambiado. Si tu usas <STRONG>set_nombredecampo
+</STRONG>para cambiar el valor del campo del evento, el nodo generar&aacute;
+un <STRONG>nombredecampo_changed.</STRONG> Para una facilidad de uso, el <STRONG>set_
+</STRONG>y <STRONG>_changed </STRONG>de los eventos puede omitirse, y el navegador trabajar&aacute;
+con el evento que est&aacute; us&aacute;ndose. Si un campo no es expuesto,
+no puede intercambiar eventos, y el valor en el archivo sera el usado en
+todo momento. Para ver qu&eacute; campos son los expuestos en cada nodo,
+ayudate con una gu&iacute;a de referencia de uno de los lugares en la pagina
+de los <A HREF="http://web3d.vapourtech.com/links.php" target="_blank">vinculos </a>, o
+echa una mirada a la <A HREF="nodes.html">referencia de nodos </a>en el apendice de este tutorial.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Routes</FONT></P><P>
+Para hacer cosas &uacute;tiles con los eventos, nosotros necesitamos unirlos
+de alg&uacute;n modo. Esta uni&oacute;n es conocida como <STRONG>ROUTE.</STRONG>
+Por ejemplo, para dirigir un <STRONG>touchTime eventOut </STRONG>a un <STRONG>startTime
+eventIn </STRONG>(por ejemplo para reproducir un sonido con un clic del rat&oacute;n),
+nosotros dirigir&iacute;amos el evento como sigue:
+</P><PRE>ROUTE SENSOR.touchTime TO SOUND.startTime</PRE><P>
+<IMG SRC="../pics/route.gif" height=200 width=320 ALT="Route">
+<p>As&iacute; que &eacute;ste trozo de c&oacute;digo dirigir&aacute; el
+evento del <STRONG>touchTime </STRONG>de un TouchSensor (que cubriremos luego) a
+un evento&nbsp; <STRONG>startTime </STRONG>en un nodo de sonido (que tambi&eacute;n
+cubriremos luego). Por consiguiente, cuando el TouchSensor es pulsado con
+el raton, el sonido se activar&aacute;. Necesitas usar DEF para cada nodo
+que precises dirigir hacia o desde, para que tengan nombres individuales.
+De esta manera el TouchSensor y el nodo del sonido se deber&iacute;an definir
+con un nombre.
+</P><PRE>DEF SENSOR TouchSensor {
+}
+
+
+DEF SOUND Sound {
+}</PRE><P>
+Excepto por el hecho de que deber&iacute;an contener campos, obviamente.
+Si tienes varios objetos con el mismo nombre (usando el USE), y ruteas
+hacia o desde ellos, todos los objetos seran afectados. Si quieres solo
+afectar a uno, le das un &uacute;nico nombre o usas un PROTO, como explico
+debajo.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+PROTO</FONT></P><P>
+Solo una cosa m&aacute;s para cubrir, y &eacute;se es el prototyping. Realmente
+no se relaciona con los eventos y rutas, pero ahora que he cubierto los
+campos, es m&aacute;s f&aacute;cil de explicar.
+<p>Prototyping (empleo de prototipos) es una manera de reusar tu codigo.
+Si deseas un n&uacute;mero de objetos del mismo tipo exacto,&nbsp; puedes
+usar DEF y USE. &iquest;Que pasa, sin embargo, si quieres varios objetos
+que son muy similares, pero con peque&ntilde;as diferencias, por ejemplo
+alturas diferentes? En ese caso, puedes usar PROTO. Para definir un prototipo,
+defines tu objeto, y defines campos y eventos para &eacute;l. Aqu&iacute;
+va un ejemplo de un PROTO para una caja con color variable.
+</P><PRE>PROTO VBox [
+&nbsp;&nbsp; field SFColor boxColour 1 0 0
+]
+{
+&nbsp;&nbsp; Shape {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; appearance Appearance {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; material Material {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; diffuseColor IS boxColour
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; geometry Box {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp; }
+}</PRE><P>
+El campo entre corchetes al comienzo de la declaraci&oacute;n es la interface
+para el objeto, y los n&uacute;meros son los valores predefinidos por el
+campo. Cuando el VBox se declara, el valor asignado al campo del boxColour
+se pone en el campo <STRONG>diffuseColor </STRONG>del nodo <STRONG>Material.</STRONG> Por consiguiente,
+para declarar un VBox rojo y un VBox verde, podemos usar el nuevo nodo
+de VBox en cualquier parte donde tengamos previamente definido un nodo
+<STRONG>Shape </STRONG>como VBox.
+</P><PRE>VBox { }
+
+
+VBox {
+&nbsp;&nbsp; boxColour 0 1 0
+}</PRE><P>
+El primer uso define un VBox rojo predefinido, el segundo da uno verde.
+Tu puedes definir eventIns, eventOuts y exposedFields para los prototipos
+de la misma manera, usando IS para trazar el campo del&nbsp; PROTO&nbsp;
+que desees cambiar al implementarlo en el mundo. Un campo PROTO tiene que
+ser trazado con el mismo tipo que field/event ( no puedes trazar un eventIn
+a un eventOut), y tambi&eacute;n tienen que ser datos del mismo tipo (no
+puedes rutear un SFTime a un SFFloat). La &uacute;nica excepci&oacute;n
+a esto es que puedes trazar un campo normal en la definici&oacute;n de
+PROTO a un exposedField en la implementaci&oacute;n, como un campo normal
+, un subconjunto de un exposedField. As&iacute;, trazandolos juntos los
+dos no se producen estragos. De todos modos, no lo puedes hacer de otra
+manera...
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+EXTERNPROTO</FONT></P><P>
+Si quieres definir PROTOs en alguna otra parte que no sea tu archivo principal,
+puedes usar EXTERNPROTO. Este dice al navegador que la mayor parte de la
+definici&oacute;n del objeto se encuentra en otro archivo. En tu archivo
+prinicpal, incluye la definici&oacute;n del EXTERNPROTO, y tienes el PROTO
+completo en otro archivo. La sintaxis de EXTERNPROTO se muestra debajo:
+</P><PRE>EXTERNPROTO VBox [
+&nbsp;&nbsp; field SFColor boxColour
+]
+"proto.wrl"</PRE><P>
+El archivo, "proto.wrl" en este caso, debe contener la cabecera VRML y
+las definiciones del prototipo, nada m&aacute;s. Si tienes m&aacute;s de
+un PROTO en el archivo, debe ras declarar cual estas usando, como esto:
+</P><PRE>"proto.wrl#VBox"</PRE><P>
+Piensa que no necesitas incluir los valores predefinidos en la definici&oacute;n
+de EXTERNPROTO, s&oacute;lo los tipos del campo. En lugar de un solo archivo,
+si quieres incluir mutiples opciones para la carga del archivo, puedes
+ponerlos entre corchetes:
+</P><PRE>EXTERNPROTO VBox [
+&nbsp;&nbsp; field SFColor boxColour
+]
+[
+&nbsp;&nbsp; "proto.wrl"
+&nbsp;&nbsp; "http://www.mydomain.com/protos/proto.wrl"
+]</PRE><P>
+
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Terminus</FONT></P><P>
+Puedes echar una mirada ahora al mundo si quieres. Yo he reemplazado las
+cuatro definiciones del cono con un PROTO, para que todos luzcan iguales,
+Esto hace al archivo m&aacute;s eficaz y ligeramente m&aacute;s peque&ntilde;o.
+<br><A HREF="../worlds/tut17.wrl" TARGET="_new">Tutorial Mundo 1.7 </a>+ el
+<A HREF="../source/tut17.html">c&oacute;digo.</a>
+<p>Eso es todo entonces. Usaremos todo este material de aqu&iacute; en
+adelante, mezcl&aacute;ndolo con animaci&oacute;n, scripting y cosas por
+el estilo. Antes de eso, en los pr&oacute;ximos dos cap&iacute;tulos yo
+voy a cubrir iluminaci&oacute;n, c&aacute;maras, sonido, y otros efectos
+elegantes para hacer tus mundos m&aacute;s realistas y &uacute;tiles.
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut16.html','tut21.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

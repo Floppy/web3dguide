@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - VRML HUD Workshop</TITLE>
+<META NAME="DESCRIPTION" CONTENT="Guide to the world of VRML, with one of the best tutorials on the web.">
+<META NAME="KEYWORDS" CONTENT="VRML, VRML97, Virtual Reality Modeling Language,	Tutorial, Guide, 3D,
+				VRML HUD, Heads-Up Display, workshop,
+				Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,
+				Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+</HEAD>
+<BODY BGCOLOR='#DDDDDD' TEXT='#000000' LINK="#ff0000" ALINK="#ffff00" VLINK="#DD0000">
+<H1>How do I create 'dashboard' or 'HUD' geometry in my worlds?</H1>
+<P>
+One effect that can be useful in designing VRML worlds, and that also shows the approach to take
+when designing, is the Heads Up Display (HUD) style geometry, variously know as dashboard geometry
+and probably many other names. The general idea is to have geometry (objects) that follows the user
+around the world, always staying fixed relative to him. This is useful for many effects. You could
+have the dashboard of a car or plane, to give the appearance of driving around a world. You could
+place controls for the world on a control panel that stays with the user. You could have a message
+panel, like a pager, that is always visible.
+</P><P>
+So, how do we convince this geometry to follow the user? Well, first of all, we separate our world
+into sections. If you think about it, there are two main sections to a world containing a HUD. The
+first (and probably largest) section is the world itself. If you had no HUD this would be the entire
+world. However, we need another section independent of this containing the HUD geometry. So, a good
+way to start is to create the basic structure for our world. We will have top-level information and
+a pair of grouping nodes, one for each part.
+</P><PRE>
+#VRML V2.0 utf8
+
+# Global objects
+WorldInfo {
+	title "Floppy's VRML Workshop HUD Example"
+	info ["(C) Copyright 1999 Vapour Technology"
+			"&#103;&#117;&#105;&#100;e&#64;&#119;e&#98;&#51;&#100;g&#117;i&#100;&#101;&#46;&#111;&#114;g&#46;&#117;&#107;"]
+}
+NavigationInfo {
+	headlight FALSE
+	type ["WALK", "ANY"]
+}
+
+# Real-World objects
+Group {
+	children [
+		# world geometry will go here
+	]
+}
+
+#HUD objects
+DEF HUD Transform {
+	translation 0 0 10
+	children [
+		# HUD geometry will go here
+	]
+}  
+</PRE><P>
+OK. At the top, we have a few global objects which don't really fit in either category, such as the
+<STRONG>NavigationInfo</STRONG> and <STRONG>WorldInfo</STRONG> nodes. Then we have a <STRONG>Group</STRONG> node that will contain
+the real world objects. Then, we have a <STRONG>Transform</STRONG>, which will contain the HUD objects. Now we
+need to think what we need in each section. Well, the real world is fairly easy. That is exactly the
+same as any normal world, except contained within the Group node (strictly, the Group node isn't
+necessary, but it makes things easier to explain and see). So, we're going to forget about the world
+and concentrate on the HUD geometry.
+</P><P>
+The first thing we need in our HUD is a <STRONG>Viewpoint</STRONG>. Now, the <STRONG>Viewpoint</STRONG> can't actually
+be inside the HUD <STRONG>Transform</STRONG>, because it would send the user spinning off forever as soon as
+he moved, as you would get a loop of movements sending the user to infinity. So, we place the
+<STRONG>Viewpoint</STRONG> outside the <STRONG>Transform</STRONG>. However, we need to give the <STRONG>Transform</STRONG> the appropriate
+translation and rotation so that the HUD is in the correct position for the <STRONG>Viewpoint</STRONG>,
+otherwise the user won't see it until he moves. The next thing to consider is the fact that we don't
+want the HUD disappearing inside world objects. So, we need to make sure that the HUD is contained
+within the avatars' bounding box. For more information on this, read up on the NavigationInfo node.
+If you need a large HUD, it's a good idea to increase the avatar's size to surround it. This will
+make sure that the avatar collides with an object (and so can go no closer) before the HUD
+hits.
+</P><P>
+We've nearly got the complete structure of our HUD geometry. However, there's one more thing to
+consider. If the objects are inside the avatar's buonding box, the browser will think that the user
+has hit them and so will not allow him to move closer to them. As they are <EM>inside</EM> the user,
+the user cannot move. So, we need to turn off collision detection with the HUD. This is done with a
+<STRONG>Collision</STRONG> node with the collide field set to FALSE. So, this is the new structure of our HUD
+geometry.
+</P><PRE>
+#HUD objects
+DEF HUDVIEW Viewpoint {
+	description "HUD View"
+	position 0 0 10
+}
+DEF HUD Transform {
+	translation 0 0 10
+	children [
+		DirectionalLight {
+			ambientIntensity 0.8
+		}
+		Collision {
+			collide FALSE
+			children [
+				# Actual HUD objects go in here
+			]
+		}  
+	]
+}  
+</PRE><P>
+So, we have our HUD. I've put some lighting in there as well, otherwise with the headlight of you
+won't see it, which is no good. So, you put your HUD geomety inside the <STRONG>Collision</STRONG> node,
+making sure it is sufficiently close to the user to be enclosed inside the avatar.
+</P><P>
+Now, how do we make it move with the user. Well, the best way to do this is to have a 
+<STRONG>ProximitySensor</STRONG> at the global level. This will pick up the user's movements, generating
+events when he moves. These positions will be in the global system, suitable for ROUTEing to the HUD
+<STRONG>Transform</STRONG>. The <STRONG>ProximitySensor</STRONG> also picks up changes in orientation, so these can be
+routed to the <STRONG>Transform</STRONG> as well. Also, we will move the centre of the sensor as the user
+moves, so he can never move out of it. The ProximitySensor can therefore be quite small, as long as
+we position is in the same place as the user. The <STRONG>ProximitySensor</STRONG> with routing looks like this:
+</P><PRE>
+DEF SENSOR ProximitySensor {
+	size 10 10 10
+	center 0 0 10
+}
+
+ROUTE SENSOR.orientation_changed TO HUD.set_rotation
+ROUTE SENSOR.position_changed TO HUD.set_translation
+ROUTE SENSOR.position_changed TO SENSOR.set_center
+</PRE>
+<P>
+The events sent out from the sensor give us a global position and orientation for the user, which we
+feed back into the HUD <STRONG>Transform</STRONG>. This gives us geometry that always follows the user. And that, as
+they say, is it!
+</P><P>
+You can take a look at the <A HREF="hud.wrl" TARGET=_new>result</A> here, and take a look at the full <A
+HREF="hud.html">source</A> as well. The red, green and blue objects are in the real world,
+while the purple square is inside the HUD, so moves with the user.
+</P>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="/utils/footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('/pics/menu_lit/workshop.gif','Workshop','../');
+</SCRIPT> 
+
+</BODY>
+</HTML>

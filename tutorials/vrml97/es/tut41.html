@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guide, 3D,    VRML scripting with ECMAScript, VRML scripting with javascript,    javascript, vrmlscript:, VRMLScript,    Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,    Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>Tutorial de VRML de Floppy - VRML97 Cap&iacute;tulo 4.1: VRML Scripting con ECMAScript</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#BB0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">&iquest;M&aacute;s T&eacute;, Vicario?</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut38.html','tut42.html');
+</SCRIPT>
+</P><P>
+Fale. En las tres partes anteriores del tutorial, hemos cubierto la mayor&iacute;a
+de la especificaci&oacute;n del VRML97. Ahora nos movemos hacia un tema
+completamente nuevo. Nos desplazaremos fuera del lenguaje puramente descriptivo
+de VRML hacia la programaci&oacute;n secuencial. Vamos a aprender a usar
+la herramienta m&aacute;s poderosa en el todo de VRML97: el scripting.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+&iquest;Java, JavaScript, VRMLScript, o ECMAscript?</FONT></P><P>
+Hmmm. Parece como si hubi&eacute;ramos estado aqu&iacute; antes. Lo primero
+que necesitamos aclarar es la confusi&oacute;n sobre los nombres, para
+que sepamos lo sobre que estamos hablando.Estoy convencido de que ya ha
+oido hablar de Java Y Javascript. Java es un lenguaje de programaci&oacute;n
+completo multiplataforma creado por SUN. Escribes el c&oacute;digo, lo
+compilas en <EM>bytecode, </EM>y, a partir de ah&iacute;, puede ejecutarse
+en cualquier tipo de m&aacute;quina que con tal de que tenga una <EM>maquina
+virtual</EM> de Java instalada. Java es un idioma de programaci&oacute;n
+completamente desarrollado pensado para soportar grandes aplicaciones.
+JavaScript es un lenguaje desarrollado por Netscape con una sintaxis similar
+a Java (es decir, el lenguaje <EM>parece </EM>el mismo). Sin embargo, es
+mucho menos completo, y no se compila. Est&aacute; pensado para usarse
+como un "script", o "gui&oacute;n" dentro de una pagina Web. Consiste en
+un lenguaje capaz de integrar diversos objetos externos a &eacute;l, para
+proveerlos de una serie de funcionalidades que, por si mismos, no tendr&iacute;an.
+<p>De esta manera, vamos a conseguir relacionarlo con objetos propios de
+VRML. Cuando se propuso el VRML 2.0, se necesit&oacute; un lenguaje sencillo
+para poder integrar scripts. Evidentemente, dot&oacute; al VRML de soporte
+para Java, pero se quiso adem&aacute;s poder incluir soporte para un lenguaje
+sencillo, pensado para comportamientos de no mucha complejidad. As&iacute;,
+dado que no se necesitaban todos los elementos de JavaScript, se empez&oacute;
+creando una versi&oacute;n reducida del mismo, esencialmente con los componentes
+centrales del lenguaje. El navegador de VRML proveer&iacute;a a los objetos
+de interacci&oacute;n de la misma manera en que lo har&iacute;a un navegador
+web convencional. Esto es VRMLScript. Sin embargo, antes de que el VRML97
+fuera constituido como norma oficial, el propio JavaScript fue regularizado,
+y fue llamado ECMAScript. Viendo que era b&aacute;sicamente igual que VRMLScript,
+pero regularizado, VRMLScript se abandon&oacute;, y ahora VRML97 soporta
+s&oacute;lo Java y ECMAScript en el nodo <STRONG>Script.</STRONG>
+<p>Desgraciadamente, las cosas no son tan sencillas. No todos los navegadores
+se ajustan a la especificaci&oacute;n de ECMAScript. Muchos poseen las
+extensiones al lenguaje que se introdujeron en JavaScript 1.2, mientras
+algunos todav&iacute;a s&oacute;lo soportan VRMLScript b&aacute;sico. Es
+posible que tu c&oacute;digo no funcione de la misma manera en distintos
+navegadores, a no ser que se ajuste a la escecificaci&oacute;n del ECMAscript.
+As&iacute; que, en nuestras primeras aventuras con scripts, s&oacute;lo
+voy a ense&ntilde;ar c&oacute;mo hacerlo con ECMAScript. Pasaremos despu&eacute;s
+a a Java. No es un paso grande, y, para los principiantes, es mucho mejor
+comenzar con ECMAScript .
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Usando ECMAScript en VRML</FONT></P><P>
+Debido a todo este jaleo, mientras que los navegadores apoyan ECMAScript
+en el nodo Script, todav&iacute;a tendr&aacute;s que usar "javascript:
+..." El protocolo de URL del que hemos hablado hace un par de cap&iacute;tulos.
+Tambi&eacute;n puedes incluir scripts de VRMLScript, empleando "vrmlscript:
+..." exactamente del mismo modo, pero dado que nos hemos fijado el estudio
+de ECMAscript, dejaremos esto aparcado por el momento. Por ahora, todos
+nuestros scripts se har&aacute;n con ECMAScript.
+<p>Es posible escribir el c&oacute;digo del script en un archivo distinto
+y posteriormente referenciarlo en el campo<EM> url </EM>del nodo <STRONG>Script</STRONG>.
+La extensi&oacute;n com&uacute;n para los archivos de c&oacute;digo ECMAScript
+es <EM>.js</EM>, por lo que tendr&iacute;amos un archivo llamado <EM>archivo.js.</EM>
+Sin embargo, vamos a usar durante alg&uacute;n tiempo el c&oacute;digo
+en el interior del mismo archivo, de modo que no te preocupes por ello
+todavia. Aunque es muy &uacute;til si tiene muchos nodos <STRONG>Script </STRONG>que
+usan el mismo c&oacute;digo.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+La Programaci&oacute;n secuencial en ECMAScript</FONT></P><P>
+Ahora, yo no puedo pretender ense&ntilde;arte todo el ECMAScript en este
+tutorial. &Eacute;sta es una gu&iacute;a did&aacute;ctica de VRML, por
+lo que todo lo que voy a ense&ntilde;ar son los fundamentos que necesita
+para hacer scripts en VRML. Cubriremos el material espec&iacute;fico para
+VRML. El resto de esta gu&iacute;a did&aacute;ctica va a ser en general
+una introducci&oacute;n b&aacute;sica a la programaci&oacute;n secuencial,
+y si ya conoce ECMAScript u otro idioma similar, probablemente querr&aacute;
+salt&aacute;rselo.
+<p>ECMAScript es un idioma de programaci&oacute;n <EM>secuencial.</EM>
+En esto es muy diferente al VRML, que es m&aacute;s <EM>descriptivo.</EM>
+VRML declara la definici&oacute;n de diversos objetos, cada uno de los
+cuales con distintos atributos, los cuales, en su conjunto, describen un
+mundo completo. Un programa de ECMAScript es una sucesi&oacute;n de &oacute;rdenes
+que se ejecutan en alg&uacute;n momento para dar lugar a los resultados
+deseados. Empezar&eacute; explicando unos conceptos b&aacute;sicos.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Las declaraciones, Variables y Funciones</FONT></P><P>
+Un programa de ECMAScript es una sucesi&oacute;n de <EM>sentencias, </EM>cada
+una de los cuales ejecutan ciertas &oacute;rdenes. Por ejemplo, la sentencia
+</P><PRE>x = a + b;</PRE><P>
+toma dos valores a y b, y los suma. El resultado es el valor llamado x.
+Lo primero que debemos notar es que todas las sentencias de ECMAscript
+acaban en punto y coma (;). Esto no es estrictamente necesario, pero te
+ahorrar&aacute;s problemas posteriores si acabas cada sentencia con un punto
+y coma. En la sentencia anterior, tiene tambi&eacute;n un ejemplo del pr&oacute;ximo
+concepto - las <EM>variables.</EM> Una variable es una manera de guardar
+datos en su programa. En ECMAScript, las variables pueden ser de varios
+tipos. &Eacute;stos son <EM>Undefined</EM>, <EM>Null</EM>, <EM>Boolean</EM>,
+<EM>Number</EM> o <EM>String</EM>. Los &uacute;nicos que deben preocuparnos
+por ahora son Boolean, Number y string. En la declaraci&oacute;n anterior,
+<EM>x, a</EM> y <EM>b</EM> son variables que guardan valores. As&iacute;, los
+valores de a y b se suman y el resultado se asigna a x. El igual simple
+(=) realmente no significa "Esto es igual a esto", sino, m&aacute;s exactamente,
+"t&oacute;ma el valor de lo de delante y as&iacute;gnaselo a lo de atr&aacute;s"
+para que x tome el valor de a m&aacute;s b. &iquest;Bien hasta ahora?
+</P><PRE>var x;
+x = 3;
+print(x);
+x = x * 5;
+print(x);
+
+</PRE><P>
+&Eacute;ste es un fragmento de c&oacute;digo ligeramente m&aacute;s complejo.
+En primer lugar, declaramos variable llamada x, usando la palabra <EM>var.</EM>
+Al igual que con los puntos y comas, esto es no siempre necesario, pero
+es buena idea usar <EM>var</EM> para<EM> </EM>declarar las variables con sus
+correspondientes nombres. Entonces, asignamos el n&uacute;mero 3 a x. Despu&eacute;s,
+usamos una <EM>funci&oacute;n </EM>llamada print para imprimir el valor de
+x. Esto imprimir&aacute; el n&uacute;mero 3. En la l&iacute;nea siguiente,
+asignamos a x el valor de x multiplicado por cinco. Dado que primero efectua
+las operaciones puestas en la derecha de la asignaci&oacute;n, x toma el
+valor de x (que es 3) por 5, dando el resultado de 15, que es lo que se
+imprime seg&uacute;n la sentencia siguiente. Hasta ahora es todo bastante
+razonable.
+<p>Ahora permite que echemos un vistazo a otro bloque: las <EM>funciones.</EM>
+Una funci&oacute;n es un fragmento de c&oacute;digo que realiza una determinada
+labor. El operador + es una funci&oacute;n, como lo era el print(x) del
+ejemplo anterior. Aunque se usan de manera diferente, son esencialmente
+lo mismo. Vamos a concentrarnos en el estilo del print(x) por ahora. Las
+funciones tienen dos cosas importantes: <EM>los par&aacute;metros </EM>y
+<EM>los valores que devuelven.</EM> Los par&aacute;metros son las variables
+que van dentro de los par&eacute;ntesis que pasas a la funci&oacute;n.
+Y cuando la funci&oacute;n se ejecuta, devuelve un valor (como si fuera
+una variable). &Eacute;ste es el valor del retorno. Imagina que tenemos
+una funci&oacute;n llamada <STRONG>cuadrado </STRONG>que toma un solo n&uacute;mero
+como un par&aacute;metro, lo multiplica por s&iacute; mismo, y devuelve
+el resultado de &eacute;sta operaci&oacute;n. Lo usar&iacute;amos as&iacute;:
+</P><PRE>var x, y;
+x = 3;
+y = cuadrado(x);</PRE><P>
+Al final de este fragmento de c&oacute;digo, x valdr&aacute; 3 e y valdr&aacute;
+9. Tambi&eacute;n aqu&iacute;, puedes ver c&oacute;mo podemos crear nuestras
+propias funciones en ECMAScript:
+</P><PRE>function cuadrado(valor) {
+&nbsp;&nbsp; var cuad;
+&nbsp;&nbsp; cuad = valor * valor;
+&nbsp;&nbsp; return cuad;
+}</PRE><P>
+La funci&oacute;n se declara usando la palabra <STRONG>function, </STRONG>seguido
+por el nombre de la funci&oacute;n, seguido por una lista de par&aacute;metros
+entre par&eacute;ntesis. Los par&aacute;metros dentro de los par&eacute;ntesis
+ser&aacute;n las variables accesible de dentro de la funci&oacute;n. Las
+sentencias que constituyen la funci&oacute;n se escriben dentro de las
+llaves. Dentro de la funci&oacute;n puedes ver la declaraci&oacute;n de
+una variable, la asignaci&oacute;n de esa variable, y la declaraci&oacute;n
+del <EM>return.</EM> Esto hace hace de la variable cuad el valor de retorno
+de la funci&oacute;n, y la finaliza. La &uacute;ltima l&iacute;nea en cualquier
+funci&oacute;n debe ser la declaraci&oacute;n del valor de retorno.
+<p>Bueno, esto ha cubierto mucho en un espacio muy corto. En el pr&oacute;ximo
+tema voy a cubrir las estructuras b&aacute;sicas que puede usar en ECMAScript,
+como los bucles, sentencias condicionales, operadores, y objetos. &iexcl;Nos
+vemos all&iacute;!
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut38.html','tut42.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

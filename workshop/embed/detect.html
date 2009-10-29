@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - VRML Plugin Detector</TITLE>
+<META NAME="ROBOTS" CONTENT="NOINDEX,NOFOLLOW">
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+<!--
+function DetectNetscape() {
+	var retVal = 0;
+	var version = parseFloat(navigator.appVersion);
+	if (version>=3) {
+		var plugin = navigator.mimeTypes["model/vrml"];
+		if (plugin != null) {
+			retVal = 1;
+		}
+	}
+	return retVal;
+}
+function DetectIE() {
+	var retVal = 0;
+	var version = parseFloat(navigator.appVersion);
+	if (version>=2) {
+		var pluginArray = (new VBArray(GetPluginArray())).toArray();
+		for (i = 0; i < pluginArray.length; i++) {
+			if (pluginArray[i]==true) retVal = 1;
+		}
+	}
+	return retVal;
+}
+// -->
+</SCRIPT>
+<SCRIPT TYPE="text/vbscript" LANGUAGE="VBScript">
+<!--
+function GetPluginArray()
+	On error resume next
+	pluginArray = Array(false,false,false,false)
+	' Detect Cortona
+	pluginArray(0) = NOT IsNull(CreateObject("Cortona.Control"))
+	' Detect Blaxxun CC3D
+	pluginArray(1) = NOT IsNull(CreateObject("blaxxunCC3D.blaxxunCC3D"))
+	' Detect Cosmo Player 1 & 2
+	pluginArray(2) = NOT IsNull(CreateObject("SGI.CosmoPlayer.1"))
+	pluginArray(3) = NOT IsNull(CreateObject("SGI.CosmoPlayer.2"))
+	' Detect Pivoron Player
+	pluginArray(4) = NOT IsNull(CreateObject("Nexternet.NexternetPlayer.1"))
+	' Return
+	GetPluginArray = pluginArray
+end function
+// -->
+</SCRIPT>
+</HEAD>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+<P>
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+<!--
+var browser = navigator.appName;
+var displayVRML = 0;
+
+if (browser=="Netscape") displayVRML = DetectNetscape();
+else if (browser=="Microsoft Internet Explorer") displayVRML = DetectIE();
+
+if (displayVRML==1) {
+	document.writeln("Congratulations, you have a VRML plugin!");
+}
+else {
+	document.writeln("You do not have a supported VRML plugin, or you're using an unsupported browser! Shame!");
+}
+// -->
+</SCRIPT>
+<NOSCRIPT>
+Your browser does not support scripts! VRML detection cannot execute!
+</NOSCRIPT>
+<P>
+Click here to return to the <A HREF="index.html">workshop</A>.
+</P>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="/utils/footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('/pics/menu_lit/workshop.gif','Workshop','../');
+</SCRIPT> 
+
+</BODY>
+</HTML>

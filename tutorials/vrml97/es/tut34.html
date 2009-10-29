@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guide, 3D,    ColorInterpolator, CoordinateInterpolator, NormalInterpolator,    OrientationInterpolator, PositionInterpolator, ScalarInterpolator,    Interpolators, animation,     Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,    Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>El Web3D Guide de disco blando - VRML97 Gu&iacute;a did&aacute;ctica 3.4: ColorInterpolator, CoordinateInterpolator, NormalInterpolator, OrientationInterpolator, PositionInterpolator, ScalarInterpolator,</title>
+</HEAD>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#BB0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Inbetweener</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut33.html','tut35.html');
+</SCRIPT>
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Interpoladores y Animaci&oacute;n</FONT></P><P>
+Muy bien, ahora vamos a aprender algo sobre los nodos interpoladores. Son
+muy inportantes para las animaciones, y en cambio son muy sencillos. El
+concepto general es que se usan para cambiar determinados valores seg&uacute;n
+pasa el tiempo. Dependiendo del valor que desees cambiar, usar&aacute;s
+uno de los seis tipos distintos de interpoladores que existen. Dado que
+son muy similares, los cubriremos de pasada, y tendremos un gran ejemplo
+al final.
+<p>Usar&aacute;s interpoladores cuando quieras cambiar el valor de un campo
+cada determinado tiempo. Un interpolador toma la se&ntilde;al de un <STRONG>TimeSensor</STRONG>,
+y realiza una interpolaci&oacute;n linear entre un juego de valores llamado
+<EM>keyValues.</EM> Para cada keyValue hay una <EM>key </EM>(clave) que es
+una fracci&oacute;n de 0 a 1. Ahora, como recordar&aacute;s, un <STRONG>TimeSensor</STRONG>
+env&iacute;a eventos <EM>fraction_changed </EM>tan regularmente como puede.
+Esto puede dirigirse al eventIn <EM>set_fraction </EM>de un interpolador
+para llevarlo al punto correcto del ciclo de la interpolaci&oacute;n. As&iacute;,
+si diriges un <STRONG>TimeSensor </STRONG>con un <EM>cycleInterval </EM>de 10 a un
+interpolador, este pasar&aacute; por cada clave cada 10 segundos.
+<p>Cada vez que un interpolator recibe un eventIn, genera un eventOut con
+el valor interpolado apropiado. Esto puede dirigirse a algun campo del
+tipo apropiado para cambiar su valor. As&iacute;, la cadena de la animaci&oacute;n
+global para un interpolator se parece el diagrama debajo. Este diagrama
+usa un <STRONG>OrientationInterpolator</STRONG> y un nodo <STRONG>Transform</STRONG> para demostrar
+el esquema del ROUTE.
+<br><IMG SRC="../pics/interpolator.gif" height=103 width=320 ALT="Interpolator">
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Tipos de Interpoladores</FONT></P><P>
+Vale, echemos un vistazo a los nodos mismos. Puedes usarlos en cualquier
+sitio, al principio del archivo, dentro de un nodo <STRONG>Transform</STRONG>, donde
+sea. Como est&aacute;n completamente involucrados en el mecanismo de la
+animaci&oacute;n, pueden entrar en cualquier parte de la jerarqu&iacute;a
+de la escena, no importa d&oacute;nde.
+<p>Todos los nodos tienen los mismos campos, pero con tipos diferentes
+para el <EM>keyValue</EM> y el eventOut <EM>value_changed.</EM> As&iacute;
+que primero tendremos un eventIn <EM>set_fraction </EM>que recibe los eventos
+de un <STRONG>TimeSensors </STRONG>o de otra parte. Este lleva a la fase actual del
+ciclo de la animaci&oacute;n, y determina hasta qu&eacute; punto de la
+interpolaci&oacute;n hemos llegado. El pr&oacute;ximo campo es <EM>key.</EM>
+Es una sucesi&oacute;n de n&uacute;meros de 0 a 1 correspondiendo a los
+puntos clave en la animaci&oacute;n. As&iacute;, si en fracci&oacute;n
+0 quieres un cierto valor de posici&oacute;n, y quieres ir cambi&aacute;ndolo
+para las fracciones 0.5 y 1.0, debes tener un campo <EM>key</EM> de [0, 0.5,
+1], en el que cada n&uacute;mero representa un fragmento de cada keyframe.
+Cada key (o clave) tiene una entrada correspondiente en el campo <EM>keyValue</EM>,
+por lo que, si seguimos el ejemplo anterior (usando un <STRONG>ScalarInterpolator
+</STRONG>que interpola valores SFFloat), podr&iacute;amos tener un campo <EM>keyValue
+</EM>de [0.0, 10.0, 0.0]. En fragmento 0, el valor enviado ser&iacute;a
+0.0, en 0.5 ser&iacute;a 10.0, y en 1 estar&iacute;a de nuevo a 0.0. Entre
+estas <EM>key</EM>s el valor se interpola linealmente, por lo que en la fracci&oacute;n
+0.25, el valor estar&aacute; en 5.0. Este valor es la salida de datos a
+lo largo del eventOut siempre que se reciba un evento <EM>set_fraction</EM>.
+<p>Los interpoladores permiten especificar los "fotogramas" clave en una
+animaci&oacute;n y el navegador gestiona todos los pasos intermedios para
+generar la animaci&oacute;n. Esto permite una definici&oacute;n concisa
+y simple de la animaci&oacute;n. Una cosa importante que debes recordar
+es que si quieres una animaci&oacute;n c&iacute;clica, deber&aacute;s tener
+el mismo valor en la fracci&oacute;n 1 que en la 0. Si no, la animaci&oacute;n
+saltar&aacute; bruscamente de la &uacute;ltima clave a la primera. Ahora,
+echemos un vistazo a los tipos de valores que podemos interpolar con cada
+nodo.
+</P><PRE>ColorInterpolator {
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFFloat&nbsp; set_fraction
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFFloat&nbsp; key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFFloat&nbsp; keyValue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFFloat&nbsp; value_changed
+}</PRE><P>
+El primero es <STRONG>ColorInterpolator.</STRONG> Como es evidente, interpola valores
+triples de color RGB. Los colores se declaran en el campo <EM>keyValue </EM>de
+la misma manera en que especificar&iacute;as cualquier campo MFColor. Si
+quisieras un color que pasara de verda a rojo, pasando por azul, deber&iacute;as
+usar algo como lo siguiente (piensa en que esta animaci&oacute;n, de ser
+c&iacute;clica, tendr&iacute;a un salto brusco del final al principio):
+</P><PRE>key [0, 0.5, 1]
+keyValue [0 0 1, 0 1 0, 1 0 0]</PRE><P>
+Esto es lo que hay. En el fondo, el resto de los nodos interpoladores son
+el mismo nodo continuamente, pero con diferentes valores para el campo
+<EM>keyValue.</EM> De todos modos, vamos a detenernos en ellos.
+</P><PRE>CoordinateInterpolator {
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFFloat&nbsp; set_fraction
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFFloat&nbsp; key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFVec3f&nbsp; keyValue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFVec3f&nbsp; value_changed
+}</PRE><P>
+Bueno, aunque antes he dicho que todos eran iguales, hay que decir que
+este es un poco diferente. Este, en lugar de enviar un solo valor, env&iacute;a
+muchos al mismo tiempo. Esto es para que puedas interpolar muchas coordenadas
+(un <STRONG>IndexedFaceSet</STRONG> entero) de una sola pasada. Para hacer esto,
+el n&uacute;mero de coordenadas del campo <EM>keyValue </EM>tiene que ser
+un m&uacute;ltiplo exacto del n&uacute;mero de <EM>key</EM>s. Este n&uacute;mero
+de coordenadas ser&aacute; lanzado al mismo tiempo. Piensa que debes guardar
+el orden de las coordenadas cada vez, o tu objeto resutar&aacute; francamente
+extra&ntilde;o.
+</P><PRE>NormalInterpolator {
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFFloat&nbsp; set_fraction
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFFloat&nbsp; key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFVec3f&nbsp; keyValue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFVec3f&nbsp; value_changed
+}</PRE><P>
+Como antes, este nodo env&iacute;a muchos normales al tiempo, por distintos
+motivos. La salida de datos del nodo deben ser varios valores de normales,
+para poder manejar todos los normales de un solo objeto a la vez.
+</P><PRE>OrientationInterpolator {
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; set_fraction
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFFloat&nbsp;&nbsp;&nbsp;&nbsp; key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFRotation&nbsp; keyValue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFRotation&nbsp; value_changed
+}</PRE><P>
+Esto interpola valores de rotaci&oacute;n, y es conveniente dirigirlo al
+<EM>set_rotation</EM> de un nodo <STRONG>Transform</STRONG>.
+</P><PRE>PositionInterpolator {
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFFloat&nbsp; set_fraction
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFFloat&nbsp; key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFVec3f&nbsp; keyValue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp; value_changed
+}</PRE><P>
+De nuevo, esto interpola valores de posiciones tridimensionales, y puede
+dirigirse al <EM>set_translation</EM> de un <STRONG>Transform.</STRONG> Sin embargo,
+puedes dirigirlo hacia cualquier eventIn que acepte valores SFVec3f.
+</P><PRE>ScalarInterpolator {
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFFloat&nbsp; set_fraction
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFFloat&nbsp; key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFFloat&nbsp; keyValue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFFloat&nbsp; value_changed
+}
+
+</PRE><P>
+Este nodo interpola valores de coma flotante. Con esto, podr&iacute;as
+interpolar la intensidad de una luz, la transparencia de un objeto, o cualquier
+otro valor similar. Tambi&eacute;n puedes "invertir" un <STRONG>TimeSensor,
+</STRONG>interpolando entre 1 en la fracci&oacute;n=0 y 0 en la fracci&oacute;n=1.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Disco Duncan</FONT></P><P>
+Bueno, s&oacute;lo he hecho un <A HREF="../worlds/tut34.wrl" TARGET="_new">ejemplo</a>
+para este cap&iacute;tulo, pero contiene todos los tipos de interpoladores.
+Todos est&aacute;n dirigidos por el mismo <STRONG>TimeSensor</STRONG>, de modo que
+llevan el mismo ritmo. Los ejemplos se colocan alrededor del punto de entrada,
+para que puedas moverte entre ellos y verlos por separado. S&oacute;lo
+una nota r&aacute;pida, el <STRONG>ScalarInterpolator </STRONG>est&aacute; cambiando
+la intensidad de la iluminaci&oacute;n en el cilindro. El resto es bastante
+autoexplicativo. Deber&iacute;as mirar cuidadosamente el <A HREF="../source/tut34.html">c&oacute;digo</a>,
+dado que puede resultar un poco complejo.
+<p>Bien, con esto acabamos las funciones b&aacute;sicas para la animaci&oacute;n
+en VRML97. Ahora, uniendolo con el material que ya hemos cubierto, est&aacute;s
+en disposici&oacute;n de hacer cosas impresionantes. Sin embargo, todav&iacute;a
+queda material por cubrir. El pr&oacute;ximo cap&iacute;tulo, cubriremos
+los nodos bindable. &iexcl;Ser&aacute; divertido!
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut33.html','tut35.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

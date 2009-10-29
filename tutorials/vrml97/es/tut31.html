@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guide, 3D,    VRML animation, ROUTE, TO, eventIn, eventOut, animation,    Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,    Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>La Guia de VRML de Floppy - VRML97 tutorial 3.1: La Animaci&oacute;n en VRML, las Rutas, eventIns, eventOuts,</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#BB0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">&iexcl;M&aacute;s Potencia, Igor!</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut29.html','tut32.html');
+</SCRIPT>
+</P><P>
+Bien. Esta es la continuaci&oacute;n de las partes 1 y 2. La primera parte
+cubri&oacute; los elementos esenciales de VRML, para crear mundos VRML
+de poca complejidad. La segunda parte te ense&ntilde;&oacute; t&eacute;cnicas
+para hacer tus mundos m&aacute;s realistas, como la aplicaci&oacute;n de
+texturas y los objetos avanzados. Sin embargo, nuestros mundos todav&iacute;a
+son r&iacute;gidos. Esto se acab&oacute; de ahora en adelante, ya que vamos
+a cubrir las t&eacute;cnicas de animaci&oacute;n e interacci&oacute;n con
+el usuario. &iexcl;Si pensabas que lo que habias hecho hasta ahora era
+bueno, ag&aacute;rrate bien! &iexcl;Esto est&aacute; a punto de ponerse
+mucho m&aacute;s excitante!
+<p>Este primer cap&iacute;tulo de la tercera parte s&oacute;lo va a recordarte
+un par de cosas de lo visto hasta ahora, y a a&ntilde;adir un poco de detalle
+respecto al esquema b&aacute;sico de la interacci&oacute;n de VRML y el
+sistema de la animaci&oacute;n. Se explicar&aacute; correctamente m&aacute;s
+adelante, pero ahora vamos a ponernos en contexto, y a captar una primera
+idea de como trabaja VRML por dentro en estas cuestiones.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Conect&aacute;ndolo todo</FONT></P><P>
+VRML dej&oacute; de ser un lenguaje de programaci&oacute;n est&aacute;tico.
+Es algo que cambia, un ser vivo que puede recibir datos y reaccionar con
+distintas respuestas. Esto requiere un modelo interno de ejecuci&oacute;n,
+para gobernar c&oacute;mo cambian las cosas y en qu&eacute; orden lo hacen.
+Esto se hace conectando los nodos entre s&iacute;, proporcionando rutas
+a traves de las que puedan enviar y recibir mensaje. Estas rutas no se
+ven, no tienen ninguna representaci&oacute;n visible en tus mundos, pero
+integran los elementos constituyentes del modelo total, permitiendo efectos
+fant&aacute;sticos.
+<p>Casi todos los nodos poseen <STRONG>eventIns </STRONG>y <STRONG>eventOuts </STRONG>(eventos
+de entrada y de salida), y muchos tienen <STRONG>exposedFields.</STRONG> Es as&iacute;
+como los nodos se comunican con el exterior. Los<STRONG> eventIns </STRONG>son semejantes
+a receptores que escuchan los mensajes, llamados <STRONG>eventos</STRONG>, del exterior
+y los toman para procesarlos. Los <STRONG>eventOuts </STRONG>son transmisores que
+env&iacute;an los eventos producidos por el nodo al exterior. Los<STRONG> exposedFields
+</STRONG>son una combinaci&oacute;n de ambos. Se comportan como un campo ordinario,
+y poseen un <STRONG>eventIn </STRONG>llamado <EM>set_nombredecampo </EM>y un <STRONG>eventOut
+</STRONG>llamado <EM>nombredecampo_changed.</EM> En general, las partes <EM>set_
+</EM>y <EM>_changed </EM>no son necesarias, puedes usar simplemente el&nbsp;
+<EM>nombredecampo </EM>del <STRONG>exposedField </STRONG>y en ejecuci&oacute;n el navegador
+sabr&aacute; lo que quieres decirle.
+<p>Ahora, todo esto es in&uacute;til si tus <STRONG>eventOuts </STRONG>van a parar
+al espacio vac&iacute;o. No van a ning&uacute;n lado de esta manera. Necesitas
+conectar los nodos a traves de <STRONG>ROUTE (rutas)</STRONG>. &Eacute;stos son como
+ca&ntilde;er&iacute;as que encauzan los eventos de un <STRONG>eventOut </STRONG>hacia
+un <STRONG>eventIn.</STRONG> Puedes conectar muchos <STRONG>eventIns </STRONG>a un <STRONG>eventOut
+</STRONG>para hacer un efecto causado por muchos eventos distintos. Esto se
+llama <EM>fan-out.</EM> <EM>Fan-in </EM>tambi&eacute;n se permite, d&oacute;nde
+dos o m&aacute;s <STRONG>eventOuts </STRONG>alimentan a un <STRONG>eventIn.</STRONG> Sin embargo,
+esto es ligeramente peligroso. Si dos eventos llegan a un <STRONG>eventIn </STRONG>con
+el mismo time stamp (Ahora explicar&eacute; esto), los resultados son indefinidos,
+por lo que si debes usar Fan-in, ten cuidado para evitar esta situaci&oacute;n.
+<p>Por ejemplo, si tienes dos nodos, un <STRONG>TouchSensor </STRONG>(Luego lo veremos)
+y un nodo <STRONG>Sound</STRONG>, declarados DEF SENSOR y SONIDO respectivamente,
+puedes dirigir el <STRONG>eventOut </STRONG>del<STRONG> </STRONG><EM>touchTime<STRONG> </STRONG></EM>del
+nodo <STRONG>TouchSensor </STRONG>al <STRONG>eventOut </STRONG><EM>startTime<STRONG> </STRONG></EM>del
+nodo <STRONG>Sound,</STRONG> (por ejemplo para hacer sonar un click al pulsar con
+el rat&oacute;n). Usar&iacute;amos la siguiente l&iacute;nea de c&oacute;digo:
+</P><PRE>ROUTE SENSOR.touchTime TO SONIDO.startTime</PRE><P>
+<IMG SRC="../pics/route.gif" height=200 width=320 ALT="Route">
+<p>Cuando se pulsa con el rat&oacute;n sobre el TouchSensor, el sonido
+se ejecutar&aacute;. &iexcl;Aj&aacute;! &iexcl;Interacci&oacute;n! Como
+pr&aacute;ctica com&uacute;n, todas las declaraciones de ROUTE se agrupan
+al final del archivo en un grupo aparte. No pueden ir dentro de cualquier
+nodo, y estos est&aacute;n completamente aparte de las cosas que enrutan.
+Tambi&eacute;n debes saber que las Route pueden conectar s&oacute;lo eventos
+del mismo tipo, por lo que no puedes conectar un SFTime, por ejemplo, a
+un SFBool. Si necesitas hacer esto, debes hacer un peque&ntilde;o script
+que convierta un dato de un tipo a otro determinado.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Generando Eventos</FONT></P><P>
+As&iacute;, ahora que nosotros podemos dirigir eventos a trav&eacute;s
+de la escena, necesitamos saber un poco m&aacute;s sobre los eventos mismos.
+Los eventos son mensajes que ligan los elementos de la escena. Todo lo
+que se mueve o interact&uacute;a en VRML lo hace debido a los eventos.
+Son la clave de todo este asunto. Un evento posee dos partes: el propio
+mensaje, que es un valor o dato de un cierto tipo, y un time stamp, o estampa
+de tiempo. El valor del mensaje puede ser de cualquier tipo, por ejemplo
+SFTime, SFString, MFNode, cualquier cosa, lo que sea. Si los nodos pueden
+manejarlo, t&uacute; puedes enviarlos. La estampa de tiempo es un valor
+especial sobre el que no tienes ning&uacute;n control. Es un valor que
+corresponde al momento preciso en que el evento se produjo, no cuando el
+evento ocurri&oacute; para ser generado por el nodo. Los valores reales
+no son importantes, s&oacute;lo c&oacute;mo se relacionan con otros valores.
+Un evento con una estampa de tiempo posterior se define como como si ocurriera
+despu&eacute;s de otro con una estampa de tiempo anterior. En general,
+se procesan los eventos en orden del incremento de la estampa de tiempo.
+La estampa de tiempo no est&aacute; disponible al programador, y s&oacute;lo
+se usa internamente por el navegador.
+<p>Si un evento se genera, y esto causa otro evento en otro nodo, y as&iacute;
+continuamente una y otra vez, se dice que se est&aacute; produciendo una
+<EM>cascada de eventos.</EM> Todos los eventos en cascada tendr&aacute;n
+el <EM>mismo </EM>time stamp. Es decir, si el navegador emplea o
+consulta
+el time stamp, creer&aacute; que todos los eventos se han producido a la
+vez. Con un fan-in en un <STRONG>eventIn, </STRONG>si dos eventos se reciben con
+la misma estampa, los resultados son impredecibles. Pueden ser ignorados
+ambos, o realizarse ambos, o s&oacute;lo uno de ellos... no hay ninguna
+manera de saberlo, y variar&aacute; seg&uacute;n el navegador que se emplee.
+Sin embargo, y afortunadamente, casi la &uacute;nica manera de hacer esto
+es tener un fan-in dentro de una sola cascada de eventos, para que, con
+un estudio cuidadoso de la escena, estas situaciones pueden evitarse. Los
+bucles tambi&eacute;n pueden ocurrir en cascadas de eventos d&oacute;nde
+un evento causa otro, que a su vez, al volver, causa el primero. Esto tambi&eacute;n
+debe evitarse en la mayor&iacute;a de los casos. Sin embargo, si es necesario,
+puede usarse. El modelo de ejecuci&oacute;n permitir&aacute; s&oacute;lo
+1 evento con un timestamp particular enviado desde cada <STRONG>eventOut</STRONG>,
+por lo que si hay un bucle actuando no se ejecutar&aacute; continuamente,
+sino s&oacute;lo una vez. Esto es porque un bucle debe ser parte de una
+cascada de eventos, y dado que el segundo evento generado por el nodo tendr&aacute;
+la misma estampa de tiempo que el primero, no se enviar&aacute;. As&iacute;
+que, se permite el uso de bucles, pero probablemente no funcionar&aacute;n
+como esperas.
+<p>Los eventos iniciales (eventos no causados por otro en una cascada)
+s&oacute;lo puede generarse por nodos de tipo sensor y nodos <STRONG>Script.</STRONG>
+Otros nodos pueden generar eventos s&oacute;lo si reciben uno. Esto significa
+que los sensores y <STRONG>Scripts </STRONG>son la llave de la animaci&oacute;n y
+de la interacci&oacute;n en VRML. Los nodos que finalmente llevan a cabo
+la animaci&oacute;n real son los nodos interpoladores y <STRONG>Switch</STRONG>,
+as&iacute; como el <EM>exposedField </EM>en otros nodos. Hasta llegar a ellos
+hay sensores, <STRONG>Scripts, </STRONG>y cualquier otro elemento que forme parte
+de una estuctura compleja de animaci&oacute;n. El modelo VRML de animaci&oacute;n
+es, de hecho, muy poderoso, y sus posibilidades son pr&aacute;cticamente
+ilimitadas.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+&iexcl;Est&aacute; Vivo!</FONT></P><P>
+As&iacute;, el modelo de abajo parece bastante complejo. Un <STRONG>TouchSensor
+</STRONG>env&iacute;a un solo evento <EM>touchTime </EM>(SFTime) a un nodo <STRONG>Script
+</STRONG>siempre que se active. El nodo <STRONG>Script </STRONG>convierte el SFTime en
+un SFBool y manda el resultado (true o false) al campo <EM>enabled </EM>del
+<STRONG>TimeSensor </STRONG>que comenzar&aacute; entoces (o detendr&aacute;) su marcha.
+Mientras el <STRONG>TimeSensor </STRONG>est&aacute; habilitado (esto es, su campo
+enabled devuelve true) genera eventos continuamente para hacer variar el
+ciclo <STRONG>ColorInterpolator</STRONG> del <EM>diffuseColor </EM>de un objeto. Estos
+eventos del <STRONG>TimeSensor </STRONG>tambi&eacute;n llevan un <STRONG>PositionInterpolator</STRONG>
+que cambia el campo<EM> translation </EM>del nodo <STRONG>Transform</STRONG>. &iquest;ves?
+Simple. Es algo como...
+<br><IMG SRC="../pics/eventcascade.gif" ALT="{short description of image}" height=267 width=640>
+<p>Aprender&aacute;s m&aacute;s sobre los nodos involucrados m&aacute;s
+tarde, pero ahora conc&eacute;ntrate en las conexiones y el flujo de datos.
+&Eacute;stos son aqu&iacute; los elementos esenciales. Ahora sabes conectar
+los nodos entre s&iacute; para hacer comportamientos complejos, y c&oacute;mo
+y por qu&eacute; estos comportamientos se producen. Ahora, vamos a empezar
+con aspectos pr&aacute;cticos del asunto, empezando con algo de informaci&oacute;n
+sobre los sensores medioambientales.
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut29.html','tut32.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

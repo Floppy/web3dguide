@@ -1,0 +1,96 @@
+#VRML V2.0 utf8
+
+PROTO ProximityAnchor [
+  eventIn      MFString set_parameter
+  eventIn      MFString set_url
+  exposedField SFVec3f  center     0 0 0
+  exposedField SFVec3f  size       0 0 0
+  exposedField SFBool   enabled    TRUE
+  field        MFString parameter  []
+  field        MFString url        []
+  eventOut     MFString parameter_changed
+  eventOut     MFString url_changed
+]
+{
+  DEF SENSOR ProximitySensor {
+    center  IS center
+    size    IS size
+    enabled IS enabled
+  }
+  DEF ANCHOR Script {
+    eventIn      SFTime   trigger
+    eventIn      MFString set_parameter     IS set_parameter
+    eventIn      MFString set_URL           IS set_url
+    field        MFString parameter         IS parameter
+    field        MFString URL               IS url
+    eventOut     MFString parameter_changed IS parameter_changed
+    eventOut     MFString URL_changed       IS url_changed
+    url "javascript:
+      function set_parameter(value,time) {
+        parameter = value;
+        parameter_changed = value;
+      }
+      function set_url(value,time) {
+        URL = value;
+        URL_changed = value;
+      }
+      function trigger(value,time) {
+        Browser.loadURL(URL,parameter);
+      }
+    "
+  }
+  ROUTE SENSOR.enterTime TO ANCHOR.trigger
+}
+
+# Entry
+Viewpoint {
+  description "Entry"
+  position 0 1 5
+}
+
+#Navigation
+NavigationInfo {
+  type ["WALK"]
+}
+
+#Lighting
+DirectionalLight {
+  direction 0 -1 -1
+}
+
+# Floor
+Shape {
+  appearance Appearance {
+    material Material {
+      diffuseColor 0 0.5 0
+    }
+  }
+  geometry Box {
+    size 15 1e-8 15
+  }
+}
+
+# Cubicle
+Shape {
+  appearance Appearance {
+    material Material {
+      diffuseColor 1 0 0
+    }
+  }
+  geometry Extrusion {
+    ccw          FALSE
+    crossSection [0.5 0.5, 0.5 -0.5, -0.5 -0.5, -0.5 0.5, -0.6 0.5, -0.6 -0.6, 0.6 -0.6, 0.6 0.5, 0.5 0.5]
+    spine        [0 -0.1 0, 0 2 0]
+    beginCap     FALSE
+    endCap       FALSE
+    convex       FALSE
+  }
+}
+
+# Teleporter
+ProximityAnchor {
+  center    0 1 0
+  size      1 2 1
+  enabled   TRUE
+  url       "javascript:alert('Teleporter activated!')"
+}

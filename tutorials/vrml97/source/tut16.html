@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - VRML97 Tutorial: tut16.wrl</TITLE>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+</HEAD>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+ 
+ 
+<H1>tut16.wrl</H1>
+
+<PRE>
+<STRONG><FONT COLOR="#5F9EA0">#VRML V2.0 utf8
+</FONT></STRONG>
+<FONT COLOR="#DA70D6"><STRONG>WorldInfo</FONT></STRONG> {
+   title <FONT COLOR="#BC8F8F"><STRONG>&quot;Floppy's VRML97 Tutorial Example 1.6&quot;</FONT></STRONG>
+   info [<FONT COLOR="#BC8F8F"><STRONG>&quot;(C) Copyright 2000 Vapour Technology Ltd.&quot;</FONT></STRONG>
+         <FONT COLOR="#BC8F8F"><STRONG>&quot;&#103;&#117;&#105;&#100;e&#64;&#119;e&#98;&#51;&#100;g&#117;i&#100;&#101;&#46;&#111;&#114;g&#46;&#117;&#107;&quot;</FONT></STRONG>]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+   appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+      material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+         diffuseColor 0 0.5 0
+         emissiveColor 0 0.8 0
+         transparency 0.5
+      }
+   }
+   geometry <FONT COLOR="#DA70D6"><STRONG>Cylinder</FONT></STRONG> {
+      radius 0.35
+      height 3
+      bottom <STRONG><FONT COLOR="#A020F0">FALSE</FONT></STRONG>
+   }
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   translation 0 -2 0
+   children [
+      <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+         appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+            texture <FONT COLOR="#DA70D6"><STRONG>ImageTexture</FONT></STRONG> {
+               url <FONT COLOR="#BC8F8F"><STRONG>&quot;brick.jpg&quot;</FONT></STRONG>
+               repeatS <STRONG><FONT COLOR="#A020F0">TRUE</FONT></STRONG>
+               repeatT <STRONG><FONT COLOR="#A020F0">TRUE</FONT></STRONG>
+            }
+         }
+         geometry <FONT COLOR="#DA70D6"><STRONG>Box</FONT></STRONG> {
+            size 4 1 4
+         }
+      }
+   ]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   translation 1.6 -1 1.6
+   children [
+      <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+         appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+            material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> ICKLECONE <FONT COLOR="#DA70D6"><STRONG>Cone</FONT></STRONG> {
+            bottomRadius 0.3
+            height 1
+            bottom <STRONG><FONT COLOR="#A020F0">FALSE</FONT></STRONG>
+         }
+      }
+   ]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   translation -1.6 -1 -1.6
+   children [
+      <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+         appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+            material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> ICKLECONE
+      }
+   ]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   translation -1.6 -1 1.6
+   children [
+      <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+         appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+            material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> ICKLECONE
+      }
+   ]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   translation 1.6 -1 -1.6
+   children [
+      <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+         appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+            material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> ICKLECONE
+      }
+   ]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Anchor</FONT></STRONG> {
+   children [
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         translation 0 2.25 0
+         children [
+            <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+               appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                  texture <FONT COLOR="#DA70D6"><STRONG>ImageTexture</FONT></STRONG> {
+                     url <FONT COLOR="#BC8F8F"><STRONG>&quot;me.jpg&quot;</FONT></STRONG>
+                  }
+               }
+               geometry <FONT COLOR="#DA70D6"><STRONG>Sphere</FONT></STRONG> {
+                  radius 0.75
+               }
+            }
+         ]
+      }
+   ]
+   description <FONT COLOR="#BC8F8F"><STRONG>&quot;Back to the Tutorial&quot;</FONT></STRONG>
+   url <FONT COLOR="#BC8F8F"><STRONG>&quot;../tut16.html&quot;</FONT></STRONG>
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   translation 0 -2.2 2.01
+   children [
+      <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+         appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+            material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+               diffuseColor 0 1 0
+            }
+         }
+         geometry <FONT COLOR="#DA70D6"><STRONG>Text</FONT></STRONG> {
+            string <FONT COLOR="#BC8F8F"><STRONG>&quot;FloppyWorld&quot;</FONT></STRONG>
+            fontStyle <FONT COLOR="#DA70D6"><STRONG>FontStyle</FONT></STRONG> {
+               size 0.8
+               justify <FONT COLOR="#BC8F8F"><STRONG>&quot;MIDDLE&quot;</FONT></STRONG>
+            }
+         }
+      }
+   ]
+}
+</PRE>
+<ADDRESS>Generated by <A HREF="http://people.ssh.fi/mtr/genscript/">GNU enscript 1.6.1</A>.</ADDRESS>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('../pics/guidelogo.gif','Back',document.referrer, 'en', '..');
+</SCRIPT>
+
+</P>
+</BODY>
+</HTML>

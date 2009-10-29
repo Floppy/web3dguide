@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,Lighting, DirectionalLight, PointLight, SpotLight, headlight,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>Floppy's Web3D Guide - VRML97 Tutorial 2.6: DirectionalLight, PointLight, SpotLight</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Luz de mi Vida</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut25.html','tut27.html');
+</SCRIPT>
+</P><P>
+Este cap&iacute;tulo te lo dir&aacute; todo acerca de c&oacute;mo iluminar
+tus escenas. Hasta el momento hemos dejado la iluminaci&oacute;n por defecto
+(esto es, ninguna). La <EM>headlight</EM> establecida por defecto es TRUE,
+de modo que iluminamos nuestras escenas por una especie de faros de coche.
+Esto se acab&oacute;. Desde ahora, tus mundos quedar&aacute;n iluminados
+por un despliegue de efectos como no los has visto en la vida. Puede.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Iluminaci&oacute;n en VRML</FONT></P><P>
+Lo primero que hay que decir es c&oacute;mo funciona el modelo de iluminaci&oacute;n
+del VRML. Todas las luces tienen los siguientes campos: <EM>color</EM>, <EM>ambientIntensity</EM>,
+e <EM>intensity</EM>. Cada luz tiene una intensidad (intensity) con un valor
+entre 0 y 1 que determina su brillo. tambi&eacute;n tiene una intensidad
+ambiental (ambient intensity), de nuevo entre 0 y 1, que determina cuanta
+luz contribuye al ambiente general de la escena. Por este motivo, cuantas
+m&aacute;s luces haya en la escena, m&aacute;s iluminado quedar&aacute;
+el ambiente, lo que por otro lado es l&oacute;gico. una luz de ambiente
+(<EM>Ambient</EM>) es aquella que luce en todas las superficies de las escena,
+simulando provenir de otros objetos. Cada luz tiene adem&aacute;s un color
+asociado, que sorprendentemente es el color que emite. La luz directa emitida
+por su fuente es calculada con <STRONG>intensity * color</STRONG>. La luz ambiental
+que contribuye a la escena es&nbsp; <STRONG>ambientIntensity * color</STRONG>. Cada
+fuente de luz tiene adem&aacute;s un &aacute;rea de efecto, as&iacute;
+que recuerda mantener las proporciones de tus escenas. El m&eacute;todo
+para hacer esto varia entre los diferentes tipos.
+<p>La mayor&iacute;a de los navegadores VRML calculan la iluminaci&oacute;n
+desde cada esquina hasta la cara, e interpolando las sombras entre esos
+v&eacute;rtices. Esto significa que si tienes una cara gigantesca con una
+fuente de luz en el medio, y sus esquinas est&aacute;n muy distantes, NO
+conseguir&aacute;s un foco de luz en el centro, si no que quedar&aacute;
+uniformemente oscura. Esto es algo muy importante que hay que tener en
+mente. Otro punto importante es que las caras s&oacute;lo se iluminar&aacute;n
+si poseen un nodo <STRONG>Material.</STRONG> Los objetos con texturas no ser&aacute;n
+afectados por la iluminaci&oacute;n. Puedes crear texturas "pre-iluminadas"
+para conseguir este efecto. Otro detalle importante a recordar, es que
+por defecto los mundos VRML tienen el headlight del usuario en ON, con
+lo que iluminar&aacute;n all&aacute; donde miren. Esto puede perjudicar
+seriamente el cuidado que pongas en la iluminaci&oacute;n, as&iacute; que
+recuerda quitarlo si lo consideras necesario. Esto se hace insertando la
+l&iacute;nea <EM>headlight FALSE </EM>dentro de un nodo <STRONG>NavigationInfo,</STRONG>
+tal y como se muestra en el c&oacute;digo de abajo. Cubriremos este nodo
+en un cap&iacute;tulo posterior, pero por ahora, puedes incluirlo en tus
+archivos tal cual para eliminar la luz emitida por el usuario. Debe ir
+a la cabeza de la jerarqu&iacute;a el grafo de la escena, como <STRONG>WorldInfo.</STRONG>
+Volveremos a ello, no te preocupes.
+</P><PRE>NavigationInfo {
+&nbsp;&nbsp; headlight FALSE
+}</PRE><P>
+Tienes m&aacute;s informaci&oacute;n del modelo de iluminaci&oacute;n en
+la especificaci&oacute;n de VRML, incluida en la p&aacute;gina web de Vapourtech, <A HREF="http://www.web3d.org/technicalinfo/specifications/vrml97/part1/concepts.html#4.14">aqu&iacute;</a>,
+pero con esto puede ser suficiente para que vayas tirando. Te sugiero que
+te leas la especificaci&oacute;n del modelo de iluminaci&oacute;n antes
+de que hagas nada particularmente avanzado.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+DirectionalLight</FONT></P><P>
+Bien, pong&aacute;monos a trabajar. El primer nodo que cubriremos
+es <STRONG>DirectionalLight</STRONG>. Esta luz brilla desde una direcci&oacute;n
+uniformemente, como un haz de rayos paralelos. Da un efecto similar al
+del sol, donde todo es iluminado en la misma direcci&oacute;n. el nodo
+<STRONG>DirectionalLight</STRONG> no tiene una localizaci&oacute;n determinada en
+la escena, se limita a existir.
+<p>Ilumina todo aquello que sea child de su nodo padre, esto es, todo en
+su nivel jer&aacute;rquico hacia abajo. Este <A HREF="../worlds/tut26a.wrl" TARGET="_new">ejemplo</a>
+(<A HREF="../source/tut26a.html">c&oacute;digo</a>) muestra c&oacute;mo funciona.
+Ambas esferas son iluminadas por una luz verde desde atr&aacute;s, pero
+una, a la derecha, est&aacute; adem&aacute;s iluminada por una luz roja
+desde el frente. Esto es as&iacute; por que la luz verde est&aacute; en
+el nivel m&aacute;s alto de la jerarqu&iacute;a, as&iacute; que lo ilumina
+todo. La luz roja est&aacute; agrupada en el mismo nodo que la esfera que
+hace brillar. La otra esfera est&aacute; en un nivel distinto en el grafo
+de la escena, de manera que no queda iluminada. El siguiente diagrama lo
+ilustra todo.
+<p><IMG SRC="../pics/directional.gif" height=200 width=320 ALT="DirectionalLight">
+<p>El nodo <STRONG>DirectionalLight</STRONG> tiene los campos b&aacute;sicos de <EM>intensity</EM>,
+<EM>color</EM>,
+y <EM>ambientIntensity</EM>. Tiene adem&aacute;s un campo <EM>on</EM> cuyas
+valores varian de TRUE a FALSE, e indican si est&aacute; o no encendido
+el foco. Tiene un campo 
+<EM>direction</EM>, que es un vector que corresponde
+a la direcci&oacute;n hacia la que brilla. El valor por defecto es 0 0
+-1, indicando que la luz apunta desde +Z hacia el origen descendiendo
+el eje -Z. La definici&oacute;n completa del <STRONG>DirectionalLight</STRONG> se
+muestra abajo.
+</P><PRE>DirectionalLight {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; ambientIntensity&nbsp; 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFColor&nbsp;&nbsp;&nbsp;&nbsp; color&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 1 1
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; direction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 -1
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; intensity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; on&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+}</PRE><P>
+
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+PointLight</FONT></P><P>
+Un <STRONG>PointLight</STRONG> es una luz que emana de un punto particular en el
+espacio, difundiendose uniformemente en todas direcciones. Distintamente
+al <STRONG>DirectionalLight</STRONG>, este nodo tiene una posici&oacute;n en el espacio,
+especificada en su campo <EM>location</EM>. Este es el punto a partir del
+cual la luz emanar&aacute;. Hay un campo que determina su &aacute;rea de
+efecto, que es <EM>radius</EM>. El radio es la distancia m&aacute;xima dentro
+de la cual un objeto podr&aacute; ser iluminado. Dentro de este radio,
+la intensidad de la luz ser&aacute; afectada por una constante de atenuaci&oacute;n.
+Estos son 3 valores de coma flotante (almacenados como un SFVec3f) que
+afectan a la iluminaci&oacute;n seg&uacute;n la siguiente f&oacute;rmula:
+</P>
+<PRE>
+1 &#47; (attenuation[0] + attenuation[1]*r + attenuation[2]*r<SUP>2</SUP>)
+</PRE>
+<P>
+Esto significa que los 3 valores en el campo attenuation se usan como coeficientes
+en una f&oacute;rmula cuadrada por la intensidad de la luz a una distancia
+r. Est&aacute; en tus manos experimentar con este coeficiente. El valor
+por defecto, <STRONG>1 0 0</STRONG> , no ofrece atenuaci&oacute;n, dando un l&iacute;mite
+claro al efecto de la luz. Para hacer descender la iluminaci&oacute;n linealmente,
+debes tener una atenuaci&oacute;n en la forma <STRONG>0 x 0.</STRONG> Dejar&eacute;
+que experimentes, pero no sin dejarte antes un <A HREF="../worlds/tut26b.wrl" TARGET="_new">ejemplo</a>
+(<A HREF="../source/tut26b.html">c&oacute;digo</a>). El grupo de esferas de
+la izquierda est&aacute; iluminado por unas constantes de atenuaci&oacute;n
+de <STRONG>0 1 0,</STRONG> dando una atenuaci&oacute;n linear. El de la derecha,
+tiene uan atenuaci&oacute;n no linear de <STRONG>0 0 1</STRONG>, provocando que la
+luz caiga en un&nbsp; r<sup>2</sup>&nbsp; del camino. Recuerda que esto
+puede no verse correctamente en tu sistema, depende del sistema de render
+empleado por tu navegador. Direct3D parece que no soporta algunos efectos de iluminaci&oacute;n,
+de modo que no te preocupes si no puedes verlo, son las limitaciones de
+tu navegador. Te aseguro que funciona. De verdad.
+</P><PRE>PointLight {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; ambientIntensity&nbsp; 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; attenuation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 0 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFColor&nbsp;&nbsp;&nbsp;&nbsp; color&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 1 1
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; intensity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; location&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; on&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; radius&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100
+}</PRE><P>
+
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+SpotLight</FONT></P><P>
+El &uacute;ltimo nodo de iluminaci&oacute;n es <STRONG>SpotLight</STRONG>. &Eacute;ste
+define una luz de foco. Tiene todos los campos habituales de los nodos
+de iluminaci&oacute;n. Adem&aacute;s tiene los campos <EM>location</EM>,
+<EM>radius</EM>
+y <EM>attenuation</EM> . Y hacen exactamente lo mismo que hemos descrito
+anteriormente, dan una posici&oacute;n, un radio de acci&oacute;n y una
+atenuaci&oacute;n dentro de ese radio para la fuente de luz. Adem&aacute;s,
+tiene otros campos.&nbsp; <STRONG>SpotLight</STRONG> tiene tambi&eacute;n su posici&oacute;n
+determinada en el espacio, al igual que <STRONG>PointLight.</STRONG> eso si, dado
+que es un tipo de luz que ilumina en una direcci&oacute;n particular, igual
+que tiene <EM>location</EM>, tiene tambi&eacute;n un campo <EM>direction</EM>,
+que define la direcci&oacute;n hacia la que apunta.
+<p>Adem&aacute;s podemos especificar el tama&ntilde;o del foco producido
+por otros dos campos, <EM>beamWidth</EM> y <EM>cutOffAngle</EM>. Estos son
+&aacute;ngulos, que definen c&oacute;mo de ancha ser&aacute; la proyecci&oacute;n
+del foco, y cu&aacute;n r&aacute;pido deja de iluminar sus l&iacute;mites.
+Date cuenta de que <EM>cutOffAngle </EM>no tiene nada que ver con <EM>attenuation.
+attenuation </EM>determina c&oacute;mo cambia la luz en la direcci&oacute;n
+en la que brilla, y <EM>cutOffAngle </EM>determina como oscurece por los
+bordes del &aacute;rea iluminada. Por defecto, <EM>beamWidth</EM> es mayor
+que <EM>cutOffAngle, </EM>dando una apariencia afilada a los bordes del foco.
+Esto incrementa el trabajo de la representacion considerablemente. Este
+diagrama muestra como los campos 
+<EM>beamWidth</EM> y <EM>cutOffAngle</EM>
+afectan la apareincia del &aacute;rea iluminada.
+<p><IMG SRC="../pics/spotlight.gif" height=200 width=320 ALT="SpotLight">
+</P><PRE>SpotLight {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; ambientIntensity&nbsp; 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; attenuation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 0 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; beamWidth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.570796
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFColor&nbsp;&nbsp;&nbsp;&nbsp; color&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 1 1
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; cutOffAngle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.785398
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; direction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 -1
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; intensity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; location&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; on&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; radius&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100
+}</PRE><P>
+
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Cae la oscuridad</FONT></P><P>
+Es mejor recordar que si quieres cualquier tipo de efecto especial de luz
+en una superficie, como un foco con un borde suave, esa superficie debe
+estar compuesta por varios v&eacute;rtices y caras, dado que VRML ilumina
+a partir de los v&eacute;rtices. Esto es algo muy importante que debes
+recordar. Si tienes una luz iluminando una larga superficie, no conseguir&aacute;s
+el efecto que buscas. Adem&aacute;s, distintas librer&iacute;as de render
+soportan atenuaciones de luz de maneras distintas, de manera que el efecto
+cambiar&aacute; seg&uacute;n el navegador.Lo importante es experimentar,
+si es posible, en navegadores distintos. &iexcl;Hazlo! El pr&oacute;ximo
+cap&iacute;tulo, cubriremos texturas avanzadas, &iexcl;y seguiremos con
+la parte 3 y la animaci&oacute;n!
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut25.html','tut27.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

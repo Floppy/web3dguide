@@ -1,0 +1,639 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - VRML97 Node Reference</TITLE>
+<META NAME="DESCRIPTION" CONTENT="Guide to the world of VRML, with one of the best tutorials on the web.">
+<META NAME="KEYWORDS" CONTENT="VRML, VRML97, Virtual Reality Modeling Language,	Tutorial, Guide, 3D,
+				VRML node reference, reference, node reference, node syntax,
+				Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,
+				Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+</HEAD>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Quick Node Reference</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index.html','tut52.html','struct.html');
+</SCRIPT>
+</P><P>
+This reference shows the syntax for all the nodes in the VRML97 specification. Is shows eventIns, eventOuts, fields, and exposedFields for each node, together with their types and default
+values in each case.
+</P>
+<TABLE WIDTH=750>
+<TR ALIGN=CENTER><TD><A HREF="#Anchor">Anchor</A><TD><A HREF="#Appearance">Appearance</A><TD><A HREF="#AudioClip">AudioClip</A><TD><A HREF="#Background">Background</A><TD><A HREF="#Billboard">Billboard</A><TD><A HREF="#Box">Box</A>
+<TR ALIGN=CENTER><TD><A HREF="#Collision">Collision</A><TD><A HREF="#Color">Color</A><TD><A HREF="#ColorInterpolator">ColorInterpolator</A><TD><A HREF="#Cone">Cone</A><TD><A HREF="#Coordinate">Coordinate</A><TD><A HREF="#CoordinateInterpolator">CoordinateInterpolator</A>
+<TR ALIGN=CENTER><TD><A HREF="#Cylinder">Cylinder</A><TD><A HREF="#CylinderSensor">CylinderSensor</A><TD><A HREF="#DirectionalLight">DirectionalLight</A><TD><A HREF="#ElevationGrid">ElevationGrid</A><TD><A HREF="#Extrusion">Extrusion</A><TD><A HREF="#Fog">Fog</A>
+<TR ALIGN=CENTER><TD><A HREF="#FontStyle">FontStyle</A><TD><A HREF="#Group">Group</A><TD><A HREF="#ImageTexture">ImageTexture</A><TD><A HREF="#IndexedFaceSet">IndexedFaceSet</A><TD><A HREF="#IndexedLineSet">IndexedLineSet</A><TD><A HREF="#Inline">Inline</A>
+<TR ALIGN=CENTER><TD><A HREF="#LOD">LOD</A><TD><A HREF="#Material">Material</A><TD><A HREF="#MovieTexture">MovieTexture</A><TD><A HREF="#NavigationInfo">NavigationInfo</A><TD><A HREF="#Normal">Normal</A><TD><A HREF="#NormalInterpolator">NormalInterpolator</A>
+<TR ALIGN=CENTER><TD><A HREF="#OrientationInterpolator">OrientationInterpolator</A><TD><A HREF="#PixelTexture">PixelTexture</A><TD><A HREF="#PlaneSensor">PlaneSensor</A><TD><A HREF="#PointLight">PointLight</A><TD><A HREF="#PointSet">PointSet</A><TD><A HREF="#PositionInterpolator">PositionInterpolator</A>
+<TR ALIGN=CENTER><TD><A HREF="#ProximitySensor">ProximitySensor</A><TD><A HREF="#ScalarInterpolator">ScalarInterpolator</A><TD><A HREF="#Script">Script</A><TD><A HREF="#Shape">Shape</A><TD><A HREF="#Sound">Sound</A><TD><A HREF="#Sphere">Sphere</A>
+<TR ALIGN=CENTER><TD><A HREF="#SphereSensor">SphereSensor</A><TD><A HREF="#SpotLight">SpotLight</A><TD><A HREF="#Switch">Switch</A><TD><A HREF="#Text">Text</A><TD><A HREF="#TextureCoordinate">TextureCoordinate</A><TD><A HREF="#TextureTransform">TextureTransform</A>
+<TR ALIGN=CENTER><TD><A HREF="#TimeSensor">TimeSensor</A><TD><A HREF="#TouchSensor">TouchSensor</A><TD><A HREF="#Transform">Transform</A><TD><A HREF="#Viewpoint">Viewpoint</A><TD><A HREF="#VisibilitySensor">VisibilitySensor</A><TD><A HREF="#WorldInfo">WorldInfo</A>
+</TABLE>
+<HR>
+<a name="Anchor"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Anchor</FONT></A>
+<PRE><CODE>
+Anchor {
+   eventIn        MFNode      addChildren
+   eventIn        MFNode      removeChildren
+   exposedField   MFNode      children          []
+   exposedField   SFString    description       ""
+   exposedField   MFString    parameter         []
+   exposedField   MFString    url               []
+   field          SFVec3f     bboxCenter        0 0 0
+   field          SFVec3f     bboxSize          -1 -1 -1
+}
+</CODE></PRE>
+<a name="Appearance"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Appearance</FONT></A>
+<PRE><CODE>
+Appearance {
+   exposedField   SFNode      material          NULL
+   exposedField   SFNode      texture           NULL
+   exposedField   SFNode      textureTransform  NULL
+}
+</CODE></PRE>
+<a name="AudioClip"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">AudioClip</FONT></A>
+<PRE><CODE>
+AudioClip {
+   exposedField   SFString    description       ""
+   exposedField   SFBool      loop              FALSE
+   exposedField   SFFloat     pitch             1.0
+   exposedField   SFTime      startTime         0
+   exposedField   SFTime      stopTime          0
+   exposedField   MFString    url               []
+   eventOut       SFTime      duration_changed
+   eventOut       SFBool      isActive
+}
+</CODE></PRE>
+<a name="Background"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Background</FONT></A>
+<PRE><CODE>
+Background {
+   eventIn        SFBool      set_bind
+   exposedField   MFFloat     groundAngle       []
+   exposedField   MFColor     groundColor       []
+   exposedField   MFString    backUrl           []
+   exposedField   MFString    bottomUrl         []
+   exposedField   MFString    frontUrl          []
+   exposedField   MFString    leftUrl           []
+   exposedField   MFString    rightUrl          []
+   exposedField   MFString    topUrl            []
+   exposedField   MFFloat     skyAngle          []
+   exposedField   MFColor     skyColor          [0 0 0]
+   eventOut       SFBool      isBound
+}
+</CODE></PRE>
+<a name="Billboard"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Billboard</FONT></A>
+<PRE><CODE>
+Billboard {
+   eventIn        MFNode      addChildren
+   eventIn        MFNode      removeChildren
+   exposedField   SFVec3f     axisOfRotation    0 1 0
+   exposedField   MFNode      children          []
+   field          SFVec3f     bboxCenter        0 0 0
+   field          SFVec3f     bboxSize          -1 -1 -1
+}
+</CODE></PRE>
+<a name="Box"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Box</FONT></A>
+<PRE><CODE>
+Box {
+   field          SFVec3f     size              2 2 2
+}
+</CODE></PRE>
+<a name="Collision"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Collision</FONT></A>
+<PRE><CODE>
+Collision {
+   eventIn        MFNode      addChildren
+   eventIn        MFNode      removeChildren
+   exposedField   MFNode      children          []
+   exposedField   SFBool      collide           TRUE
+   field          SFVec3f     bboxCenter        0 0 0
+   field          SFVec3f     bboxSize          -1 -1 -1
+   field          SFNode      proxy             NULL
+   eventOut       SFTime      collideTime
+}
+</CODE></PRE>
+<a name="Color"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Color</FONT></A>
+<PRE><CODE>
+Color {
+   exposedField   MFColor     color             []
+}
+</CODE></PRE>
+<a name="ColorInterpolator"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">ColorInterpolator</FONT></A>
+<PRE><CODE>
+ColorInterpolator {
+   eventIn        SFFloat     set_fraction
+   exposedField   MFFloat     key               []
+   exposedField   MFFloat     keyValue          []
+   eventOut       SFFloat     value_changed
+}
+</CODE></PRE>
+<a name="Cone"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Cone</FONT></A>
+<PRE><CODE>
+Cone {
+   field          SFBool      bottom            TRUE
+   field          SFFloat     bottomRadius      1
+   field          SFFloat     height            2
+   field          SFBool      side              TRUE
+}
+</CODE></PRE>
+<a name="Coordinate"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Coordinate</FONT></A>
+<PRE><CODE>
+Coordinate {
+   exposedField   MFVec3f     point             []
+}
+</CODE></PRE>
+<a name="CoordinateInterpolator"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">CoordinateInterpolator</FONT></A>
+<PRE><CODE>
+CoordinateInterpolator {
+   eventIn        SFFloat     set_fraction
+   exposedField   MFFloat     key               []
+   exposedField   MFVec3f     keyValue          []
+   eventOut       MFVec3f     value_changed
+}
+</CODE></PRE>
+<a name="Cylinder"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Cylinder</FONT></A>
+<PRE><CODE>
+Cylinder {
+   field          SFBool      bottom            TRUE
+   field          SFFloat     height            2
+   field          SFFloat     radius            1
+   field          SFBool      side              TRUE
+   field          SFBool      top               TRUE
+}
+</CODE></PRE>
+<a name="CylinderSensor"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">CylinderSensor</FONT></A>
+<PRE><CODE>
+CylinderSensor {
+   exposedField   SFBool      autoOffset        TRUE
+   exposedField   SFFloat     diskAngle         0.262
+   exposedField   SFBool      enabled           TRUE
+   exposedField   SFFloat     maxAngle          -1
+   exposedField   SFFloat     minAngle          0
+   exposedField   SFFloat     offset            0
+   eventOut       SFBool      isActive
+   eventOut       SFRotation  rotation_changed
+   eventOut       SFVec3f     trackPoint_changed
+}
+</CODE></PRE>
+<a name="DirectionalLight"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">DirectionalLight</FONT></A>
+<PRE><CODE>
+DirectionalLight {
+   exposedField   SFFloat     ambientIntensity  0
+   exposedField   SFColor     color             1 1 1
+   exposedField   SFVec3f     direction         0 0 -1
+   exposedField   SFFloat     intensity         1
+   exposedField   SFBool      on                TRUE
+}
+</CODE></PRE>
+<a name="ElevationGrid"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">ElevationGrid</FONT></A>
+<PRE><CODE>
+ElevationGrid {
+   eventIn        MFFloat     set_height
+   exposedField   SFNode      color             NULL
+   exposedField   SFNode      normal            NULL
+   exposedField   SFNode      texCoord          NULL
+   field          MFFloat     height            []
+   field          SFBool      ccw               TRUE
+   field          SFBool      colorPerVertex    TRUE
+   field          SFFloat     creaseAngle       0
+   field          SFBool      normalPerVertex   TRUE
+   field          SFBool      solid             TRUE
+   field          SFInt32     xDimension        0
+   field          SFFloat     xSpacing          0.0
+   field          SFInt32     zDimension        0
+   field          SFInt32     zSpacing          0.0
+}
+</CODE></PRE>
+<a name="Extrusion"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Extrusion</FONT></A>
+<PRE><CODE>
+Extrusion {
+   eventIn        MFVec3f     set_crossSection
+   eventIn        MFRotation  set_orientation
+   eventIn        MFVec2f     set_scale
+   eventIn        MFVec3f     set_spine
+   field          SFBool      beginCap          TRUE
+   field          SFBool      ccw               TRUE
+   field          SFBool      convex            TRUE
+   field          SFFloat     creaseAngle       0
+   field          MFVec2f     crossSection      [1 1, 1 -1, -1 -1, -1 1, 1 1]
+   field          SFBool      endCap            TRUE
+   field          MFRotation  orientation       0 0 1 0
+   field          MFVec2f     scale             1 1
+   field          SFBool      solid             TRUE
+   field          MFVec3f     spine             [0 0 0, 0 1 0]
+}
+</CODE></PRE>
+<a name="Fog"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Fog</FONT></A>
+<PRE><CODE>
+Fog {
+   eventIn        SFBool      set_bind
+   exposedField   SFColor     color             1 1 1
+   exposedField   SFString    fogType           "LINEAR"
+   exposedField   SFFloat     visibilityRange   0
+   eventOut       SFBool      isBound
+</CODE></PRE>
+<a name="FontStyle"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">FontStyle</FONT></A>
+<PRE><CODE>
+FontStyle {
+   field          MFString    family            "SERIF"
+   field          SFBool      horizontal        TRUE
+   field          MFString    justify           "BEGIN"
+   field          SFString    language          ""
+   field          SFBool      leftToRight       TRUE
+   field          SFFloat     size              1.0
+   field          SFFloat     spacing           1.0
+   field          SFString    style             "PLAIN"
+   field          SFBool      topToBottom       TRUE
+}
+</CODE></PRE>
+<a name="Group"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Group</FONT></A>
+<PRE><CODE>
+Group {
+   eventIn        MFNode      addChildren
+   eventIn        MFNode      removeChildren
+   exposedField   MFNode      children          []
+   field          SFVec3f     bboxCenter        0 0 0
+   field          SFVec3f     bboxSize          -1 -1 -1
+}
+</CODE></PRE>
+<a name="ImageTexture"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">ImageTexture</FONT></A>
+<PRE><CODE>
+ImageTexture {
+   exposedField   MFString    url               []
+   field          SFBool      repeatS           TRUE
+   field          SFBool      repeatT           TRUE
+}
+</CODE></PRE>
+<a name="IndexedFaceSet"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">IndexedFaceSet</FONT></A>
+<PRE><CODE>
+IndexedFaceSet {
+   eventIn        MFInt32     set_colorIndex
+   eventIn        MFInt32     set_coordIndex
+   eventIn        MFInt32     set_normalIndex
+   eventIn        MFInt32     set_texCoordIndex
+   exposedField   SFNode      color             NULL
+   exposedField   SFNode      coord             NULL
+   exposedField   SFNode      normal            NULL
+   exposedField   SFNode      texCoord          NULL
+   field          SFBool      ccw               TRUE
+   field          MFInt32     colorIndex        []
+   field          SFBool      colorPerVertex    TRUE
+   field          SFBool      convex            TRUE
+   field          MFInt32     coordIndex        []
+   field          SFFloat     creaseAngle       0
+   field          MFInt32     normalIndex       []
+   field          SFBool      normalPerVertex   TRUE
+   field          SFBool      solid             TRUE
+   field          MFInt32     texCoordIndex     []
+}
+</CODE></PRE>
+<a name="IndexedLineSet"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">IndexedLineSet</FONT></A>
+<PRE><CODE>
+IndexedLineSet {
+   eventIn        MFInt32     set_colorIndex
+   eventIn        MFInt32     set_coordIndex
+   exposedField   SFNode      color             NULL
+   exposedField   SFNode      coord             NULL
+   field          MFInt32     colorIndex        []
+   field          SFBool      colorPerVertex    TRUE
+   field          MFInt32     coordIndex        []
+}
+</CODE></PRE>
+<a name="Inline"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Inline</FONT></A>
+<PRE><CODE>
+Inline {
+   exposedField   MFString    url               []
+   field          SFVec3f     bboxCenter        0 0 0
+   field          SFVec3f     bboxSize          -1 -1 -1
+}
+</CODE></PRE>
+<a name="LOD"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">LOD</FONT></A>
+<PRE><CODE>
+LOD {
+   exposedField   MFNode      level             []
+   field          SFVec3f     center            0 0 0
+   field          MFFloat     range             []
+}
+</CODE></PRE>
+<a name="Material"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Material</FONT></A>
+<PRE><CODE>
+Material {
+   exposedField   SFFloat     ambientIntensity  0.2
+   exposedField   SFColor     diffuseColor      0.8 0.8 0.8
+   exposedField   SFColor     emissiveColor     0 0 0
+   exposedField   SFFloat     shininess         0.2
+   exposedField   SFColor     specularColor     0 0 0
+   exposedField   SFFloat     transparency      0
+}
+</CODE></PRE>
+<a name="MovieTexture"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">MovieTexture</FONT></A>
+<PRE><CODE>
+MovieTexture {
+   exposedField   SFBool      loop              FALSE
+   exposedField   SFFloat     speed             1
+   exposedField   SFTime      startTime         0
+   exposedField   SFTime      stopTime          0
+   exposedField   MFString    url               []
+   field          SFBool      repeatS           TRUE
+   field          SFBool      repeatT           TRUE
+   eventOut       SFTime      duration_changed
+   eventOut       SFBool      isActive
+}
+</CODE></PRE>
+<a name="NavigationInfo"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">NavigationInfo</FONT></A>
+<PRE><CODE>
+NavigationInfo {
+   eventIn        SFBool      set_bind
+   exposedField   MFFloat     avatarSize        [0.25, 1.6, 0.75]
+   exposedField   SFBool      headlight         TRUE
+   exposedField   SFFloat     speed             1.0
+   exposedField   MFString    type              "WALK"
+   exposedField   SFFloat     visibilityLimit   0.0
+   eventOut       SFBool      isBound
+}
+</CODE></PRE>
+<a name="Normal"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Normal</FONT></A>
+<PRE><CODE>
+Normal {
+   exposedField   MFVec3f     vector            []
+}
+</CODE></PRE>
+<a name="NormalInterpolator"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">NormalInterpolator</FONT></A>
+<PRE><CODE>
+NormalInterpolator {
+   eventIn        SFFloat     set_fraction
+   exposedField   MFFloat     key               []
+   exposedField   MFVec3f     keyValue          []
+   eventOut       MFVec3f     value_changed
+}
+</CODE></PRE>
+<a name="OrientationInterpolator"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">OrientationInterpolator</FONT></A>
+<PRE><CODE>
+OrientationInterpolator {
+   eventIn        SFFloat     set_fraction
+   exposedField   MFFloat     key               []
+   exposedField   MFRotation  keyValue          []
+   eventOut       SFRotation  value_changed
+}
+</CODE></PRE>
+<a name="PixelTexture"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">PixelTexture</FONT></A>
+<PRE><CODE>
+PixelTexture {
+   exposedField   SFImage     image             0 0 0
+   field          SFBool      repeatS           TRUE
+   field          SFBool      repeatT           TRUE
+}
+</CODE></PRE>
+<a name="PlaneSensor"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">PlaneSensor</FONT></A>
+<PRE><CODE>
+PlaneSensor {
+   exposedField   SFBool      autoOffset        TRUE
+   exposedField   SFBool      enabled           TRUE
+   exposedField   SFVec2f     maxPosition       -1 -1
+   exposedField   SFVec2f     minPosition       0 0
+   exposedField   SFVec3f     offset            0 0 0
+   eventOut       SFBool      isActive
+   eventOut       SFVec3f     trackPoint_changed
+   eventOut       SFVec3f     translation_changed
+}
+</CODE></PRE>
+<a name="PointLight"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">PointLight</FONT></A>
+<PRE><CODE>
+PointLight {
+   exposedField   SFFloat     ambientIntensity  0
+   exposedField   SFVec3f     attenuation       1 0 0
+   exposedField   SFColor     color             1 1 1
+   exposedField   SFFloat     intensity         1
+   exposedField   SFVec3f     location          0 0 0
+   exposedField   SFBool      on                TRUE
+   exposedField   SFFloat     radius            100
+}
+</CODE></PRE>
+<a name="PointSet"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">PointSet</FONT></A>
+<PRE><CODE>
+PointSet {
+   exposedField   SFNode      color             NULL
+   exposedField   SFNode      coord             NULL
+}
+</CODE></PRE>
+<a name="PositionInterpolator"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">PositionInterpolator</FONT></A>
+<PRE><CODE>
+PositionInterpolator {
+   eventIn        SFFloat     set_fraction
+   exposedField   MFFloat     key               []
+   exposedField   MFVec3f     keyValue          []
+   eventOut       SFVec3f     value_changed
+}
+</CODE></PRE>
+<a name="ProximitySensor"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">ProximitySensor</FONT></A>
+<PRE><CODE>
+ProximitySensor {
+   exposedField   SFVec3f     center            0 0 0
+   exposedField   SFVec3f     size              0 0 0
+   exposedField   SFBool      enabled           TRUE
+   eventOut       SFBool      isActive
+   eventOut       SFVec3f     position_changed
+   eventOut       SFRotation  orientation_changed
+   eventOut       SFTime      enterTime
+   eventOut       SFTime      exitTime
+}
+</CODE></PRE>
+<a name="ScalarInterpolator"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">ScalarInterpolator</FONT></A>
+<PRE><CODE>
+ScalarInterpolator {
+   eventIn        SFFloat     set_fraction
+   exposedField   MFFloat     key               []
+   exposedField   MFFloat     keyValue          []
+   eventOut       SFFloat     value_changed
+}
+</CODE></PRE>
+<a name="Script"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Script</FONT></A>
+<PRE><CODE>
+Script {
+   exposedField   MFString    url               []
+   field          SFBool      directOutput      FALSE
+   field          SFBool      mustEvaluate      FALSE
+
+   Also, any number of the following:
+   eventIn        Type        eventInName
+   field          Type        fieldName         default value
+   eventOut       Type        eventOutName
+}
+</CODE></PRE>
+<a name="Shape"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Shape</FONT></A>
+<PRE><CODE>
+Shape {
+   exposedField   SFNode      appearance        NULL
+   exposedField   SFNode      geometry          NULL
+}
+</CODE></PRE>
+<a name="Sound"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Sound</FONT></A>
+<PRE><CODE>
+Sound {
+   exposedField   SFVec3f     direction         0 0 1
+   exposedField   SFFloat     intensity         1
+   exposedField   SFVec3f     location          0 0 0
+   exposedField   SFFloat     maxBack           10
+   exposedField   SFFloat     maxFront          10
+   exposedField   SFFloat     minBack           1
+   exposedField   SFFloat     minFront          1
+   exposedField   SFFloat     priority          0
+   exposedField   SFNode      source            NULL
+   field          SFBool      spatialize        TRUE   
+}
+</CODE></PRE>
+<a name="Sphere"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Sphere</FONT></A>
+<PRE><CODE>
+Sphere {
+   field          SFFloat     radius            1
+}
+</CODE></PRE>
+<a name="SphereSensor"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">SphereSensor</FONT></A>
+<PRE><CODE>
+SphereSensor {
+   exposedField   SFBool      autoOffset        TRUE
+   exposedField   SFBool      enabled           TRUE
+   exposedField   SFRotation  offset            0 1 0 0
+   eventOut       SFBool      isActive
+   eventOut       SFRotation  rotation_changed
+   eventOut       SFVec3f     trackPoint_changed
+}
+</CODE></PRE>
+<a name="SpotLight"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">SpotLight</FONT></A>
+<PRE><CODE>
+SpotLight {
+   exposedField   SFFloat     ambientIntensity  0
+   exposedField   SFVec3f     attenuation       1 0 0
+   exposedField   SFFloat     beamWidth         1.570796
+   exposedField   SFColor     color             1 1 1
+   exposedField   SFFloat     cutOffAngle       0.785398
+   exposedField   SFVec3f     direction         0 0 -1
+   exposedField   SFFloat     intensity         1
+   exposedField   SFVec3f     location          0 0 0
+   exposedField   SFBool      on                TRUE
+   exposedField   SFFloat     radius            100
+}
+</CODE></PRE>
+<a name="Switch"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Switch</FONT></A>
+<PRE><CODE>
+Switch {
+   exposedField   MFNode      choice            []
+   exposedField   SFInt32     whichChoice       -1
+}
+</CODE></PRE>
+<a name="Text"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Text</FONT></A>
+<PRE><CODE>
+Text {
+   exposedField   MFString    string            []
+   exposedField   SFNode      fontStyle         NULL
+   exposedField   MFFloat     length            []
+   exposedField   SFFloat     maxExtent         0.0
+}
+</CODE></PRE>
+<a name="TextureCoordinate"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">TextureCoordinate</FONT></A>
+<PRE><CODE>
+TextureCoordinate {
+   exposedField   MFVec2f     point             []
+}
+</CODE></PRE>
+<a name="TextureTransform"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">TextureTransform</FONT></A>
+<PRE><CODE>
+TextureTransform {
+   exposedField   SFVec2f     center            0 0
+   exposedField   SFFloat     rotation          0
+   exposedField   SFVec2f     scale             1 1
+   exposedField   SFVec2f     translation       0 0
+}
+</CODE></PRE>
+<a name="TimeSensor"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">TimeSensor</FONT></A>
+<PRE><CODE>
+TimeSensor {
+   exposedField   SFTime      cycleInterval     1
+   exposedField   SFBool      enabled           TRUE
+   exposedField   SFBool      loop              FALSE
+   exposedField   SFTime      startTime         0
+   exposedField   SFTime      stopTime          0
+   eventOut       SFTime      cycleTime
+   eventOut       SFFloat     fraction_changed
+   eventOut       SFBool      isActive
+   eventOut       SFTime      time
+}
+</CODE></PRE>
+<a name="TouchSensor"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">TouchSensor</FONT></A>
+<PRE><CODE>
+TouchSensor {
+   exposedField   SFBool      enabled           TRUE
+   eventOut       SFVec3f     hitNormal_changed
+   eventOut       SFVec3f     hitPoint_changed
+   eventOut       SFVec2f     hitTexCoord_changed
+   eventOut       SFBool      isActive
+   eventOut       SFBool      isOver
+   eventOut       SFTime      touchTime
+}
+</CODE></PRE>
+<a name="Transform"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Transform</FONT></A>
+<PRE><CODE>
+Transform {
+   eventIn        MFNode      addChildren
+   eventIn        MFNode      removeChildren
+   exposedField   SFVec3f     center            0 0 0
+   exposedField   MFNode      children          []
+   exposedField   SFRotation  rotation          0 0 1 0
+   exposedField   SFVec3f     scale             1 1 1
+   exposedField   SFRotation  scaleOrientation  0 0 1 0
+   exposedField   SFVec3f     translation       0 0 0 
+   field          SFVec3f     bboxCenter        0 0 0
+   field          SFVec3f     bboxSize          -1 -1 -1
+}
+</CODE></PRE>
+<a name="Viewpoint"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Viewpoint</FONT></A>
+<PRE><CODE>
+Viewpoint {
+   eventIn        SFBool      set_bind
+   exposedField   SFFloat     fieldOfView       0.785398
+   exposedField   SFBool      jump              TRUE
+   exposedField   SFRotation  orientation       0 0 1 0
+   exposedField   SFVec3f     position          0 0 10
+   field          SFString    description       ""
+   eventOut       SFTime      bindTime
+   eventOut       SFBool      isBound
+}
+</CODE></PRE>
+<a name="VisibilitySensor"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">VisibilitySensor</FONT></A>
+<PRE><CODE>
+VisibilitySensor {
+   exposedField   SFVec3f     center            0 0 0
+   exposedField   SFBool      enabled           TRUE
+   exposedField   SFVec3f     size              0 0 0
+   eventOut       SFTime      enterTime
+   eventOut       SFTime      exitTime
+   eventOut       SFBool      isActive
+}
+</CODE></PRE>
+<a name="WorldInfo"><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">WorldInfo</FONT></A>
+<PRE><CODE>
+WorldInfo {
+   field          MFString    info              []
+   field          SFString    title             ""
+}
+</CODE></PRE>
+<HR>
+<TABLE>
+<TR ALIGN=CENTER><TD><A HREF="#Anchor">Anchor</A><TD><A HREF="#Appearance">Appearance</A><TD><A HREF="#AudioClip">AudioClip</A><TD><A HREF="#Background">Background</A><TD><A HREF="#Billboard">Billboard</A><TD><A HREF="#Box">Box</A>
+<TR ALIGN=CENTER><TD><A HREF="#Collision">Collision</A><TD><A HREF="#Color">Color</A><TD><A HREF="#ColorInterpolator">ColorInterpolator</A><TD><A HREF="#Cone">Cone</A><TD><A HREF="#Coordinate">Coordinate</A><TD><A HREF="#CoordinateInterpolator">CoordinateInterpolator</A>
+<TR ALIGN=CENTER><TD><A HREF="#Cylinder">Cylinder</A><TD><A HREF="#CylinderSensor">CylinderSensor</A><TD><A HREF="#DirectionalLight">DirectionalLight</A><TD><A HREF="#ElevationGrid">ElevationGrid</A><TD><A HREF="#Extrusion">Extrusion</A><TD><A HREF="#Fog">Fog</A>
+<TR ALIGN=CENTER><TD><A HREF="#FontStyle">FontStyle</A><TD><A HREF="#Group">Group</A><TD><A HREF="#ImageTexture">ImageTexture</A><TD><A HREF="#IndexedFaceSet">IndexedFaceSet</A><TD><A HREF="#IndexedLineSet">IndexedLineSet</A><TD><A HREF="#Inline">Inline</A>
+<TR ALIGN=CENTER><TD><A HREF="#LOD">LOD</A><TD><A HREF="#Material">Material</A><TD><A HREF="#MovieTexture">MovieTexture</A><TD><A HREF="#NavigationInfo">NavigationInfo</A><TD><A HREF="#Normal">Normal</A><TD><A HREF="#NormalInterpolator">NormalInterpolator</A>
+<TR ALIGN=CENTER><TD><A HREF="#OrientationInterpolator">OrientationInterpolator</A><TD><A HREF="#PixelTexture">PixelTexture</A><TD><A HREF="#PlaneSensor">PlaneSensor</A><TD><A HREF="#PointLight">PointLight</A><TD><A HREF="#PointSet">PointSet</A><TD><A HREF="#PositionInterpolator">PositionInterpolator</A>
+<TR ALIGN=CENTER><TD><A HREF="#ProximitySensor">ProximitySensor</A><TD><A HREF="#ScalarInterpolator">ScalarInterpolator</A><TD><A HREF="#Script">Script</A><TD><A HREF="#Shape">Shape</A><TD><A HREF="#Sound">Sound</A><TD><A HREF="#Sphere">Sphere</A>
+<TR ALIGN=CENTER><TD><A HREF="#SphereSensor">SphereSensor</A><TD><A HREF="#SpotLight">SpotLight</A><TD><A HREF="#Switch">Switch</A><TD><A HREF="#Text">Text</A><TD><A HREF="#TextureCoordinate">TextureCoordinate</A><TD><A HREF="#TextureTransform">TextureTransform</A>
+<TR ALIGN=CENTER><TD><A HREF="#TimeSensor">TimeSensor</A><TD><A HREF="#TouchSensor">TouchSensor</A><TD><A HREF="#Transform">Transform</A><TD><A HREF="#Viewpoint">Viewpoint</A><TD><A HREF="#VisibilitySensor">VisibilitySensor</A><TD><A HREF="#WorldInfo">WorldInfo</A>
+</TABLE>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index.html','tut52.html','struct.html');
+footer('../pics/guidelogo.gif','Index','../index.html', 'en', '..');
+</SCRIPT>
+
+</BODY>
+</HTML>

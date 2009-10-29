@@ -1,0 +1,53 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 3.3a"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+Group {
+   children [
+      Group {
+         children [
+            DEF POSTOUCH TouchSensor {}
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     diffuseColor 1 0 0
+                  }   
+               }
+               geometry Sphere { 
+                  radius 3.0   
+               }
+            }
+         ]
+      }
+      DEF SNDTOUCH TouchSensor {}
+      DEF BALL Transform {
+         children [
+            Sound {
+               minFront 10
+               minBack 10
+               maxFront 50
+               maxBack 50
+               source DEF SOUND AudioClip {
+                  url "pop.wav"
+               }
+            }
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     diffuseColor 1 1 0
+                  }   
+               }
+               geometry Sphere { 
+                  radius 0.1
+               }
+            }
+         ]
+      }
+   ]
+}
+ROUTE SNDTOUCH.touchTime TO SOUND.startTime
+ROUTE POSTOUCH.hitPoint_changed TO BALL.translation

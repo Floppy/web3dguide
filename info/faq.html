@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - Floppy's VRML FAQ</title>
+<META NAME="DESCRIPTION" CONTENT="Guide to the world of VRML, with one of the best tutorials on the web.">
+<META NAME="KEYWORDS" CONTENT="VRML, VRML97, Virtual Reality Modeling Language,	Tutorial, Guide, 3D, FAQ,
+				Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,
+				Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace">
+</HEAD>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+<CENTER><FONT FACE='Arial' SIZE='+2'><STRONG>Floppy's VRML FAQ</STRONG></FONT></CENTER>
+<P>
+<UL>
+<LI><A HREF="#whatdoineed">What do I need to write VRML?</A></LI>
+<LI><A HREF="#caniusebmp">Can I use BMP/GIF/etc files as textures?</A></LI>
+<LI><A HREF="#blackscreen">I've written my world, but when I load it into the browser I get a black screen. What's wrong?</A></LI>
+<LI><A HREF="#writetoconsole">How can I write information to the VRML console?</A></LI>
+<LI><A HREF="#howdoicreate">How can I create XXXXXXX in VRML?</A></LI>
+</UL>
+<HR>
+<dl>
+<dt><A NAME="whatdoineed"><STRONG>What do I need to write VRML?</STRONG></A>
+<dd><P>
+You only <EM>need</EM> a text editor. This is all explained in the <a
+href="/tutorials/vrml97/en/tut11.html">Getting Started</A> VRML97 tutorial. However, if you
+want to start serious content creation, there are a few tools that I can
+recommend:
+<ol>
+<LI>A text editor, for raw content creation. I do 95% of my VRML creation in
+<A HREF="http://www.parallelgraphics.com/products/vrmlpad/" target="_blank">VrmlPad</A>. There are links to
+others on the <A HREF="/tools/index.php">tools</A> page.
+<LI>A paint program, for textures. I recommend Paint Shop Pro from
+<A HREF="http://www.jasc.com" target="_blank">JASC</A>.
+<LI>A VRML validator, such as Chisel from <A HREF="http://www.trapezium.com" target="_blank">Trapezium</A>
+This is vital for your content creation, especially if you're using a text
+editor to do it. Browsers don't give helpful error messages, but this
+will. If you have a problem in your world, this will find it. It will also
+optimise your files and make them more efficient. It <EM>also</EM> does
+GZIPing of VRML files for you.
+<LI>A 3D Modeler, for the more complex IndexedFaceSet stuff. For this, I
+use Nendo, from <A HREF="http://www.wingededge.com" target="_blank">Winged Edge Technologies</A>.
+<LI>A Java compiler, for scripting. I would recommend Sun's own JDK (Java Development Kit),
+available from <A HREF="http://java.sun.com" target="_blank">java.sun.com</A>. It's free, 
+has everything you need and has plenty of handy features.
+</ol>
+So, what more do you need to create great VRML? Well,
+imagination, of course, but there's no web site for that!
+<P></P>
+<dt><A NAME="caniusebmp"><STRONG>Can I use BMP/GIF/etc files as textures?</STRONG></A>
+<dd>
+<P>
+In general, probably not. Your browser might support it, but it's not standard. Stick to the
+standard .JPG and .PNG files.
+</P>
+<dt><A NAME="blackscreen"><STRONG>I've written my world, but when I load it into the browser I get a
+black screen. What's wrong?</STRONG></A>
+<dd>
+<P>
+This happens because the browser doesn't recognise what it has been told to load.
+This is usually because you've forgotten to put the header at the top of the file. Remember, every
+VRML file must have the magic header <CODE>#VRML V2.0 utf8</CODE> at the top of the file. 
+If you have got this line, it is possible that the file is not in plain text format.
+One of the more frequent reasons I find for this is that you've written your code in Wordpad and saved
+it as a Microsoft Word document. If you just get a blank window when you try to view your worlds, load
+them into Notepad and make sure they're plain text only. Better still, always use a plain text
+editor to write VRML!
+<P></P>
+<dt><A NAME="writetoconsole"><STRONG>How can I write information to the VRML console?</STRONG></A>
+<dd>
+<P>
+Some browsers have a function built into their Java and ECMAScript interpreters 
+that allow a script to write values into the VRML Console (where errors 
+and other messages are displayed). Some also allow you to write to the browser's Java console.
+The functions that I know of so far for the different browsers are listed below. 
+There is also more information  available in the <A HREF="/workshop/debug/index.html">debugging</A> workshop.
+</P>
+<TABLE BORDER="1" CELLPADDING="5" CELLSPACING="0">
+<TR VALIGN=TOP><TD><STRONG>Browser</STRONG></TD><TD><STRONG>ECMAScript</STRONG></TD><TD><STRONG>Java</STRONG></TD></TR>
+<TR VALIGN=TOP><TD>CosmoPlayer</TD><TD>print(<EM>string</EM>)<BR>trace(<EM>string</EM>)</TD><TD>Browser.print(<EM>string</EM>)<BR>System.out.print(<EM>string</EM>) - <EM>Goes to Java console</EM><BR>System.err.print(<EM>string</EM>) - <EM>Goes to Java console</EM></TD></TR>
+<TR VALIGN=TOP><TD>Worldview</TD><TD>print(<EM>string</EM>)</TD><TD>?</TD></TR>
+<TR VALIGN=TOP><TD>Cortona</TD><TD>print(<EM>string</EM>)<BR>trace(<EM>string</EM>)</TD><TD>System.err.print(<EM>string</EM>)<BR>System.out.print(<EM>string</EM>)</TD></TR>
+<TR VALIGN=TOP><TD>MS VRML 2.0 Viewer</TD><TD>trace(<EM>string</EM>)</TD><TD>System.err.print(<EM>string</EM>)<BR>System.out.print(<EM>string</EM>)</TD></TR>
+</TABLE>
+<P>
+If you know of any more, or any corrections, please <A HREF="/contact/index.html">let me know</A>.
+</P></DD>
+<dt><A NAME="howdoicreate"><STRONG>How can I create XXXXXXX in VRML?</STRONG></A></dt>
+<dd>
+<P>
+Usually, when people ask me how to create a certain thing in VRML, I write an entry for the <A HREF="/library">library</A>,
+and then point them at that - take a look there first, and them <A HREF="mailto:&#103;&#117;&#105;&#100;e&#64;&#119;e&#98;&#51;&#100;g&#117;i&#100;&#101;&#46;&#111;&#114;g&#46;&#117;&#107;">mail me</A>
+ if it doesn't answer your question!
+</P>
+</dd>
+</dl>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="/utils/footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('/pics/menu_lit/info.gif','Info','./');
+</SCRIPT> 
+
+</BODY>
+</HTML>

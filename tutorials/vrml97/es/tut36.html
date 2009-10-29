@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guide, 3D,    Script, scripting, scripts, VRML scripts,    Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,    Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>El Web3D Guide de disco blando - VRML97 Gu&iacute;a did&aacute;ctica 3.6: La escritura</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#BB0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Es Vida, Jim, Pero No Como la Conocemos</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut35.html','tut37.html');
+</SCRIPT>
+</P><P>
+En este tutorial, te mostrar&eacute; c&oacute;mo usar scripts en tus escenas.
+NO voy a ense&ntilde;arte a programarlos. Eso viene despu&eacute;s. De
+momento, sup&oacute;n que tienes un script que quieres usar. Te mostrar&eacute;
+como enchufarlo en tu mundo para que puedas usarlo.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+El Nodo Script</FONT></P><P>
+El nodo <STRONG>Script </STRONG>es probablemente el m&aacute;s importante de VRML97.
+Convierte un lenguaje de programaci&oacute;n simple y est&aacute;tico (a
+pesar de las animaciones) en un universo casi infinito de posibilidades.
+B&aacute;sicamente, el nodo <STRONG>Script </STRONG>permite construir tus propios
+nodos con sus propios campos, eventIns y eventOuts. La sintaxis del nodo
+<STRONG>Script</STRONG> es como sigue:
+</P><PRE>Script {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFString&nbsp;&nbsp;&nbsp; url&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; directOutput&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FALSE
+&nbsp;&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mustEvaluate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FALSE
+
+&nbsp;&nbsp; #Tambi&eacute;n, tanto de lo siguiente como sea necesario:
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eventInName
+&nbsp;&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fieldName&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default value
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eventOutName
+}
+
+</PRE><P>
+As&iacute;, todos los scripts tienen tres campos b&aacute;sicos en com&uacute;n.
+Los veremos en un momento. As&iacute; como &eacute;stos, tambi&eacute;n
+tienen cualquier n&uacute;mero de campos definidos por el programador,
+eventIns y eventOut. Estos se definen de manera muy similar a como se hac&iacute;a
+con PROTO. Se usa la palabra reservada <EM>field</EM>, eventIn o eventOut,
+seg&uacute;n lo que quieras hacer, y el tipo de valor que acepta el campo
+(por ejemplo SFBool), y finalmente el nombre. En el caso de que sea un
+campo, y no un eventIn o un eventOut, debes especificar un valor para el
+campo. Un ejemplo de esto se muestra debajo:
+</P><PRE>Script {
+&nbsp;&nbsp; eventIn&nbsp; SFBool&nbsp;&nbsp; input
+&nbsp;&nbsp; field&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp; boolValue&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; eventOut SFBool&nbsp;&nbsp; output
+&nbsp;&nbsp; url "filter.js"
+}</PRE><P>
+Esto especifica un campo de cada tipo para nuestro nodo script. Un eventIn
+llamado <EM>input</EM>, un eventOut llamado <EM>output</EM>, y un campo llamado
+<EM>boolValue </EM>con un valor predefinido de TRUE. Tambi&eacute;n especifica
+que el c&oacute;digo del script se encuentra en el archivo "filter.js."
+<p>Nota: los nodos <STRONG>Script</STRONG> no pueden tener exposedFields.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Los Lenguajes</FONT></P><P>
+Hay tres maneras de definir scripts en VRML. En primer lugar, puedes emplear
+c&oacute;digo Java compilado, en un archivo .class referido con su ruta
+correspondiente en el campo <EM>url</EM>. Despues, puedes usar c&oacute;digo
+JavaScript en un archivo externo con extensi&oacute;n .js, igual que antes.
+Y finalmente, puedes incluir directamente el c&oacute;digo en el campo
+<EM>url</EM>. Un ejemplo de esto &uacute;ltimo se muestra debajo:
+</P><PRE>url "javascript:
+&nbsp;&nbsp; function input(value, time) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (value==boolValue) output = value;
+&nbsp;&nbsp; }
+"</PRE><P>
+Un script escrito directamente se especifica usando en el nodo url "javascript:"
+seguido del c&oacute;digo en ese mismo campo. Esto es bastante apropiado
+para cantidades peque&ntilde;as de c&oacute;digo, o c&oacute;digo que se
+usa una &uacute;nica vez por archivo, donde el tiempo empleado en transmitir
+la informaci&oacute;n del archivo extra no compensa por escribir un archivo
+VRML ligeramente mayor.
+<p>Lo que s&iacute; resulta un poco m&aacute;s complejo es la elecci&oacute;n
+de lenguaje de programaci&oacute;n que vamos a emplear. JavaScript es un
+lenguaje muy simple que se aprende con facilidad, con un procesamiento
+simple de eventos y buena integraci&oacute;n con VRML. Si embargo, le falta
+el poder y la flexibilidad de Java. Por este motivo, JavaScript es muy
+apropiado para scripts simples y peque&ntilde;os como interruptores, filtros,
+y este tipo de empleos. Java es m&aacute;s apropiado para el trabajo duro,
+operaciones matem&aacute;ticas complejas, o relacci&oacute;n con el hardware.
+Adem&aacute;s, al estar compilado en bytecode, aporta la ventaja de que
+otras personas no pueden ver el funcionamiento interno de tu programa.
+Si quisieras proteger tu c&oacute;digo VRML para que no pudiese ser visto
+o manipulado por otra persona, lo m&aacute;s apropiado ser&iacute;a que
+usases Java para generar el resto del c&oacute;digo.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Conect&aacute;ndolo todo.</FONT></P><P>
+Una vez que hayas realizado tu script, puedes conectarlo donde desees dentro
+de la cadena de eventos. Procesar&aacute;n los eventos que le envies y
+enviar&aacute;n los eventos a los campos a los que los hayas dirigido,
+y los campos del nodo que has definido anteriormente influir&aacute;n en
+su comportamiento interno. Quedan un par de cosas por cubrir antes de que
+sigamos y te dispongas a construir mecanismos complejos para tus mundos.
+Los dos campos que hemos ignorado anteriormente necesitan ahora ser cubiertos
+con detalle. El primero es el campo <EM>mustEvaluate.</EM> Dice al navegador
+que evalue los eventos que recibe el nodo <STRONG>Script</STRONG> tan r&aacute;pido
+como le sea posible. De ese modo, si se est&aacute;n procesando muchos
+datos al mismo tiempo, puede saltarse la cola de eventos y evaluarlos todos
+de un s&oacute;lo golpe, lo cual es mucho m&aacute;s eficiente. Generalmente,
+d&eacute;jalo como FALSE, a menos que compruebes que se est&aacute;n realizando
+retrasos procesando los eventos del script, en cuyo caso debes ponerlo
+a TRUE para evitarlo. El campo <EM>directOutput </EM>permite a un Script
+saltarse la cadena de eventos y colocar los valores de sus campos directamente
+en los nodos a los que tiene acceso. Esto se ver&aacute; con detalle en
+la cuarta parte.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+No Como La Conocemos, Capit&aacute;n.</FONT></P><P>
+&iexcl;Muy bien, entonces!. Echa un ojillo a este <A HREF="../worlds/tut36.wrl" TARGET="_new">ejemplo</a>,
+junto con el <A HREF="../source/tut36.html">c&oacute;digo</a>. Es igual que
+el &uacute;ltimo, pero esta vez se usa un script para filtrar los mensajes
+del <EM>isActive </EM>de modo que s&oacute;lo los eventos evaluados TRUE
+terminen. Esto nos permite enviar un <EM>set_bind</EM> permanentemente a
+un nodo. Ver&aacute;s que puedes pulsar el bot&oacute;n del rat&oacute;n
+y al soltarlo los cambios permanecer&aacute;n hasta que vualvas a pulsarlo
+sobre otro. El Script toma los eventos <EM>isActive</EM> que recibe, y los
+compara con el valor de su <EM>boolValue, </EM>y solo permite pasar a aquellos
+cuyo valor coincida con este (Esto es, que sean TRUE).
+<p>Vale, el pr&oacute;ximo cap&iacute;tulo vamos a usar el nodo <STRONG>Switch</STRONG>,
+y despu&eacute;s explicar&eacute; c&oacute;mo realizar tus propios scripts.
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut35.html','tut37.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

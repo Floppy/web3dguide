@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - PHP/VRML Workshop</TITLE>
+<META NAME="DESCRIPTION" CONTENT="Guide to the world of VRML, with one of the best tutorials on the web.">
+<META NAME="KEYWORDS" CONTENT="VRML, VRML97, Virtual Reality Modeling Language,	Tutorial, Guide, 3D,
+				VRML, workshop, PHP,
+				Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,
+				Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+</HEAD>
+<BODY BGCOLOR='#DDDDDD' TEXT='#000000' LINK="#ff0000" ALINK="#ffff00" VLINK="#DD0000">
+<H1>How do I create VRML with PHP?</H1>
+<P>
+PHP is becoming very popular language for creating dynamic websites, particularly for generating
+them from databases. However, 2D websites are just boring, aren't they? What we want is a way to
+harness the power of PHP to create database-driven VRML worlds. Well, it's easier than you might
+think.
+</P><P>
+PHP can output any text information you like - the only thing that identifies the file type is the
+MIME type that gets sent by the web server before the file itself. Fortunately, in PHP, you can take
+control of this very information. All you have to do is send the VRML MIME type ("model/vrml"), and
+then write the appropriate VRML nodes. There are a few things you have to be careful of, but that's
+basically it.
+</P><P>
+Let's write a simple PHP file that generates an empty VRML world:
+</P><PRE>
+&lt;?php
+   header ("Content-type: model/vrml");
+   echo "#VRML V2.0 utf8\n";
+?&gt;
+</PRE><P>
+The first line here is the important one. This uses the built-in PHP function header(), which sends
+HTTP headers. In this case, we want to send the Content-type header, which we set to the VRML MIME
+type, "model/vrml". The second simply uses echo() to write the standard VRML header, creating a
+valid VRML file.
+</P><P>
+Now, here's the first thing to be careful about. You can't send any output before
+the header() function is called, otherwise the headers will not be sent. A general rule is to make
+the header code the first thing in your PHP file, or at least make sure it's before anything that
+can print output. One common problem is that you may have included other files before the header()
+function call; if those files have a new line at the end, it counts as output, and will stop the header()
+working.
+</P><P>
+The second thing to be careful about is that some VRML browsers don't like whitespace before the
+VRML header. Therefore, you have to either print it out using echo as above, or make sure it's on
+the first non-PHP line in the file, as below. Printing it using echo is probably the best way.
+</P><P>
+Now that that's dealt with, you're away! Just like in HTML, you can mix PHP and normal VRML, like
+so:
+</P><PRE>
+&lt;?php
+   header ("Content-type: model/vrml");
+   echo "#VRML V2.0 utf8\n";
+?&gt;
+
+Shape {
+   geometry Box {
+   
+&lt;?php
+   $size = 2;
+   echo "      size $size $size $size \n";
+?&gt;
+
+   }
+}
+</PRE><P>
+The above example creates a pretty simple 2x2x2 box. And that's pretty much it for PHP and VRML. Of course,
+as with normal PHP, you can send whatever output you like. You can use URL arguments, so if you were
+to use the code below with a URL like <CODE>http://www.my-domain.com/vrml.php?size=2</CODE>,
+</P><PRE>
+&lt;?php
+   header ("Content-type: model/vrml");
+   echo "#VRML V2.0 utf8\n";
+?&gt;
+
+Shape {
+   geometry Box {
+   
+&lt;?php
+   echo "      size $size $size $size \n";
+?&gt;
+
+   }
+}
+</PRE><P>
+you would end up with a 2x2x2 box again. The only difference is that <CODE>$size</CODE> is passed as part of the
+URL. Of course, you can't do HTTP POSTs with VRML, as there's no analogue of the HTML form, but
+there's nothing to stop you creating these kind of URLs manually and attaching them to Anchor nodes,
+or using Scripts to create them from values passed as events.
+</P><P>
+Anyway, now you know all you need. I'm going to finish off with an example that uses PHP to
+create a random ElevationGrid from parameters passed in the URL. Notice that because everything
+is generated from the URL parameters, so that you can generate many grids from the one file by
+changing the URL, shown in the links below:
+</P><UL>
+<LI><CODE><A HREF="php-vrml.php?xdim=10&amp;zdim=10&amp;xspc=1&amp;zspc=1" TARGET="_blank">php-vrml.php?xdim=10&amp;zdim=10&amp;xspc=1&amp;zspc=1</A></CODE></LI>
+<LI><CODE><A HREF="php-vrml.php?xdim=10&amp;zdim=20&amp;xspc=0.1&amp;zspc=0.1" TARGET="_blank">php-vrml.php?xdim=10&amp;zdim=20&amp;xspc=0.1&amp;zspc=0.1</A></CODE></LI>
+<LI><CODE><A HREF="php-vrml.php?xdim=5&amp;zdim=20&amp;xspc=1&amp;zspc=1" TARGET="_blank">php-vrml.php?xdim=5&amp;zdim=20&amp;xspc=1&amp;zspc=1</A></CODE></LI>
+<LI><CODE><A HREF="php-vrml.php?xdim=20&amp;zdim=20&amp;xspc=1&amp;zspc=1" TARGET="_blank">php-vrml.php?xdim=20&amp;zdim=20&amp;xspc=1&amp;zspc=1</A></CODE></LI>
+</UL><P>
+Take a look at <A HREF="php-vrml.html">PHP code</A> used to generate the results. The <CODE>$xdim</CODE>, <CODE>$zdim</CODE>,
+<CODE>$zspc</CODE> and <CODE>$zspc</CODE> variables are taken automatically from the URL parameters and used to create and
+position the grid appropriately. The heightfield is generated using one of PHPs built-in random number
+generators - if you reload the 3D file, you'll see that the grid changes each time. The heights are
+used twice, once for the heights themselves, and once for the colours of the points.
+</P><P>
+To give you an idea of how flexible the combination of PHP and VRML can be, take a look at the <A
+HREF="/library">library</A> section of this site. The whole thing is generated from PHP, using a
+MySQL database which holds the individual entries. Each entry is divided into 3 possible sections -
+a PROTO, an EXTERNPROTO, and the sample code. These three sections are combined inside PHP to create
+the various previews and code listings. One single PHP file deals with all the uses of the VRML.
+Firstly, it can create a sample file, which contains the EXTERNPROTO definition and the sample code.
+The EXTERNPROTO references the same PHP file with different URL arguments for the PROTO definitaion.
+Finally, both of these files can be downloaded to the client's machine, by setting the MIME type to
+application/octet-stream. The code listings are also created by generating the same VRML code and
+running it through a PHP syntax-highlighting function, then printing them as HTML. The techniques for
+using the database with PHP/VRML is just the same as for normal PHP.
+</P><P>
+There are many good PHP tutorials out there - <A HREF="http://www.php.net" TARGET="_blank">php.net</A>
+is probably a good place to start. Good luck!
+</P>
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="/utils/footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('/pics/menu_lit/workshop.gif','Workshop','../');
+</SCRIPT> 
+
+</BODY>
+</HTML>

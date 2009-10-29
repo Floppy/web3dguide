@@ -1,0 +1,64 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 5.2"
+   info ["(C) Copyright 2001 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+NavigationInfo {
+   type ["EXAMINE"]
+}
+
+DEF TIMER TimeSensor {
+   cycleInterval 5
+   loop TRUE
+   startTime 0
+   stopTime -1
+}
+
+DEF SINEGEN Script {
+   eventIn  SFFloat set_fraction
+   eventOut SFFloat fraction_changed
+   field    SFFloat amplitude 1
+   url "SineGen.class"
+}
+
+DEF INTERP PositionInterpolator {
+   key [-1, 1]
+   keyValue [-5 0 0, 5 0 0]
+}
+
+DEF SPHERE Transform {
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 1 1 0
+            }
+         }
+         geometry Sphere {}
+      }
+   ]
+}
+
+Transform {
+   rotation 0 0 1 1.57
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry Cylinder {
+            height 12
+            radius 0.25
+         }
+      }
+   ]
+}
+
+ROUTE TIMER.fraction_changed TO SINEGEN.set_fraction
+ROUTE SINEGEN.fraction_changed TO INTERP.set_fraction
+ROUTE INTERP.value_changed TO SPHERE.set_translation

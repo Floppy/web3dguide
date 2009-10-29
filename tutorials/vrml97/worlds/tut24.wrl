@@ -1,0 +1,114 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy'sVRML97 Tutorial Example 2.4"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+Background {
+   skyColor [1 1 0, 1 0 0]
+   skyAngle [3.14]
+}
+
+Viewpoint {
+   description "Entry Point"
+   position 0 1.5 10
+}
+
+Transform {
+   translation -12.5 0 -12.5
+   children [
+      Shape {
+         appearance Appearance {
+            texture ImageTexture {
+               url "floor.jpg"
+            }
+         }
+         geometry ElevationGrid {
+            xDimension 6
+            zDimension 6
+            xSpacing 5.0
+            zSpacing 5.0
+            height [
+               1.5, 1, 0.5, 0.5, 1, 1.5,
+               1, 0.5, 0.25, 0.25, 0.5, 1,
+               0.5, 0.25, 0, 0, 0.25, 0.5,
+               0.5, 0.25, 0, 0, 0.25, 0.5,
+               1, 0.5, 0.25, 0.25, 0.5, 1,
+               1.5, 1, 0.5, 0.5, 1, 1.5
+            ]
+         }
+      }
+   ]
+}
+
+PointLight {
+   location 0 3.5 1
+}
+
+Shape {
+   appearance Appearance {
+      material Material {
+         diffuseColor 0.5 1 0.5
+      }
+   }
+   geometry IndexedFaceSet {
+      coord Coordinate {
+         point [
+            -2 0 2, 2 0 2, 2 0 -2, -2 0 -2
+            -2 4 2, 2 4 2, 2 4 -2, -2 4 -2
+         ]
+      }
+      coordIndex [
+         0 4 7 3 -1
+         1 2 6 5 -1
+         4 5 6 7 -1
+         2 3 7 6 -1
+      ]
+      solid FALSE
+   }
+}
+
+Shape {
+   appearance Appearance {
+      material Material {
+         emissiveColor 0 0 1
+      }
+   }
+   geometry IndexedLineSet {
+      coord Coordinate {
+         point [
+            -2 4 2, -12.5 1.5 12.5,
+            2 4 2, 12.5 1.5 12.5,
+            2 4 -2, 12.5 1.5 -12.5,
+            -2 4 -2, -12.5 1.5 -12.5
+         ]
+      }
+      coordIndex [
+         0 1 -1
+         2 3 -1
+         4 5 -1
+         6 7 -1
+      ]
+   }
+}
+
+Transform {
+   translation 0 0 1
+   scale 0.5 0.5 0.5
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry Extrusion {
+            crossSection [1 1, 1 -1, -1 -1, -1 1, 1 1]
+            spine [0 0 0, 0 2 0, 0 3 1, 0 3 2]
+            scale [1 1, 1 0.5, 0.5 1, 0.5 0.5]
+         }
+      }
+   ]
+}

@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guia, 3D, introduccion, browsers, editors, GZIP, compression, wrl, wrz, wrl.gz,     headers, comments, Group,     Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,     Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>La Guia de VRML de Floppy - VRML97 Tutorial 1.1: Los navegadores, Editores, Compresores, Cabeceras, Comentarios, Grupo</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Empezando</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','','tut12.html');
+</SCRIPT>
+</P><P>
+VRML - Virtual Reality Modelling Language (Lenguaje Para el Modelado de la Realidad Virtual).
+ Parece bastante
+nuevo, y realmente lo es. Muchas personas dicen que est&aacute; muerto,
+y lo cierto es que no se usa mucho. Sin embargo, es el formato mas popular
+para exponer contenido en 3 dimensiones via Internet, y desde luego es
+el mejor candidato para este proposito.
+</P><P>
+En este tutorial, voy a ense&ntilde;arte c&oacute;mo crear tus propios
+mundos virtuales. Sin embargo, no puedo ense&ntilde;arte absolutamente
+todo, por lo que voy a asumir un poco de conocimiento b&aacute;sico de
+tu parte. Encontraras este tutorial bastante f&aacute;cil si tienes un
+conocimiento b&aacute;sico de lo siguiente:
+</P>
+<ul>
+<li>
+Internet - c&oacute;mo usarlo, c&oacute;mo se organiza, c&oacute;mo ubicar
+una p&aacute;gina web.</li>
+
+<li>
+HTML - De vez en cuando comparar&eacute; algunos conceptos de VRML a c&oacute;mo
+se hace en HTML. No amenudo, eso si, y nunca es vital.</li>
+
+<li>
+Geometria 3D - Vectores, ejes, coordenadas, cosas de ese tipo. Nada m&aacute;s
+complejo que un curso de matematicas escolar normal y corriente. Necesitaras
+tener un buen razonamiento espacial para dise&ntilde;ar mundos 3D, pero
+si no lo tienes, estoy seguro lo desarrollaras conforme avanzamos.</li>
+</ul>
+<P>
+Si no sabes nada sobre esas cosas, no te preocupes, pero puedes necesitar
+preguntar a alguien en algun momento qu&eacute; significa tal o cual cosa.
+Quizas con una cierta frecuencia... Bueno, como ya dije, podr&iacute;amos
+tirarnos la vida si quisiera ense&ntilde;&aacute;rtelo todo. OK, suficiente.
+Ahora comenzemos.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">&iexcl;VRML 1.0, 2.0, 97, AAAAAAAGH!</FONT>
+</P><P>
+Bien, &iquest;De modo que quieres programar en VRML, es eso? Bien, realmente
+no es tan duro. &iquest;Te confunde qu&eacute; clase de VRML escribir?
+Hay dos versiones de VRML, pero una de &eacute;stas tiene dos nombres.
+Simple. Hagamos un poco de Historia sobre el VRML. Hab&iacute;a un VRML,
+originalmente, la versi&oacute;n 1.0. &Eacute;ste fue el primer esfuerzo
+hacia un idioma de modelado en 3D para Internet, y despu&eacute;s de un
+tiempo se revis&oacute;, apareciendo el VRML 2.0, que cambi&oacute; la
+estructura de los archivos, y a&ntilde;adi&oacute; muchos nuevos rasgos,
+como la animaci&oacute;n. VRML 1.0 era bueno, pero se ha reemplazado, por
+lo que no me voy a molestar con &eacute;l. VRML 2.0 se someti&oacute; entonces
+al ISO/IEC para su aprobaci&oacute;n y estandarizaci&oacute;n. VRML97 es
+el resultado de ese proceso, y es una norma de ISO/IEC. VRML97 es pr&aacute;cticamente
+id&eacute;ntico a VRML 2.0, con un par de cambios menores en detalles muy
+peque&ntilde;os. Voy a ense&ntilde;arte VRML97 en este tutorial, porque
+&eacute;se es el material de referencia que yo tengo cubierto. Es pr&aacute;cticamente
+id&eacute;ntico a VRML 2.0, de modo que puedes asumir que son la misma
+cosa. Bien, ahora que sabemos de que estamos hablando, podemos continuar.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Los navegadores</FONT>
+</P><P>
+Lo primero que necesitas es un navegador de VRML para poder ver tus mundos,
+as&iacute; como los de los dem&aacute;s. Yo uso el Cosmo Player de <A HREF="http://www.cai.com/cosmo/" TARGET="_blank">Cosmo
+Software </a><EM>(Win95/NT).</EM> Hay otros disponibles. Comprueba los <A HREF="http://web3d.vapourtech.com/links.php" target="_blank">vinculos</a>
+para m&aacute;s informaci&oacute;n. La mayor&iacute;a de los navegadores
+de VRML operar&aacute;n como plugins para Netscape o Internet Explorer.
+Hay tambi&eacute;n navegadores disponibles para la mayor&iacute;a de los
+otros sistemas operativos. Echa una ojeada en las compa&ntilde;&iacute;as
+de software o en el <A HREF="http://www.web3d.org/vrml/vrml.htm" TARGET="_blank">VRML
+repository</a>. Una vez que tengas instalado el plugin, s&oacute;lo tendr&aacute;s
+que cargar el archivo VRML y podr&aacute;s verlo como una p&aacute;gina
+web.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Edici&oacute;n</FONT>
+</P><P>
+Lo siguiente que necesitas hacer es crear tus propios mundos. Hay dos maneras
+de hacer esto. Primero, podr&iacute;as usar una de las muchas herramientas
+de autor&iacute;a de VRML o modeladores de 3D. Para m&aacute;s informaci&oacute;n,
+mira el <A HREF="http://www.web3d.org/vrml/vrml.htm" TARGET="_blank">VRML
+repository</a> de nuevo. El modo en que yo lo hago es codificarlo a mano.
+Es lo que se ense&ntilde;a en este tutorial, y es el m&eacute;todo en que
+me concentrar&eacute; aqui. Todo que necesitas para esto es un editor del
+texto, como el notepad o el wordpad. Yo recomendar&iacute;a el <A HREF="http://www.parallelgraphics.com/products/vrmlpad/" target=_blank>VrmlPad</A>
+que, a mi jucio, es un editor muy bueno. Simplemente teclea
+el c&oacute;digo, y s&aacute;lvalo como <EM>archivo.wrl.</EM> &iexcl;Luego
+puedes cargar el archivo en tu navegador y ver como ha quedado! Una unica
+cosa: &iexcl;aseg&uacute;rate de guardar el archivo como texto sin formato,
+nada m&aacute;s!
+<p>Trabajar con VRML en crudo est&aacute; muy bien, pero puede ser dif&iacute;cil
+crear objetos complejos. Para hacer esto, necesitar&aacute;s, o usar una
+herramienta de autor&iacute;a de VRML, o un programa de modelado 3D. Si
+vas por la &uacute;ltima opci&oacute;n, probablemente necesitar&aacute;s
+alg&uacute;n programa de conversi&oacute;n de archivos para convertir del
+formato del modelador al VRML. Un conversor gratu&iacute;to muy bueno es
+<A HREF="http://home.europa.com/~keithr/" TARGET="_blank">Crossroads.</a> Las
+herramientas de VRML de mayor nivel est&aacute;n disponibles en muchas
+compa&ntilde;&iacute;as. Echa una ojeada en estos <A
+HREF="http://web3d.vapourtech.com/links.php" target="_blank">vinculos</a>
+para ver algunos de ellos.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Compresi&oacute;n, MIME, y Publicaci&oacute;n</FONT>
+</P><P>
+La extensi&oacute;n normal para los archivos de VRML es <EM>.wrl</EM>, aunque
+de vez en cuando se usa <EM>.wrz</EM> para VRML comprimido. Los navegadores
+pueden leer archivos de VRML que est&aacute;n comprimidos con GZIP. Estos
+archivos comprimidos pueden ser <EM>.wrz</EM>, <EM>.wrl.gz</EM>, o el habitual
+<EM>.wrl</EM>. GZIP est&aacute; muy extendido para UNIX, pero puedes hacerte
+con una versi&oacute;n para PC o Mac si la buscas. Una manera buena de
+comprimir tus archivos es usar <A HREF="http://www.trapezium.com/chisel.html" TARGET="_blank">Chisel</a>,
+que es un verificador y optimizador de VRML que puede salvar VRML comprtar&aacute;s
+preocuparte por esto, pero simplemente por informaci&oacute;n, el tipoimido
+mediante GZIP. &Eacute;sta es una buena herramienta para poner a punto
+tu c&oacute;digo, porque nadie escribe VRML perfecto desde el primer dia.
+<p>Todos los documentos de internet tienen un tipo de MIME. Esto dice al
+receptor lo que va a recibir antes de que le llegue. Probablemente no necesi
+de mime para VRML es el <EM>model/vrml.</EM> Alternativamente, puede ser
+<EM>x-world/x-vrml</EM>, pero est&aacute; desfasado actualmente.
+<p>Una vez que has creado tu mundo, querr&aacute;s publicarlo en Internet
+para que otras personas puedan verlo. Para esto necesitas un ISP (Un Proveedor
+de Servicios de Inernet). Puedes usar el espacio que ofrecen para poner
+sus archivos en la Web, como har&iacute;as con un archivo HTML normal.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">VRML Propiamente</FONT>
+</P><P>
+Bien, ahora podemos empezar propiamente con VRML. Este tutorial va a cubrir
+el m&eacute;todo de crear los mundos VRML picando c&oacute;digo. Si quieres
+crear VRML con herramientas de alto nivel, como alg&uacute;n programa 3D,
+no necesitas un tutorial de VRML. Necesitas un tutorial sobre c&oacute;mo
+usar la herramienta que est&aacute;s usando. &Eacute;se no es el modo en
+que se hace en este tutorial. Esto es para aqu&eacute;llos que quieran
+imbuirse en cosas reales, ensuciando sus manos con c&oacute;digo real.
+&iexcl;si est&aacute;s listo, all&aacute; vamos!
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Cabeceras y Comentarios</FONT>
+</P><P>
+La primera cosa que debes saber es que todo archivo VRML comienza con una
+linea de cabecera, que es:
+<pre>#VRML V2.0 utf8</pre>
+Esto dice al navegador que est&aacute; recibiendo un archivo de VRML, y
+la versi&oacute;n correspondiente del lenguaje. En este caso, es versi&oacute;n
+2.0. VRML es sensible a mayusculas y minusculas, por lo que debes asegurarte
+de escribirlo tal y como esta aqu&iacute;, incluyendo las mayusculas y
+minusculas. La parte del <STRONG>utf8 </STRONG>dice al navegador qu&eacute; standard
+de cadenas de texto debe emplear. VRML 1.0 usaba <STRONG>ascii </STRONG>o <STRONG>utf8</STRONG>,
+pero la versi&oacute;n 2 tiene s&oacute;lo <STRONG>utf8</STRONG>.
+<p>Cualquier linea que comience con una almohadilla (#) es un comentario,
+y sera ignorado por el int&eacute;rprete VRML, de modo que es lo que usar&aacute;s
+para comentar tus c&oacute;digos. La primera l&iacute;nea es una excepci&oacute;n,
+y <EM>es leida</EM> por el navegador, a pesar de que tenga un # en el comienzo.
+As&iacute; que lo siguiente es VRML v&aacute;lido:
+</P><pre>#VRML V2.0 utf8
+#Archivo VRML de ejemplo del tutorial de Floppy</pre><P>
+Vuelvo a recordarte que VRML es sensible a may&uacute;sculas y min&uacute;sculas,
+por lo que debes acostumbrarte a su uso correcto lo antes posible.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Los nodos, Campos y el Grafo de la Escena</FONT>
+</P><P>
+Sigamos ahora la estuctura de un archivo VRML. Un mundo VRML est&aacute;
+hecho a partir de <STRONG>nodos, </STRONG>que son tipos de objeto. Dentro de estos
+nodos, encontrar&aacute;s <STRONG>campos, </STRONG>que son propiedades del objeto.
+Los campos pueden ser cualquier cosa, desde el tama&ntilde;o de una caja,
+a otro nodo dentro del primero. Los nodos se escriben como sigue:
+</P>
+<pre>Group {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; children [
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]
+}
+
+</pre><P>
+Esto muestra el nodo <STRONG>Group.</STRONG> Es el nodo m&aacute;s simple. Lo &uacute;nico
+que hace es agrupar otros nodos. El nodo se escribe en el archivo poniendo
+el nombre del nodo (Group), y despues un par de llaves. Dentro de estas
+llaves tenemos los campos. En este caso, los <EM>children,</EM> pueden contener
+otros nodos. De este modo los nodos pueden anidarse entre si, creando un
+tipo de jerarqu&iacute;a de nodos, a veces llamado el <STRONG>Grafo de la Escena.</STRONG>
+Se muestran debajo unos ejemplos simples de nodos anidados, usando dos
+nodos Group, uno dentro del otro.
+</P><pre>Group {
+&nbsp;&nbsp; children [
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Group {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp; ]
+}
+
+</pre><P>
+Bueno, es un fragmento bastante vacio de VRML, pero muestra c&oacute;mo
+agrupar nodos y c&oacute;mo se anidan. De momento todo va bien, pero es
+ahora cuando se complica todo un poco. Para comenzar, no se pueden poner
+nodos en cualquier parte del archivo. Algunos s&oacute;lo pueden ponerse
+en ciertos campos, y s&oacute;lo algunos al nivel de la cima, como <STRONG>Group.</STRONG>
+Sin embargo, veremos esto despu&eacute;s. Por ahora, s&oacute;lo acost&uacute;mbrate
+a la idea del grafo de la escena, a nodos y a campos.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">&iexcl;Siguiente!</FONT>
+</P><P>
+Algo que debes recordar es que el VRML es sensible a may&uacute;sculas
+y min&uacute;sculas. Los nombres de los nodos comienzan con may&uacute;scula
+(Group, Transform, IndexedFaceSet), mientras que los de los campos lo hacen
+con min&uacute;scula. A&uacute;n as&iacute;, pueden tener una letra central
+may&uacute;scula si el nombre es compuesto (children, translation, coordIndex).
+<p>Ahora que sabes c&oacute;mo funciona todo, podemos empezar mirando los
+diferentes tipos de nodos. El pr&oacute;ximo cap&iacute;tulo, cubriremos
+WorldInfo, y c&oacute;mo crear una forma en tu mundo.
+</P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','','tut12.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

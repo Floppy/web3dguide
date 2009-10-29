@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - VRML Teleporter Workshop</TITLE>
+<META NAME="DESCRIPTION" CONTENT="Guide to the world of VRML, with one of the best tutorials on the web.">
+<META NAME="KEYWORDS" CONTENT="VRML, VRML97, Virtual Reality Modeling Language,	Tutorial, Guide, 3D,
+				VRML HUD, Heads-Up Display, workshop,
+				Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,
+				Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+</HEAD>
+<BODY BGCOLOR='#DDDDDD' TEXT='#000000' LINK="#ff0000" ALINK="#ffff00" VLINK="#DD0000">
+<H1>How can link a URL to a location in my world?</H1>
+<P>
+Often, instead of linking an object to a URL using the Anchor node, you'll want to transport the
+user to a new URL when they enter a particular location, whether it's visible or not.
+For instance, you could create a house with a number of different rooms, where each room is a
+separate file. When the user walks into a doorway, you can transport them to another URL, rather
+than having to have them click on the door to go there.
+</P><P>
+So, how could we do this? Well, let's define what we want to get at the end of the day. We want
+something that we can use just like an Anchor, but that has a position in the world instead of being
+linked to an object. Let's create a PROTO that will allow us to do that:
+</P><PRE>
+PROTO ProximityAnchor [
+  exposedField SFVec3f  center     0 0 0
+  exposedField SFVec3f  size       0 0 0
+  exposedField SFBool   enabled    TRUE
+  exposedField MFString parameter  []
+  exposedField MFString url        []
+]
+</PRE><P>
+This gives us everything we need. It has the field required to position it in the world, and also
+enable and disable it (might be useful). It also has the fields we need to load a URL. It's kind of
+a combination of a ProximitySensor and an Anchor, and in fact, that's almost exactly what we're going to
+do.
+</P><P>
+The first thing we're going to pu in the implementation is the ProximitySensor part. This means that
+from the outside of the PROTO, the ProximityAnchor looks like a normal ProximitySensor, and so can
+be used in any of the same places, which is good.
+</P><PRE>
+PROTO ProximityAnchor [
+  exposedField SFVec3f  center     0 0 0
+  exposedField SFVec3f  size       0 0 0
+  exposedField SFBool   enabled    TRUE
+  exposedField MFString parameter  []
+  exposedField MFString url        []
+]
+{
+  DEF SENSOR ProximitySensor {
+    center  IS center
+    size    IS size
+    enabled IS enabled
+  }
+}
+</PRE><P>
+This gives us the means to detect when someone has entered the space. But what do we do then? Well,
+we need to load the URL with the appropriate parameters. Now, we can't use an Anchor for this, as we
+can't trigger an Anchor from outside. We're going to have to do it ourselves, using a Script node.
+</P><P>
+What does the Script node need to do? Well, in theory, it just need to be triggered when the
+ProximitySensor's enterTime event goes off, and load a URL. That'll be just fine. Let's try it.
+</P><PRE>
+PROTO ProximityAnchor [
+  exposedField SFVec3f  center     0 0 0
+  exposedField SFVec3f  size       0 0 0
+  exposedField SFBool   enabled    TRUE
+  exposedField MFString parameter  []
+  exposedField MFString url        []
+]
+{
+  DEF SENSOR ProximitySensor {
+    center  IS center
+    size    IS size
+    enabled IS enabled
+  }
+  DEF ANCHOR Script {
+    eventIn      SFTime   trigger
+    exposedField MFString parameter  IS parameter
+    exposedField MFString url        IS url
+    url "javascript:
+      function trigger(value,time) {
+        Browser.loadURL(url,parameter);
+      }
+    "
+  }
+  ROUTE SENSOR.enterTime TO ANCHOR.trigger
+}
+</PRE><P>
+And that's it! The sensor trigger the script, which loads a URL. However, can anyone spot the
+deliberate mistakes? Yes, that's right. Scripts can't have exposed fields. So, we have to change our
+PROTO and our Script. We want to keep the behaviour, as it's really useful sometimes, so we have to
+add eventIns and eventOuts. Also, we've got a duplicate field in our Script (i.e. two fields called
+'url'), so we'll have to get rid of that as well. Let's do it.
+</P><PRE>
+PROTO ProximityAnchor [
+  eventIn      MFString set_parameter
+  eventIn      MFString set_url
+  exposedField SFVec3f  center     0 0 0
+  exposedField SFVec3f  size       0 0 0
+  exposedField SFBool   enabled    TRUE
+  field        MFString parameter  []
+  field        MFString url        []
+  eventOut     MFString parameter_changed
+  eventOut     MFString url_changed
+[
+}
+  DEF SENSOR ProximitySensor {
+    center  IS center
+    size    IS size
+    enabled IS enabled
+  }
+  DEF ANCHOR Script {
+    eventIn      SFTime   trigger
+    eventIn      MFString set_parameter     IS set_parameter
+    eventIn      MFString set_URL           IS set_url
+    field        MFString parameter         IS parameter
+    field        MFString URL               IS url
+    eventOut     MFString parameter_changed IS parameter_changed
+    eventOut     MFString URL_changed       IS url_changed
+    url "javascript:
+      function set_parameter(value,time) {
+        parameter = value;
+        parameter_changed = value;
+      }
+      function set_url(value,time) {
+        URL = value;
+        URL_changed = value;
+      }
+      function trigger(value,time) {
+        Browser.loadURL(URL,parameter);
+      }
+    "
+  }
+  ROUTE SENSOR.enterTime TO ANCHOR.trigger
+}
+</PRE><P>
+That should take care of it. Now, let's try it out. We'll create a simple world, with a cubicle in
+it, and then stick a ProximityAnchor inside the cubicle. We'll use a very simple URL, just one to
+open a javascript window to show it's working. Take a look at the <A HREF='teleporter.wrl' TARGET='_blank'>result</A>
+- when you walk into the cubicle, a javascript alert window should open up, telling you that the
+teleporter has been triggered. Also, take a look at the complete <A HREF='teleporter.html'>source code</A>
+of the example, to see how we use our new node.
+</P>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="/utils/footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('/pics/menu_lit/workshop.gif','Workshop','../');
+</SCRIPT> 
+
+</BODY>
+</HTML>

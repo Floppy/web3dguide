@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - VRML97 Tutorial: tut44b.wrl</TITLE>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+</HEAD>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+ 
+ 
+<H1>tut44b.wrl</H1>
+
+<PRE>
+<STRONG><FONT COLOR="#5F9EA0">#VRML V2.0 utf8
+</FONT></STRONG>
+<FONT COLOR="#DA70D6"><STRONG>WorldInfo</FONT></STRONG> {
+   title <FONT COLOR="#BC8F8F"><STRONG>&quot;Floppy's VRML97 Tutorial Example 4.4b&quot;</FONT></STRONG>
+   info [<FONT COLOR="#BC8F8F"><STRONG>&quot;(C) Copyright 2000 Vapour Technology Ltd.&quot;</FONT></STRONG>
+         <FONT COLOR="#BC8F8F"><STRONG>&quot;&#103;&#117;&#105;&#100;e&#64;&#119;e&#98;&#51;&#100;g&#117;i&#100;&#101;&#46;&#111;&#114;g&#46;&#117;&#107;&quot;</FONT></STRONG>]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>NavigationInfo</FONT></STRONG> {
+   type [<FONT COLOR="#BC8F8F"><STRONG>&quot;EXAMINE&quot;</FONT></STRONG>]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Viewpoint</FONT></STRONG> {
+   description <FONT COLOR="#BC8F8F"><STRONG>&quot;Default View&quot;</FONT></STRONG>
+   position 0 0 3
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+   appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+      material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+         diffuseColor 1 1 1
+      }
+   }
+   geometry <FONT COLOR="#DA70D6"><STRONG>Sphere</FONT></STRONG> {
+      radius 0.05
+   }
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Group</FONT></STRONG> {
+   children [
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> SENSOR1 <FONT COLOR="#DA70D6"><STRONG>SphereSensor</FONT></STRONG> {
+      }
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> VECTOR1 <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         children [
+            <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+               translation 0 0.5 0
+               children [
+                  <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+                     appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                        material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+                           diffuseColor 1 0 0
+                        }
+                     }
+                     geometry <FONT COLOR="#DA70D6"><STRONG>Cylinder</FONT></STRONG> {
+                        height 1
+                        radius 0.03
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Group</FONT></STRONG> {
+   children [
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> SENSOR2 <FONT COLOR="#DA70D6"><STRONG>SphereSensor</FONT></STRONG> {      
+      }
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> VECTOR2 <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         children [
+            <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+               translation 0 0.5 0
+               children [
+                  <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+                     appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                        material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+                           diffuseColor 0 1 0
+                        }
+                     }
+                     geometry <FONT COLOR="#DA70D6"><STRONG>Cylinder</FONT></STRONG> {
+                        height 1
+                        radius 0.03
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}
+
+<STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> CROSSVECTOR <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   children [
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         translation 0 0.5 0
+         children [
+            <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+               appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                  material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+                     diffuseColor 0 0 1
+                  }
+               }
+               geometry <FONT COLOR="#DA70D6"><STRONG>Cylinder</FONT></STRONG> {
+                  height 1
+                  radius 0.03
+               }
+            }
+         ]
+      }
+   ]
+}
+
+<STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> CROSS <FONT COLOR="#DA70D6"><STRONG>Script</FONT></STRONG> {
+   <STRONG><FONT COLOR="#A020F0">eventIn</FONT></STRONG>  <FONT COLOR="#228B22"><STRONG>SFRotation</FONT></STRONG>  vector1_rotation_changed
+   <STRONG><FONT COLOR="#A020F0">eventIn</FONT></STRONG>  <FONT COLOR="#228B22"><STRONG>SFRotation</FONT></STRONG>  vector2_rotation_changed
+   <STRONG><FONT COLOR="#A020F0">field</FONT></STRONG>    <FONT COLOR="#228B22"><STRONG>SFVec3f</FONT></STRONG>     vector1  0 1 0
+   <STRONG><FONT COLOR="#A020F0">field</FONT></STRONG>    <FONT COLOR="#228B22"><STRONG>SFVec3f</FONT></STRONG>     vector2  0 1 0
+   <STRONG><FONT COLOR="#A020F0">eventOut</FONT></STRONG> <FONT COLOR="#228B22"><STRONG>SFRotation</FONT></STRONG>  crossvector_set_rotation
+   <STRONG><FONT COLOR="#A020F0">eventOut</FONT></STRONG> <FONT COLOR="#228B22"><STRONG>SFVec3f</FONT></STRONG>     crossvector_set_scale
+   url <STRONG><FONT COLOR="#5F9EA0">&quot;javascript:</FONT></STRONG>
+      <STRONG><FONT COLOR="#A020F0">function</FONT></STRONG> <STRONG><FONT COLOR="#0000FF">calc_cross_product</FONT></STRONG>() {
+         <STRONG><FONT COLOR="#A020F0">var</FONT></STRONG> crossVec = vector1.cross(vector2);
+         <STRONG><FONT COLOR="#A020F0">var</FONT></STRONG> crossVecLength = crossVec.length();
+         <STRONG><FONT COLOR="#A020F0">if</FONT></STRONG> (crossVecLength &lt; 0.001) crossVecLength = 0.001;
+         crossvector_set_scale = <STRONG><FONT COLOR="#A020F0">new</FONT></STRONG> SFVec3f(1,crossVecLength,1);
+         <STRONG><FONT COLOR="#A020F0">var</FONT></STRONG> unitVec = <STRONG><FONT COLOR="#A020F0">new</FONT></STRONG> SFVec3f(0,1,0);
+         crossvector_set_rotation = <STRONG><FONT COLOR="#A020F0">new</FONT></STRONG> SFRotation(unitVec,crossVec);
+      }
+      <STRONG><FONT COLOR="#A020F0">function</FONT></STRONG> <STRONG><FONT COLOR="#0000FF">initialize</FONT></STRONG>() {
+         calc_cross_product();
+      }
+      <STRONG><FONT COLOR="#A020F0">function</FONT></STRONG> <STRONG><FONT COLOR="#0000FF">vector1_rotation_changed</FONT></STRONG>(value,time) {
+         <STRONG><FONT COLOR="#A020F0">var</FONT></STRONG> unitVec = <STRONG><FONT COLOR="#A020F0">new</FONT></STRONG> SFVec3f(0,1,0);
+         vector1 = value.multVec(unitVec);
+      }
+      <STRONG><FONT COLOR="#A020F0">function</FONT></STRONG> <STRONG><FONT COLOR="#0000FF">vector2_rotation_changed</FONT></STRONG>(value,time) {
+         <STRONG><FONT COLOR="#A020F0">var</FONT></STRONG> unitVec = <STRONG><FONT COLOR="#A020F0">new</FONT></STRONG> SFVec3f(0,1,0);
+         vector2 = value.multVec(unitVec);
+      }
+      <STRONG><FONT COLOR="#A020F0">function</FONT></STRONG> <STRONG><FONT COLOR="#0000FF">eventsProcessed</FONT></STRONG>() {
+         calc_cross_product();
+      }
+   <STRONG><FONT COLOR="#5F9EA0">&quot;</FONT></STRONG>
+}
+
+<STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> SENSOR1.rotation_changed <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> VECTOR1.rotation
+<STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> SENSOR1.rotation_changed <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> CROSS.vector1_rotation_changed
+<STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> SENSOR2.rotation_changed <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> VECTOR2.rotation
+<STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> SENSOR2.rotation_changed <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> CROSS.vector2_rotation_changed
+<STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> CROSS.crossvector_set_rotation <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> CROSSVECTOR.set_rotation
+<STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> CROSS.crossvector_set_scale <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> CROSSVECTOR.set_scale
+</PRE>
+<ADDRESS>Generated by <A HREF="http://people.ssh.fi/mtr/genscript/">GNU enscript 1.6.1</A>.</ADDRESS>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('../pics/guidelogo.gif','Back',document.referrer, 'en', '..');
+</SCRIPT>
+
+</P>
+</BODY>
+</HTML>

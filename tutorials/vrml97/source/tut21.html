@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - VRML97 Tutorial: tut21.wrl</TITLE>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+</HEAD>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+ 
+ 
+<H1>tut21.wrl</H1>
+
+<PRE>
+<STRONG><FONT COLOR="#5F9EA0">#VRML V2.0 utf8
+</FONT></STRONG>
+<FONT COLOR="#DA70D6"><STRONG>WorldInfo</FONT></STRONG> {
+   title <FONT COLOR="#BC8F8F"><STRONG>&quot;Floppy's VRML97 Tutorial Example 2.1&quot;</FONT></STRONG>
+   info [<FONT COLOR="#BC8F8F"><STRONG>&quot;(C) Copyright 2000 Vapour Technology Ltd.&quot;</FONT></STRONG>
+         <FONT COLOR="#BC8F8F"><STRONG>&quot;&#103;&#117;&#105;&#100;e&#64;&#119;e&#98;&#51;&#100;g&#117;i&#100;&#101;&#46;&#111;&#114;g&#46;&#117;&#107;&quot;</FONT></STRONG>]
+}
+
+<STRONG><FONT COLOR="#A020F0">PROTO</FONT></STRONG> ickleCone [
+   <STRONG><FONT COLOR="#A020F0">field</FONT></STRONG> <FONT COLOR="#228B22"><STRONG>SFVec3f</FONT></STRONG> position 0 0 0 
+]
+{
+   <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+      translation <STRONG><FONT COLOR="#A020F0">IS</FONT></STRONG> position
+      children [
+         <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+            appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+               material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+                  diffuseColor 1 0 0
+               }
+            }
+            geometry <FONT COLOR="#DA70D6"><STRONG>Cone</FONT></STRONG> {
+               bottomRadius 0.3
+               height 1
+               bottom <STRONG><FONT COLOR="#A020F0">FALSE</FONT></STRONG>
+            }
+         }
+      ]
+   }
+}
+
+
+
+<FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+   appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+      material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+         diffuseColor 0 0.5 0
+         emissiveColor 0 0.8 0
+         transparency 0.5
+      }
+   }
+   geometry <FONT COLOR="#DA70D6"><STRONG>Cylinder</FONT></STRONG> {
+      radius 0.35
+      height 3
+      bottom <STRONG><FONT COLOR="#A020F0">FALSE</FONT></STRONG>
+   }
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   translation 0 -2 0
+   children [
+      <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+         appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+            texture <FONT COLOR="#DA70D6"><STRONG>ImageTexture</FONT></STRONG> {
+               url <FONT COLOR="#BC8F8F"><STRONG>&quot;brick.jpg&quot;</FONT></STRONG>
+               repeatS <STRONG><FONT COLOR="#A020F0">TRUE</FONT></STRONG>
+               repeatT <STRONG><FONT COLOR="#A020F0">TRUE</FONT></STRONG>
+            }
+         }
+         geometry <FONT COLOR="#DA70D6"><STRONG>Box</FONT></STRONG> {
+            size 4 1 4
+         }
+      }
+   ]
+}
+
+ickleCone {
+   position 1.6 -1 1.6
+}
+
+ickleCone {
+   position -1.6 -1 -1.6
+}
+
+ickleCone {
+   position -1.6 -1 1.6
+}
+
+ickleCone {
+   position 1.6 -1 -1.6
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Anchor</FONT></STRONG> {
+   children [
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         translation 0 2.25 0
+         children [
+            <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+               appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                  texture <FONT COLOR="#DA70D6"><STRONG>ImageTexture</FONT></STRONG> {
+                     url <FONT COLOR="#BC8F8F"><STRONG>&quot;me.jpg&quot;</FONT></STRONG>
+                  }
+               }
+               geometry <FONT COLOR="#DA70D6"><STRONG>Sphere</FONT></STRONG> {
+                  radius 0.75
+               }
+            }
+         ]
+      }
+   ]
+   description <FONT COLOR="#BC8F8F"><STRONG>&quot;Back to the Tutorial&quot;</FONT></STRONG>
+   url <FONT COLOR="#BC8F8F"><STRONG>&quot;../tut21.html&quot;</FONT></STRONG>
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   translation 0 -2.2 2.01
+   children [
+      <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+         appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+            material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+               diffuseColor 0 1 0
+            }
+         }
+         geometry <FONT COLOR="#DA70D6"><STRONG>Text</FONT></STRONG> {
+            string <FONT COLOR="#BC8F8F"><STRONG>&quot;FloppyWorld&quot;</FONT></STRONG>
+            fontStyle <FONT COLOR="#DA70D6"><STRONG>FontStyle</FONT></STRONG> {
+               size 0.8
+               justify <FONT COLOR="#BC8F8F"><STRONG>&quot;MIDDLE&quot;</FONT></STRONG>
+            }
+         }
+      }
+   ]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Group</FONT></STRONG> {
+   children [
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> norm <FONT COLOR="#DA70D6"><STRONG>Viewpoint</FONT></STRONG> {
+         position 0 0 10
+         description <FONT COLOR="#BC8F8F"><STRONG>&quot;Normal Entry&quot;</FONT></STRONG>
+      }
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> aerial <FONT COLOR="#DA70D6"><STRONG>Viewpoint</FONT></STRONG> {
+         position 0 5 10
+         orientation 1 0 0 -0.39
+         description <FONT COLOR="#BC8F8F"><STRONG>&quot;Aerial View&quot;</FONT></STRONG>
+      }
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> headcam <FONT COLOR="#DA70D6"><STRONG>Viewpoint</FONT></STRONG> {
+         position 0 2.4 4
+         fieldOfView 0.39
+         description <FONT COLOR="#BC8F8F"><STRONG>&quot;HeadCam&quot;</FONT></STRONG>
+      }
+   ]
+}
+</PRE>
+<ADDRESS>Generated by <A HREF="http://people.ssh.fi/mtr/genscript/">GNU enscript 1.6.1</A>.</ADDRESS>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('../pics/guidelogo.gif','Back',document.referrer, 'en', '..');
+</SCRIPT>
+
+</P>
+</BODY>
+</HTML>

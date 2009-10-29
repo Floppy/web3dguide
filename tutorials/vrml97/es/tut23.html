@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,Sound, AudioClip, spatialize, 3D Sound, music, noise, sound, audio, WAV,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>La Guia de VRML de Floppy - VRML97 Tutorial 9: Sonidos, Clips de audio</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">La Catedral del Ruido</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut22.html','tut24.html');
+</SCRIPT>
+</P><P>
+Para hacer tu mundo m&aacute;s interesante, puedes agregarle sonido. Estos
+pueden ser sonidos de ambiente, timbres, sirenas, lo que mejor te parezca.Todo
+esto se hace con dos tipos de nodos, <STRONG>Sound </STRONG>y <STRONG>AudioClip.</STRONG> Puedes
+imaginar al nodo <STRONG>Sound </STRONG>como la especificaci&oacute;n del lugar en
+que se va a escuchar el soido, y en donde se origina. El propio sonido
+se especifica en el nodo <STRONG>AudioClip.</STRONG> En primer lugar, veremos el
+nodo <STRONG>Sound.</STRONG>
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+El sonido</FONT></P><P>
+El nodo <STRONG>Sound se </STRONG>usa para especificar la posicion y orientaci&oacute;n
+de una fuente de sonido en tu mundo. El nodo <STRONG>Sound </STRONG>se<STRONG> </STRONG>coloca
+en un cierto lugar, y podr&aacute;s oir ol sonido dependiendo del lugar
+en que te coloques en la escena respecto al sonido. El sonido se emite
+con un patr&oacute;n el&iacute;ptico, como se muestra en el cuadro de abajo:
+<br><IMG SRC="../pics/sound.gif" height=200 width=320 ALT="Sound">
+<p>Dentro del &aacute;rea roja, el sonido se oye con plena intensidad.
+Dentro del &aacute;rea amarilla, el sonido se desvanece segun la distancia
+del origen. Los campos <STRONG>minFront</STRONG>, <STRONG>maxFront</STRONG>, <STRONG>minBack</STRONG>
+y <STRONG>maxBack</STRONG> especificados en el nodo <STRONG>Sound </STRONG>son las distancias
+que miden esto, asi como la <STRONG>direcci&oacute;n.</STRONG> La sintaxis del nodo
+<STRONG>Sound </STRONG>es como sigue:
+</P><PRE>Sound {
+&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; direction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 1
+&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; intensity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1
+&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; location&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0
+&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; maxBack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10
+&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; maxFront&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10
+&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; minBack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1
+&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; minFront&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1
+&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; priority&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+&nbsp;&nbsp; SFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; source&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL
+&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spatialize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE&nbsp;&nbsp;&nbsp;
+}</PRE><P>
+Los dem&aacute;s campos operan de la siguiente manera: <STRONG>direction </STRONG>es
+un vector que especifica la direcci&oacute;n a donde apunta el nodo sound.
+El campo <STRONG>intensity </STRONG>es el volumen del sonido. Un valor de 1 es volumen
+pleno, tal como se encuentra en el archivo original , y 0 es silencio.
+<STRONG>situation </STRONG>es la posici&oacute;n de la fuente de sonido en el mundo.
+Los cuatro par&aacute;metros max/min de Front/Back especifican la forma
+de la elipse correspondiente al diagrama de arriba. Por ejemplo, para tener
+un sonido que sea igualmente audible en todas las direcciones, tendr&iacute;as
+el <STRONG>maxFront=maxBack</STRONG>, y <STRONG>minFront=minBack.</STRONG> Si no quisieras
+que este sonido disminuyera con la distancia, tendr&iacute;as que poner
+todos los valores a la misma distancia, la cual deber&aacute; ser bastante
+grande como para cubrir tu mundo entero. Si quieres que el sonido vaya
+apagandose con la distancia, pon los valores m&aacute;ximos a 10 y los
+valores min dar&aacute;n una proporcion realista de caida.
+<p>El campo<STRONG> priority </STRONG>es la importancia del sonido. El navegador
+tendr&aacute; s&oacute;lo un cierto n&uacute;mero de canales de sonido
+disponibles para a &eacute;l, y <STRONG>priority </STRONG>se utiliza para determinar
+cual de ellos se utilizar&aacute;. Este campo toma valores de 0 a 1. Los
+sonidos de fondo de baja prioridad deben tener un valor de 0, y los prioritarios,
+sonidos cortos como timbres o lo que sea, deben tener un valor de 1.
+<p>El campo <STRONG>spatialize </STRONG>es usado por el navegador para determinar
+si debe espacializar el sonido. Esto significa que lo hara sonar a trav&eacute;s
+de los altavoces como si viniera de su origen, y entonces oir&aacute;s
+el sonido moviendose cuando te muevas relativamente a &eacute;l. Si este
+campo es FALSE, el navegador no har&aacute; esto. Esto es &uacute;til para
+la optimizaci&oacute;n y para la creaci&oacute;n de sonidos ambientales.
+<p>S&oacute;lo nos falta un campo del nodo <STRONG>Sound</STRONG>, y es el campo
+source (fuente, origen)<STRONG>.</STRONG> Es realmente importante. Puede contener
+un nodo <STRONG>AudioClip </STRONG>o un nodo <STRONG>MovieTexture.</STRONG> Si usas <STRONG>MovieTexture</STRONG>,
+el navegador ejecutar&aacute; el sonido del archivo de la pel&iacute;cula
+especificada. Esto puede ser &uacute;til para tocar archivos de sonido
+de MPEG, por ejemplo. &iexcl;M&aacute;s &uacute;til es el nodo <STRONG>AudioClip
+</STRONG>que cubriremos en detalle ahora mismo!
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+AudioClip</FONT></P><P>
+El nodo <STRONG>AudioClip </STRONG>especifica qu&eacute; sonara por el nodo <STRONG>sound</STRONG>,
+y cu&aacute;ndo. La sintaxis es como sigue:
+</P><PRE>AudioClip {
+&nbsp;&nbsp; SFString&nbsp;&nbsp;&nbsp; description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ""
+&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; loop&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FALSE
+&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; pitch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0
+&nbsp;&nbsp; SFTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; startTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+&nbsp;&nbsp; SFTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stopTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+&nbsp;&nbsp; MFString&nbsp;&nbsp;&nbsp; url&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+}</PRE><P>
+El <STRONG>AudioClip </STRONG>funciona as&iacute;. El campo <STRONG>url </STRONG>es una lista
+de archivos en formato .WAV o General MIDI .MID tipo 1, que es &uacute;til
+para la representaci&oacute;n compacta de m&uacute;sica. El navegador tocar&aacute;
+el primero de &eacute;stos que pueda cargar. <STRONG>loop </STRONG>especifica si
+el sonido se ejecuta en bucle, lo que es &uacute;til para los sonidos del
+ambiente y <STRONG>description </STRONG>es una descripci&oacute;n del sonido que
+el navegador puede desplegar si lo deseas. El campo <STRONG>pitch </STRONG>es un
+multiplicador para la velocidad de la cinta, y en consecuencia del sonido.
+Un <STRONG>pitch </STRONG>de 1.0 es la velocidad normal. Un <STRONG>pitch </STRONG>de 0.5 sonar&aacute;
+a la mitad de la velocidad, y transpone el sonido abajo una octava. Un
+valor de 2.0 tendr&aacute; el efecto opuesto, mientras duplica la velocidad
+del sonido, y eleva la velocidad una octava.
+<p>El<STRONG> startTime </STRONG>y <STRONG>stopTime </STRONG>son valores SFTime que especifican
+cu&aacute;ndo el sonido comenzar&aacute; y se detendr&aacute;. Si lo recuerdas,
+son los segundos desde el 1de enero de 1970. Puede parecer que esto no
+tiene mucho sentido, pero cuando los unamos a los sensores y rutas te aseguro
+que lo tendr&aacute;. Un sensor puede generar un EventOut activado con
+el tiempo, y si se dirige (via ROUTE) al <STRONG>AudioClip</STRONG> a trav&eacute;s
+del eventIn <STRONG>set_startTime,</STRONG> se ejecutar&aacute; el sonido. Esto Veremos
+m&aacute;s sobre esto despu&eacute;s, cuando cubramos sensores e interacciones.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Desvanecerse en la lejan&iacute;a...</FONT></P><P>
+Una cosa m&aacute;s sobre los nodos de sonido, y es acerca de los archivos
+no comprimidos tipo .WAV. El tema es que son GRANDES, y toman tiempos absolutamente
+enormes para descargarse. Por consiguiente, deben usarse con mucha moderaci&oacute;n
+a favor de la eficencia. Los archivos MIDI son buenos para la m&uacute;sica
+de fondo, de modo que intenta alejarte de archivos .WAV tanto como puedas.
+Si son los que tienes, h&aacute;zlos mas cortos y de baja calidad, dado
+que nadie esperar&aacute; alrededor de 10 minutos para bajarse un archivo
+.WAV con calidad CD.
+<p>&Eacute;se es todo lo que necesitas saber sobre las cosas basicas de
+sonido. Para poder producir sonidos verdaderamente utiles, como por ejemplo
+timbres y dem&aacute;s, nosotros necesitamos poder actuar rec&iacute;procamente
+con el mundo a trav&eacute;s de sensores y cosas de ese tipo. No los hemos
+cubierto todav&iacute;a, as&iacute; que dejar&eacute; una demostraci&oacute;n
+de sonidos interactivos para m&aacute;s adelante, y en este mundo de ejemplo
+s&oacute;lo he agregado redobles de tambor que vienen desde el podio al
+observador. Despu&eacute;s, cubriremos los sensores y podremos hacer cosas
+m&aacute;s impresionantes.
+<br><A HREF="../worlds/tut23.wrl" TARGET="_new">Tutorial Mundo 9 </a>y <A HREF="../source/tut23.html">c&oacute;digo.</a>
+<p>Eso es todo entonces, en el pr&oacute;ximo tutorial te mostrar&eacute;
+c&oacute;mo hacer formas m&aacute;s realistas y &uacute;tiles con objetos
+avanzados.
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut22.html','tut24.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

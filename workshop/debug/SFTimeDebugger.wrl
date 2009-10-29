@@ -1,0 +1,25 @@
+#VRML V2.0 utf8
+
+PROTO SFTimeDebugger [
+   eventIn  SFTime   input
+   field    SFBool   consoleOutput   TRUE
+   field    SFBool   stringOutput    TRUE
+   eventOut SFString debugString
+   eventOut SFTime   output
+]
+{
+   Script {
+      eventIn  SFTime   input           IS input
+      field    SFBool   consoleOutput   IS consoleOutput
+      field    SFBool   stringOutput    IS stringOutput
+      eventOut SFString debugString     IS debugString
+      eventOut SFTime   output          IS output
+      url "javascript:
+         function input(value,time) {
+            if (consoleOutput) print(value);
+            if (stringOutput) debugString = value.toString();
+            output = value;
+         }
+      "
+   }
+}

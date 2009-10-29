@@ -1,0 +1,364 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 19"
+   info ["(C) Copyright 1999 Vapour Technology"
+         "guide@web3dguide.org.uk"]
+}
+
+NavigationInfo {
+   headlight FALSE
+}
+
+Viewpoint {
+   description "Entryway"
+   position 0 1.6 0
+}
+
+Shape {
+   appearance Appearance {
+      material Material {
+         emissiveColor 0.5 0.5 0.5
+      }
+   }
+   geometry Cylinder {
+      radius 15
+      height 0.0000001
+   }
+}
+
+DEF TIMER TimeSensor {
+   cycleInterval 10
+   loop TRUE
+}
+
+#Colour Interpolator Example
+Transform {
+   children [
+      DirectionalLight {
+         ambientIntensity 0.75
+      }
+      DEF COLINT ColorInterpolator {
+         key [0, 0.33, 0.66, 1]
+         keyValue [    1 0 0,
+               0 1 0,
+               0 0 1,
+               1 0 0 ] 
+      }
+      Transform {
+         translation 0 0.5 -10
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     emissiveColor 1 1 1
+                  }
+               }
+               geometry Text {
+                  string ["ColorInterpolator"]
+                  fontStyle FontStyle {
+                     justify "MIDDLE"
+                  }
+               }
+            }
+         ]
+      }   
+      Transform {
+         translation 0 3 -10
+         children [
+            Shape {
+               appearance Appearance {
+                  material DEF COLTGT Material {
+                     diffuseColor 1 0 0 
+                  }
+               }
+               geometry Sphere {
+               }
+            }
+         ]
+      }
+   ]
+}
+
+#Coordinate Interpolator Example
+Transform {
+   rotation  0 1 0 1.04
+   children [
+      DirectionalLight {
+         ambientIntensity 0.75
+      }
+      DEF CORINT CoordinateInterpolator {
+         key [0, 0.2, 0.4, 0.6, 0.8, 1]
+         keyValue [    0 1 1, 0 1 -1, -1 -1 0, 1 -1 0,
+                0 2 2, 0 1 -1, -1 -1 0, 1 -1 0,
+                0 1 1, 0 2 -2, -1 -1 0, 1 -1 0,
+                0 1 1, 0 1 -1, -2 -2 0, 1 -1 0,
+                0 1 1, 0 1 -1, -1 -1 0, 2 -2 0,
+                0 1 1, 0 1 -1, -1 -1 0, 1 -1 0 ]
+      }
+      Transform {
+         translation 0 0.5 -10
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     emissiveColor 1 1 1
+                  }
+               }
+               geometry Text {
+                  string ["CoordinateInterpolator"]
+                  fontStyle FontStyle {
+                     justify "MIDDLE"
+                  }
+               }
+            }
+         ]
+      }   
+      Transform {
+         translation 0 3 -10
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     diffuseColor 0 0 1
+                  }
+               }
+               geometry IndexedFaceSet {
+                  coord DEF CORTGT Coordinate {
+                     point [ 0 1 1, 0 1 -1, -1 -1 0, 1 -1 0]
+                  }
+                  coordIndex [   2 3 0 -1,
+                        2 0 1 -1,
+                        3 2 1 -1,
+                        3 1 0 -1 ]
+               }
+            }
+         ]
+      }
+   ]
+}
+
+#Normal Interpolator Example
+Transform {
+   rotation  0 1 0 2.09
+   children [
+      DirectionalLight {
+         ambientIntensity 0.75
+      }
+      DEF NORINT NormalInterpolator {
+         key [0, 0.25, 0.5, 0.75, 1]
+         keyValue [   0 0 1, 1 0 0, 0 0 -1, -1 0 0,
+               1 0 0, 0 0 -1, -1 0 0, 0 0 1,
+               0 0 -1, -1 0 0, 0 0 1, 1 0 0, 
+               -1 0 0, 0 0 1, 1 0 0, 0 0 -1, 
+               0 0 1, 1 0 0, 0 0 -1, -1 0 0 ]
+      }
+      Transform {
+         translation 0 0.5 -10
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     emissiveColor 1 1 1
+                  }
+               }
+               geometry Text {
+                  string ["NormalInterpolator"]
+                  fontStyle FontStyle {
+                     justify "MIDDLE"
+                  }
+               }
+            }
+         ]
+      }   
+      Transform {
+         translation 0 3 -10
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     diffuseColor 1 0 0 
+                  }
+               }
+               geometry IndexedFaceSet {
+                  coord Coordinate {
+                     point [ 0 1 1, 0 1 -1, -1 -1 0, 1 -1 0]
+                  }
+                  coordIndex [   2 3 0 -1,
+                        2 0 1 -1,
+                        3 2 1 -1,
+                        3 1 0 -1 ]
+                  normal DEF NORTGT Normal {
+                     vector [   0 0 1,
+                        1 0 0,
+                        0 0 -1,
+                        -1 0 0]
+                  }
+                  normalPerVertex TRUE
+                  normalIndex [ 0 1 2 -1, 1 2 3 -1, 2 3 0 -1, 3 0 1 -1 ]
+               }
+            }
+         ]
+      }
+   ]
+}
+
+#Orientation Interpolator Example
+Transform {
+   rotation  0 1 0 3.14
+   children [
+      DirectionalLight {
+         ambientIntensity 0.75
+      }
+      DEF ORIINT OrientationInterpolator {
+         key [0, 0.25, 0.5, 0.75, 1]
+         keyValue [   0 1 0 0, 
+               0 1 0 1.57,
+               0 1 0 3.14,
+               0 1 0 4.71,
+               0 1 0 6.28 ]
+      }
+      Transform {
+         translation 0 0.5 -10
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     emissiveColor 1 1 1
+                  }
+               }
+               geometry Text {
+                  string ["OrientationInterpolator"]
+                  fontStyle FontStyle {
+                     justify "MIDDLE"
+                  }
+               }
+            }
+         ]
+      }   
+      DEF ORITGT Transform {
+         translation 0 3 -10
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     diffuseColor 0 1 0 
+                  }
+               }
+               geometry Box {
+               }
+            }
+         ]
+      }
+   ]
+}
+
+#Position Interpolator Example
+Transform {
+   rotation  0 1 0 4.18
+   children [
+      DirectionalLight {
+         ambientIntensity 0.75
+      }
+      DEF POSINT PositionInterpolator {
+         key [0, 0.25, 0.5, 0.75, 1]
+         keyValue [   1 4 -10, 
+               1 2 -10,
+               -1 2 -10,
+               -1 4 -10,
+               1 4 -10 ]
+      }
+      Transform {
+         translation 0 0.5 -10
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     emissiveColor 1 1 1
+                  }
+               }
+               geometry Text {
+                  string ["PositionInterpolator"]
+                  fontStyle FontStyle {
+                     justify "MIDDLE"
+                  }
+               }
+            }
+         ]
+      }   
+      DEF POSTGT Transform {
+         translation 0 3 -10
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     diffuseColor 1 0 1 
+                  }
+               }
+               geometry Sphere {
+               }
+            }
+         ]
+      }
+   ]
+}
+
+#Scalar Interpolator Example
+Transform {
+   rotation  0 1 0 5.24
+   children [
+      DEF SCLTGT DirectionalLight {
+         ambientIntensity 0.75
+      }
+      DEF SCLINT ScalarInterpolator {
+         key [0, 0.25, 0.5, 0.75, 1]
+         keyValue [ 0, 0.5, 0, 1, 0 ]
+      }
+      Transform {
+         translation 0 0.5 -10
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     emissiveColor 1 1 1
+                  }
+               }
+               geometry Text {
+                  string ["ScalarInterpolator"]
+                  fontStyle FontStyle {
+                     justify "MIDDLE"
+                  }
+               }
+            }
+         ]
+      }   
+      Transform {
+         translation 0 3 -10
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     diffuseColor 1 1 0 
+                  }
+               }
+               geometry Cylinder {
+               }
+            }
+         ]
+      }
+   ]
+}
+
+ROUTE TIMER.fraction_changed TO COLINT.set_fraction
+ROUTE TIMER.fraction_changed TO CORINT.set_fraction
+ROUTE TIMER.fraction_changed TO NORINT.set_fraction
+ROUTE TIMER.fraction_changed TO ORIINT.set_fraction
+ROUTE TIMER.fraction_changed TO POSINT.set_fraction
+ROUTE TIMER.fraction_changed TO SCLINT.set_fraction
+
+ROUTE COLINT.value_changed TO COLTGT.set_diffuseColor
+ROUTE CORINT.value_changed TO CORTGT.set_point
+ROUTE NORINT.value_changed TO NORTGT.set_vector
+ROUTE ORIINT.value_changed TO ORITGT.set_rotation
+ROUTE POSINT.value_changed TO POSTGT.set_translation
+ROUTE SCLINT.value_changed TO SCLTGT.set_intensity

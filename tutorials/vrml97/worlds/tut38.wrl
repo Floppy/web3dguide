@@ -1,0 +1,39 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 3.8"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+DEF NEAR Viewpoint {
+   position 0 0 10
+   description "Near"
+}
+
+DEF MEDIUM Viewpoint {
+   position 0 0 25
+   description "Medium"
+}
+
+DEF FAR Viewpoint {
+   position 0 0 65
+   description "Far"
+}
+
+LOD {
+   range [
+      15 50
+   ]
+   level [
+      Inline {
+         url "lump_near.wrl"
+      }
+      Inline {
+         url "lump_medium.wrl"
+      }
+      Inline {
+         url "lump_far.wrl"
+      }
+   ]
+}

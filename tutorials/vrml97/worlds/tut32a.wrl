@@ -1,0 +1,38 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 3.2a"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+DEF TIMER TimeSensor {
+   cycleInterval 2.0
+   loop TRUE
+}
+
+Sound {
+   minFront 10
+   minBack 10
+   maxFront 50
+   maxBack 50
+   source DEF SOUND AudioClip {
+      url "boing.wav"
+   }
+}
+
+Shape {
+   appearance Appearance {
+      material Material {
+         emissiveColor 1 0 0
+      }   
+   }
+   geometry Text {
+      string "Boing!"
+      fontStyle FontStyle {
+         justify "MIDDLE"
+      }
+   }
+}
+
+ROUTE TIMER.cycleTime TO SOUND.startTime

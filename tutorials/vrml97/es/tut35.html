@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guide, 3D,    Bindable nodes, Fog, Background, NavigationInfo, Viewpoint, bind stack,    Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,    Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>El Web3D Guide de disco blando - VRML97 Gu&iacute;a did&aacute;ctica 3.5: Los Nodos de Bindable</title>
+</HEAD>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#BB0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Un Cambio Es Tan Bueno Como El Descanso</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut34.html','tut36.html');
+</SCRIPT>
+</P><P>
+Este cap&iacute;tulo va a cubrir los nodos <EM>bindable </EM>(ligables, atables)<EM>.</EM>
+No son nuevos, s&oacute;lo la manera de usarlos ser&aacute; nueva. Ciertos
+nodos que afectan a la apariencia general y al comportamiento del mundo
+son llamados <EM>bindable.</EM> estos nodos pueden estar ligados (<EM>bound</EM>)
+y desligados <EM>(unbound).</EM> Cuando un nodo est&aacute; ligado, los valores
+que contiene afectan el estado del mundo. Cuando un nodo est&aacute; desligado,
+debe ligarse otro nodo del mismo tipo, para que este otro nodo afecte al
+mundo. De esta manera, puedes cambiar diferentes aspectos para un mismo
+mundo eligiendo cual de los nodos est&aacute; ligado.
+<p>Ya hemos visto todos los nodos bindable, por lo que deber&iacute;as
+saber lo que hacen. Son lo siguientes.
+</P>
+<ul>
+<li>
+<STRONG>Background</STRONG></li>
+
+<li>
+<STRONG>Fog</STRONG></li>
+
+<li>
+<STRONG>NavigationInfo</STRONG></li>
+
+<li>
+<STRONG>Viewpoint</STRONG></li>
+</ul>
+<P>
+Como ver&aacute;s, ya nos hemos encontrado antes con ellos, y como sabes,
+afectan a la apariencia global y al comportamiento del mundo. Este es el
+momento de averiguar el funcionamiento interno de un nodo bindable, y c&oacute;mo
+trabaja todo.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+El Bind Stack</FONT></P><P>
+Vale. El navegador tiene cuatro estructuras dentro de su funcionamiento
+interno, una para cada tipo de nodo bindable. &Eacute;stas se llaman <STRONG>Bind
+Stack</STRONG> (la "pila de ligaduras"). Cuando se interprerta un archivo VRML,
+el primer nodo que se encuentra dentro del archivo pasa a la cabeza de
+la pila, y el resto pasan abajo de la pila. En nodo que est&aacute; ligado
+(el que est&aacute; activo) es el que est&aacute; en la cabeza de la pila.
+Una vez que el mundo se ha cargado en el navegador, podemos manipular la
+pila con un cierto juego de eventos.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Los Nodos ligados</FONT></P><P>
+Todos los nodos bindable tienen un par de eventos en com&uacute;n. Todos
+tienen el eventIn <EM>set_bind </EM>y el eventOut <EM>isBound.</EM> Ambos son
+valores <STRONG>SFBool.</STRONG> Cuando env&iacute;as un evento <EM>set_bind </EM>con
+valor TRUE a un nodo bindable, le llevas a la cabeza de la pila, y pasa
+a ser un nodo ligado (<EM>bound</EM>). De esta manera, este nodo enviar&aacute;
+un evento <EM>isBound</EM> a TRUE. El nodo que estaba en la cabeza de la
+pila (y ya no lo est&aacute;) env&iacute;a un <EM>isBound </EM>FALSE con
+el mismo timestamp. La &uacute;nica excepci&oacute;n es si el nodo al que
+se env&iacute;a un <EM>set_bind</EM> estaba ya en la cabeza de la pila: no
+pasar&iacute;a nada, y no se enviar&iacute;a ni recibir&iacute;a ning&uacute;n
+evento.
+<p>Si env&iacute;as un evento <EM>set_bind </EM>FALSE a un nodo, ser&aacute;
+eliminado de la pila. Si es el nodo ligado, enviar&aacute; un isBound FALSE
+y el pr&oacute;ximo nodo de la pila pasar&aacute; a la cabeza.
+<p>Si envias eventos <EM>set_bind </EM>a un nodo que ha sido eliminado de
+la pila, no ocurre nada. Si un nodo es eliminado, act&uacute;a como si
+fuese enviado un evento <EM>set_bind</EM> FALSE.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Usando nodos Bindable.</FONT></P><P>
+Ahora que sabes usar los nodos bindable, &iquest;para qu&eacute; sirven?
+Bien, cambiar el fondo y los tipos de niebla es bastante &uacute;til de
+por s&iacute;, como podr&aacute;s imaginar. Tambi&eacute;n, usando nodos
+<STRONG>NavigationInfo</STRONG> diferentes, puedes redimensionar tu avatar, cambiar
+el tipo de movimiento, esa clase de cosas.
+<p>Sin embargo, el nodo m&aacute;s &uacute;til es <STRONG>Viewpoint.</STRONG> Si
+ligas al usuario a un <STRONG>Viewpoint</STRONG>, &eacute;ste se mover&aacute; all&iacute;
+al instante en el estilo definido por el nodo. Esto significa que puedes
+tener Scripts que conducen al usuario alrededor del mundo, ligandolo a
+<STRONG>Viewpoint</STRONG>s diferentes. Otro efecto de ligar a un <STRONG>Viewpoint</STRONG>
+es determinar la posici&oacute;n del usuario en la jerarqu&iacute;a de
+las transformaciones. As&iacute;, si est&aacute;s moviendo un objeto a
+trav&eacute;s del mundo, y ligas al usuario a un <STRONG>Viewpoint</STRONG> que est&aacute;
+agrupado junto con ese objeto, el usuario se animar&aacute; al mismo tiempo
+que el objeto.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Totalmente Descansado...</FONT></P><P>
+Este <A HREF="../worlds/tut35.wrl" TARGET="_new">ejemplo</a> y su <A HREF="../source/tut35.html">c&oacute;digo</a>
+asociado muestra los usos de los nodos bindable. Toda la interacci&oacute;n
+del usuario se hace con bindables, sin ning&uacute;n tipo de scripts. La
+peque&ntilde;a esfera amarilla es un interruptor que liga temporalmente
+al usuario a un <STRONG>Viewpoint </STRONG>en la plataforma animada que gira alrededor
+del escenario. El efecto s&oacute;lo es temporal, dado que el <STRONG>TouchSensor
+</STRONG>genera un evento FALSE cuando se suelta el bot&oacute;n y le devuelve
+a donde estaba. Esto puede arreglarse, pero necesitamos para ello un peque&ntilde;o
+Script. Entretanto, aprieta el bot&oacute;n para conseguir el efecto. Los
+tres interruptores de color intercambian temporalmente lon nodos <STRONG>Background
+</STRONG>de de la misma manera.
+<p>Muy bien, entonces, &eacute;so es todo lo que necesitas saber sobre
+los nodos bindable. El pr&oacute;ximo cap&iacute;tulo voy a dar una introducci&oacute;n
+breve al nodo Script y c&oacute;mo usarlo en tus mundos. No vamos a cubrir
+c&oacute;mo hacer un script, s&oacute;lo c&oacute;mo introducirlo en tus
+mundos.
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut34.html','tut36.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

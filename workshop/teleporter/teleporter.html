@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - teleporter.wrl</TITLE>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+</HEAD>
+<BODY BGCOLOR='#DDDDDD' TEXT='#000000' LINK="#ff0000" ALINK="#ffff00" VLINK="#DD0000">
+ 
+ 
+<H1>teleporter.wrl</H1>
+
+<PRE>
+<B><FONT COLOR="#5F9EA0">#VRML V2.0 utf8
+</FONT></B>
+<B><FONT COLOR="#A020F0">PROTO</FONT></B> ProximityAnchor [
+  <B><FONT COLOR="#A020F0">eventIn</FONT></B>      <FONT COLOR="#228B22"><B>MFString</FONT></B> set_parameter
+  <B><FONT COLOR="#A020F0">eventIn</FONT></B>      <FONT COLOR="#228B22"><B>MFString</FONT></B> set_url
+  <B><FONT COLOR="#A020F0">exposedField</FONT></B> <FONT COLOR="#228B22"><B>SFVec3f</FONT></B>  center     0 0 0
+  <B><FONT COLOR="#A020F0">exposedField</FONT></B> <FONT COLOR="#228B22"><B>SFVec3f</FONT></B>  size       0 0 0
+  <B><FONT COLOR="#A020F0">exposedField</FONT></B> <FONT COLOR="#228B22"><B>SFBool</FONT></B>   enabled    <B><FONT COLOR="#A020F0">TRUE</FONT></B>
+  <B><FONT COLOR="#A020F0">field</FONT></B>        <FONT COLOR="#228B22"><B>MFString</FONT></B> parameter  []
+  <B><FONT COLOR="#A020F0">field</FONT></B>        <FONT COLOR="#228B22"><B>MFString</FONT></B> url        []
+  <B><FONT COLOR="#A020F0">eventOut</FONT></B>     <FONT COLOR="#228B22"><B>MFString</FONT></B> parameter_changed
+  <B><FONT COLOR="#A020F0">eventOut</FONT></B>     <FONT COLOR="#228B22"><B>MFString</FONT></B> url_changed
+]
+{
+  <B><FONT COLOR="#A020F0">DEF</FONT></B> SENSOR <FONT COLOR="#DA70D6"><B>ProximitySensor</FONT></B> {
+    center  <B><FONT COLOR="#A020F0">IS</FONT></B> center
+    size    <B><FONT COLOR="#A020F0">IS</FONT></B> size
+    enabled <B><FONT COLOR="#A020F0">IS</FONT></B> enabled
+  }
+  <B><FONT COLOR="#A020F0">DEF</FONT></B> ANCHOR <FONT COLOR="#DA70D6"><B>Script</FONT></B> {
+    <B><FONT COLOR="#A020F0">eventIn</FONT></B>      <FONT COLOR="#228B22"><B>SFTime</FONT></B>   trigger
+    <B><FONT COLOR="#A020F0">eventIn</FONT></B>      <FONT COLOR="#228B22"><B>MFString</FONT></B> set_parameter     <B><FONT COLOR="#A020F0">IS</FONT></B> set_parameter
+    <B><FONT COLOR="#A020F0">eventIn</FONT></B>      <FONT COLOR="#228B22"><B>MFString</FONT></B> set_URL           <B><FONT COLOR="#A020F0">IS</FONT></B> set_url
+    <B><FONT COLOR="#A020F0">field</FONT></B>        <FONT COLOR="#228B22"><B>MFString</FONT></B> parameter         <B><FONT COLOR="#A020F0">IS</FONT></B> parameter
+    <B><FONT COLOR="#A020F0">field</FONT></B>        <FONT COLOR="#228B22"><B>MFString</FONT></B> URL               <B><FONT COLOR="#A020F0">IS</FONT></B> url
+    <B><FONT COLOR="#A020F0">eventOut</FONT></B>     <FONT COLOR="#228B22"><B>MFString</FONT></B> parameter_changed <B><FONT COLOR="#A020F0">IS</FONT></B> parameter_changed
+    <B><FONT COLOR="#A020F0">eventOut</FONT></B>     <FONT COLOR="#228B22"><B>MFString</FONT></B> URL_changed       <B><FONT COLOR="#A020F0">IS</FONT></B> url_changed
+    url <B><FONT COLOR="#5F9EA0">&quot;javascript:</FONT></B>
+      <B><FONT COLOR="#A020F0">function</FONT></B> <B><FONT COLOR="#0000FF">set_parameter</FONT></B>(value,time) {
+        parameter = value;
+        parameter_changed = value;
+      }
+      <B><FONT COLOR="#A020F0">function</FONT></B> <B><FONT COLOR="#0000FF">set_url</FONT></B>(value,time) {
+        URL = value;
+        URL_changed = value;
+      }
+      <B><FONT COLOR="#A020F0">function</FONT></B> <B><FONT COLOR="#0000FF">trigger</FONT></B>(value,time) {
+        Browser.loadURL(URL,parameter);
+      }
+    <B><FONT COLOR="#5F9EA0">&quot;</FONT></B>
+  }
+  <B><FONT COLOR="#A020F0">ROUTE</FONT></B> SENSOR.enterTime <B><FONT COLOR="#A020F0">TO</FONT></B> ANCHOR.trigger
+}
+
+<I><FONT COLOR="#B22222"># Entry
+</FONT></I><FONT COLOR="#DA70D6"><B>Viewpoint</FONT></B> {
+  description <FONT COLOR="#BC8F8F"><B>&quot;Entry&quot;</FONT></B>
+  position 0 1 5
+}
+
+<I><FONT COLOR="#B22222">#Navigation
+</FONT></I><FONT COLOR="#DA70D6"><B>NavigationInfo</FONT></B> {
+  type [<FONT COLOR="#BC8F8F"><B>&quot;WALK&quot;</FONT></B>]
+}
+
+<I><FONT COLOR="#B22222">#Lighting
+</FONT></I><FONT COLOR="#DA70D6"><B>DirectionalLight</FONT></B> {
+  direction 0 -1 -1
+}
+
+<I><FONT COLOR="#B22222"># Floor
+</FONT></I><FONT COLOR="#DA70D6"><B>Shape</FONT></B> {
+  appearance <FONT COLOR="#DA70D6"><B>Appearance</FONT></B> {
+    material <FONT COLOR="#DA70D6"><B>Material</FONT></B> {
+      diffuseColor 0 0.5 0
+    }
+  }
+  geometry <FONT COLOR="#DA70D6"><B>Box</FONT></B> {
+    size 15 1e-8 15
+  }
+}
+
+<I><FONT COLOR="#B22222"># Cubicle
+</FONT></I><FONT COLOR="#DA70D6"><B>Shape</FONT></B> {
+  appearance <FONT COLOR="#DA70D6"><B>Appearance</FONT></B> {
+    material <FONT COLOR="#DA70D6"><B>Material</FONT></B> {
+      diffuseColor 1 0 0
+    }
+  }
+  geometry <FONT COLOR="#DA70D6"><B>Extrusion</FONT></B> {
+    ccw          <B><FONT COLOR="#A020F0">FALSE</FONT></B>
+    crossSection [0.5 0.5, 0.5 -0.5, -0.5 -0.5, -0.5 0.5, -0.6 0.5, -0.6 -0.6, 0.6 -0.6, 0.6 0.5, 0.5 0.5]
+    spine        [0 -0.1 0, 0 2 0]
+    beginCap     <B><FONT COLOR="#A020F0">FALSE</FONT></B>
+    endCap       <B><FONT COLOR="#A020F0">FALSE</FONT></B>
+    convex       <B><FONT COLOR="#A020F0">FALSE</FONT></B>
+  }
+}
+
+<I><FONT COLOR="#B22222"># Teleporter
+</FONT></I>ProximityAnchor {
+  center    0 1 0
+  size      1 2 1
+  enabled   <B><FONT COLOR="#A020F0">TRUE</FONT></B>
+  url       <B><FONT COLOR="#5F9EA0">&quot;javascript:</FONT></B>alert(<FONT COLOR="#BC8F8F"><B>'Teleporter activated!'</FONT></B>)<B><FONT COLOR="#5F9EA0">&quot;</FONT></B>
+}</PRE>
+
+<P><ADDRESS>Generated by <A HREF="http://people.ssh.fi/mtr/genscript/">GNU enscript 1.6.1</A>.</ADDRESS></P>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="/utils/footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('/pics/menu_lit/workshop.gif','Workshop','./');
+</SCRIPT> 
+
+</BODY>
+</HTML>

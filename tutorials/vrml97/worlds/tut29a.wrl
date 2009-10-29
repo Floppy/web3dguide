@@ -1,0 +1,107 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 2.9a"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+Background {
+   skyColor 0.45 0.89 0.97
+   groundAngle [1.5]
+   groundColor [0 0 1, 0 0 1]
+}
+
+DEF ENTRY Viewpoint {
+   description "Entry Point"
+   position 0 1.6 0
+}
+
+Group {
+   children [
+      Shape {
+         appearance Appearance {
+            texture ImageTexture {
+               url "sand.jpg"
+            }
+         }
+         geometry Cylinder {
+            radius 10
+            height 0.0001
+         }
+      }
+      Transform {
+         translation 2 2 -5
+         children [
+            DEF PALMTREE Billboard {
+               children [
+                  Shape {
+                     appearance Appearance {
+                        texture ImageTexture {
+                           url "tree.png"
+                        }
+                     }
+                     geometry Box {
+                        size 1 4 0.0001
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+      Transform {
+         translation 1 2 1
+         children [
+            USE PALMTREE
+         ]
+      }
+      Transform {
+         translation 3 2 7
+         children [
+            USE PALMTREE
+         ]
+      }
+      Transform {
+         translation -4 2 -8
+         children [
+            USE PALMTREE
+         ]
+      }
+      Transform {
+         translation -2 2 5
+         children [
+            USE PALMTREE
+         ]
+      }
+      Transform {
+         translation 6 2 1
+            children [
+            USE PALMTREE
+         ]
+      }
+      Transform {
+         translation 2 2 3
+         children [
+            USE PALMTREE
+         ]
+      }
+      Transform {
+         translation -4 2 4
+         children [
+            USE PALMTREE
+         ]
+      }
+      Transform {
+         translation -5 2 -5
+         children [
+            USE PALMTREE
+         ]
+      }
+      Transform {
+         translation 1 2 8
+         children [
+            USE PALMTREE
+         ]
+      }
+   ]
+}

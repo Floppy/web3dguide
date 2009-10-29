@@ -1,0 +1,3 @@
+<Files mobile.php>
+ Header append Cache-Control "max-age=43200"
+</Files>

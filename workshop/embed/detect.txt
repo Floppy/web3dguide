@@ -1,0 +1,78 @@
+<HTML>
+<HEAD>
+<!-- VRML Plugin Detector (C) 2000 Vapour Technology
+  -- Permission is granted to freely reuse this code as 
+  -- long as this notice and the link at the base of the 
+  -- page is included in all pages that use it. 
+  -- Code originally from Floppy's Web3D Guide.
+  -- http://web3d.vapourtech.com/ -->
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function DetectNetscape() {
+	var retVal = 0;
+	var version = parseFloat(navigator.appVersion);
+	if (version>=3) {
+		var plugin = navigator.mimeTypes["model/vrml"];
+		if (plugin != null) {
+			retVal = 1;
+		}
+	}
+	return retVal;
+}
+function DetectIE() {
+	var retVal = 0;
+	var version = parseFloat(navigator.appVersion);
+	if (version>=2) {
+		var pluginArray = (new VBArray(GetPluginArray())).toArray();
+		for (i = 0; i < pluginArray.length; i++) {
+			if (pluginArray[i]==true) retVal = 1;
+		}
+	}
+	return retVal;
+}
+// -->
+</SCRIPT>
+<SCRIPT LANGUAGE="VBScript">
+<!--
+function GetPluginArray()
+	On error resume next
+	pluginArray = Array(false,false,false,false)
+	' Detect Cortona
+	pluginArray(0) = NOT IsNull(CreateObject("Cortona.Control"))
+	' Detect Blaxxun CC3D
+	pluginArray(1) = NOT IsNull(CreateObject("blaxxunCC3D.blaxxunCC3D"))
+	' Detect Cosmo Player 1 & 2
+	pluginArray(2) = NOT IsNull(CreateObject("SGI.CosmoPlayer.1"))
+	pluginArray(3) = NOT IsNull(CreateObject("SGI.CosmoPlayer.2"))
+	' Detect Pivoron Player
+	pluginArray(4) = NOT IsNull(CreateObject("Nexternet.NexternetPlayer.1"))
+	' Return
+	GetPluginArray = pluginArray
+end function
+// -->
+</SCRIPT>
+</HEAD>
+<BODY>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var browser = navigator.appName;
+var displayVRML = 0;
+
+if (browser=="Netscape") displayVRML = DetectNetscape();
+else if (browser=="Microsoft Internet Explorer") displayVRML = DetectIE();
+
+if (displayVRML==1) {
+	document.writeln('<EMBED SRC="vrml.wrl">');
+}
+else {
+	document.writeln('<IMG SRC="image.gif">');
+}
+// -->
+</SCRIPT>
+<NOSCRIPT>
+<IMG SRC="image.gif">
+</NOSCRIPT>
+<P>
+<EM>VRML Detector &copy; Copyright 2000 <A HREF="http://www.vapourtech.com/">Vapour Technology Ltd.</A></EM>
+</BODY>
+</HTML>

@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<HEAD>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,textures, texture transforms, TextureTransform, TextureCoordinate, texCoord,textureTransform, IndexedFaceSet, texture,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>Floppy's Web3D Guide - VRML97 Tutorial 2.7: TextureTransform, TextureCoordinate</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Ligeramente Ondeado, Con la Parte Inferior Plana</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut26.html','tut28.html');
+</SCRIPT>
+</P><P>
+Hemos aprendido mucho acerca de materiales avanzados, con colores por
+v&eacute;rtice, normales, y c&oacute;mo alterar la apariencia de tus objetos
+ellos. Hemos visto la iluminaci&oacute;n, y c&oacute;mo crear efectos con
+la iluminaci&oacute;n de tus escenarios. En todo esto, las texturas se
+han quedado algo atr&aacute;s. No pod&iacute;amos hacer mucho con ellas,
+y con todos eston objetos nuevos, nos hemos olvidado de las texturas. Bueno,
+ahora vamos a hacer algo al respecto. Este cap&iacute;tulo cubrir&aacute;
+el mapeado de texturas en gran detalle. Aprenderemos c&oacute;mo transformar
+las texturas en tus mundos, haci&eacute;ndolas realizar cosas interesantes,
+y tomando m&aacute;s control sobre su comportamiento. Lo primero que tenemos
+que hacer, es hacer un viaje al espacio de la textura...
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Viaje al espacio de la textura</FONT></P><P>
+El espacio de la textura es donde tu textura vive. Es un mundo bidimensional,
+cubierto por tu textura, que se repite a s&iacute; misma infinitamente.
+El origen es el punto inferior izquierda de tu textura, y el punto (1,1)
+es la parte superior derecha. Esto es independiente de si tu textura mide
+320x200, 640x480, 1000x20, cualquiera que sean sus tama&ntilde;os o proporciones,
+la esquina superior derecha ser&aacute; siempre (1,1) en el espacio de
+la textura. De ahora en adelante, me referir&eacute; a la textura que va
+desde (0,0) a (1,1) como la copia central de tu textura. El eje X en el
+espacio normal se vuelve el eje S y el eje Y se vuelve el eje T. Todo esto
+se muestra en el diagrama inferior, el centro de un mundo de texturas infinitas.
+<br><IMG SRC="../pics/texturespace.jpg" height=200 width=320 ALT="Texture Space">
+<p>De ahora en adelante, quiero que pienses en t&eacute;rminos de coordenadas
+de textura (texture <STRONG>coordinates</STRONG>), en vez de texturas. La coordenada
+de textura (1,1) est&aacute; en la esquina superior derecha de la copia
+central de tu textura, y (1.5,0.5) est&aacute; en el medio de la textura
+que est&aacute; a la derecha de la copia central.
+<p>Bueno, ahora que eres pr&aacute;cticamente un nativo del mundo bidimensional
+que es el espacio de la textura, podremos manipular este espacio hasta
+sus l&iacute;mites. Vamos a trasladarlo, rotarlo, escalarlo, y manipularlo de distintas maneras. Este mundo nos da el poder de la textura
+en cualquier objeto que queramos y de la manera en que queramos. Genial.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Transformaciones de Texturas</FONT></P><P>
+&iquest;Recuerdas el nodo <STRONG>Appearance</STRONG>? Bueno, cuando lo vimos por
+primera vez, hay algo que no te cont&eacute;. &iquest;Recuerdas que puede
+contener los nodos <STRONG>Material</STRONG>, <STRONG>ImageTexture</STRONG> y <STRONG>MovieTexture</STRONG>?
+Bueno, puedes tener tambi&eacute;n un nodo <STRONG>TextureTransform</STRONG> en su
+campo <EM>textureTransform</EM>. Eso es lo que voy a cubrir ahora. La sintaxis
+de un <STRONG>TextureTransform</STRONG> es como sigue:
+</P><PRE>TextureTransform {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec2f&nbsp;&nbsp;&nbsp;&nbsp; center&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; rotation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec2f&nbsp;&nbsp;&nbsp;&nbsp; scale&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 1
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec2f&nbsp;&nbsp;&nbsp;&nbsp; translation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0
+}</PRE><P>
+F&iacute;jate en que los campos son los equivalentes bidimensionales de
+los campos habituales del nodo <STRONG>Transform</STRONG>. El campo <EM>center</EM>
+especifica el punto central usado para la rotaci&oacute;n y la escala,
+en coordenadas de textura. El campo <EM>rotation</EM> especifica un &aacute;ngulo
+de rotaci&oacute;n sobre ese centro. El campo <EM>scale</EM> es un par de
+valores, especificando factores de escala relativos a ese centro en las
+direcciones S y T. Finalmente, <EM>translation</EM> contiene un par de valores
+especificando una traslaci&oacute;n bidimensional en las direcciones S
+y T.
+<p>Solo hay algo realmente importante que hay que recordar con respecto
+a <STRONG>TextureTransform. </STRONG>Opera sobre coordenadas de textura, no sobre
+la textura misma. por ejemplo, quiz&aacute; esperar&iacute;as que una escala
+de 2 2 haga a una textura el doble de su tama&ntilde;o, pero realmente
+transformar&aacute; la coordenada (0.5 ,0.5) a (1,1) y (1,1) a (2,2). Esto
+tiene el efecto de <EM>encogimiento</EM> de la textura en ambas direcciones. En
+tanto que es lo contrario a lo que t&uacute; esperar&iacute;as, esto no
+es un problema mientras lo recuerdes bien. Este es tambi&eacute;n el caso
+de las rotaciones y las traslaciones. Lo que hagas en las coordenadas tendr&aacute;
+el efecto contrario sobre la textura. Echa un ojo a este <A HREF="../worlds/tut27a.wrl" TARGET="_new">ejemplo</a>,
+para unos ejemplos de transformaciones de texturas. Puedes tambi&eacute;n
+mirar el <A HREF="../source/tut27a.html">c&oacute;digo</a>.
+<p>En el ejemplo, la caja del centro posee su textura original sin modificaciones.
+En la izquierda, la textura ha sido escalada en 5 en ambas direcciones
+y rotada en 0.78 radianes. A la derecha, la textura ha sido trasladada
+por 0.5 en ambas direcciones. Como puedes ver, estas transformaciones tienen
+el efecto contrario a lo que podr&iacute;as esperar.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Coordenadas de la Textura</FONT></P><P>
+Los objetos avanzados, al igual que tienen un campo <EM>color </EM>y <EM>normal</EM>
+, tienen otro llamado <EM>texCoord</EM>. Esto puede contener un nodo <STRONG>TextureCoordinate</STRONG>.
+</P><PRE>TextureCoordinate {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFVec2f&nbsp;&nbsp;&nbsp;&nbsp; point&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+}</PRE><P>
+Esta es simplemente una lista de coordenadas en el espacio de la textura,
+que son usadas en campo <EM>texCoordIndex</EM> del IFS (IndexedFaceSet).
+Si no especificas&nbsp; valores para&nbsp; <EM>texCoordIndex</EM> las coordenadas
+de textura son mapeadas a las coordenadas del IFS en orden. Si lo haces,
+puedes disponer de cualquier parte de la imagen en cualquier parte del
+objeto. Por ejemplo, en el dibujo de abajo, el cuadrado que representa
+el 6 est&aacute; colocado en una cara del cubo.
+<br><IMG SRC="../pics/texcoord.gif" height=200 width=320 ALT="Texture Coordinates">
+<p>Para variar, voy a escribir un gran fragmento de c&oacute;digo. Lo explicar&eacute;
+luego. &Eacute;chale un ojo...
+</P><PRE>Shape {
+&nbsp;&nbsp; appearance Appearance {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; texture ImageTexture {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; url "d6.jpg"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp; }
+&nbsp;&nbsp; geometry IndexedFaceSet {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; coord DEF COORD Coordinate {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; point [ 1 -1 -1, -1 -1 -1, -1 -1 1, 1 -1 1, 1 1 -1, -1 1 -1, -1 1 1, 1 1 1 ]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; coordIndex [3 2 1 0 -1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 1 5 4 -1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 2 6 5 -1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 3 7 6 -1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 0 4 7 -1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 5 6 7 -1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; texCoord DEF TEXCOORD TextureCoordinate {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; point [&nbsp; 0.25 0, 0.5 0,&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0.33, 0.25 0.33, 0.5 0.33, 0.75 0.33, 1 0.33,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0.67, 0.25 0.67, 0.5 0.67, 0.75 0.67, 1 0.67,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.25 1, 0.5 1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; texCoordIndex [5 6 11 10 -1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 13 12 8 9 -1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7 2 3 8 -1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 1 4 3 -1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 10 9 4 -1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9 8 3 4 -1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]
+&nbsp;&nbsp; }
+}</PRE><P>
+Vale, entonces. El <STRONG>IndexedFaceSet</STRONG> es simplemente un cubo, de dos
+metros de largo por cada lado. Esto&nbsp; influencia en los campos <EM>coordinate</EM>
+y <EM>coordIndex</EM>. Si te imaginas la parte inferior izquierda
+de la textura (0,0) y la superior derecha (1,1), puedes ver qu&eacute;
+puntos en <STRONG>TextureCoordinate</STRONG> corresponden a las esquinas del cubo
+en las que deben de caer. F&iacute;jate en que las coordenadas entran en
+este campo desde abajo de la imagen hacia arriba, y de izquierda a derecha.
+Esto no es importante, es simplemente la manera en que lo he hecho aqu&iacute;.
+Entonces, en el campo <EM>texCoordIndex</EM>, colocamos las coordenadas de
+la textura en los v&eacute;rtices de los objetos. Los n&uacute;meros en
+este campo se corresponden con los de las coordenadas de la textura definidas
+en el campo <EM>texCoord</EM>. Est&aacute;n ordenadas igual que en el campo
+<EM>coordIndex</EM>. Este campo tiene el mismo formato, con un -1 entre cada
+cara. Puedes ver c&oacute;mo queda finalmente en este <A HREF="../worlds/tut27b.wrl" TARGET="_new">ejemplo</a>
+en 3D con su <A HREF="../source/tut27b.html">c&oacute;digo</a> asociado.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+De vuelta a la Tierra</FONT></P><P>
+Bueno, eso fue todo por este cap&iacute;tulo. En el siguiente, cubriremos
+el nodo <STRONG>NavigationInfo</STRONG>, que usaremos para configurar c&oacute;mo
+el usuario ve tu mundo.
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut26.html','tut28.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

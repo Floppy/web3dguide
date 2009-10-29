@@ -1,0 +1,136 @@
+#VRML V2.0 utf8
+
+PROTO DebugConsole [
+   eventIn SFString nextString
+   field   SFVec3f  offset       0.11 0 -0.2   
+]
+{
+   Group {
+      children [
+         DEF SENSOR ProximitySensor {
+            size 10 10 10
+            center 0 0 10
+         }
+         DEF HUD Transform {
+            children [
+               DirectionalLight {
+                  ambientIntensity 0.8
+               }
+               Collision {
+                  collide FALSE
+                  children [
+                     DEF CONTROLLER Script {
+                        eventIn  SFString input IS nextString
+                        eventIn  SFTime   clear
+                        field    MFString contents []
+                        eventOut MFString output
+                        url "javascript:
+                           function initialize() {
+                              contents = new MFString('DebugConsole v1.0');
+                              output = contents;
+                           }
+                           function input(value, time) {
+                              var length = contents.length;
+                              if (length > 25) {
+                                 for (i=0; i<25; i++) {
+                                    contents[i] = contents[i+1];
+                                 }
+                                 contents[25] = value;
+                              }
+                              else {
+                                 contents[length] = value;
+                              }
+                              output = contents;
+                           }
+                           function clear(value, time) {
+                              contents = new MFString();
+                              output = contents;
+                           }
+                        "
+                     }
+                     Transform {
+                        translation IS offset
+                        children [
+                           Shape {
+                              appearance Appearance {
+                                 material Material {
+                                    diffuseColor 0.25 0 0
+                                 }
+                              }
+                              geometry Box {
+                                 size 0.075 0.16 1e-8
+                              }
+                           }
+                           Transform {
+                              translation -0.04 0.07 0.01
+                              children [
+                                 Shape {
+                                    appearance Appearance {
+                                       material Material {
+                                          diffuseColor 1 1 1
+                                       }
+                                    }
+                                    geometry DEF DISPLAY Text {
+                                       maxExtent 0.07
+                                       fontStyle FontStyle {
+                                          family "SANS"
+                                          justify "BEGIN"
+                                          size 0.005
+                                          spacing 1.08
+                                       }
+                                    }
+                                 }
+                              ]
+                           }
+                           Transform {
+                              translation 0.03 -0.075 0
+                              children [
+                                 DEF CLEARBUTTON TouchSensor {}
+                                 Shape {
+                                 	appearance Appearance {
+                                 	   material Material {
+                                 	      diffuseColor 1 1 0
+                                 	   }
+                                 	}
+                                 	geometry Sphere {
+                                 	   radius 0.003
+                                 	}
+                                 }
+                                 Transform {
+                                    translation -0.04 0.001 0.01
+                                    children [
+                                       Shape {
+                                       	appearance Appearance {
+                                       	   material Material {
+                                       	      diffuseColor 1 1 0
+                                       	   }
+                                       	}
+                                       	geometry Text {
+                                       	   string ["Clear Console"]
+                                       	   maxExtent 0.06
+                                       	   fontStyle FontStyle {
+                                       	      justify "MIDDLE"
+                                       	      family "SANS"
+                                       	      size 0.009
+                                       	      spacing 1.1
+                                             }
+                                          }
+                                       }
+                                    ]
+                                 }
+                              ]
+                           }
+                        ]
+                     }
+                  ]
+               }
+            ]
+         }
+      ]
+   }
+   ROUTE SENSOR.position_changed TO SENSOR.set_center
+   ROUTE SENSOR.position_changed TO HUD.set_translation
+   ROUTE SENSOR.orientation_changed TO HUD.set_rotation
+   ROUTE CLEARBUTTON.touchTime TO CONTROLLER.clear
+   ROUTE CONTROLLER.output TO DISPLAY.string
+}

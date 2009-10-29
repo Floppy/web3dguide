@@ -1,0 +1,142 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 2.1"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+PROTO ickleCone [
+   field SFVec3f position 0 0 0 
+]
+{
+   Transform {
+      translation IS position
+      children [
+         Shape {
+            appearance Appearance {
+               material Material {
+                  diffuseColor 1 0 0
+               }
+            }
+            geometry Cone {
+               bottomRadius 0.3
+               height 1
+               bottom FALSE
+            }
+         }
+      ]
+   }
+}
+
+
+
+Shape {
+   appearance Appearance {
+      material Material {
+         diffuseColor 0 0.5 0
+         emissiveColor 0 0.8 0
+         transparency 0.5
+      }
+   }
+   geometry Cylinder {
+      radius 0.35
+      height 3
+      bottom FALSE
+   }
+}
+
+Transform {
+   translation 0 -2 0
+   children [
+      Shape {
+         appearance Appearance {
+            texture ImageTexture {
+               url "brick.jpg"
+               repeatS TRUE
+               repeatT TRUE
+            }
+         }
+         geometry Box {
+            size 4 1 4
+         }
+      }
+   ]
+}
+
+ickleCone {
+   position 1.6 -1 1.6
+}
+
+ickleCone {
+   position -1.6 -1 -1.6
+}
+
+ickleCone {
+   position -1.6 -1 1.6
+}
+
+ickleCone {
+   position 1.6 -1 -1.6
+}
+
+Anchor {
+   children [
+      Transform {
+         translation 0 2.25 0
+         children [
+            Shape {
+               appearance Appearance {
+                  texture ImageTexture {
+                     url "me.jpg"
+                  }
+               }
+               geometry Sphere {
+                  radius 0.75
+               }
+            }
+         ]
+      }
+   ]
+   description "Back to the Tutorial"
+   url "../tut21.html"
+}
+
+Transform {
+   translation 0 -2.2 2.01
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 0 1 0
+            }
+         }
+         geometry Text {
+            string "FloppyWorld"
+            fontStyle FontStyle {
+               size 0.8
+               justify "MIDDLE"
+            }
+         }
+      }
+   ]
+}
+
+Group {
+   children [
+      DEF norm Viewpoint {
+         position 0 0 10
+         description "Normal Entry"
+      }
+      DEF aerial Viewpoint {
+         position 0 5 10
+         orientation 1 0 0 -0.39
+         description "Aerial View"
+      }
+      DEF headcam Viewpoint {
+         position 0 2.4 4
+         fieldOfView 0.39
+         description "HeadCam"
+      }
+   ]
+}

@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guide, 3D,     objects, object oriented, OOD, OOP, ECMAScript objects, functions,     properties, this,     Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,     Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>El Web3D Guide de disco blando - VRML97 Gu&iacute;a did&aacute;ctica
+    4.5: ECMAScript Objects</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#BB0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Como Por Arte De Magia</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut44.html','tut51.html');
+</SCRIPT>
+</P><P>
+Hasta ahora en este tutorial hemos cubierto lo b&aacute;sico en programaci&oacute;n
+ECMAscript y c&oacute;mo se relacciona con VRML. Tambi&eacute;n hemos echado
+un ojo a los objetos preconstruidos VRML incluidos como standard en los
+navegadores. Ahora, profundizaremos en un objeto concreto, y veremos como
+llevar todo esto a su m&aacute;xima potencia. Es el objeto <STRONG>Browser.</STRONG>
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">El objeto Browser</FONT><P>
+</P><P>
+El objeto Browser es un objeto ECMAScript que se proporciona dentro del
+int&eacute;rprete de ECMAScript de tu navegador VRML. Todos los navegadores
+deben proporcionarlo, pero esto es s&oacute;lo un <EM>deben.</EM> Desgraciadamente,
+las cuestiones de scripts con respecto al VRML son muy inconsistentes,
+y generalmente no todos los navegadores soportan lo que deber&iacute;an.
+&Eacute;sto es una aut&eacute;ntica pena, dado que &eacute;ste es el aspecto
+m&aacute;s poderoso del VRML. En cualquier caso, el objeto Browser es un
+objeto preconstuido por el navegador, como estaba diciendo. Es un objeto
+<EM>est&aacute;tico</EM>, lo que significa que no necesitas crear una variable
+para comenzar a utilizar sus m&eacute;todos y propiedades. Para usar un
+m&eacute;todo del objeto Browser, debes usar, sencillamente, la sintaxis
+<EM>Browser.metodo ().</EM> Esto ejecutar&aacute; el m&eacute;todo que sea
+del objeto Browser. Este tiene muchas utilidades. Es una fuente de informaci&oacute;n,
+y tambi&eacute;n proporciona varias maneras de cambiar el mundo que est&aacute;s
+viendo. En primer lugar, vamos a ver c&oacute;mo obtener informaci&oacute;n
+del navegador del cliente.
+<p>Antes de todo esto, sin embargo, recordemos un par de cosas. Recuerdas
+que el nodo <STRONG>Script </STRONG>tiene dos campos llamado <EM>directOutput </EM>y
+<EM>mustEvaluate </EM>&iquest;no?<EM>.</EM> &Eacute;stos pueden ser bastante
+importantes al usar la interface del Browser, por lo que te recordar&eacute;
+levemente lo que hacen.
+<ul>
+<li>
+<EM>mustEvaluate </EM>- Si est&aacute; en <EM>true</EM>, el script se eval&uacute;a
+lo m&aacute;s pronto posible. Se permite al navegador detener los scripts
+en proceso si algo m&aacute;s importante se est&aacute; produciendo. Esto
+fuerza a que no lo haga, y ejecuta el script inmediatamente.</li>
+
+<li>
+<EM>directOutput </EM>- Si est&aacute; en <EM>true</EM>, el script puede escribir
+directamente <EM>eventIns </EM>y leer directamente <EM>eventOuts </EM>de nodos
+a los que tiene acceso. Normalmente, un script s&oacute;lo puede enviar
+o recibir eventos en la manrea normal de la cascada de eventos.</li>
+</ul>
+<P>
+Vale, entonces vamos all&aacute;...
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">La Tecnolog&iacute;a de la informaci&oacute;n</FONT><P>
+</P><P>
+Bien. Lo primero que vamos a hacer es ver los m&eacute;todos que permiten
+recoger informaci&oacute;n del usuario. Voy a enumerarlos, junto con una
+descripci&oacute;n corta de cada uno...
+<dl>
+<dt>
+<STRONG>Browser.getName ()</STRONG></dt>
+
+<dd>
+Esta funci&oacute;n devuelve una cadena de caracteres que contiene el nombre
+del navegador, por ejemplo "Cosmo Player" Devuelve una cadena vac&iacute;a
+si la informaci&oacute;n no est&aacute; disponible.</dd>
+
+<dt>
+<STRONG>Browser.getVersion ()</STRONG></dt>
+
+<dd>
+Esto devuelve una cadena que contiene la informaci&oacute;n de la versi&oacute;n
+del navegador, por ejemplo "2.1." Tambi&eacute;n devuelve una cadena vac&iacute;a
+si la informaci&oacute;n no est&aacute; disponible.</dd>
+
+<dt>
+<STRONG>Browser.getWorldURL ()</STRONG></dt>
+
+<dd>
+Esto, sorprendentemente, devuelve la URL del mundo cargado como una cadena
+de caracteres.</dd>
+
+<dt>
+<STRONG>Browser.getCurrentFrameRate ()</STRONG></dt>
+
+<dd>
+Esto devuelve un valor num&eacute;rico igual al fps (<EM>frames per second</EM>,
+o lo que es lo mismo, "fotogramas por segundo", como en una pel&iacute;cula).</dd>
+
+<dt>
+<STRONG>Browser.getCurrentSpeed ()</STRONG></dt>
+
+<dd>
+Esta funci&oacute;n devuelve otro valor num&eacute;rico, igual a la velocidad
+de movimiento del usuario en metros por segundo, siendo relativo a las
+coordenadas actuales del ViewPoint.</dd>
+</dl>
+Todos son bastante simples, realmente. He hecho un <A HREF="../worlds/tut45a.wrl" TARGET="_new">ejemplo</a>
+r&aacute;pido d&oacute;nde puedes ver todo esto en acci&oacute;n, junto
+con &eacute;l el <A HREF="../source/tut45a.html">c&oacute;digo fuente</a>.
+No hay nada all&iacute; que no puedas entender, ya que ahora estamos bastante
+familiarizados con la materia. El <STRONG>TimeSensor </STRONG>s&oacute;lo proporciona
+actualizaciones regulares del texto que devuelve la informaci&oacute;n.
+<p>Puedes preguntarte para qu&eacute; se usa realmente toda esta informaci&oacute;n.
+Bueno, puedes preparar scripts que funcionen en navegadores particulares,
+o tener versiones diferentes del mismo script seg&uacute;n el navegador,
+o puedes proporcionar un arreglo de nivel de detalle din&aacute;mico d&oacute;nde
+tu mundo se vuelve menos detallado si la proporci&oacute;n de fps cae demasiado.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Fuera del aire delgado...</FONT><P>
+</P><P>
+Ahora cubriremos material m&aacute;s complejo, claro que mucho m&aacute;s
+&uacute;til tambi&eacute;n. Esto implica principalmente el cambio del mundo
+actual, de una manera u otra. De nuevo, cubriremos estas funciones
+una por una.
+<dl>
+<dt>
+<STRONG>Browser.setDescription("cadena de descripci&oacute;n") </STRONG>- necesita
+<EM>mustEvaluate TRUE</EM></dt>
+
+<dd>
+Esta funci&oacute;n cambia la descripci&oacute;n actual del mundo (determinado
+en el nodo <STRONG>WorldInfo</STRONG>) por la cadena pasada como par&aacute;metro.
+bonito y simple.</dd>
+
+<dt>
+<STRONG>Browser.loadURL(MFString url, MFString parameter) </STRONG>- necesita <EM>mustEvaluate
+TRUE</EM></dt>
+
+<dd>
+Esto carga un nuevo mundo de un archivo distinto. El primer par&aacute;metro
+del m&eacute;todo es una lista de MFString de URLs que el navegador tratar&aacute;
+de cargar. Si uno falla, probar&aacute; con el siguiente. El siguiete <EM>par&aacute;metro
+</EM>proporciona par&aacute;metros extras, como una ventana destinataria
+para el mundo (equivalente a TARGET), y as&iacute; sucesivamente. Estos
+par&aacute;metros son exactamente iguales que los que usar&iacute;as para
+el nodo <STRONG>Anchor.</STRONG> De hecho, este m&eacute;todo trabaja de la misma
+manera que el nodo <STRONG>Anchor.</STRONG> Si el nuevo mundo est&aacute; cargado
+en la misma ventana, se cerrar&aacute; el mundo actual y se reemplazar&aacute;
+por el nuevo.</dd>
+
+<dt>
+<STRONG>Browser.replaceWorld(MFNode nodos) </STRONG>- necesita <EM>mustEvaluate TRUE</EM></dt>
+
+<dd>
+Esto reemplaza el todo del mundo actualmente cargado con los nodos pasados
+en el objeto MFNode. Este m&eacute;todo nunca devolver&aacute; nada, dado
+que el script que lo ejecuta ser&aacute; reemplazado por el nuevo mundo
+cargado en el navegador.</dd>
+</dl>
+<P>
+Como puedes ver, estos m&eacute;todos tambi&eacute;n son bastante b&aacute;sicos,
+no hacen nada realmente asombroso. &iexcl;Ahora, sin embargo, nos meteremos
+en la parte que nos permite crear VRML din&aacute;micamente de la nada!
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">createVrmlFromX ()</FONT><P>
+</P><P>
+Hay dos funciones que permiten crear nuevos fragmentos de código VRML de 
+la nada, conocidas comunmente como las funciones createVrmlFromX.
+Estos son:
+<ul>
+<li>
+<STRONG>Browser.createVrmlFromString(String <EM>string</EM>)</STRONG></li>
+
+<li>
+<STRONG>Browser.createVrmlFromURL(MFString <EM>url</EM>, SFNode <EM>node</EM>, String
+<EM>eventIn</EM>)</STRONG></li>
+</ul>
+Como sugiere su nombre, este m&eacute;todo permite crear VRML a parir de
+una cadena de texto o de un archivo. Ambos m&eacute;todos crean un nuevo
+objeto MFNode que puedes agregar a un nodo Group a trav&eacute;s de su
+eventIn <EM>addChildren.</EM> Todos los nodos Group tienen este eventIn,
+por lo que puedes agregar nodos children en el sitio que m&aacute;s te
+guste.
+<p>Ambos m&eacute;todos funcionan de manera ligeramente distinta, como
+puedes ver por sus descripciones. Por qu&eacute; es as&iacute;, es algo
+que no s&eacute;. Quiz&aacute;s pensabas que funcionar&iacute;an de la
+misma manera, pero no es as&iacute;.<STRONG>createVrmlFromString </STRONG>toma una
+cadena como par&aacute;metro y devuelve un objeto MFNode que contiene el
+VRML de la cadena. Esta cadena debe ser VRML v&aacute;lido, y es completamente
+aut&oacute;nomo. Esto significa no puedes emplear USE de cosas cuyo DEF
+se encuentra fuera de esta cadena de texto, y lo mismo digo para las definiciones
+de PROTO. Puedes, sin embargo, incluir Routes en la cadena. Esencialmente,
+la cadena ser&iacute;a como un archivo separado, y como tal seguir&iacute;a
+todas sus normas a excepci&oacute;n de la cabecera. Un ejemplo r&aacute;pido
+de esto; Supongamos que estamos dentro de un script que tiene un MFNode
+eventOut llamado <EM>newChildren </EM>que va al evento <EM>addChildren </EM>de
+algun Group
+</P><PRE>newVRML =&nbsp; 'Shape {';
+newVRML += '&nbsp;&nbsp; appearance Appearance {';
+newVRML += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; material Material {';
+newVRML += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; diffuseColor 1 0 0';
+newVRML += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }';
+newVRML += '&nbsp;&nbsp; }';
+newVRML += '&nbsp;&nbsp; geometry Box {';
+newVRML += '&nbsp;&nbsp; }';
+newVRML += '}';
+newChildren = Browser.createVrmlFromString(newVRML);
+
+</PRE><P>
+Esto crea la cadena de texto que vamos a usar (No tienes por qu&eacute;
+indentar las l&iacute;neas, yo solo lo hago por que as&iacute; me resulta
+m&aacute;s facil de leer), y entonces crea un nuevo MFNode a partir suyo.
+Este MFNode se asigna inmediatamente al eventOut <EM>newChildren</EM>, y
+se env&iacute;a al nodo Group. No se reemplazan los children actuales del
+Group, el nuevo simplemente se agrega a ellos.
+<p>Sencillo por el momento, &iquest;no es as&iacute;? El otro m&eacute;todo
+de creaci&oacute;n, sin embargo, es un poco m&aacute;s complejo. createVrmlFromString
+() trabaja de una manera muy simple y flexible. Por alguna raz&oacute;n,
+createVrmlFromURL () es m&aacute;s complejo y menos flexible. Con este
+m&eacute;todo, creas un MFString que contiene una lista de URLs como primer
+par&aacute;metro, que el navegador tratar&aacute; de cargar sucesivamente.
+Estos archivos deben contener VRML totalmente v&aacute;lido, obedeciendo
+todas las reglas normales. El script lee los nodos que hay dentro del archivo
+y &eacute;stos se convierten en los nuevos nodos del archivo original.
+Hasta aqu&iacute;, bien, lo malo viene cuando tratas de env&iacute;ar el
+nuevo MFNode a un nodo Group. Con un createVrmlFromString obtienes un objeto
+MFNode simple que puedes manipular como te de la gana, asignando variables
+como partes de esa cadena con operaciones simples de concatenaci&oacute;n.
+createVrmlFromURL no devuelve nada. En cambio, manda al MFNode solo, desde
+dentro de la funci&oacute;n. Esto es para lo que valen los otros dos par&aacute;metros.
+El primero es una referencia al nodo al que quieres agregarle nos nuevos,
+y el segundo es el nombre de un eventIn MFNode que recibir&aacute;n los
+nuevos nodos. Creo que un ejemplo es lo mejor.
+</P><PRE>DEF GROUP Group {
+}
+
+Script {
+&nbsp;&nbsp; field SFNode group USE GROUP
+&nbsp;&nbsp; url "javascript:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function initialize() {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; urlString = new MFString('cone.wrl');
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Browser.createVrmlFromURL(urlString,group,'addChildren');
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp; "
+}
+
+</PRE><P>
+Como ves, los par&aacute;metros son el nombre del archivo a usar (en un
+MFString), la referencia del SFNode, y el nombre del eventIn. La funci&oacute;n
+hace el resto, introduciendo los nuevos nodos en el eventIn del <EM>addChildren
+</EM>de <EM>group.</EM> No estoy bastante seguro por qu&eacute; es de esta
+manera, pero estoy seguro de que el tipo que lo hizo ten&iacute;a sus motivos.
+&iexcl;Te los contar&eacute; si los averiguo! Como alternativa, puedes
+ignorar el createVRMLFromURL() y usar createVRMLFromString() con un nodo
+inLine que contenga el archivo que quieras cargar, as&iacute;:
+<p>newVRML = 'Inline { url "cone.wrl" }';
+<br>newChildren = Browser.createVrmlFromString(newVRML);
+<p>Esto ofrece la funcionalidad de createVRMLFromURL() con el modo de empleo
+t&iacute;pico del CreateVRMLFromString(). Gracias a Eyal Teler por esta
+sugerencia.
+<p>Volviendo al trabajo, echa un ojo a este <A HREF="../worlds/tut45b.wrl" TARGET="_new">ejemplo</a>,
+junto con el <A HREF="../source/tut45b.html">c&oacute;digo</a>. Como puedes
+ver, tenemos un bonito juguete con el que poder jugar y hacer bonitas composiciones.
+Pulsa los botones del fondo para crear un nuevo objeto. Puede arrastrar
+ese objeto dentro del &aacute;rea gris, construyendo modelos. Esto se hace
+creando un nuevo <STRONG>PlaneSensor </STRONG>junto con cada nueva <STRONG>Shape</STRONG>,
+y proporcionando todas las Route apropiadas dentro del string o archivo.
+Creamos el cubo y esfera de las cadenas de caracteres, mientras que el
+cono se crea directamente de un archivo VRML. Echa una mirada al c&oacute;digo
+fuente de <A HREF="../source/cone.html">cone.wrl.</a> Esto explicar&aacute;
+c&oacute;mo se usan estas &uacute;tiles funciones, creo.
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">De A a B</FONT><P>
+</P><P>
+Hay dos m&eacute;todos m&aacute;s en el objeto Browser que sirven para
+la creaci&oacute;n din&aacute;mica de mundos; son los m&eacute;todos <EM>addRoute()
+</EM>y <EM>deleteRoute ()</EM>. Curiosamente, agregan o anulan Rutas entre
+nodos. Son as&iacute;...
+<ul>
+<li>
+<STRONG>Browser.addRoute(SFNode fromNode, String fromEventOut, SFNode toNode,
+String toEventIn) </STRONG>- necesita directOutput TRUE</li>
+
+<li>
+<STRONG>Browser.deleteRoute(SFNode fromNode, String fromEventOut, SFNode toNode,
+String toEventIn)</STRONG> - necesita directOutput TRUE</li>
+</ul>
+<P>Estos m&eacute;todos tienen par&aacute;metros muy similares a los de createVrmlFromUrl().
+El primero y el tercero son referencias SFNode que tienes que declarar
+previamente de alg&uacute;n modo, y el segundo y cuarto son cadenas de
+caracteres que identifican los eventos para unirlos. Son bastante simples
+en su concepto, la dificultad viene cuando intentas obtener las referencias
+los SFNode. Esto podr&iacute;a isignificar revisar el archivo entero buscando
+el nodo correcto que quieres modificar. Pueden ser, sin embargo, vitales
+si quieres a&ntilde;adir nuevas interfaces de usuario, o simplemente comunicar
+nodos din&aacute;micamente. Por ejemplo, puedes crear nodos con createVrmlFromX
+(), y entonces unirlos al mundo con el m&eacute;todo addRoute().
+</P><P>
+<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Vaporizado</FONT><P>
+</P><P>
+Bueno, creo que est&aacute; explicado todo, o al menos, yo lo veo as&iacute;.
+Si quieres m&aacute;s informaci&oacute;n sobre la interface de scripts
+del Browser, te sugiero que miras en la secci&oacute;n <A HREF="http://www.web3d.org/technicalinfo/specifications/vrml97/part1/concepts.html#4.12.10">4.12.10</a>
+de la especificaci&oacute;n. Explica todos los conceptos del objeto Browser.
+La secci&oacute;n <A HREF="http://www.web3d.org/technicalinfo/specifications/vrml97/part1/javascript.html#BrowserClass">C.6.3
+</a>explica lo cubierto de este objeto en ECMAScript. Tambi&eacute;n en
+la p&aacute;gina de las <A HREF="http://web3d.vapourtech.com/info/index.html">especificaciones</a>
+tienes una referencia r&aacute;pida de los objetos, propiedades y par&aacute;metros
+de EcmaScript, que pueden resultarte muy &uacute;tiles.
+<p>Bien, creo que esto es todo lo que puedo ense&ntilde;arte sobre el scripting
+en ECMAScript, realmente, y como tal es el fin de esta parte del tutorial.
+En la pr&oacute;xima parte, voy a revisar algo de Java que usted puedes
+usar para realizar tareas de script m&aacute;s complejas y estructuradas.
+Sin embargo, es otro lenguaje de programaci&oacute;n entero. Sin embargo,
+creo que est&aacute;s preparado, as&iacute; que, &iexcl;nos vemos all&iacute;!
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut44.html','tut51.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 3.3d"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+NavigationInfo {
+   type "EXAMINE"
+}
+
+Group {
+   children [
+      Transform {
+         children [
+            DEF SENSOR PlaneSensor {
+               maxPosition 2.7 0
+               minPosition -2.7 0
+            }   
+            DEF SLIDER Transform {
+               children [
+                  Shape {
+                     appearance Appearance {
+                        material Material {
+                           diffuseColor 1 0 0
+                        }
+                     }
+                     geometry Box {
+                        size 0.5 0.5 0.5
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+      Transform {
+         rotation 0 0 1 1.57
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                  }
+               }
+               geometry Cylinder {
+                  height 6
+                  radius 0.1
+               }
+            }
+         ]
+      }
+   ]
+}
+
+ROUTE SENSOR.translation_changed TO SLIDER.translation

@@ -1,0 +1,64 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 4.3"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+DEF SCRIPT Script {
+   eventIn SFTime touchTime
+   field SFInt32 touchCount 0
+   field SFInt32 eventCount 0
+   field MFString tempString ""
+   eventOut MFString outputString
+   url "javascript:
+      function initialize() {
+         outputString = new MFString('','');
+         tempString = new MFString('','');
+         print('Script initialised');
+         outputString[0] = 'Ready...';
+      }
+      function touchTime(value, time) {
+         print('touchTime eventIn received');
+         touchCount++;
+         tempString[0] = 'touchCount: ' + touchCount.toString();
+      }
+      function eventsProcessed() {
+         print('eventsProcessed called');
+         eventCount++;
+         tempString[1] = 'eventCount: ' + eventCount.toString();
+         outputString = tempString;
+      }
+   "
+}
+
+Transform {
+   translation 0 -.5 8
+   children [
+      DEF SENSOR TouchSensor {
+      }
+      Shape {
+         appearance Appearance {
+            material Material {
+               emissiveColor 1 0 0
+            }
+         }
+         geometry Sphere {
+            radius 0.1
+         }
+      }
+   ]
+}
+
+Shape {
+   geometry DEF TEXT Text {
+      fontStyle FontStyle {
+         justify "MIDDLE"
+         family "TYPEWRITER"
+      }
+   }
+}
+
+ROUTE SENSOR.touchTime TO SCRIPT.touchTime
+ROUTE SCRIPT.outputString TO TEXT.string

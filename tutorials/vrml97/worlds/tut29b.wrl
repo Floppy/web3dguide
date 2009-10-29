@@ -1,0 +1,77 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 2.9b"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+Transform {
+   translation -2 0 0
+   children [
+      #Normal Box
+      DEF GREENBOX Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 0 0.75 0
+            }
+         }
+         geometry Box {size 0.5 0.5 0.5}
+      }
+      #Rotation about a arbitrary point
+      Transform {
+         rotation 0 0 1 0.78
+         center -4 0 0
+         children [
+            USE GREENBOX
+         ]
+      }
+      #Centre marker
+      Transform {
+         translation -4 0 0
+            children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     diffuseColor 1 0 0
+                  }
+               }
+               geometry Sphere {radius 0.1}
+            }
+         ]   
+      }      
+   ]
+}
+
+Transform {
+   translation 2 0 0
+   children [
+      #Basic Cube
+      DEF PURPLEBOX Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 0.75 0 0.75
+            }
+         }
+         geometry Box {size 0.5 0.5 0.5}
+      }
+      #Cube scaled in X direction
+      Transform {
+         translation 0 -2 0
+         scale 2 1 1
+         children [
+            USE PURPLEBOX
+         ]
+      }
+      #Scale with rotation
+      Transform {
+         translation 0 2 0
+         scaleOrientation 0 0 1 0.78
+         scale 2 1 1 
+         children [
+            USE PURPLEBOX
+         ]
+      }
+   ]
+}
+

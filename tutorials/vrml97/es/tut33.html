@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guide, 3D,    TouchSensor, SphereSensor, CylinderSensor, PlaneSensor, Sensors, animation,    Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,    Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>El Web3D Guide de disco blando - VRML97 Gu&iacute;a did&aacute;ctica 3.3: TouchSensor, SphereSensor, CylinderSensor, PlaneSensor,</title>
+</HEAD>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#BB0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Es Rudo Al Punto</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut32.html','tut34.html');
+</SCRIPT>
+</P><P>
+En este cap&iacute;tulo, vamos a cubrir los cuatro nodos sensores restantes
+que pueden usarse para obtener entradas de datos del usuario. Estos sensores
+detectan pulsaciones de rat&oacute;n, operaciones de arrastrar y soltar,
+y otras similares. Puedes usarlos para mover objetos, comenzar animaciones,
+y otras muchas cosas. Una vez que hayamos acabado con esto, veremos los
+interpoladores, y veremos alguna animaci&oacute;n <EM>real.</EM>
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+TouchSensor</FONT></P><P>
+Vale, el primer sensor que vamos a ver en este cap&iacute;tulo es el <STRONG>TouchSensor.</STRONG>
+Detecta la interacci&oacute;n del rat&oacute;n sobre un objeto que se encuentre
+a la misma altura jerarquica en el anidamiento de nodos (que formen parte
+de un mismo group) y los nodos que a su vez se encuentren por debajo de
+estos (si este nodo es un Group, por ejemplo). A esto le llamaremos geometr&iacute;a
+hermana, de ahora en adelante. Cuando el rat&oacute;n se queda encima del
+objeto, se genera un evento <EM>isOver</EM> TRUE, y cuando se retira, se
+env&iacute;a <EM>isOver </EM>FALSE. Cuando se pulsa cualquiera de los botones
+del rat&oacute;n mientras el puntero del rat&oacute;n est&eacute; sobre
+el objeto (<EM>isOver </EM>ser&aacute; TRUE tambi&eacute;n, necesariamente)
+se lanza un evento <EM>isActive </EM>TRUE, y al soltar el bot&oacute;n, se
+envia un <EM>isActive FALSE</EM>. El eventOut <EM>touchTime </EM>se env&iacute;a
+cuando un bot&oacute;n se aprieta y se suelta sobre el objeto. Si el cursor
+est&aacute; fuera del objeto mientras el bot&oacute;n se suelta, el evento
+no se env&iacute;a. Si es enviado, el evento toma el valor del momento
+en que se dej&oacute; de apretar el bot&oacute;n.
+</P><PRE>TouchSensor {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enabled&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; hitNormal_changed
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; hitPoint_changed
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec2f&nbsp;&nbsp;&nbsp;&nbsp; hitTexCoord_changed
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isActive
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isOver
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; touchTime
+}</PRE><P>
+Mientras <EM>isOver </EM>devuelva TRUE, los otros tres eventos se generar&aacute;n
+siempre que se produzca un cambio de valor en sus campos respectivos. <EM>hitNormal_changed
+</EM>env&iacute;a la normal de la superficie que recibe la pulsaci&oacute;n,
+y <EM>hitPoint_changed </EM>env&iacute;a la posici&oacute;n de la pulsaci&oacute;n.
+<EM>el hitTexCoord_changed </EM>env&iacute;a la coordenada de la textura,
+de haberla, en que se produce la pulsaci&oacute;n, y podr&iacute;a usarse
+junto con un script para hacer un mapa sensible virtual sobre la superficie
+de un objeto. Por ejemplo, imagina un teclado virtual, y una caja con una
+textura de teclado. En lugar de un <STRONG>TouchSensor </STRONG>aparte (con formas
+geom&eacute;tricas separadas) para cada tecla, podr&iacute;as tener un
+<STRONG>TouchSensor </STRONG>dirigido a un script para detectar los eventos del <EM>hitTexCoord_changed
+</EM>y llevar a cabo la acci&oacute;n correspondiente en funci&oacute;n
+de la tecla que se pulse. Esto podr&iacute;a usarse para una contrase&ntilde;a
+virtual, entre otras cosas.
+<p>Echa una ojo a este <A HREF="../worlds/tut33a.wrl" TARGET="_new">ejemplo</a>
+y a su <A HREF="../source/tut33a.html">c&oacute;digo.</a> El mundo contiene
+un <STRONG>Group</STRONG> que contiene a otro <STRONG>Group</STRONG>, un <STRONG>Transform</STRONG>,
+y un <STRONG>TouchSensor.</STRONG> El primer <STRONG>Group </STRONG>contiene una <STRONG>Esphere
+</STRONG>y otro <STRONG>TouchSensor.</STRONG> El evento <EM>hitPoint_changed </EM>de este
+sensor se dirige al campo <EM>translation </EM>del <STRONG>Transform.</STRONG> Este
+contiene otro, una <STRONG>Esphere </STRONG>m&aacute;s<STRONG> </STRONG>peque&ntilde;a y un
+nodo <STRONG>Sound.</STRONG> Esto hace que la esfera peque&ntilde;a (y el sonido)
+siguan al punto de la pulsaci&oacute;n en la esfera m&aacute;s grande,
+que cambia cuando el usuario mueve el rat&oacute;n sobre &eacute;l. El
+primer campo <EM>touchTime</EM> del <STRONG>TouchSensors </STRONG>se dirige al <EM>startTime
+</EM>del<STRONG> Sound.</STRONG> As&iacute;, el efecto es que cuando el usuario mueve
+el rat&oacute;n sobre la esfera grande, la peque&ntilde;a le sigue sobre
+su superficie. Cuando el usuario pulsa un bot&oacute;n del rat&oacute;n,
+se oye el "&iexcl;Pop!". &iexcl;La estructura de este ejemplo es ligeramente
+compleja dado que el usuario puede pulsar el bot&oacute;n del rat&oacute;n
+sobre la esfera peque&ntilde;a o la grande para hacer sonar el pop, pero
+estoy seguro de que podr&aacute;s manejarlo!
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+SphereSensor</FONT></P><P>
+Ahora vamos a ver una clase de sensores llamados <EM>drag sensors</EM> (o
+sensores de arrastre). Esto no significa que se vistan de mujer, si no
+que puedes arrastrarlos. M&aacute;s espec&iacute;ficamente, puedes hacerlos
+rotar, deslizarse, o moverlos de un lado a otro con el rat&oacute;n. El
+m&aacute;s simple de &eacute;stos es el <STRONG>SphereSensor</STRONG>, de modo que
+es el primero que vamos a ver.
+</P><PRE>SphereSensor {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; autoOffset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enabled&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFRotation&nbsp; offset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 1 0 0
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isActive
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFRotation&nbsp; rotation_changed
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; trackPoint_changed
+}</PRE><P>
+<STRONG>SphereSensor</STRONG> te permite rotar un objeto sobre el origen local del
+sensor. El sensor detecta la pulsaci&oacute;n del rat&oacute;n, como los
+otros, en los nodos que est&aacute;n dentro de su mismo <STRONG>Group</STRONG>. El
+usuario puede arrastrar el sensor, rotando el objeto, mientras tenga el
+bot&oacute;n pulsado y mueva el cursor por la pantalla. Hay dos maneras
+en que puede usarse el sensor. Esto se determina por el campo <EM>autoOffset.</EM>
+Si <EM>autoOffset </EM>tiene el valor TRUE, el objeto permanecer&aacute;
+con la rotaci&oacute;n que el usuario le haya dejado. Si es falso, cada
+vez que se pulse sobre el objeto con el rat&oacute;n, &eacute;ste volver&aacute;
+a su posici&oacute;n original. Es mucho m&aacute;s f&aacute;cil que lo
+entiendas si le echas un ojo a este <A HREF="../worlds/tut33b.wrl" TARGET="_new">ejemplo</a>
+y a su <A HREF="../source/tut33b.html">c&oacute;digo.</a>
+<p>Si el sensor se usa con <EM>autoOffset </EM>TRUE, cuando el bot&oacute;n
+del rat&oacute;n se suelta, <EM>offset</EM> adopta el valor de la rotaci&oacute;n
+actual. Cuando el usuario pulsa de nuevo el bot&oacute;n sobre el objeto,
+el desplazamiento de la rotaci&oacute;n anterior se conservar&aacute;.
+Si <EM>autoOffset </EM>es FALSE, el valor del campo <EM>offset </EM>nunca cambia.
+El campo <EM>offset </EM>contiene el valor de la la rotaci&oacute;n que el
+sensor emplear&aacute; para la siguiente una vez que el usuario pulse sobre
+&eacute;l. En cuanto a los otros campos, <EM>enable </EM>es autoexplicativo,
+y el evento del <EM>isActive </EM>tiene el mismo efecto que en el <STRONG>TouchSensor.</STRONG>
+El evento del <EM>trackPoint_changed </EM>tiene tambi&eacute;n el mismo efecto
+que en el <STRONG>TouchSensor.</STRONG> <EM>rotation_changed </EM>es donde se env&iacute;a
+el evento, y el efecto de la rotaci&oacute;n se consigue dirigiendo el
+valor de este campo al campo <EM>rotation</EM> de un nodo <STRONG>Transform.</STRONG>
+<p>F&iacute;jate en que es muy mala idea dirigir el sensor hacia el propio
+<STRONG>Transform </STRONG>en que est&aacute; anidado. &iquest;Por qu&eacute;? Bueno,
+t&uacute; prueba a ver qu&eacute; pasa. El resultado ser&aacute; un comportamiento
+completamente impredicible. Piensa que la girar el transform, la rotaci&oacute;n
+del origen del sensor cambia, igualmente, perdiendo la referencia anterior,
+y cuando pulsas de nuevo sobre &eacute;l, su modo de actuar puede ser muy
+diferente a como podr&iacute;as esperarlo. En los ejemplos, el <STRONG>SphereSensor
+</STRONG>est&aacute; en el interior de un <STRONG>Group </STRONG>junto con otro <STRONG>Transform.</STRONG>
+Este <STRONG>Transform</STRONG> contiene el objeto. Los eventos del <EM>rotation_changed</EM>
+del sensor se dirigen al campo <EM>rotation </EM>de este <STRONG>Transform</STRONG>.
+De esta manera, el objeto rota cuando pulsas el bot&oacute;n sobre &eacute;l
+(en tanto que detecte la pulsaci&oacute;n sobre los objetos que est&aacute;n
+en su mismo grupo y en sus children), y el sensor no rota. &Eacute;sto
+es lo ideal. Si quieres algo complejo, puedes comenzar con un fragmento
+simple para evitar comportamientos no deseados e involucrar la acci&oacute;n
+de <STRONG>Group </STRONG>extras y otros nodos <STRONG>Transform</STRONG>.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+CylinderSensor</FONT></P><P>
+El siguiente en nuestra lista es <STRONG>CylinderSensor.</STRONG> Esto es muy, muy
+similar al <STRONG>SphereSensor</STRONG>, pero s&oacute;lo permite la rotaci&oacute;n
+respecto al el eje Y local. El <STRONG>SphereSensor</STRONG> puede rotar sobre cualquier
+eje, pero el <STRONG>CylinderSensor </STRONG>s&oacute;lo puede rotar sobre el eje
+Y. Si quieres rotar un objeto sobre su eje z, tendr&aacute;s que rotar
+previamente el sensor encerrandolo en un <STRONG>Transform</STRONG>
+</P><PRE>CylinderSensor {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; autoOffset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; diskAngle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.262
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enabled&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; maxAngle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; minAngle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFFloat&nbsp;&nbsp;&nbsp;&nbsp; offset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isActive
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFRotation&nbsp; rotation_changed
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; trackPoint_changed
+}</PRE><P>
+Bien, todos los eventos son iguales que en el anterior, como los campos
+<EM>autoOffset</EM>, <EM>offset</EM>, y <EM>enabled</EM>. Los nuevos son <EM>diskAngle</EM>,
+<EM>maxAngle </EM>y <EM>minAngle.</EM> Veremos <EM>diskAngle </EM>primero. Si
+piensas en ello, descubir&aacute;s que hay dos maneras de rotar un cilindro
+en una pantalla. Si lo miras de lado, puedes tomar un lado del cilindro
+y arrasrtrar el cursor hasta que llegue al final de la pantalla. La otra
+manera, si lo est&aacute;s mirando desde abajo, ser&iacute;a tomar de una
+parte de la base y arrastrar el cursor, gir&aacute;ndolo como un disco.
+&iquest;Qu&eacute; hace VRML? Ambos. &Eacute;ste es el prop&oacute;sito
+del campo <EM>diskAngle.</EM> Si miras al cilindro con un &aacute;ngulo mayor
+al <EM>diskAngle </EM>entre tu punto de vista y el eje y, se comportar&aacute;
+como un disco, y girar&aacute; en c&iacute;rculo. De nuevo, ser&aacute;
+mas sencillo si examinas este <A HREF="../worlds/tut33c.wrl" TARGET="_new">ejemplo</a>
+(y su <A HREF="../source/tut33c.html">c&oacute;digo</a>) y miras c&oacute;mo
+se comportan los dos cilindros. Uno se orienta con el eje y hacia arriba,
+y y el otro apuntandote a ti. Haz rodar los dos cilindros, y entretente
+un rato, hasta que te quede claro c&oacute;mo trabaja <EM>diskAngle.</EM>
+La idea tambi&eacute;n se ilustra en este diagrama.
+<br><IMG SRC="../pics/cylindersensor.gif" height=200 width=320 ALT="CylinderSensor">
+<p>Se usa <EM>maxAngle </EM>y <EM>minAngle </EM>para restringir la rotaci&oacute;n
+del cilindro a un cierto n&uacute;mero de radianes alrededor del eje y
+del sensor. Si el <EM>minAngle </EM>es mayor que el <EM>maxAngle </EM>(que
+es el valor por defecto) el sensor es libre rotar todo lo que quiera. Si
+no es as&iacute;, s&oacute;lo puede moverse entre los l&iacute;mites puestos
+por los dos campos. Esto podr&iacute;a usarse para hacer un contol de volumen
+virtual, por ejemplo, o diales para determinar otras clases similares de
+valores.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+PlaneSensor</FONT></P><P>
+Bien. El &uacute;ltimo Drag sensor, y, de hecho, el &uacute;ltimo de los
+sensores en general es <STRONG>PlaneSensor.</STRONG> Con los sensores anteriores,
+pod&iacute;as rotar un objeto alrededor de un eje. Con &eacute;ste, puedes
+arrastrarlo a trav&eacute;s de un plano bidimensional. Es decir, puede
+moverse en las coordenadas locales X e Y. La coordenada local Z estar&aacute;
+fija en 0. Este sensor es muy &uacute;til en las interfaces de usuario,
+por ejemplo para crear un dispositivo deslizador, como las barras de volumen,
+que es uno de los componentes 2D de interfaces de usuario principales.
+Pero basta ya de especular, y echa un ojo a la definici&oacute;n del <STRONG>PlaneSensor.</STRONG>
+</P><PRE>PlaneSensor {
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; autoOffset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enabled&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec2f&nbsp;&nbsp;&nbsp;&nbsp; maxPosition&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1 -1
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec2f&nbsp;&nbsp;&nbsp;&nbsp; minPosition&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; offset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isActive
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; trackPoint_changed
+&nbsp;&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; translation_changed
+}
+
+</PRE><P>
+De nuevo, como con los otros Drag Sensor, tenemos <EM>isActive</EM>, <EM>enabled</EM>,
+<EM>trackPoint_changed</EM>, <EM>autoOffset</EM>, y campos <EM>offset </EM>y
+eventos. Ya deber&iacute;as saber para lo que sirven, de modo que no voy
+a volver a explicarlos. Cuando el sensor se mueve, la nueva posici&oacute;n
+pasa a trav&eacute;s del eventOut <EM>translation_changed</EM>. El <EM>maxPosition
+</EM>y <EM>minPosition </EM>son los campos que determinan hasta donde puede
+moverse el sensor en cada direcci&oacute;n. Es un campo con un valor SFVec2f,
+ya que la posici&oacute;n es un vector de dos posiciones, X y Y. Si el
+m&aacute;ximo y m&iacute;nimo en un eje son el mismo, el sensor no puede
+moverse sobre ese eje. Si el m&iacute;nimo es m&aacute;s alto que el m&aacute;ximo
+(el valor por defecto), el sensor puede moverse tanto como quiera sobre
+ese eje. De otra manera, s&oacute;lo puede moverse entre los valores m&iacute;nimos
+y m&aacute;ximos. En este <A HREF="../worlds/tut33d.wrl" TARGET="_new">ejemplo</a>,
+la acci&oacute;n de la caja se ha restingido para que s&oacute;lo pueda
+moverse en la dimensi&oacute;n X, estando Y a 0 tanto en su m&aacute;ximo
+como en su m&iacute;nimo. Tambi&eacute;n puedes echar un vistazo al <A HREF="../source/tut33d.html">c&oacute;digo</a>
+de este ejemplo.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+&iexcl;Manos Fuera!</FONT></P><P>
+Finalmente, hemos acabado los sensores. Pr&oacute;ximamente, explicar&eacute;
+los nodos interpoladores que puedes emplear para hacer buenas animaciones.
+&iexcl;Genial!.
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut32.html','tut34.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

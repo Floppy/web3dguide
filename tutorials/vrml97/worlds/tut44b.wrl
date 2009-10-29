@@ -1,0 +1,142 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 4.4b"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+NavigationInfo {
+   type ["EXAMINE"]
+}
+
+Viewpoint {
+   description "Default View"
+   position 0 0 3
+}
+
+Shape {
+   appearance Appearance {
+      material Material {
+         diffuseColor 1 1 1
+      }
+   }
+   geometry Sphere {
+      radius 0.05
+   }
+}
+
+Group {
+   children [
+      DEF SENSOR1 SphereSensor {
+      }
+      DEF VECTOR1 Transform {
+         children [
+            Transform {
+               translation 0 0.5 0
+               children [
+                  Shape {
+                     appearance Appearance {
+                        material Material {
+                           diffuseColor 1 0 0
+                        }
+                     }
+                     geometry Cylinder {
+                        height 1
+                        radius 0.03
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}
+
+Group {
+   children [
+      DEF SENSOR2 SphereSensor {      
+      }
+      DEF VECTOR2 Transform {
+         children [
+            Transform {
+               translation 0 0.5 0
+               children [
+                  Shape {
+                     appearance Appearance {
+                        material Material {
+                           diffuseColor 0 1 0
+                        }
+                     }
+                     geometry Cylinder {
+                        height 1
+                        radius 0.03
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}
+
+DEF CROSSVECTOR Transform {
+   children [
+      Transform {
+         translation 0 0.5 0
+         children [
+            Shape {
+               appearance Appearance {
+                  material Material {
+                     diffuseColor 0 0 1
+                  }
+               }
+               geometry Cylinder {
+                  height 1
+                  radius 0.03
+               }
+            }
+         ]
+      }
+   ]
+}
+
+DEF CROSS Script {
+   eventIn  SFRotation  vector1_rotation_changed
+   eventIn  SFRotation  vector2_rotation_changed
+   field    SFVec3f     vector1  0 1 0
+   field    SFVec3f     vector2  0 1 0
+   eventOut SFRotation  crossvector_set_rotation
+   eventOut SFVec3f     crossvector_set_scale
+   url "javascript:
+      function calc_cross_product() {
+         var crossVec = vector1.cross(vector2);
+         var crossVecLength = crossVec.length();
+         if (crossVecLength < 0.001) crossVecLength = 0.001;
+         crossvector_set_scale = new SFVec3f(1,crossVecLength,1);
+         var unitVec = new SFVec3f(0,1,0);
+         crossvector_set_rotation = new SFRotation(unitVec,crossVec);
+      }
+      function initialize() {
+         calc_cross_product();
+      }
+      function vector1_rotation_changed(value,time) {
+         var unitVec = new SFVec3f(0,1,0);
+         vector1 = value.multVec(unitVec);
+      }
+      function vector2_rotation_changed(value,time) {
+         var unitVec = new SFVec3f(0,1,0);
+         vector2 = value.multVec(unitVec);
+      }
+      function eventsProcessed() {
+         calc_cross_product();
+      }
+   "
+}
+
+ROUTE SENSOR1.rotation_changed TO VECTOR1.rotation
+ROUTE SENSOR1.rotation_changed TO CROSS.vector1_rotation_changed
+ROUTE SENSOR2.rotation_changed TO VECTOR2.rotation
+ROUTE SENSOR2.rotation_changed TO CROSS.vector2_rotation_changed
+ROUTE CROSS.crossvector_set_rotation TO CROSSVECTOR.set_rotation
+ROUTE CROSS.crossvector_set_scale TO CROSSVECTOR.set_scale

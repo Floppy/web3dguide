@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,Billboard, Transform,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>Floppy's Web3D Guide - VRML97 Tutorial 2.9: Billboard, Transform</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Let's Twist Again...</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut28.html','tut31.html');
+</SCRIPT>
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Billboards</FONT></P><P>
+S&oacute;lo un par de cosas m&aacute;s antes de meternos con las cosas
+buenas de la animaci&oacute;n, y la primera es el nodo <STRONG>Billboard</STRONG>.
+Realmente es un nodo <STRONG>Transform</STRONG> que rota autom&aacute;ticamente para
+estar de cara al usuario. No es necesario decir lo &uacute;til que resulta
+para carteles de texto, sprites, y un mont&oacute;n m&aacute;s de cosas.
+Echemos un ojo al nodo mismo para ver qu&eacute; tenemos para jugar.
+</P><PRE>Billboard {
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addChildren
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; removeChildren
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; axisOfRotation&nbsp;&nbsp;&nbsp; 0 1 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; children&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; bboxCenter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0
+&nbsp;&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; bboxSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1 -1 -1
+}</PRE><P>
+Como todos los nodos de agrupaci&oacute;n, posee los eventos <EM>addChildren</EM>,
+<EM>removeChildren</EM>,
+<EM>bboxCenter</EM> y <EM>bboxSize</EM>, todos los cuales cubriremos m&aacute;s
+adelante. Tiene adem&aacute;s un campo <EM>children</EM>, que contiene los
+objetos que quieres en tu billboard. De modo que si quieres un cubo que
+muestre siempre la misma cara al ususario, col&oacute;calo en este campo. Esto
+nos deja s&oacute;lo el campo <EM>axisOfRotation</EM>. Este es el eje sobre
+el que va a rotar el nodo. El valor por defecto es 0 1 0, que es el eje
+Y. Esto es lo que normalmente querr&iacute;as para que el usuario pueda
+ver el billboard. Pero si tienes un objeto con un &aacute;ngulo dado, o
+lo que sea, puedes querer un &aacute;ngulo diferente. El caso especial
+para el billboard es el 0 0 0. Normalmente, este no es un eje v&aacute;lido,
+pero en este caso le dice al nodo que puede rotar sobre CUALQUIER eje.
+Normalmente, cuando el nodo gira alrededor de un &aacute;ngulo, si te apartas
+de &eacute;l dejar&aacute;s de verlo claramente. Si tienes un eje de 0
+0 0, apuntar&aacute; al usuario, no importa donde est&eacute;.
+<p>Bueno, eso fue todo para el nodo <STRONG>Billboard</STRONG>, muy cortito, pero
+nos ha dado algo divertido con lo que jugar. Echa un ojo a este <A HREF="../worlds/tut29a.wrl" TARGET="_new">ejemplo</a>
+y su <A HREF="../source/tut29a.html">c&oacute;digo</a> para una demostraci&oacute;n.
+Todos los &aacute;rboles son <STRONG>Billboard</STRONG> que giran respecto a su eje
+Y, de modo que simpre mirar&aacute;n al usuario.
+
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+M&aacute;s Transforms</FONT></P><P>
+Hemos cubierto el nodo <STRONG>Transform</STRONG> hace a&ntilde;os y a&ntilde;os,
+pero hay m&aacute;s cosas que podemos hacer con &eacute;l. La &uacute;ltima
+vez, cubrimos rotaciones, traslaciones y escalas. El nodo <STRONG>Transform</STRONG>
+al completo es m&aacute;s complejo que todo eso. La definici&oacute;n completa
+se muestra aqu&iacute;:
+</P><PRE>Transform {
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addChildren
+&nbsp;&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; removeChildren
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; center&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; MFNode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; children&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFRotation&nbsp; rotation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 1 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; scale&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 1 1
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFRotation&nbsp; scaleOrientation&nbsp; 0 0 1 0
+&nbsp;&nbsp; exposedField&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; translation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0&nbsp;
+&nbsp;&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; bboxCenter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0
+&nbsp;&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp;&nbsp;&nbsp;&nbsp; bboxSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1 -1 -1
+}</PRE><P>
+Como puedes ver este nodo de agrupamiento tiene adem&aacute;s los eventos
+<EM>addChildren</EM>,
+<EM>removeChildren</EM>, <EM>bboxCenter</EM> y <EM>bboxSize</EM>. los cubriremos
+posteriormente con los cap&iacute;tulos de optimizaci&oacute;n y scripting.
+De momento los dejaremos aparte para concentrarnos en los otros campos.
+Ya hemos visto <EM>rotation</EM>, <EM>scale</EM>, <EM>translation</EM> y <EM>children</EM>
+Hay un par de ellos m&aacute;s que controlan c&oacute;mo se aplican las
+rotaciones y las escalas. Los campos <EM>center</EM> y <EM>scaleOrientation</EM>
+transforman el sistema de coordenadas local del nodo mientras las otras
+transformaciones se aplican.
+<p>El campo <EM>center</EM> afecta a las transformaciones de rotaci&oacute;n
+y escala. Define el origen local de la transformaci&oacute;n. As&iacute;
+que si defines un centro de 5 0 0, las rotaciones y escalas ser&aacute;n
+relativas a este punto. El objeto rotar&aacute; alrededor de ese punto,
+lo que es equivalente a trasladar el objeto por el inverso de ese centro,
+rotarlo, y volver a trasladarlo de vuelta. Esto afecta tambi&eacute;n a
+escalas, de modo que si escals algo, pero mueves el origen de las escala,
+afectar&aacute; todas las coordenadas del objeto relativas al <EM>center</EM>
+en vez de al origen local del objeto.
+<p>el campo <EM>scaleOrientation</EM> tiene tambi&eacute;n efecto en la escala,
+s&oacute;lo que esta vez es una rotaci&oacute;n lo que se aplica en vez
+de una traslaci&oacute;n. Esto te permitir&aacute; escalar en las direcciones
+que mejor te parezca. Con <EM>scale</EM>, s&oacute;lo puedes escalar sobre
+los ejes, lo cual es algo limitado. Usando <EM>scaleOrientation </EM>puedes
+rotar las sirecciones de escala para un objeto. Tiene el mismo efecto que
+aplicar la rotaci&oacute;n inversa, escalar, y rotar el objeto de vuelta.
+Esencialmente, rota los ejes de la escala con el campo <EM>scaleOrientation</EM>.
+<p>Echa un ojo a este <A HREF="../worlds/tut29b.wrl" TARGET="_new">ejemplo</a>
+y a su <A HREF="../source/tut29b.html">c&oacute;digo</a>. En la izquierda,
+tenemos una rotaci&oacute;n sobre un punto arbitrario. El punto rojo marca
+el centro, sobre el cual ha sido rotada la caja verde. Las cajas p&uacute;rpuras
+han sido escaladas. El centro es una caja normal, sin escalar. La caja
+de abajo ha sido escalada con un valor de 2 en la direcci&oacute;n X. La
+de arriba tambi&eacute;n, pero con un <EM>scaleOrientation</EM> de 0 0 1
+0.78. Esto la hace rotar sobre el eje X 45 grados en el sentido contrario
+a las agujas del reloj, d&aacute;ndole una extra&ntilde;a apariencia.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Hacer el &Iacute;ndio</FONT></P><P>
+Esto fue todo para las cosas que se mantienen quietecitas. Ahora, en la
+tercera parte, echaremos un ojo a la animaci&oacute;n y a material por
+el estilo. &iexcl;Suj&eacute;tate!
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut28.html','tut31.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

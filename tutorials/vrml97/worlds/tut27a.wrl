@@ -1,0 +1,62 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 2.7a"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+NavigationInfo {
+   headlight TRUE
+   type "WALK"
+}
+
+Transform {
+   translation -6 0 -3
+   rotation 0 1 0 0.78
+   children [
+      Shape {
+         appearance Appearance {
+            texture DEF TEX ImageTexture {
+               url "gradient.jpg"
+            }
+            textureTransform TextureTransform {
+               scale 5 5
+               rotation 0.78
+            }
+         }
+         geometry DEF BOX Box {
+            size 5 5 1
+         }
+      }
+   ]
+}
+
+Transform {
+   translation 6 0 -3
+   rotation 0 1 0 -0.78
+   children [
+      Shape {
+         appearance Appearance {
+            texture USE TEX
+            textureTransform TextureTransform {
+               translation 0.5 0.5
+            }
+         }
+         geometry USE BOX
+      }
+   ]
+}
+
+Transform {
+   translation 0 0 -5
+   children [
+      Shape {
+         appearance Appearance {
+            texture USE TEX
+         }
+         geometry USE BOX
+      }
+   ]
+}
+

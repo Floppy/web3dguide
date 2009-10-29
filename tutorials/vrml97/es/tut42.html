@@ -1,0 +1,458 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language, Tutorial, Guide, 3D,    variables, types, operators, conditional, loops, while, if, for, function,    Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,    Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>Tutorial de VRML de Floppy - VRML97 cap&iacute;tulo 4.2: tipos de datos de ECMAScript, operadores, condicionales, bucles.</title>
+</HEAD>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#BB0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Rizando el Rizo</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut41.html','tut43.html');
+</SCRIPT>
+</P><P>
+En el &uacute;ltimo cap&iacute;tulo d&iacute; una introducci&oacute;n sumamente
+r&aacute;pida al ECMAScript. Introduje funciones, variables, y sentencias.
+Ahora, voy a explicar c&oacute;mo hacer cosas &uacute;tiles con estos bloques
+b&aacute;sicos, para que podamos empezar a hacer pr&aacute;cticos scripts
+en nuestros achivos VRML.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+M&aacute;s Sobre las Funciones y Declaraciones</FONT></P><P>
+Simplemente como recordatorio; un programa de ECMAScript est&aacute; hecho
+a partir de <EM>funciones </EM>que contienen una sucesi&oacute;n de <EM>sentencias.</EM>
+Estas sentencias pueden hacer todas clase de cosas. Pueden declarar las
+variables, usando la palabra clave <EM>var</EM>, pueden realizar c&aacute;lculos,
+o pueden llamar a otras funciones. Cuando se llama a una funci&oacute;n,
+&eacute;sta se ejecuta, se regresa al punto del programa en que se hizo
+la llamada a esta funci&oacute;n, y el programa contin&uacute;a. As&iacute;,
+si empezamos en la funci&oacute;n <EM>main</EM>,
+</P><PRE>function main() {
+&nbsp;&nbsp; var a, b;
+&nbsp;&nbsp; a = 3;
+&nbsp;&nbsp; b = cuadrado(a);
+&nbsp;&nbsp; print(b);
+}
+
+function cuadrado(x) {
+&nbsp;&nbsp; return x * x;
+}
+
+</PRE><P>
+se declaran las variables a y b, y a recibe el valor de 3. Entonces se
+evalua la funci&oacute;n cuadrado(a). Esto significa que se la llama con
+el valor de a (3), y devuelve a *a (esto es, 9). B recibe este valor, y
+se imprime.
+<p>Bien, por el momento, todo tiene sentido. Mira esto en una asignaci&oacute;n,
+el lado derecho de la expresi&oacute;n se eval&uacute;a y se asigna a la
+variable del lado izquierdo. &iquest;Va todo bien hasta ahora? Bueno, ech&eacute;mos
+un ojo a algunos de los <EM>tipos de variables b&aacute;sicos </EM>que podemos
+usar en ECMAScript.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Los Tipos de Variables b&aacute;sicos</FONT></P><P>
+En ECMAScript, hay varios <EM>tipos de variable.</EM> &Eacute;stos representan
+los diferentes tipos de datos, como los n&uacute;meros, las cadenas de
+texto, y as&iacute; sucesivamente. Cada variable que declare pertenecer&aacute;
+a determinado tipo. ECMAScript es diferente de muchos otros lenguajes en
+eso: no tiene que decirle al int&eacute;rprete (al navegador que ejecuta
+su programa) a qu&eacute; tipo pertenecen sus variables. Del mismo modo,
+una variable puede cambiar de tipo, como se muestra debajo:
+</P><PRE>var a;
+a = 42;
+print(a);
+a = "hello";
+print(a);</PRE><P>
+Al principio, la variable a no tiene ning&uacute;n tipo, dado que no se
+le asign&oacute; ning&uacute;n valor. Se le da el valor 3, convirti&eacute;ndola
+as&iacute; en una variable num&eacute;rica. Sin embargo, despu&eacute;s
+de esto, le damos el valor de "hola", una cadena de texto. Esto es absolutamente
+legal, y puede llevarte un tiempo acostumbrarse si vienes de programar
+en lenguajes fuertemente tipificados como Java o C. Los diferentes tipos
+de variables son:
+<dl>
+<dt>
+<STRONG>Undefined.</STRONG> (Indefinido)</dt>
+
+<dd>
+&Eacute;ste es el tipo que una variable tiene antes de que se asigne un
+valor. Tiene el valor <STRONG>indefinido.</STRONG></dd>
+
+<dt>
+<STRONG>Null.</STRONG> (Nulo)</dt>
+
+<dd>
+&Eacute;ste es un tipo que significa la variable no contiene ning&uacute;n
+dato. No es indefinido: est&aacute; vac&iacute;o. Tiene s&oacute;lo un
+valor, <STRONG>nulo.</STRONG></dd>
+
+<dt>
+<STRONG>Boolean</STRONG></dt>
+
+<dd>
+Obedece a valores <STRONG>TRUE</STRONG> (verdadero) o <STRONG>FALSE</STRONG> (falso), como
+un SFBool.</dd>
+
+<dt>
+<STRONG>String</STRONG> (Cadena de caracteres)</dt>
+
+<dd>
+&Eacute;sta puede ser cualquier sucesi&oacute;n de car&aacute;cteres, como
+un SFString.</dd>
+
+<dt>
+<STRONG>Number</STRONG> (Num&eacute;rica)</dt>
+
+<dd>
+&Eacute;ste es un tipo num&eacute;rico que puede contener cualquier n&uacute;mero
+en el rango de 253 a -253. La explicaci&oacute;n real del rango es un poco
+compleja. Claro que si sabes lo suficiente como para necesitar buscarlo,
+seguramente tendr&aacute;s que hacerlo en una gu&iacute;a m&aacute;s compleja.
+Tambi&eacute;n existen los valores <STRONG>NaN </STRONG>(Not a Number), <STRONG>+infinity</STRONG>,
+<STRONG>-infinity </STRONG>y + y -0.</dd>
+
+<dt>
+<STRONG>Object</STRONG> (Objeto)</dt>
+
+<dd>
+Esto es que una colecci&oacute;n de <STRONG>propiedades.</STRONG> De momento lo dejaremos,
+pero volveremos a ello en cuanto sea necesario para seguir.</dd>
+</dl>
+Volvamos al ejemplo anterior: en este fragmento de c&oacute;digo hay dos
+<EM>literales.</EM> &Eacute;stos son los valores que realmente est&aacute;n
+en el programa. El n&uacute;mero 42 y la cadena "hola" son los literales
+(los valores de una cadena de caract&eacute;res se encierran siempre entre
+'simples' o "dobles" comillas). &Eacute;stas no pueden cambiarse, y son
+f&iacute;sicamente parte del programa, al contrario que las variables,
+que son temporales y pueden cambiar.
+<p>Ahora, seguiremos con expresiones y operadores, y aprender&eacute;mos
+c&oacute;mo realizar c&aacute;lculos.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Operadores</FONT></P><P>
+ECMAScript, y en la mayor&iacute;a de lenguajes de programaci&oacute;n,
+hay un juego de funciones llamadas <EM>operadores </EM>que son funcionamientos
+b&aacute;sicos que se definen para tipos simples de datos. Los usar&aacute;s
+mucho al construir programas, junto con otras funciones comunes. Voy a
+dar una breve apreciaci&oacute;n global de los operadores m&aacute;s importantes,
+para que tengas una noci&oacute;n de c&oacute;mo trabajan antes de empezar
+a ponernos en serio.
+<p>Hay varios tipos diferentes de operadores. Hay los operadores de tipo
+<EM>unario </EM>que s&oacute;lo act&uacute;an sobre una &uacute;nica variable.
+Por ejemplo, la se&ntilde;al de negaci&oacute;n que convierte un n&uacute;mero
+en negativo.
+</P><PRE>a = -a;</PRE><P>
+- es un operador de negaci&oacute;n de unario en este caso. Hay operadores
+<EM>binarios </EM>que trabajan sobre dos valores, como el operador de suma:
+</P><PRE>a = a + 3;</PRE><P>
+Hay tambi&eacute;n operadores <EM>relacionales </EM>que trabajan sobre comparaciones
+entre dos variables. Por ejemplo, el operador 'mayor que' (>).
+</P><PRE>a = (b &lt; 3);</PRE><P>
+Si b es menor de tres, a recibir&aacute; el valor booleano de <STRONG>TRUE</STRONG>.
+Los operadores relacionales devuelven siempre valores booleanos. Los operadores
+de igualdad <tt>(==)</tt>tambi&eacute;n son operadores relacionales. El
+&uacute;ltimo tipo que vamos cubrir ahora son los operadores l&oacute;gicos.
+&Eacute;stos son los operadores AND y OR ('y' y '&oacute;') que trabajan
+sobre valores booleanos. La tabla de abajo es una lista de todos los operadores
+simples, y una descripci&oacute;n breve de lo que hacen y c&oacute;mo usarlos.
+<p><STRONG>Operadores Unarios</STRONG>
+<br>&nbsp;
+<table BORDER CELLSPACING=0 >
+<tr>
+<td ALIGN=CENTER><STRONG>Operador</STRONG></td>
+
+<td ALIGN=CENTER><STRONG>Descripci&oacute;n</STRONG></td>
+</tr>
+
+<tr>
+<td>-</td>
+
+<td>Devuelve el negativo de un argumento num&eacute;rico.</td>
+</tr>
+
+<tr>
+<td>!</td>
+
+<td>Negaci&oacute;n. !<STRONG>TRUE </STRONG>es <STRONG>FALSE</STRONG> y !<STRONG>FALSE </STRONG>es <STRONG>TRUE</STRONG></td>
+</tr>
+
+<tr>
+<td>++</td>
+
+<td>Incremento (agrega 1) del argumento.</td>
+</tr>
+
+<tr>
+<td>--</td>
+
+<td>Decremento (substrae 1) del argumento.</td>
+</tr>
+
+<tr>
+<td>typeOf</td>
+
+<td>Devuelve una cadena que contiene el tipo de variable de un valor</td>
+</tr>
+</table>
+
+<p>Antes de que cubramos los operadores binarios, veamos una cosilla sobre
+los operadores de incremento y decremento. &Eacute;stos pueden venir antes
+o despu&eacute;s de su argumento, dependiendo de c&oacute;mo quiere que
+trabajen.
+</P><PRE>var a = 3;
+var b = a++;</PRE><P>
+En este caso, al final, b ser&aacute; 3 y a ser&aacute; 4. El valor de
+a se obtiene evaluando el lado derecho de la sentencia, y se incrementa.
+</P><PRE>var a = 3;
+var b = ++a;</PRE><P>
+Aqu&iacute;, b valdr&aacute; 4 y a tambi&eacute;n. El valor de a se incrementa
+y se asigna inmediatamente a b.
+<p><STRONG>Operadores binarios</STRONG>
+<br>&nbsp;
+<table BORDER CELLSPACING=0 >
+<tr>
+<td>Operador</td>
+
+<td ALIGN=CENTER>Descripci&oacute;n</td>
+</tr>
+
+<tr>
+<td>+</td>
+
+<td>Suma</td>
+</tr>
+
+<tr>
+<td>-</td>
+
+<td>Substracci&oacute;n</td>
+</tr>
+
+<tr>
+<td>*</td>
+
+<td>Multiplicaci&oacute;n</td>
+</tr>
+
+<tr>
+<td>/</td>
+
+<td>Divisi&oacute;n</td>
+</tr>
+
+<tr>
+<td>%</td>
+
+<td>Modulo (el Resto del Entero)</td>
+</tr>
+</table>
+
+<p><STRONG>Los operadores relacionales</STRONG>
+<br>&nbsp;
+<table BORDER CELLSPACING=0 >
+<tr>
+<td>Operador</td>
+
+<td ALIGN=CENTER>Descripci&oacute;n</td>
+</tr>
+
+<tr>
+<td>&lt;</td>
+
+<td>Menor-que</td>
+</tr>
+
+<tr>
+<td>></td>
+
+<td>Mayor-que</td>
+</tr>
+
+<tr>
+<td>&lt;=</td>
+
+<td>Menor o igual</td>
+</tr>
+
+<tr>
+<td>>=</td>
+
+<td>Mayor o igual</td>
+</tr>
+
+<tr>
+<td>==</td>
+
+<td>Igualdad comparativa</td>
+</tr>
+
+<tr>
+<td>!=</td>
+
+<td>Desigualdad comparativa</td>
+</tr>
+</table>
+
+<p><STRONG>Los operadores l&oacute;gicos</STRONG>
+<br>&nbsp;
+<table BORDER CELLSPACING=0 >
+<tr>
+<td>Operador</td>
+
+<td ALIGN=CENTER>Descripci&oacute;n</td>
+</tr>
+
+<tr>
+<td>&amp;&amp;</td>
+
+<td>Y l&oacute;gico</td>
+</tr>
+
+<tr>
+<td>||</td>
+
+<td>O l&oacute;gico</td>
+</tr>
+</table>
+
+<p>Como vimos, los operadores l&oacute;gicos devuelven valores booleanas.
+Bien, hemos cubierto los operadores. &iexcl;Estamos preparados para poder
+usarlos! Estamos muy cerca de ponernos a escribir scripts VRML.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Condicionales</FONT></P><P>
+Hay todav&iacute;a un par de cosas que necesita saber antes de que empiece
+a programar scripts. Hay ciertos tipos de sentencias que le permiten elegir
+opciones en sus programas, y crear comportamientos m&aacute;s complejo.
+&Eacute;stos son los<EM>Bucles </EM>y los <EM>condicionales.</EM> Cubriremos
+los condicionales primero.
+<p>Una declaraci&oacute;n condicional le permite verificar algo en su programa
+para elegir una opci&oacute;n basada en el resultado. La primera sentencia
+condicional que miraremos es <STRONG>if</STRONG>. Esto va as&iacute;:
+</P><PRE>if (expresi&oacute;n booleana) sentencia;</PRE><P>
+o
+</P><PRE>if (expresi&oacute;n booleana)&nbsp;
+{ sentencias }</PRE><P>
+Ambas son exactamente lo mismo. Un <EM>bloque </EM>de sentencias (puestas
+entre llaves) es lo mismo que una sola sentencia sin las llaves. Adem&aacute;s,
+si quiere poner una &uacute;nica sentencia, puede ponerla tambi&eacute;n
+entre llaves.
+<p>Bueno, volvamos al <STRONG>if.</STRONG> El valor que hay en los par&eacute;ntesis
+es una expresi&oacute;n booleana, o una expresi&oacute;n que tras evaluarse
+devuelve un valor booleano. Si el resultado es <STRONG>true </STRONG>la sentencia
+(o sentencias) posteriores se ejecutan. Si es <STRONG>false</STRONG>, se omiten.
+As&iacute; que el c&oacute;digo siguiente imprimir&aacute; "hola" si a
+es igual al n&uacute;mero 3.
+</P><PRE>if (a==3) print("hola");
+
+</PRE><P>
+Hay otra estructura que podemos usar junto con el <STRONG>if.</STRONG> &Eacute;sta
+es la declaraci&oacute;n del <STRONG>else </STRONG>(si no...)<STRONG>.</STRONG> Debe seguir
+a la sentencia <STRONG>if</STRONG>, y se ejecuta si la expresi&oacute;n booleana
+de los par&eacute;ntesis es <STRONG>false.</STRONG>
+</P><PRE>if ((a==3) || (b==4)) print("hola");
+else print("adios");</PRE><P>
+Esto imprimir&aacute; "hola" si a vale 3 o si b vale 4, o "adi&oacute;s"
+si ninguna de las condiciones se cumple. &iexcl;Simple!
+<p>Fale, todo es sencillo hasta ahora. Sin embargo, ahora nos encontramos
+con el &uacute;nico operador <EM>ternario.</EM> &Eacute;ste es el <EM>operador
+condicional.</EM> Realmente es solo una manera corta de escribir <STRONG>if...
+else...</STRONG>
+</P><PRE>pregunta ? sentencia_si_pregunta_es_cierta : sentencia_si_pregunta_es_falsa;</PRE><P>
+Puede usarse en lugares d&oacute;nde ua sentencia <STRONG>if </STRONG>completa podr&iacute;a
+ser un bloque voluminoso y desarreglado. Por ejemplo, asignar un valor
+a una variable basandonos en otro:
+</P><PRE>var b = (a&lt;4) ? 3 : 5;</PRE><P>
+Si a es menor de 4, b valdr&aacute; 3 a&ntilde;os, de otro modo valdr&aacute;
+5.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Los Bucles</FONT></P><P>
+ECMAScript tiene dos bucles b&aacute;sicos, el bucle <STRONG>while</STRONG> y el
+bucle <STRONG>for</STRONG>. &Eacute;sto permite realizar una sentencia o conjunto
+de sentencias hasta que una condici&oacute;n se cumpla. Echemos una primera
+mirada al bucle <STRONG>while</STRONG>.
+</P><PRE>while (expresi&oacute;n booleana) sentencia;</PRE><P>
+Como en el <STRONG>if</STRONG>, puede tener una o varias sentencias, usando las llaves.
+El bucle while comprueba la expresi&oacute;n booleana antes de ejecutar
+la sentencia. Si el resultado es <STRONG>true</STRONG>, la sentencia se ejecuta.
+Entonces, la expresi&oacute;n se eval&uacute;a de nuevo y el proceso repite.
+As&iacute; el bucle se ejecuta hasta que la expresi&oacute;n sea <STRONG>false.</STRONG>
+</P><PRE>var a=0;
+while (a&lt;3) {
+&nbsp;&nbsp; a = a + 1;
+}</PRE><P>
+Este bucle se ejecutar&aacute; mientras a no sea mayor que 3, es decir,
+se ejecutar&aacute; tres veces, y despu&eacute;s a retornar&aacute; 3.
+<p>El otro tipo de bucle es el <STRONG>for</STRONG>. Esto va as&iacute;:
+</P><PRE>for (inicializaci&oacute;n; expresi&oacute;n booleana; sentencia de bucle) sentencia/s;</PRE><P>
+Esto, como puede ver, es un poco m&aacute;s complejo. Hay tres partes en
+la estructura de control del bucle. La primera parte se ejecuta antes de
+que comienze el bucle, tan s&oacute;lo una vez. La segunda parte es como
+la expresi&oacute;n booleana de la sentencia <STRONG>while.</STRONG> Si es <STRONG>true</STRONG>,
+las sentencias se ejecutan, de otro modo el bucle finaliza. La tercera
+parte, la sentencia de bucle, se ejecuta cada vez que el bucle reinicia.
+As&iacute;, mirando un ejemplo...
+</P><PRE>var a;
+for (a=0; a&lt;3; a++) {
+&nbsp;&nbsp; print(a);
+}
+print("Hecho");</PRE><P>
+Este c&oacute;digo declara una variable a. Entonces, comienza un bucle
+<STRONG>for </STRONG>. Se asigna el valor 0 a la variable a en la inicializaci&oacute;n.
+Entonces, a se incrementa por la sentencia de bucle. La expresi&oacute;n
+a&lt;3 se evalua de nuevo. a sigue devolviendo un valor menor de 3, por
+lo que el cuerpo del bucle se ejecuta de nuevo, mientras se imprime el
+valor 1. a se incrementa de nuevo, se eval&uacute;a de nuevo, y el bucle
+ejecuta de nuevo, imprimiendo 2. la variable a se incrementa, para devolver
+el valor 3. Ahora, la evaluaci&oacute;n resulta <STRONG>false</STRONG>, dado que
+a NO es menor de 3, el bucle finaliza, y el programa contin&uacute;a, imprimiendo
+"hecho." As&iacute; de simple.
+<p>Hay solo dos cosas m&aacute;s que cubrir antes de que acabemos el cap&iacute;tulo.
+&Eacute;stas son las sentencias <STRONG>break </STRONG>y <STRONG>continue</STRONG>. Pueden
+ser &uacute;tiles si quiere manipular el funcionamiento de un bucles. Una
+entencia <STRONG>break</STRONG> se efinalizar&aacute; inmediatamente el bucle y continuar&aacute;
+con el programa. Una setencia <STRONG>continue</STRONG> detendr&aacute; la ejecuci&oacute;n
+actual del cuerpo del bucle y saltar&aacute; al comienzo del bucle, salt&aacute;ndose
+las siguientes sentencias del cuerpo del mismo.
+</P><PRE>var a=0;
+while (a&lt;2) {
+&nbsp;&nbsp; print("hola");
+&nbsp;&nbsp; a++;
+&nbsp;&nbsp; break;
+}
+print("&iexcl;adios!");</PRE><P>
+Esto imprimir&aacute; "hola &iexcl;adi&oacute;s"!, ya que el bucle se interrumpe
+al llegar al <STRONG>break</STRONG> y prosigue con el programa.
+</P><PRE>var a=0;
+while (a&lt;2) {
+&nbsp;&nbsp; print("hola ");
+&nbsp;&nbsp; a++;
+&nbsp;&nbsp; continue;
+&nbsp;&nbsp; print("saludos ");
+}
+print("adios!");</PRE><P>
+Esto imprimir&aacute; "hola hola adi&oacute;s"!, dado que el bucle se interrumpe
+a medio camino debido al <STRONG>continue</STRONG> y de esta manera nunca llega a
+imprimirse "saludos". Puede que de momento estas sentencias no le resulten
+de utilidad, pero es bueno concerlas para m&aacute;s adelante.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Sacacorchos</FONT></P><P>
+Bien, esto tambi&eacute;n ha sido una buena carga de informaci&oacute;n,
+&iexcl;pero ahora est&aacute; en condiciones de lanzarse a hacer scripts
+de VRML! Si quieres m&aacute;s informaci&oacute;n sobre programaci&oacute;n
+ECMAScript, hay mazo de recursos de Javascript all&iacute; fuera. Solo
+recuerda que ECMAScript est&aacute; fundamentalmente basado en Javascript
+1.0, por lo que los perfeccionamientos de las versiones posteriores no tienen
+por qu&eacute; funcionar adecuadamente. Puede conseguir una copia gratuita
+de la especificaci&oacute;n oficial de ECMAScript en <A HREF="http://www.ecma.ch" TARGET="_blank">ECMA
+</a>. En el pr&oacute;ximo cap&iacute;tulo, crearemos nuestro primer script.
+No har&aacute; nada asombroso, pero todo llegar&aacute;, se lo prometo.
+&iexcl;Todo a su tiempo!
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut41.html','tut43.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

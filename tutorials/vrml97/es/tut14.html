@@ -1,0 +1,338 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="DESCRIPTION" content="Guide to the world of VRML, with one of the best tutorials on the web.">
+   <meta name="KEYWORDS" content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,Appearance, Material, ImageTexture, MovieTexture, PixelTexture,textures, diffuseColor, diffuse, specular, ambient, shininess,shine, transparency,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>La Guia de VRML de Floppy - VRML97 Tutorial 3: Appearance, Material, ImageTexture, MovieTexture, PixelTexture,</title>
+</head>
+<body TEXT='#000000' BGCOLOR='#DDDDDD' link="#FF0000" vlink="#DD0000" alink="#FFFF00">
+<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Manteniendo las Apariencias</FONT></TD></TR></TABLE>
+<P>
+<SCRIPT TYPE="text/javascript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut13.html','tut15.html');
+</SCRIPT>
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+Los Nodos de la apariencia</FONT></P><P>
+OK. Como has visto con el objeto FBOX que definimos antes, el nodo <STRONG>Shape
+</STRONG>tiene un campo dentro suya llamado <STRONG>appearance.</STRONG> Este se usa para
+contener un nodo <STRONG>Appearance</STRONG>, como se muestra abajo:
+</P><PRE>DEF FBOX Shape {
+&nbsp;&nbsp; appearance Appearance {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; material Material {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp; }
+&nbsp;&nbsp; geometry Box {
+&nbsp;&nbsp; }
+}</PRE><P>
+Este ejemplo tiene un campo dentro del nodo <STRONG>Appareance, </STRONG>el campo
+<STRONG>material.</STRONG> Esta manera de tener nodos dentro de nodos puede parecer
+complicado, pero te permite definir las apariencias globalmente usando
+DEF y USE. Esto es &uacute;til para tener muchos objetos con la misma apariencia.
+El nodo <STRONG>Appearance </STRONG>puede contener el campo material o el campo texture.
+El campo <STRONG>material </STRONG>contiene un nodo <STRONG>Material, </STRONG>sorprendente
+&iquest;no?. Un nodo <STRONG>texture </STRONG>contiene uno de varios tipos de nodos
+de texturas. &Eacute;stos se describir&aacute;n despu&eacute;s. Primero,
+nosotros trataremos el nodo <STRONG>Material.</STRONG>
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+El Nodo material</FONT></P><P>
+El nodo <STRONG>Material </STRONG>puede contener cualquiera de seis campos. &Eacute;stos
+son:
+<dl>
+<dt>
+<STRONG>diffuseColor</STRONG></dt>
+
+<dd>
+El color normal del objeto.</dd>
+
+<dt>
+<STRONG>specularColor</STRONG></dt>
+
+<dd>
+El color resaltado en los objetos brillantes.</dd>
+
+<dt>
+<STRONG>emissiveColor</STRONG></dt>
+
+<dd>
+El objeto irradia una luz propia de ese color. Pero no iluminar&aacute;
+ning&uacute;n otro objeto con esa luz.</dd>
+
+<dt>
+<STRONG>ambientIntensity</STRONG></dt>
+
+<dd>
+La cantidad de luz del ambiente que el objeto refleja.</dd>
+
+<dt>
+<STRONG>shininess</STRONG></dt>
+
+<dd>
+Cuan reflexivo es el objeto.</dd>
+
+<dt>
+<STRONG>transparency</STRONG></dt>
+
+<dd>
+Cuan transparente es el objeto. Algunos navegadores no soportar&aacute;n
+objetos parcialmente transparentes.</dd>
+</dl>
+Los primeros tres de &eacute;stos campos poseen valores de color (RGB),
+y los &uacute;ltimos tres son un n&uacute;mero simple entre 0 y 1. Los
+colores son especificados con los componentes verde, rojo y azul (RGB),
+como en HTML. Tu puedes hacer cualquier color que te guste de una combinaci&oacute;n
+de rojo, verde y azul. Los valores del color individuales son los n&uacute;meros
+entre 0 (ning&uacute;n color) y 1 (el color saturado); todo de rojo se
+definir&iacute;a como 1 0 0, blanco como 1 1 1, gris 0.5 0.5 0.5 y as&iacute;
+sucesivamente. Esta manera de especificar el color puede tardar un rato
+en acostumbrarse, pero puedes usar un seleccionador del color en PaintShopPro
+o en algun editor de fotos similar para escoger cualquier color que te
+guste y entonces los conviertes a los valores de VRML.
+<p>As&iacute;, si nosotros queremos hacer nuestro cubo original de un color
+verde semi-transparente brillando, nosotros le definir&iacute;amos una
+apariencia as&iacute;:
+</P><PRE>Shape {
+&nbsp;&nbsp; appearance Appearance {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; material Material {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; emissiveColor 0 0.8 0
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; transparency 0.5
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp; }
+&nbsp;&nbsp; geometry Box {
+&nbsp;&nbsp; }
+}</PRE><P>
+
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+ImageTexture</FONT></P><P>
+Estos bonitos colores estan muy bien, pero para que todo esto luzca <EM>mucho
+</EM>mejor, necesitamos mapear una textura a nuestros objetos. Esto lo haremos
+utilizando el campo del nodo <STRONG>texture </STRONG>del nodo <STRONG>Appearance.</STRONG>
+Este campo contiene uno de tres tipos de nodo texture.
+<p>El primero de &eacute;stos que nosotros cubriremos es <STRONG>ImageTexture.</STRONG>
+&Eacute;ste es un mapa de textura b&aacute;sico, que traza una imagen inm&oacute;vil
+sobre un objeto. &iexcl;El nodo puede trazar una textura sobre el objeto
+con formato de archivo JPEG o PNG, es decir que ning&uacute;n GIF funciona
+aqui! Algunos navegadores lo soportan, pero esto no es el standard. El
+nodo contiene tres campos. El primero, el <STRONG>url </STRONG>especifica la imagen
+para usar en un formato de URL normal. Tu puedes especificar una lista
+de imagenes dentro de corchetes y el navegador mostrara la primera que
+encuentre. Los otros dos son <STRONG>repeatS </STRONG>y <STRONG>repeatT </STRONG>que controlan
+si la textura se repite en la direcci&oacute;n horizontal (S) o en la vertical
+(T). Estos toman valores booleanos de TRUE (Verdadero) o FALSE (Falso).
+S&oacute;lo son realmente muy &uacute;tiles cuando se combinan con un <STRONG>TextureTransform
+</STRONG>que no cubriremos hasta m&aacute;s tarde. Puedes especificar la informaci&oacute;n
+de transparencia en las im&aacute;genes en cuyo caso reemplazar&aacute;
+a la transparencia del objeto original. Si usas una textura en escala de
+grices, el diffuseColor se multiplicara por la intensidad de la textura
+hasta crear la textura actual. De hecho, puedes crear muchos efectos combinando
+el nodo <STRONG>Material </STRONG>e <STRONG>ImageTexture.</STRONG> En general, hacen exactamente
+lo que esperas de ellos, de modo que experimenta un poco y mira lo que
+puedes hacer.
+<p>As&iacute;, para mapear nuestra segunda Caja con una textura de ladrillo,
+nosotros usar&iacute;amos lo siguiente:
+</P><PRE>Appearance {
+&nbsp;&nbsp; texture ImageTexture {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; url "brick.jpg"
+&nbsp;&nbsp; }
+}</PRE><P>
+como el nodo <STRONG>Appareance </STRONG>de nuestra segunda caja.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+MovieTexture</FONT></P><P>
+<STRONG>MovieTexture </STRONG>toma una pel&iacute;cula en formato MPEG y la mapea
+en un objeto de la misma manera que con <STRONG>ImageTexture. </STRONG>Este tiene
+los mismos tres campos, pero tambi&eacute;n varios otros. &Eacute;stos
+son:
+<dl>
+<dt>
+<STRONG>speed</STRONG></dt>
+
+<dd>
+Un valor de velocidad 1 significa la velocidad predefinida, 2 es dos veces
+mas r&aacute;pido. Un valor de 0 siempre desplegar&aacute; el primer fotograma.</dd>
+
+<dt>
+<STRONG>loop</STRONG></dt>
+
+<dd>
+Un valor booleano (TRUE o FALSE), especificando si la pel&iacute;cula se
+repite o no.</dd>
+
+<dt>
+<STRONG>startTime</STRONG></dt>
+
+<dd>
+Cu&aacute;ndo comienza la pel&iacute;cula, medido en segundos desde la
+medianoche del 1 Ene 1970.</dd>
+
+<dt>
+<STRONG>stopTime</STRONG></dt>
+
+<dd>
+Cu&aacute;ndo se detiene la pel&iacute;cula, medido en segundos desde la
+medianoche del 1 Ene 1970.</dd>
+</dl>
+
+<P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+PixelTexture</FONT></P><P>
+Este nodo te permite definir tus propias texturas a mano en el archivo
+VRML. Esto parece incre&iacute;blemente ineficaz, pero lo que hace tiene
+sus usos, como lo ver&aacute;s despu&eacute;s. Este tiene un campo <STRONG>image
+</STRONG>en vez del URL.
+<p>El campo <STRONG>image </STRONG>consiste en dos n&uacute;meros especificando el
+ancho y la altura de la textura, seguidos por otro n&uacute;mero que aporta
+el n&uacute;mero de los componentes. Los colores con un componente son
+los de la escala de grices, los colores de dos componentes son los grises
+con transparencia, tres son el color en RGB, y cuatro son RGB con transparencia.
+Despu&eacute;s de estos argumentos, sigue una lista de pixeles que son
+los n&uacute;meros en hexadecimal con un byte por componente. As&iacute;,
+un pixel de 4 componentes que es rojo y 50% transparente ser&iacute;a 0xFF00007F.
+Los pixeles se ordenan de abajo-izquierda hacia arriba-derecha. Un ejemplo
+se muestra debajo:
+</P><PRE>DEF PIXMAP Appearance {
+&nbsp;&nbsp; texture PixelTexture {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; image 2 2 3 0xFF0000 0x00FF00 0x0000FF 0xFF0000
+&nbsp;&nbsp; }
+}</PRE><P>
+
+<IMG SRC="../pics/pixmap.gif" height=100 width=100 ALT="PixelTexture">
+Haremos una r&aacute;pida descripci&oacute;n de n&uacute;meros en hexadecimal
+aqu&iacute;. A menudo en el mundo de las computadoras, es conveniente especificar
+los n&uacute;meros no en el sistema decimal normal (0-9) o binario (0-1),
+sino en otro tipo de n&uacute;meros, los llamados <EM>hexadecimales</EM>.
+Estos toman como base 16, y los n&uacute;meros van as&iacute;:
+</P>
+<table>
+<tr>
+<td ALIGN=CENTER><STRONG>Hexadecimal</STRONG></td>
+
+<td ALIGN=CENTER><STRONG>Decimal</STRONG></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>0</td>
+
+<td ALIGN=CENTER>0</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>1</td>
+
+<td ALIGN=CENTER>1</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>2</td>
+
+<td ALIGN=CENTER>2</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>3</td>
+
+<td ALIGN=CENTER>3</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>4</td>
+
+<td ALIGN=CENTER>4</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>5</td>
+
+<td ALIGN=CENTER>5</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>6</td>
+
+<td ALIGN=CENTER>6</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>7</td>
+
+<td ALIGN=CENTER>7</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>8</td>
+
+<td ALIGN=CENTER>8</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>9</td>
+
+<td ALIGN=CENTER>9</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>A</td>
+
+<td ALIGN=CENTER>10</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>B</td>
+
+<td ALIGN=CENTER>11</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>C</td>
+
+<td ALIGN=CENTER>12</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>D</td>
+
+<td ALIGN=CENTER>13</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>E</td>
+
+<td ALIGN=CENTER>14</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER>F</td>
+
+<td ALIGN=CENTER>15</td>
+</tr>
+</table>
+<P>
+Entonces, F en hexadecimal es 15 en decimal. 10 en hex is 16 en decimal.
+Los n&uacute;meros en hexadecimal son normalmente especificados con un
+0x en el frente para un reconocimiento f&aacute;cil. As&iacute;, 0x10 =
+16, 0xFF = 255, y 0x7F = 127. Has cogido la idea, de eso estoy seguro.
+No necesitar&aacute;s usar muchas veces &eacute;sto, asi que no te preocupes
+demasiado por ellos. Luego podr&aacute;s entenderlos mejor.
+</P><P><FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">
+El Final est&aacute; Cerca</FONT></P><P>
+Entonces vale, eso es todo sobre el asunto, la descripci&oacute;n y <A HREF="../source/tut14.html">el
+c&oacute;digo</a> de lo que hemos avanzado est&aacute;n aqu&iacute;, y
+tambi&eacute;n un vinculo al archivo WRL. Tenemos dos cajas, como antes,
+una verde transparente, y otra con una textura de ladrillo. F&iacute;jate
+que&nbsp; no podemos m&aacute;s usar DEF en el nodo <STRONG>Shape </STRONG>, ya que
+las cajas tienen texturas diferentes, y ya no son id&eacute;nticos.
+<p>Echa una mirada al efecto global pulsando aqu&iacute;:
+<br><A HREF="../worlds/tut14.wrl" TARGET="_new">Tutorial Mundo 1.4.</a>
+<p>&Eacute;se son los fundamentos del color y la textura. Hay info m&aacute;s
+avanzada despu&eacute;s sobre las texturas, acerca de las maneras diferentes
+de trazarlas, y as&iacute; sucesivamente pero eso viene despu&eacute;s,
+mucho despu&eacute;s.
+</P><P>
+
+<SCRIPT TYPE="text/javascript">
+navbuttons('../index-es.html','tut13.html','tut15.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+
+</body>
+</html>

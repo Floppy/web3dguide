@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>La Guia de Web3D de Floppy - Tutorial VRML97</TITLE>
+<META NAME="DESCRIPTION" CONTENT="Guide to the world of VRML, with one of the best tutorials on the web.">
+<META NAME="KEYWORDS" CONTENT="VRML, VRML97, Virtual Reality Modeling Language,	Tutorial, Guide, 3D,
+				VRML97 Tutorial, basics, download, animation, scripting,
+				Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,
+				Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace,">
+</HEAD>
+<BODY BGCOLOR='#DDDDDD' TEXT='#000000' LINK="#ff0000" ALINK="#ffff00" VLINK="#DD0000">
+<TABLE WIDTH="100%">
+<TR><TD>
+<FONT FACE='Arial' SIZE='+2'><STRONG>Floppy's VRML97 Tutorial</STRONG></FONT>
+</TD><TD ALIGN="RIGHT">
+<IMG SRC="pics/vrml97.gif" WIDTH=180 HEIGHT=42 ALT="VRML97 Tutorial">
+</TD></TR></TABLE>
+<P>
+Esta p&aacute;gina cubre el 99% de la especificaci&oacute;n del VRML,
+y lo &uacute;nico que falta son las secciones de Java Scripting y Optimizaci&oacute;n.
+La primera parte introduce al VRML, permiti&eacute;ndote crear objetos
+simples. La segunda parte explica los objetos m&aacute;s avanzados, y c&oacute;mo
+hacerlos m&aacute;s realistas. La tercera parte trata la animaci&oacute;n
+e interacci&oacute;n, y muestra c&oacute;mo puedes hacer tus mundos m&aacute;s
+atractivos. La cuarta parte libera el poder del scripting de VRML con ECMAScript,
+y brinda comportamientos m&aacute;s complejos a tus mundos. La quinta,
+a&ntilde;ade algo m&aacute;s de complejidad acerca de scripts con JAVA,
+mostr&aacute;ndote como puedes aprovechar la potencia de este lenguaje completamente
+desarrollado.
+</P><P>
+La versi&oacute;n oficial de este tutorial est&aacute; en la Gu&iacute;a
+ VRML de Floppy, en <a href="http://web3d.vapourtech.com/" TARGET="_top">http://web3d.vapourtech.com/.</a>
+Si no la estas consultando all&iacute;, es posible haya sido actualizada.
+ La Informaci&oacute;n legal relacionada
+con el uso aceptable de este tutorial se ofrece en la p&aacute;gina <a href="http://web3d.vapourtech.com/legal.html">legal
+</a>de
+VapourTech. Si estas considerando reproducir este material con un motivo
+distinto al uso personal, por favor leelo.
+</P><P>
+Este tutorial <STRONG>no</STRONG> est&aacute; pensado para ser una referencia
+definitiva sobre todos los demas. S&oacute;lo intenta que tu puedas comenzar.
+Una vez que adquieras de aqu&iacute; los elementos esenciales, te sugiero
+que indagues y aprendas en otros sitios con detalle. Si quieres aprender
+desconectado, podr&iacute;as estar interesado en saber que puedes <a href="vrml97-es.zip">descargar</a>
+un ZIP del tutorial entero. Hay m&aacute;s informaci&oacute;n al final
+de la p&aacute;gina. Imprimir este tutorial puede ser dif&iacute;cil a
+menos que obligues a tu navegador a usar el texto negro en un fondo blanco.
+Yo le&iacute; esta p&aacute;gina en una pantalla, y hall&eacute; que el
+blanco sobre negro era m&aacute;s saludable para los ojos.
+<p>Nota importante: todos los ejemplos de este tutorial (y todo lo dem&aacute;s
+en este sitio) est&aacute; probado con Netscape 4.75 y Cosmo Player 2.1
+renderizado con OpenGL. No tuve tiempo para probar los ejemplos en otros
+navegadores, de modo que si hay cualquier problema, hazmelo saber. Si algo
+no parece correcto, simplemente <a href="http://web3d.vapourtech.com/contact/index.html">hazmelo
+saber.</a> Si me avisas, y no est&aacute;s usando la versi&oacute;n oficial
+de este tutorial, por favor dime la URL de la versi&oacute;n que estas
+usando.
+</P>
+<CENTER>
+<STRONG>Select an alternative language:</STRONG><BR>
+<TABLE BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<TR>
+<TD><A HREF="index.html"><IMG SRC="pics/en.gif" BORDER="0" WIDTH="48" HEIGHT="32" ALT="English"></A></TD>
+</TR>
+</TABLE>
+</CENTER>
+<P>
+<TABLE CELLSPACING='0' CELLPADDING='3' BORDER='0' WIDTH='100%'>
+
+<TR><TD HEIGHT='20' COLSPAN='2' BGCOLOR='#BB0000'><FONT FACE='Arial' SIZE='+1' COLOR='#FFFFFF'>Parte 1: Los Elementos Esenciales</FONT></TD></TR>
+<TR>
+  <TD VALIGN='TOP'>1.1</TD>
+  <TD><A HREF="es/tut11.html">Empezando</A><BR>
+  Lo primero que necesitas saber para empezar, incluso la estructura b&aacute;sica del archivo.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>1.2</TD>
+  <TD><A HREF="es/tut12.html">Al principio...</A><BR>
+  Cubriendo los nodos WorldInfo y Shape, y c&oacute;mo conseguir una caja simple en tu mundo.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>1.3</TD>
+  <TD><A HREF="es/tut13.html">Gira y Gira Caramelo</a><BR>
+  Los sistemas de Coordenadas, ejes y transformaciones.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>1.4</TD>
+  <TD><A HREF="es/tut14.html">Manteniendo las Apariencias</a><BR>
+  Las apariencias, materiales y texturas; cambiando el aspecto de tus objetos.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>1.5</TD>
+  <TD><A HREF="es/tut15.html">El Advenimiento de Las Formas</a><BR>
+  Los nodos de la geometr&iacute;a b&aacute;sicos: las cajas, esferas, conos, cilindros y texto.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>1.6</TD>
+  <TD><A HREF="es/tut16.html">&iexcl;Fuera de Mi Tierra!</a><BR>
+  Escapando al mundo externo.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>1.7</TD>
+  <TD><A HREF="es/tut17.html">Cosas Tecnicas</a><BR>
+  Lo esencial de campos, eventos, rutas y prototipos.
+  </TD>
+</TR>
+<TR><TD HEIGHT='10'></TD><TD</TD></TR>
+<TR><TD HEIGHT='20' COLSPAN='2' BGCOLOR='#BB0000'><FONT FACE='Arial' SIZE='+1' COLOR='#FFFFFF'>Parte 2: Agregando Realismo</FONT></TD></TR>
+<TR>
+  <TD VALIGN='TOP'>2.1</TD>
+  <TD><A HREF="es/tut21.html">&iexcl;Puedo Ver Mi Casa Desde Aqu&iacute;!</a><BR>
+  Agregando c&aacute;maras a tus escenas.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>2.2</TD>
+  <TD><A HREF="es/tut22.html">Sobre las Colinas y M&aacute;s All&aacute;...</a><BR>
+  Dando un poco de profundidad a tu mundo con un fondo y niebla.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>2.3</TD>
+  <TD><A HREF="es/tut23.html">La Catedral del Ruido</a><BR>
+  A&ntilde;adiendo sonidos y musica a tus mundos.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>2.4</TD>
+  <TD><A HREF="es/tut24.html">Los objetos del Deseo</a><BR>
+  Las formas avanzadas, como las Extrusiones, IndexedFaceSets, y ElevationGrids.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>2.5</TD>
+  <TD><A HREF="es/tut25.html">&iquest;Eres Normal?</a><BR>
+  Las normales, el color, y otras cosas para los objetos avanzados.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>2.6</TD>
+  <TD><A HREF="es/tut26.html">Luz De Mi Vida</a><BR>
+  Agregando la iluminaci&oacute;n apropiada a tus mundos, y haci&eacute;ndolas trabajar.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>2.7</TD>
+  <TD><A HREF="es/tut27.html">Ligeramente Ondeado, Con la Parte Inferior Plana</a><BR>
+  T&eacute;cnicas de texturizaci&oacute;n avanzadas con textureCoordinates y TextureTransforms.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>2.8</TD>
+  <TD><A HREF="es/tut28.html">Apartate, Que yo Conduzo</a><BR>
+  Personalizando tu mundo con el nodo de NavigationInfo.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>2.9</TD>
+  <TD><A HREF="es/tut29.html">Let's Twist Again...</a><BR>
+  Usando el nodo BillBoard para crear geometr&iacute;a orientada al observador, y algunos usos m&aacute;s del humilde Nodo Transform.
+  </TD>
+</TR>
+<TR><TD HEIGHT='10'></TD><TD</TD></TR>
+<TR><TD HEIGHT='20' COLSPAN='2' BGCOLOR='#BB0000'><FONT FACE='Arial' SIZE='+1' COLOR='#FFFFFF'>Parte 3: Trayendo Tus Mundos A la Vida</FONT></TD></TR>
+<TR>
+  <TD VALIGN='TOP'>3.1</TD>
+  <TD><A HREF="es/tut31.html">&iexcl;M&aacute;s Potencia, Igor!</a><BR>
+  Una revisi&oacute;n de los elementos esenciales de animaci&oacute;n en VRML.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>3.2</TD>
+  <TD><A HREF="es/tut32.html">Hay Klingons Virando A estribor...</a><BR>
+  Usando los sensores medioambientales.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>3.3</TD>
+  <TD><A HREF="es/tut33.html">Es Rudo Al Punto</a><BR>
+  Tomar datos con sensores tipo "point-device".
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>3.4</TD>
+  <TD><A HREF="es/tut34.html">Entremedio</a><BR>
+  C&oacute;mo usar interpoladores para la animaci&oacute;n.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>3.5</TD>
+  <TD><A HREF="es/tut35.html">Un Cambio Es tan Bueno como El Descanso</a><BR>
+  Cambiando la apariencia de tu mundo con los nodos de tipo Bindable.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>3.6</TD>
+  <TD><A HREF="es/tut36.html">Es Vida, Jim, Pero No Como Nosotros la Conocemos</a><BR>
+  Creando comportamientos avanzados con el nodo Script.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>3.7</TD>
+  <TD><A HREF="es/tut37.html">Golpea mi interruptor</a><BR>
+  Cambiando el mundo que nos rodea con el nodo switch.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>3.8</TD>
+  <TD><A HREF="es/tut38.html">Son Peque&ntilde;os Pero Est&aacute;n Muy Lejos...</A><BR>
+  Cómo usar el nodo LOD para añadir diferentes niveles de detalle a las escenas.
+  </TD>
+</TR>
+<TR><TD HEIGHT='10'></TD><TD</TD></TR>
+<TR><TD HEIGHT='20' COLSPAN='2' BGCOLOR='#BB0000'><FONT FACE='Arial' SIZE='+1' COLOR='#FFFFFF'>Parte 4: Scripting con ECMAscript</FONT></TD></TR>
+<TR>
+  <TD VALIGN='TOP'>4.1</TD>
+  <TD><A HREF="es/tut41.html">&iquest;M&aacute;s T&eacute;, Vicario?</a><BR>
+  Una introducci&oacute;n a la programacion con ECMAScript.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>4.2</TD>
+  <TD><A HREF="es/tut42.html">Rizando el rizo</a><BR>
+  M&aacute;s sobre las declaraciones de ECMAScript.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>4.3</TD>
+  <TD><A HREF="es/tut43.html">Funciones Corporales</a><BR>
+  El armaz&oacute;n b&aacute;sico del Scripting en VRML.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>4.4</TD>
+  <TD><A HREF="es/tut44.html">Los Objetos Voladores No Identificados</a><BR>
+  Una mirada a los Objetos en ECMAScript, y c&oacute;mo los usa VRML97.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>4.5</TD>
+  <TD><A HREF="es/tut45.html">Como Por Arte De Magia</a><BR>
+  Usar el objeto Navigator, y c&oacute;mo crear objetos a partir de la nada.
+  </TD>
+</TR>
+<TR><TD HEIGHT='10'></TD><TD</TD></TR>
+<TR><TD HEIGHT='20' COLSPAN='2' BGCOLOR='#BB0000'><FONT FACE='Arial' SIZE='+1' COLOR='#FFFFFF'>Parte 5: Java - Scripts for the Power-Hungry</FONT></TD></TR>
+<TR>
+  <TD VALIGN='TOP'>5.1</TD>
+  <TD><A HREF="es/tut51.html">Suj&eacute;tate el sombrero</a><BR>
+  &iexcl;Bienvenido a Java! Como escribir, compilar y usar Java en mundos
+  </TD>
+</TR>
+<TR><TD HEIGHT='10'></TD><TD</TD></TR>
+<TR><TD HEIGHT='20' COLSPAN='2' BGCOLOR='#BB0000'><FONT FACE='Arial' SIZE='+1' COLOR='#FFFFFF'>Appendices</FONT></TD></TR>
+<TR>
+  <TD VALIGN='TOP'>A</TD>
+  <TD><A HREF="es/nodes.html">Referencia r&aacute;pida de Nodos</a><BR>
+  La sintaxis completa de cada nodo.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>B</TD>
+  <TD><A HREF="es/struct.html">El Resumen de la Estructura de un archivo</a><BR>
+  Un resumen de la estructura de un archivo VRML.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>C</TD>
+  <TD><A HREF="es/index.html">Indice del Tutorial</a><BR>
+  Los temas cubiertos en cada tema.
+  </TD>
+</TR>
+<TR>
+  <TD VALIGN='TOP'>D</TD>
+  <TD><A HREF="vrml97-es.zip">Descarga el Tutorial</a><BR>
+  Si quieres leer este tutorial desconectado, puedes descargar un zip con el tutorial completo.
+  </TD>
+</TR>
+</TABLE>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('pics/guidelogo.gif','Tutorials','http://web3d.vapourtech.com/tutorials/', 'es', '');
+</SCRIPT>
+
+</body>
+</html>
+

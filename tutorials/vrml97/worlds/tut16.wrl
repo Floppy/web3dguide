@@ -1,0 +1,142 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 1.6"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+Shape {
+   appearance Appearance {
+      material Material {
+         diffuseColor 0 0.5 0
+         emissiveColor 0 0.8 0
+         transparency 0.5
+      }
+   }
+   geometry Cylinder {
+      radius 0.35
+      height 3
+      bottom FALSE
+   }
+}
+
+Transform {
+   translation 0 -2 0
+   children [
+      Shape {
+         appearance Appearance {
+            texture ImageTexture {
+               url "brick.jpg"
+               repeatS TRUE
+               repeatT TRUE
+            }
+         }
+         geometry Box {
+            size 4 1 4
+         }
+      }
+   ]
+}
+
+Transform {
+   translation 1.6 -1 1.6
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry DEF ICKLECONE Cone {
+            bottomRadius 0.3
+            height 1
+            bottom FALSE
+         }
+      }
+   ]
+}
+
+Transform {
+   translation -1.6 -1 -1.6
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry USE ICKLECONE
+      }
+   ]
+}
+
+Transform {
+   translation -1.6 -1 1.6
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry USE ICKLECONE
+      }
+   ]
+}
+
+Transform {
+   translation 1.6 -1 -1.6
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry USE ICKLECONE
+      }
+   ]
+}
+
+Anchor {
+   children [
+      Transform {
+         translation 0 2.25 0
+         children [
+            Shape {
+               appearance Appearance {
+                  texture ImageTexture {
+                     url "me.jpg"
+                  }
+               }
+               geometry Sphere {
+                  radius 0.75
+               }
+            }
+         ]
+      }
+   ]
+   description "Back to the Tutorial"
+   url "../tut16.html"
+}
+
+Transform {
+   translation 0 -2.2 2.01
+   children [
+      Shape {
+         appearance Appearance {
+            material Material {
+               diffuseColor 0 1 0
+            }
+         }
+         geometry Text {
+            string "FloppyWorld"
+            fontStyle FontStyle {
+               size 0.8
+               justify "MIDDLE"
+            }
+         }
+      }
+   ]
+}

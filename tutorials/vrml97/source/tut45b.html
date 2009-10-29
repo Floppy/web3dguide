@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> 
+<HTML>
+<HEAD>
+<TITLE>Floppy's Web3D Guide - VRML97 Tutorial: tut45b.wrl</TITLE>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+</HEAD>
+<body BGCOLOR='#DDDDDD' TEXT='#000000' link="#ff0000" alink="#ffff00" VLINK="#DD0000">
+ 
+ 
+<H1>tut45b.wrl</H1>
+
+<PRE>
+<STRONG><FONT COLOR="#5F9EA0">#VRML V2.0 utf8
+</FONT></STRONG>
+<FONT COLOR="#DA70D6"><STRONG>WorldInfo</FONT></STRONG> {
+   title <FONT COLOR="#BC8F8F"><STRONG>&quot;Floppy's VRML97 Tutorial Example 4.5b&quot;</FONT></STRONG>
+   info [<FONT COLOR="#BC8F8F"><STRONG>&quot;(C) Copyright 2000 Vapour Technology Ltd.&quot;</FONT></STRONG>
+         <FONT COLOR="#BC8F8F"><STRONG>&quot;&#103;&#117;&#105;&#100;e&#64;&#119;e&#98;&#51;&#100;g&#117;i&#100;&#101;&#46;&#111;&#114;g&#46;&#117;&#107;&quot;</FONT></STRONG>]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>NavigationInfo</FONT></STRONG> {
+   type [<FONT COLOR="#BC8F8F"><STRONG>&quot;NONE&quot;</FONT></STRONG>]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Viewpoint</FONT></STRONG> {
+   description <FONT COLOR="#BC8F8F"><STRONG>&quot;Default View&quot;</FONT></STRONG>
+   position 0 0.5 2
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   translation -0.25 -0.15 0
+   children [
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> CUBESENSOR <FONT COLOR="#DA70D6"><STRONG>TouchSensor</FONT></STRONG> {
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+         appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+            material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+               diffuseColor 1 0 0
+            }
+         }
+         geometry <FONT COLOR="#DA70D6"><STRONG>Box</FONT></STRONG> {
+            size 0.1 0.1 0.17
+         }
+      }
+   ]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   translation 0 -0.15 0
+   children [
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> SPHERESENSOR <FONT COLOR="#DA70D6"><STRONG>TouchSensor</FONT></STRONG> {
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+         appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+            material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+               diffuseColor 0 1 0
+            }
+         }
+         geometry <FONT COLOR="#DA70D6"><STRONG>Sphere</FONT></STRONG> {
+            radius 0.05
+         }
+      }
+   ]
+}
+
+<FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   translation 0.25 -0.15 0
+   children [
+      <STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> CONESENSOR <FONT COLOR="#DA70D6"><STRONG>TouchSensor</FONT></STRONG> {
+      }
+      <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+         appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+            material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+               diffuseColor 0 0 1
+            }
+         }
+         geometry <FONT COLOR="#DA70D6"><STRONG>Cone</FONT></STRONG> {
+            bottomRadius 0.05
+            height 0.1
+         }
+      }
+   ]
+}
+
+<STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> TOP <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+   translation 0 0.5 0
+   children [
+      <FONT COLOR="#DA70D6"><STRONG>Transform</FONT></STRONG> {
+         rotation 1 0 0 1.57   
+         children [
+            <FONT COLOR="#DA70D6"><STRONG>Shape</FONT></STRONG> {
+               appearance <FONT COLOR="#DA70D6"><STRONG>Appearance</FONT></STRONG> {
+                  material <FONT COLOR="#DA70D6"><STRONG>Material</FONT></STRONG> {
+                     diffuseColor 0.4 0.4 0.4
+                  }
+               }
+               geometry <FONT COLOR="#DA70D6"><STRONG>Box</FONT></STRONG> {
+                  size 1 1e-8 1
+               }
+            }
+         ]
+      }
+   ]
+}
+
+<STRONG><FONT COLOR="#A020F0">DEF</FONT></STRONG> CREATOR <FONT COLOR="#DA70D6"><STRONG>Script</FONT></STRONG> {
+   <STRONG><FONT COLOR="#A020F0">eventIn</FONT></STRONG> <FONT COLOR="#228B22"><STRONG>SFTime</FONT></STRONG> cube_touchTime
+   <STRONG><FONT COLOR="#A020F0">eventIn</FONT></STRONG> <FONT COLOR="#228B22"><STRONG>SFTime</FONT></STRONG> sphere_touchTime
+   <STRONG><FONT COLOR="#A020F0">eventIn</FONT></STRONG> <FONT COLOR="#228B22"><STRONG>SFTime</FONT></STRONG> cone_touchTime
+   <STRONG><FONT COLOR="#A020F0">field</FONT></STRONG> <FONT COLOR="#228B22"><STRONG>SFNode</FONT></STRONG> parentNode <STRONG><FONT COLOR="#A020F0">USE</FONT></STRONG> TOP
+   <STRONG><FONT COLOR="#A020F0">eventOut</FONT></STRONG> <FONT COLOR="#228B22"><STRONG>MFNode</FONT></STRONG> newChildren
+   mustEvaluate <STRONG><FONT COLOR="#A020F0">TRUE</FONT></STRONG>
+   url <STRONG><FONT COLOR="#5F9EA0">&quot;javascript:</FONT></STRONG>
+      <STRONG><FONT COLOR="#A020F0">function</FONT></STRONG> <STRONG><FONT COLOR="#0000FF">cube_touchTime</FONT></STRONG>(value,time) {
+         newVRML =  <FONT COLOR="#BC8F8F"><STRONG>'Group {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'   children ['</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'      DEF SENSOR PlaneSensor {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'         maxPosition 0.45 0.45'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'         minPosition -0.45 -0.45'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'      }'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'      DEF OBJECT Transform {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'         children ['</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'            Shape {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'               appearance Appearance {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'                  material Material {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'                     diffuseColor 1 0 0'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'                  }'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'               }'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'               geometry Box {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'                  size 0.1 0.1 0.1'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'               }'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'            }'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'         ]'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'      }'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'   ]'</FONT></STRONG>;        
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'}'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'ROUTE SENSOR.translation_changed TO OBJECT.set_translation'</FONT></STRONG>;
+         newChildren = Browser.createVrmlFromString(newVRML);
+      }
+      <STRONG><FONT COLOR="#A020F0">function</FONT></STRONG> <STRONG><FONT COLOR="#0000FF">sphere_touchTime</FONT></STRONG>(value,time) {
+         newVRML =  <FONT COLOR="#BC8F8F"><STRONG>'Group {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'   children ['</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'      DEF SENSOR PlaneSensor {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'         maxPosition 0.45 0.45'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'         minPosition -0.45 -0.45'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'      }'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'      DEF OBJECT Transform {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'         children ['</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'            Shape {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'               appearance Appearance {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'                  material Material {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'                     diffuseColor 0 1 0'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'                  }'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'               }'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'               geometry Sphere {'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'                  radius 0.05'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'               }'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'            }'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'         ]'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'      }'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'   ]'</FONT></STRONG>;        
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'}'</FONT></STRONG>;
+         newVRML += <FONT COLOR="#BC8F8F"><STRONG>'ROUTE SENSOR.translation_changed TO OBJECT.set_translation'</FONT></STRONG>;
+         newChildren = Browser.createVrmlFromString(newVRML);
+      }
+      <STRONG><FONT COLOR="#A020F0">function</FONT></STRONG> <STRONG><FONT COLOR="#0000FF">cone_touchTime</FONT></STRONG>(value,time) {
+         urlString = <STRONG><FONT COLOR="#A020F0">new</FONT></STRONG> MFString(<FONT COLOR="#BC8F8F"><STRONG>'cone.wrl'</FONT></STRONG>);
+         Browser.createVrmlFromURL(urlString, parentNode, <FONT COLOR="#BC8F8F"><STRONG>'addChildren'</FONT></STRONG>);
+      }
+   <STRONG><FONT COLOR="#5F9EA0">&quot;</FONT></STRONG>
+}
+
+<STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> CUBESENSOR.touchTime <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> CREATOR.cube_touchTime
+<STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> SPHERESENSOR.touchTime <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> CREATOR.sphere_touchTime
+<STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> CONESENSOR.touchTime <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> CREATOR.cone_touchTime
+
+<STRONG><FONT COLOR="#A020F0">ROUTE</FONT></STRONG> CREATOR.newChildren <STRONG><FONT COLOR="#A020F0">TO</FONT></STRONG> TOP.addChildren
+</PRE>
+<ADDRESS>Generated by <A HREF="http://people.ssh.fi/mtr/genscript/">GNU enscript 1.6.1</A>.</ADDRESS>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="../footer.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript">
+footer('../pics/guidelogo.gif','Back',document.referrer, 'en', '..');
+</SCRIPT>
+
+</P>
+</BODY>
+</HTML>

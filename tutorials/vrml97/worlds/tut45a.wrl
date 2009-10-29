@@ -1,0 +1,53 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title "Floppy's VRML97 Tutorial Example 4.5a"
+   info ["(C) Copyright 2000 Vapour Technology Ltd."
+         "guide@web3dguide.org.uk"]
+}
+
+NavigationInfo {
+}
+
+Viewpoint {
+   description "Default View"
+}
+
+Shape {
+   appearance Appearance {
+      material Material {
+         diffuseColor 1 1 1
+      }
+   }
+   geometry DEF TEXT Text {
+      fontStyle FontStyle {
+         size 0.5
+         justify "MIDDLE"
+      }
+   }
+}
+
+DEF TIMER TimeSensor {
+   loop TRUE
+   startTime 0
+   stopTime -1
+   cycleInterval 0.1
+}
+
+DEF TEXTCREATOR Script {
+   eventIn SFTime ping
+   eventOut MFString string
+   url "javascript:
+      function ping(value,time) {
+         browserString = 'Browser: ' + Browser.getName();
+         versionString = 'Version: ' + Browser.getVersion();
+         urlString = 'URL: ' + Browser.getWorldURL();
+         speedString = 'Speed: ' + Browser.getCurrentSpeed();
+         frameString = 'Frame Rate: ' + Browser.getCurrentFrameRate() + ' fps';
+         string = new MFString(browserString, versionString, urlString, speedString, frameString);
+      }
+   "
+}
+
+ROUTE TIMER.cycleTime TO TEXTCREATOR.ping
+ROUTE TEXTCREATOR.string TO TEXT.string

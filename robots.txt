@@ -1,0 +1,8 @@
+# robots.txt for web3d.vapourtech.com
+# 04/01/2002 - Warren Moore
+
+User-agent: *
+Disallow: /stats
+Disallow: /errors
+Disallow: /config
+
