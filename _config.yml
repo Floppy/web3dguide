@@ -1,0 +1,15 @@
+defaults:
+  -
+    scope:
+      type: "pages"
+    values:
+      layout: "original"
+
+gems:
+  - jekyll-redirect-from
+  - jekyll-sitemap
+  - jemoji
+  - jekyll-feed
+
+exclude: 
+  - vendor
