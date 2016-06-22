@@ -3,7 +3,7 @@ defaults:
     scope:
       type: "pages"
     values:
-      layout: "original"
+      layout: "root"
 
 gems:
   - jekyll-redirect-from
