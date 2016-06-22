@@ -6,7 +6,7 @@ keywords: objects, object oriented, OOD, OOP, ECMAScript objects, functions, pro
 # Unidentified Flying Objects
 
 In this tutorial, we're going to cover a more advanced feature of ECMAScript. You already know about
-the simple data types, <EM>number</EM>, <EM>boolean</EM>, and so on. Now we introduce <EM>objects</EM>,
+the simple data types, *number*, *boolean*, and so on. Now we introduce *objects*,
 which are simply collections of other variables that you can use as if they are single variables. If
 you think of the basic types as bits of paper that you can write information on, then you can
 imagine an object as a box that can hold a number of these papers. You can pass the box around just
@@ -17,28 +17,32 @@ variables for the X Y and Z values, you would declare a Vector object that had t
 inside it. The vector is now one object, and is much easier to handle in your program. See?
 
 There are various things you can store in your objects, and we're going to start by looking at the
-bits of paper, the <EM>properties</EM>.
+bits of paper, the *properties*.
 
 ## Properties
 
 A property is simply a variable that lives inside an object, so is equivalent to one of the bits of
 paper on which you can store information. To access the properties of an object, you use the
-following notation. If <EM>myObject</EM> is an object and <EM>x</EM> is one of its properties, to use
-the variable <EM>x</EM> inside <EM>myObject</EM> you would write:
-<PRE>
+following notation. If *myObject* is an object and *x* is one of its properties, to use
+the variable *x* inside *myObject* you would write:
+
+```
 myObject.x
-</PRE>
+```
+
 You can then use this in assignments, calculations or whatever. For instance:
-<PRE>
+
+```
 myObject.x = 3;
 print(myObject.x);
-</PRE>
+```
+
 would print out the value 3. All pretty simple so far, right?
 
 ## Methods
 
 Now, properties are not the only things you can have inside your objects. They can also contain
-<EM>methods</EM>. Now, these are exactly the same as normal ECMAScript functions, except they exist
+*methods*. Now, these are exactly the same as normal ECMAScript functions, except they exist
 only as part of an object. You can't use a method of an object if you don't have an
 instance of that object. You could imagine methods as pixies that sit on the edge of the box,
 if you like. Each pixie has a particular function. One might convert the bits of paper in the box
@@ -48,95 +52,111 @@ with results for you. You can pass parameters to these methods in the same way a
 did with normal functions.
 
 Now, can anyone guess how to use methods of an object? Yep, you've got it. The same as
-using properties (which makes sense). If <EM>myObject</EM> has a method called <EM>multiply(num)</EM>
-which multiplies <EM>x</EM> by <EM>num</EM>, we can do the following:
-<PRE>
+using properties (which makes sense). If *myObject* has a method called *multiply(num)*
+which multiplies *x* by *num*, we can do the following:
+
+```
 myObject.x = 3;
 result = myObject.multiply(4);
 print(result);
-</PRE>
+```
+
 This will print the value 12. Don't forget, you can always chuck around entire object like they are
 normal variables as well, so we could also do something like this, assuming we have two objects and
-the appropriate code inside the <EM>multiply()</EM> method:
-<PRE>
+the appropriate code inside the *multiply()* method:
+
+```
 myObject.x = 3;
 myOtherObject.x = 4;
 result = myObject.multiply(myOtherObject);
 print(result);
-</PRE>
+```
+
 This would take the entire object as a parameter and then get the appropriate information from it
 inside the function. And again, it would print out 12. 
 
 ## Creating Objects
 
 So, where do these objects come from? Well, objects are created using a special type of function
-called a <EM>constructor</EM>. This is used to create an object of a certain type for you. Let's
+called a *constructor*. This is used to create an object of a certain type for you. Let's
 continue with our Vector object. If we want to create a new object type called Vector, we need to
 write a constructor for it. This is what it would look like:
-<PRE>
+
+```
 function Vector(x, y, z) {
    this.x = x;
    this.y = y;
    this.z = z;
 }
-</PRE>
+```
+
 This is a constructor that takes some parameters, but you can have them without, like so:
-<PRE>
+
+```
 function Vector() {
    this.x = 0;
    this.y = 0;
    this.z = 0;
 }
-</PRE>
+```
+
 Lets take a closer look at this constructor thing. First thing to notice is that the function name
 is the same as your object. That's how the interpreter knows which function to use. The second thing
-is that inside the function we use the keyword <EM>this</EM>. This (or <EM>this</EM>) is a very
+is that inside the function we use the keyword *this*. This (or *this*) is a very
 important word, in that it always refers to the current object. Also, notice that the constructor
 doesn't return anything. Because we are modifying the object's properties, we don't need to return
 any values.
 
-So how do we create these objects inside our programs? Well, we use another keyword, <EM>new</EM>,
+So how do we create these objects inside our programs? Well, we use another keyword, *new*,
 like so:
-<PRE>
+
+```
 myVector1 = new Vector();
 myVector2 = new Vector(1,2,3);
-</PRE>
-The <EM>new</EM> keyword tells the interpreter that we are creating a new object, so it calls the
-function after it as a constructor. You can see from the above code that <EM>myVector1</EM> will have all
-its properties set to 0, because it use the constructor with no parameters, while <EM>myVector2</EM> has the
+```
+
+The *new* keyword tells the interpreter that we are creating a new object, so it calls the
+function after it as a constructor. You can see from the above code that *myVector1* will have all
+its properties set to 0, because it use the constructor with no parameters, while *myVector2* has the
 values x=1, y=2, z=3. 
 
 Once you have an object, you can add new properties to it by simply assigning values to them. If you
-suddenly feel that <EM>myVector2</EM> should have a name, you can give it one by writing:
-<PRE>
+suddenly feel that *myVector2* should have a name, you can give it one by writing:
+
+```
 myVector2.name = "bob";
-</PRE>
+```
+
 Let's now try to add a method to our object. This is quite a simple thing to do. If you
 have a function that you want to add, say a scalar multiply of your Vector, you write the function
 for it like so:
-<PRE>
+
+```
 function vectorMultiply(scalar) {
    this.x *= scalar;
    this.y *= scalar;
    this.z *= scalar;
 }
-</PRE>
+```
+
 This is the function that will do the work. It will multiply each property of the object by the
 scalar value passed to it. Now, how do we make it a method? Well, back to the constructor
 again...
-<PRE>
+
+```
 function Vector() {
    this.x = 0;
    this.y = 0;
    this.z = 0;
    this.multiply = vectorMultiply;
 }
-</PRE>
-We have added the method <EM>multiply</EM>, which maps directly to the function
-<EM>vectorMultiply</EM>. So, if we call myVector2.multiply(2), it calls the vectorMultiply() function
-and does the business, altering the values in the object <EM>myVector2</EM>.
+```
 
-Take a look at this <A HREF="../worlds/tut44a.wrl" TARGET=_new>example</A> and its <A
+We have added the method *multiply*, which maps directly to the function
+*vectorMultiply*. So, if we call myVector2.multiply(2), it calls the vectorMultiply() function
+and does the business, altering the values in the object *myVector2*.
+
+Take a look at this <A HREF="../worlds/tut44a.wrl" TARGET="_new">example</A> and its <A
 HREF="../source/tut44a.html">code</A>. This is an example of a script that uses a constructor to create
 a new object. The end result is that you have a texture displayed on a box which you can scale as
 you want by dragging the red sphere around on the image. The red sphere will always correspond to
@@ -144,20 +164,20 @@ the top-right of the image.
 
 As you can see, when the position of the sphere changes, the set_translation() method is called.
 First of all, this checks two of the properties of the object it has been passed (an SFVec3f) to
-make sure they never go to 0 (which would break the <STRONG>TextureTransform</STRONG>). A new SFVec2f object
+make sure they never go to 0 (which would break the **TextureTransform**). A new SFVec2f object
 is then created, using values calculated from the properties of the object passed into the method.
 This is then sent out to the TextureTransform, where it updates the texture. This is an example of
 using a script to do elementary type-conversion, in this case using the 3D position input from a
-<STRONG>PlaneSensor</STRONG> to control a 2D scaling of a texture. Can you begin to see the possibilities that
+**PlaneSensor** to control a 2D scaling of a texture. Can you begin to see the possibilities that
 are available using scripts?
 
 The SFVec3f and SFVec2f objects used in that script are built-in VRML/ECMAScript objects that should
-be provided in any VRML browser. We'll discuss them in a minute, after briefly mentioning <EM>arrays</EM>.
+be provided in any VRML browser. We'll discuss them in a minute, after briefly mentioning *arrays*.
 
 ## Array Objects
 
 I don't want to spend long on these. After this tutorial you should be going out and finding a
-proper ECMAScript/javascript reference anyway, so I'll just brush over them quickly. <EM>Arrays</EM>
+proper ECMAScript/javascript reference anyway, so I'll just brush over them quickly. *Arrays*
 are normally a collection of variables that are all the same type. They are referenced by using the
 name of the array followed by the zero-based index of the variable you want in square brackets. So,
 if you had an array of numbers, myArray[0] would give you the first number, myArray[1] the second,
@@ -180,17 +200,17 @@ Most VRML data types have an equivalent binding in ECMAScript, so an SFVec3f val
 equivalent to an SFVec3f object in ECMAScript. However, the simple types are mapped directly to
 ECMAScript's built-in types:
 
-<UL>
-<LI><EM>SFFloat</EM>, <EM>SFInt32</EM> and <EM>SFTime</EM> all map to the <EM>numeric</EM> datatype.</LI>
-<LI><EM>SFBool</EM> maps directly to the <EM>boolean</EM> datatype. You can use the ECMAScript
-<EM>true</EM> and <EM>false</EM> values, and also the VRML <EM>TRUE</EM> and <EM>FALSE</EM>.</LI>
-<LI><EM>SFString</EM> maps to the ECMAScript <EM>String</EM> object.
-</UL>
+
+* *SFFloat*, *SFInt32* and *SFTime* all map to the *numeric* datatype.
+* *SFBool* maps directly to the *boolean* datatype. You can use the ECMAScript
+*true* and *false* values, and also the VRML *TRUE* and *FALSE*.
+* *SFString* maps to the ECMAScript *String* object.
+
 
 All other VRML types map to ECMAScript objects, such as SFVec3f, SFColor, MFNode and so on. As well
 as the standard types, another couple of objects are provided in the browser. These are the
-<EM>Browser</EM> object, which can be used to get information from the Browser, and the
-<EM>VrmlMatrix</EM> object, which is a 4x4 matrix useful for serious 3D geometry. If you need to use
+*Browser* object, which can be used to get information from the Browser, and the
+*VrmlMatrix* object, which is a 4x4 matrix useful for serious 3D geometry. If you need to use
 this one, you'll probably have a decent grounding in 3D geometry anyway, so will already know how to
 use it.
 
@@ -202,54 +222,54 @@ reference. This has full details of how all the built-in types work and what you
 
 I will just mention the MFxxx types, though, as they are all very similar. They are all basically
 arrays of the appropriate SF type, and have very few functions. They all have one property,
-<EM>length</EM>, which is the number of items currently in the list. They have one method,
-<EM>toString()</EM>, which does exactly what it says on the tin. They also have only one constructor,
+*length*, which is the number of items currently in the list. They have one method,
+*toString()*, which does exactly what it says on the tin. They also have only one constructor,
 which takes a list of SF objects to put in the new MF object. This can be empty if you want to make
 an empty array. You can access SF objects inside an MF object in the same way as you would access
-any array, by using the square brackets with the index inside. So, <EM>vectors[0]</EM> gives the first element
-in the MFVec3f object <EM>vectors</EM>, and <EM>vectors[7]</EM> gives the eighth. If you want to write to an SF object in an
+any array, by using the square brackets with the index inside. So, *vectors[0]* gives the first element
+in the MFVec3f object *vectors*, and *vectors[7]* gives the eighth. If you want to write to an SF object in an
 MF object, you use the same notation. So:
-<PRE>
+```
 var vectors = new MFVec3f();
 vectors[5] = new SFVec3f(0,1,0);
-</PRE>
-assigns the new SFVec3f(0,1,0) to the sixth element in <EM>vectors</EM>. If you write into a position
+```
+assigns the new SFVec3f(0,1,0) to the sixth element in *vectors*. If you write into a position
 past the end of an MFxxx array, the object will expand to allow you to write to it. So, you can
 create an empty array as above and then write into it wherever you like.
 
-This <A HREF="../worlds/tut44b.wrl" TARGET=_new>example</A> shows how you can use the many methods of the VRML97 built-in
+This <A HREF="../worlds/tut44b.wrl" TARGET="_new">example</A> shows how you can use the many methods of the VRML97 built-in
 types to create some great effects. This is a simple geometry tutorial world, which shows you how the
 cross product of two vectors behaves when you move the vectors. You can imagine this sort of thing
 being very useful in online maths courses and things like that. Anyway, what do we have? For a start,
 there are two cylinders (red and green) which represent the two unit vectors. They are both attached to
-<STRONG>SphereSensor</STRONG>s, so you can drag them around. The third (blue) cylinder represents the cross
+**SphereSensor**s, so you can drag them around. The third (blue) cylinder represents the cross
 product of the two vectors, i.e. red x green. The cross product is the vector that is orthogonal to
 both vectors, and its length is dependent on the angle between them. You can't move the blue
-cylinder, because it is generated by a <STRONG>Script</STRONG>, based on the positions of the other two cylinders.
+cylinder, because it is generated by a **Script**, based on the positions of the other two cylinders.
 Play with the example for a while until you understand what it does, and then have a look at the
 <A HREF="../source/tut44b.html">code</A> to see how we get the effect.
 
 To generate the cross product, we need two vectors. However, what we get from the
-<STRONG>SphereSensors</STRONG> are rotations, so we first have to convert them into vectors. This is done in
+**SphereSensors** are rotations, so we first have to convert them into vectors. This is done in
 the two event handlers by creating a unit vector and rotating it by the new rotation value of the
-<EM>eventIn</EM> using the <EM>multVec()</EM> method of the <EM>SFRotation</EM> object. The
+*eventIn* using the *multVec()* method of the *SFRotation* object. The
 result is stored in a SFVec3f object for use when calculating the cross product. So, each time an
 event is received (or when the world is loaded), we want to recalculate the cross product and output
-it. This is done very simply in the <EM>calc_cross_product</EM> function. The first line actually does
+it. This is done very simply in the *calc_cross_product* function. The first line actually does
 the hard work of calculating the product. The rest converts it into a form we can use. So, first
-we calculate the product of <EM>vector1</EM> and <EM>vector2</EM>, giving us our result,
-<EM>crossVec</EM>. However, to get this vector into our VRML world, we need to convert it into a
+we calculate the product of *vector1* and *vector2*, giving us our result,
+*crossVec*. However, to get this vector into our VRML world, we need to convert it into a
 rotation about the origin (to get the current orientation) and a length (to use as a scale factor).
 These can then be applied to the blue cylinder in our world for a perfect result.
 
 OK, let's deal with the scale factor first. We can get the length by simply using the
-<EM>length()</EM> method of the SFVec3f type. However, we can't have a scale factor of 0, so we just
-need to make sure it never gets there with an <STRONG>if</STRONG> statement. Now, we want to scale by this
-amount in the Y direction, so we create a new SFVec3f to use as a scale <EM>eventOut</EM> with 1s in
+*length()* method of the SFVec3f type. However, we can't have a scale factor of 0, so we just
+need to make sure it never gets there with an **if** statement. Now, we want to scale by this
+amount in the Y direction, so we create a new SFVec3f to use as a scale *eventOut* with 1s in
 the X and Z, and our new scale factor in the Y. Now, we need to set the rotation correctly. What
 we'll do is use one of the constructors of the SFRotation type. It allows you to create a new
-rotation using two vectors, one <EM>from</EM>, and one <EM>to</EM>. The rotation created will be the one
-that rotates the <EM>from</EM> vector to the <EM>to</EM> vector. So, we create a unit vector in the Y
+rotation using two vectors, one *from*, and one *to*. The rotation created will be the one
+that rotates the *from* vector to the *to* vector. So, we create a unit vector in the Y
 direction (the default position for our cylinder) and create a rotation using that and our cross
 product vector. This is then the rotation we need to use as our output. Clever, eh?
 
@@ -277,4 +297,4 @@ Next time out, we're going to cover how to use the Browser object. This is a spe
 gives you all sorts of useful information, and also allows you to muck about with your world at a
 really low level. Should be fun!
 
-<EM>Linux Penguin Logo &copy; Larry Ewing</EM>
+*Linux Penguin Logo &copy; Larry Ewing*

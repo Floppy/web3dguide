@@ -6,10 +6,10 @@ keywords: Appearance, Material, ImageTexture, MovieTexture, PixelTexture, textur
 # Keeping Up Appearances
 
 ## Appearance Nodes
-OK. As you saw with the FBOX object we defined earlier, a <STRONG>Shape</STRONG> node has a field within it called <STRONG>appearance</STRONG>.
-This is used to contain an <STRONG>Appearance</STRONG> node, as shown below:
+OK. As you saw with the FBOX object we defined earlier, a **Shape** node has a field within it called **appearance**.
+This is used to contain an **Appearance** node, as shown below:
 
-<PRE>
+```
 DEF FBOX Shape {
    appearance Appearance {
       material Material {
@@ -18,28 +18,28 @@ DEF FBOX Shape {
    geometry Box {
    }
 }
-</PRE>
+```
 
-This example has one field within its <STRONG>Appearance</STRONG> node, a <STRONG>material</STRONG> field. This way of having nodes within
+This example has one field within its **Appearance** node, a **material** field. This way of having nodes within
 nodes may seem awkward, but it allows you to globally define appearances by using DEF and USE. This is useful for having many objects with the same look.
-An <STRONG>Appearance</STRONG> node can contain a material field or a texture field. A <STRONG>material</STRONG> field contains a <STRONG>Material</STRONG> node, surprisingly enough. 
-A <STRONG>texture</STRONG> node contains one of a number of kinds of texturing nodes. These will be described later. First, we will deal with the <STRONG>Material</STRONG> node.
+An **Appearance** node can contain a material field or a texture field. A **material** field contains a **Material** node, surprisingly enough. 
+A **texture** node contains one of a number of kinds of texturing nodes. These will be described later. First, we will deal with the **Material** node.
 
 ## Material Nodes
 
-The <STRONG>Material</STRONG> node can contain any of six fields. These are:
+The **Material** node can contain any of six fields. These are:
 	<dl>
-	<dt><STRONG>diffuseColor</STRONG>
+	<dt>**diffuseColor**
 	<dd>The normal colour of the object.
-	<dt><STRONG>specularColor</STRONG>
+	<dt>**specularColor**
 	<dd>The colour of highlights on shiny objects.
-	<dt><STRONG>emissiveColor</STRONG>
+	<dt>**emissiveColor**
 	<dd>The object 'glows' with a light of its own of this colour. It doesn't cast light on any other objects though.
-	<dt><STRONG>ambientIntensity</STRONG>
+	<dt>**ambientIntensity**
 	<dd>The amount of ambient light that the object reflects.
-	<dt><STRONG>shininess</STRONG>
+	<dt>**shininess**
 	<dd>How reflective the object is.
-	<dt><STRONG>transparency</STRONG>
+	<dt>**transparency**
 	<dd>How transparent the object is. Note, some browsers will not support partly-transparent objects.
 	</dl>
 
@@ -54,7 +54,7 @@ them into VRML values.
 
 So, if we want to make our original cube a glowing semi-transparent green colour, we would define an appearance for it thus:
 
-<PRE>
+```
 Shape {
    appearance Appearance {
       material Material {
@@ -65,75 +65,75 @@ Shape {
    geometry Box {
    }
 }
-</PRE>
+```
 ## ImageTexture
 
-Pretty colours are all very well, but to look <EM>really</EM> good, we need to texture-map our objects. This is done using the <STRONG>texture</STRONG> field of the
-<STRONG>Appearance</STRONG> node. This field contains one of three types of texture node.
+Pretty colours are all very well, but to look *really* good, we need to texture-map our objects. This is done using the **texture** field of the
+**Appearance** node. This field contains one of three types of texture node.
 
 
-The first one of these that we will cover is <STRONG>ImageTexture</STRONG>. This is a basic texture map, mapping a still image onto an object.
+The first one of these that we will cover is **ImageTexture**. This is a basic texture map, mapping a still image onto an object.
 The node can texture-map an object with a JPEG or PNG file, so no GIFs round here! Some browsers support it, but it's not standard.
-The node contains three fields. The first, <STRONG>url</STRONG> specifies the image to use in a standard URL format. You can specify a list of
-images in square brackets, and the browser will display the first one in the list that it finds. The other two fields are <STRONG>repeatS</STRONG>
-and <STRONG>repeatT</STRONG>, which govern whether the texture repeats in the horizontal (S) direction or in the vertical (T). These take boolean values
-of TRUE or FALSE. They are only really useful when combined with a <STRONG>TextureTransform</STRONG>, which we won't cover until later on. You can specify 
+The node contains three fields. The first, **url** specifies the image to use in a standard URL format. You can specify a list of
+images in square brackets, and the browser will display the first one in the list that it finds. The other two fields are **repeatS**
+and **repeatT**, which govern whether the texture repeats in the horizontal (S) direction or in the vertical (T). These take boolean values
+of TRUE or FALSE. They are only really useful when combined with a **TextureTransform**, which we won't cover until later on. You can specify 
 transparency information in the images used, in which case it replaces the original object's transparency. If you use a greyscale texture, the diffuseColor 
-is multiplied by the intensity of the texture to create the actual texture. In fact, you can create many effects by combining a <STRONG>Material</STRONG> node and an
- <STRONG>ImageTexture</STRONG>. In general, they do just what you'd expect, so experiment a little and see what you can create.
+is multiplied by the intensity of the texture to create the actual texture. In fact, you can create many effects by combining a **Material** node and an
+ **ImageTexture**. In general, they do just what you'd expect, so experiment a little and see what you can create.
 
 
 So, to texture our second Box with a brick texture, we would use the following:
 
-<PRE>
+```
 Appearance {
    texture ImageTexture {
       url "brick.jpg"
    }
 }
-</PRE>
+```
 
-as the <STRONG>appearance</STRONG> node of our second box.
+as the **appearance** node of our second box.
 
 ## MovieTexture
 
-<STRONG>MovieTexture</STRONG> takes a MPEG movie and texture-maps it onto an object in the same way as <STRONG>ImageTexture</STRONG> It has the same three fields, but also
+**MovieTexture** takes a MPEG movie and texture-maps it onto an object in the same way as **ImageTexture** It has the same three fields, but also
 a number of others. These are:
 	<dl>
-	<dt><STRONG>speed</STRONG>
+	<dt>**speed**
 	<dd>A speed value of 1 means the default speed, 2 is twice as fast. A value of 0 will always display the first frame.
-	<dt><STRONG>loop</STRONG>
+	<dt>**loop**
 	<dd>A boolean value (TRUE or FALSE), specifying whether the movie loops or not.
-	<dt><STRONG>startTime</STRONG>
+	<dt>**startTime**
 	<dd>When to start the movie, in seconds since midnight on 1st Jan 1970.
-	<dt><STRONG>stopTime</STRONG>
+	<dt>**stopTime**
 	<dd>When to stop the movie, in seconds since midnight on 1st Jan 1970.
 	</dl>
 ## PixelTexture
 
 This node allows you to define your own textures by hand in the VRML file. This seems incredibly
-inefficient, but it does have it's uses, as you'll see later. It has an <STRONG>image</STRONG> field instead of a URL.
+inefficient, but it does have it's uses, as you'll see later. It has an **image** field instead of a URL.
 
 
-The <STRONG>image</STRONG> field consists of two numbers specifying the width and height of the texture, followed by another number giving the number of components.
+The **image** field consists of two numbers specifying the width and height of the texture, followed by another number giving the number of components.
 One-component colours are greyscale, two-component colours are greyscale with transparency, three is RGB colour, and four is RGB with transparency.
 After these arguments, there follows a list of pixels, which are hexadecimal numbers with the one byte per component. So, a 4-component pixel that is
 red and 50% transparent would be 0xFF00007F. The pixels are ordered from bottom-left to top-right. An example is shown below:
 
-<PRE>
+```
 DEF PIXMAP Appearance {
    texture PixelTexture {
       image 2 2 3 0xFF0000 0x00FF00 0x0000FF 0xFF0000
    }
 }
-</PRE>
+```
 <IMG SRC="../pics/pixmap.gif" width=100 height=100 ALT="PixelTexture">
 
 We just need a quick description of hexadecimal numbers here. Often in computer-land, it's
 convenient to specify numbers not in normal decimal numbers (0-9) or binary (0-1), but in another
-type of number called <EM>hexadecimal</EM>. This is base 16, and the numbers go like this:
+type of number called *hexadecimal*. This is base 16, and the numbers go like this:
 <TABLE>
-<TR><TD ALIGN="CENTER"><STRONG>Hexadecimal</STRONG></TD><TD ALIGN="CENTER"><STRONG>Decimal</STRONG></TD></TR>
+<TR><TD ALIGN="CENTER">**Hexadecimal**</TD><TD ALIGN="CENTER">**Decimal**</TD></TR>
 <TR><TD ALIGN="CENTER">0</TD><TD ALIGN="CENTER">0</TD></TR>
 <TR><TD ALIGN="CENTER">1</TD><TD ALIGN="CENTER">1</TD></TR>
 <TR><TD ALIGN="CENTER">2</TD><TD ALIGN="CENTER">2</TD></TR>
@@ -160,9 +160,9 @@ you don't. You can pick it up later.
 ## The End is Nigh
 Right then, that's about it for this one, all that remains is the description and <A HREF="../source/tut14.html">the code</A> for what we have so far, and a link to 
 the WRL file. We have two boxes as before, one transparent green, and another with a brick texture. Notice that we can't use DEF on the 
-<STRONG>Shape</STRONG> nodes any more, as they have different textures, so are no longer identical.
+**Shape** nodes any more, as they have different textures, so are no longer identical.
 
-Take a look at the overall effect by clicking here:<BR><A HREF="../worlds/tut14.wrl" TARGET=_new>Tutorial 1.4 World</A>.
+Take a look at the overall effect by clicking here:<BR><A HREF="../worlds/tut14.wrl" TARGET="_new">Tutorial 1.4 World</A>.
 
 
 That's the basics of colour and texture. There's more advanced info on textures later on, with different ways of mapping them, and so on

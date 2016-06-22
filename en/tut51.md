@@ -8,7 +8,7 @@ keywords: JDK, compiling, JSAI, CLASSPATH, Class, compiler, method, instance var
 So, you know how to create scripts in ECMAScript, and you've got a pretty good idea of how the whole
 scripting thing works. But you want more power! ECMAScript is too slow, to restrictive, to hard to
 use for large programs. Well, help is at hand, because not only does VRML support ECMAScript in
-<STRONG>Script</STRONG> nodes, it also supports Java! And I'm going to show you how to use it -
+**Script** nodes, it also supports Java! And I'm going to show you how to use it -
 aren't you lucky? First, though, I have to give you a couple of warnings...
 
 PUBLIC HEALTH WARNING #1: Java is a full-blown programming language! While we went through most of
@@ -46,47 +46,47 @@ applications, you really need to be using Java.
 OK, if we're going to be writing Java, we'd better introduce a few language concepts. Actually
 writing down instructions in Java is really very similar to ECMAScript, so once you've seen a few
 examples you should be OK there. However, these instructions fit together in slightly different way.
-We're going to talk for a minute about <EM>classes</EM>, <EM>inheritance</EM>, and a couple of other
+We're going to talk for a minute about *classes*, *inheritance*, and a couple of other
 things.
 
 Do you remember objects from when we did ECMAScript? They were like boxes which can contain lots of
 bits of data, and also can contain methods which operate on the data contained in the box
 (remember the pixies?). Now, in ECMAScript, we never really created our own objects, we just used
 the built-in VRML97 ones. You didn't really need to think about them. In Java, however, the object
-is king, and it is known as a <EM>class</EM>. Java is a prime example of an <EM>object-oriented</EM>
+is king, and it is known as a *class*. Java is a prime example of an *object-oriented*
 programming language, and everything you write has to be part of a class. All the functions you
 write will be methods of some class or other, and all your data will be kept in member
-variables (known as <EM>instance variables</EM> in Java). Now this sounds needlessly complicated, but
+variables (known as *instance variables* in Java). Now this sounds needlessly complicated, but
 when you're creating a Java interface between VRML97 and your database server, you'll be thankful.
 
-The next concept to introduce is the idea of <EM>inheritance</EM>. There are two ways of creating
+The next concept to introduce is the idea of *inheritance*. There are two ways of creating
 classes. Three if you count "out of paper and string", but you might have difficulty using those
 ones online. The first way is to create your own, from scratch. You start with an empty class, and
 there will be nothing in the class except what you put there. The other way is to use inheritance.
-This involves taking a class that already exists (this will be your <EM>base class</EM>), and
+This involves taking a class that already exists (this will be your *base class*), and
 extending it to add your own stuff to it. Now, this isn't like just editing someone else's source
-code, but more like adding bits on. A <EM>derived</EM> class (the one you've created) has all the
+code, but more like adding bits on. A *derived* class (the one you've created) has all the
 instance variables and methods of the base class, plus whatever you add to it. If you change the
 behaviour of the base class, the behaviour of the derived class will change in the same way. Let's
 look at an example...
-<PRE>
+```
 Vehicle {
    colour;
    Drive();
 }
-</PRE>
+```
 OK, we have a base class of type vehicle. This isn't Java, by the way, don't get excited just yet.
 The vehicle has one instance variable, colour. It also has a method, Drive(). Notice that
 these are both things that apply equally to all things that could be considered vehicles. Now, if we
 use a bit of inheritance to create a Car and a Truck...
-<PRE>
+```
 Car extends Vehicle {
    num_doors;
 }
 Truck extends Vehicle {
    Unload();
 }
-</PRE>
+```
 We have created a couple of derived classes, both based on vehicles. This is a good example of the
 idea behind classes and inheritance, actually. Derived classes will tend to be types of the base
 class - cars and trucks are both types of vehicle. Anyway, Car has a new instance variable,
@@ -97,7 +97,7 @@ so we'll carry on. It's pretty easy once you've got the idea of classes down.
 
 One more thing to talk about, and those are access modifiers. Sound daunting, but again really
 aren't. Each variable or function in a class has an access modifier, which tells you who or what is
-allowed to use it. Oh, I just have to introduce <EM>packages</EM> as well, which are just like a
+allowed to use it. Oh, I just have to introduce *packages* as well, which are just like a
 collection of classes. Anyway, here's a list of the access modifiers and what they mean:
 
 <DL>
@@ -105,7 +105,7 @@ collection of classes. Anyway, here's a list of the access modifiers and what th
 <DD>Members (methods or instance variables) that are declared public can be accessed by anything, anywhere.</DD>
 <DT>private</DT>
 <DD>Private members can only be used by things inside the same class.</DD>
-<DT><EM>default</EM></DT>
+<DT>*default*</DT>
 <DD>If a member does not have a modifier, it can only be used by things in the same package.</DD>
 <DT>protected</DT>
 <DD>Private members can be use by anything in the same package, or by derived classes in a different package.</DD>
@@ -114,7 +114,7 @@ collection of classes. Anyway, here's a list of the access modifiers and what th
 Don't worry if you don't understand this now, we'll see more of it later. It's important to
 introduce it though, so you don't panic when you see all these words flying around. Classes can
 also have access control, default or public, but until you get on to complex stuff, you don't need
-to worry about it. For now, we'll keep all classes <EM>public</EM>, so anything can use them. So, with
+to worry about it. For now, we'll keep all classes *public*, so anything can use them. So, with
 all that out of the way, now we'll get on to Java itself and discuss how to write a basic VRML
 Script class.
 
@@ -123,12 +123,12 @@ Script class.
 This section is going to dive straight in and introduce the syntax of the sort of class you can use
 directly in a Script node. I think what we'll do it just make a class and then I'll explain it
 afterwards. Here we go...
-<PRE>
+```
 import vrml.node.*;
 
 public class NewScript extends Script {
 }
-</PRE>
+```
 Blimey, a bit of actual Java! Stunning. Right, let's take it line by line, and start at the
 beginning. The first line imports some stuff from the standard VRML Java package. This package is a
 collection of classes that are used to interface to a VRML Script node. All your scripts will need
@@ -139,7 +139,7 @@ Script. Script is the Java class that all VRML Java scripts are based on, and it
 general framework for your scripts. All your basic VRML script class declarations should look like
 this, just with a different name. If you wanted to create a class from scratch, you wouldn't have
 the 'extends Script' part. It's a bit dull so far though - let's add a couple of instance variables.
-<PRE>
+```
 import vrml.node.*;
 
 public class NewScript extends Script {
@@ -149,16 +149,16 @@ public class NewScript extends Script {
    private int private_value;
 
 }
-</PRE>
+```
 There we go. We've now got two instance variables, one public and one private. Anyone will be able
 to view the public one, but no other classes can see the private one. Also, notice here that Java
 has explicit types for variables. In ECMAScript, we could change the type of a variable during
 execution, and add members to objects even. No more. In Java, each variable has a particular type,
 and it retains that type forever. I won't go through the types now, we'll meet them all later.
 Suffice to say that these two are integers (whole numbers). So, our class is growing, but it doesn't
-have any methods! What if we wanted to allow people to <EM>read</EM> the value of private_value, but
+have any methods! What if we wanted to allow people to *read* the value of private_value, but
 not write it. We can provide a function to do that!
-<PRE>
+```
 import vrml.node.*;
 
 public class NewScript extends Script {
@@ -172,13 +172,13 @@ public class NewScript extends Script {
    }
 
 }
-</PRE>
+```
 Now, anyone can call GetPrivateValue to get the value of private_value, because the function is
 public. It can read private_value, as it is part of the same class. Here you see that in contrast to
 some other languages, the implementation of a function goes together with the declaration (it's all
 in one lump). It's much like ECMAScript, really. I'm sure you understand it.
 
-So there we have a <EM>very</EM> simple class, just demonstrating how these things fit together.
+So there we have a *very* simple class, just demonstrating how these things fit together.
 Let's see how we would use it in a VRML world. Obviously it won't do anything yet, but we'll cover
 making your scripts actually work in a VRML world next time round.
 
@@ -186,14 +186,14 @@ making your scripts actually work in a VRML world next time round.
 
 OK, no more poor jokes now. Promise. For a while, at least. Now that you've written your Java class,
 what are you going to do with it? Well, Java isn't like ECMAScript in that it's just a text file
-that you can use in your worlds. You need to use a thing called a <EM>compiler</EM>, which takes
+that you can use in your worlds. You need to use a thing called a *compiler*, which takes
 your source code (what you just wrote), and compiles it into language that the machine can
-understand directly. In the case of Java, the compiler creates stuff called <EM>bytecode</EM>, which
+understand directly. In the case of Java, the compiler creates stuff called *bytecode*, which
 can be executed on any system with Java on it, making it nice and portable across different
 operating systems.
 
 So, where to get a compiler? Well, almost any Java compiler will do as long as works on
-<EM>standard</EM> Java. Those of you using Microsoft Visual J++ may have problems with this. There
+*standard* Java. Those of you using Microsoft Visual J++ may have problems with this. There
 are loads around, but there is one which is totally free, and everything you need. This is the
 official Java 2 Platform from Sun. You can get it at <A HREF="http://java.sun.com"
 TARGET="_top">java.sun.com</A>. Download it, install it, and you're off! It doesn't provide a nice
@@ -205,9 +205,9 @@ In order to create a usable class out of our NewScript example, we perform the f
 the source code into a file called <FONT FACE="courier">NewScript.java (it's important that
 it has the same name as the class defined in it - also, each source file can only contain one
 class). Then, run the following command:
-<PRE>
+```
 javac -target 1.1 NewScript.java
-</PRE>
+```
 This should run the compiler (assuming it's installed right) and create a file for you called
 <FONT FACE="courier">NewScript.class. This is the bytecode for the class you've just written.
 If there are any errors in what you've written, the compiler will tell you about them when you run
@@ -231,11 +231,11 @@ friend to do it for you if you can't handle it.
 
 Well, once you've got your class, you want to know how to use it in your VRML worlds. Well, all you
 need to do is just use it's name in a script node as you normally would, like this:
-<PRE>
+```
 Script {
    url "NewScript.class"
 }
-</PRE>
+```
 Obviously, you'll have a load of fields, eventIns, eventOuts and so on for the Script but I've left
 them out above. The browser will look at the URL for the script, and go off and get it from wherever
 you've told it to.
