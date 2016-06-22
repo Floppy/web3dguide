@@ -3,15 +3,14 @@ title: "VRML97 Tutorial 2.5: Normal, Color"
 keywords: normals, colours, colors, Normal, Color, colorPerVertex, normalPerVertex,
 ---
 
-
-<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Are You Normal?</FONT></TD></TR></TABLE>
+# Are You Normal?
 <P>
 Last tutorial, we covered some of the advanced objects, like <STRONG>IndexedFaceSet</STRONG>s, <STRONG>Extrusion</STRONG>s, and <STRONG>ElevationGrid</STRONG>s. Now, these are
 all very impressive, but there is more we can do with them. These geometry nodes allow you to specify normals, colours, and various other
 parameters to customise the appearance of these objects. I'm going to explain a little about these things, and show you how
 they are applied.
 </P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Normals</FONT><P>
+## Normals
 <P>
 Right, first things first. A normal is a vector associated with a face, that usually sits perpendicular to it pointing away from the visible face. Normals are used in VRML
 browsers for lighting calculations.<BR>
@@ -61,7 +60,7 @@ faces/vertices in the same order.
 The <STRONG>Extrusion</STRONG> and <STRONG>IndexedFaceSet</STRONG> nodes also have a <EM>convex</EM> field. If this is TRUE, the browser will not check for overlapping objects. The default is FALSE, 
 which is safest. Only set this if you know that your object is completely convex.
 </P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Colours</FONT><P>
+## Colours
 <P>
 In exactly the same way as normals, we can apply different colours per face or per vertex. This is done with the <EM>color</EM> field, which contains a <STRONG>Color</STRONG> node, in the 
 same way as for the <EM>normals</EM> field. There is also a <EM>colorIndex</EM> field and a <EM>colorPerVertex</EM> field which have exactly the same effect as for the equivalent 
@@ -72,7 +71,7 @@ Color {
    exposedField   MFColor     color             []
 }
 </PRE>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Intact</FONT><P>
+## Intact
 <P>
 Well, there have been so many examples in this tutorial that I'm not going to do one for the end here. I could combine them all, but it wouldn't show you
 anything new, so I won't. I'll just say that in the next tutorial I'm going to cover lighting. I'll tell you how to add lights to your world, and go into a 

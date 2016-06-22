@@ -3,8 +3,8 @@ title: "VRML97 Tutorial 2.7: TextureTransform, TextureCoordinate"
 keywords: textures, texture transforms, TextureTransform, TextureCoordinate, texCoord, textureTransform, IndexedFaceSet, texture,
 ---
 
-<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Slightly Rippled, With A Flat Underside</FONT></TD></TR></TABLE>
-<P>
+# Slightly Rippled, With A Flat Underside
+
 We've learnt about advanced materials, with colours per vertex, normals, and how to alter the appearance 
 of your objects with them. We've done lighting, and how to create effects with the lighting in your worlds.
 In all this, textures have been somewhat left behind. We couldn't really do a lot with them before, and with
@@ -12,33 +12,33 @@ these new objects, textures have been forgotten about. Well, now we're going to 
 tutorial covers texturing in greater detail. We will learn how to transform the textures in your worlds, making
 them do interesting things, and getting more control over their behaviour. The first thing to do, though, is to 
 take a trip into texture space...
-</P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">A trip into texture space</FONT><P>
-<P>
+
+## A trip into texture space
+
 Texture space is where your textures live. It's a two dimensional world, filled with your texture, repeating itself
 forever. The origin is the bottom left of your texture, and the point (1,1) is the top right. This is independent of
 whether your texture is 320x200, 640x480, 1000x20, whatever its size or aspect ration, the top right is always (1,1) 
 in texture space. From now on, I'm going to refer to the texture from (0,0) to (1,1) as the <EM>central</EM> copy of the 
 texture. The x-axis in normal space becomes the s-axis, and the y-axis becomes the t-axis. This is all shown in the 
 diagram below, a view into the centre of an infinite world of textures.
-</P>
+
 <IMG SRC="../pics/texturespace.jpg" WIDTH=320 HEIGHT=200 ALT="Texture Space">
-<P>
+
 From now on, I want you to think in terms of texture <STRONG>coordinates</STRONG>, instead of textures. The texture coordinate
 (1,1) is the top right of the central copy of your texture, and (1.5,0.5) is in the middle of the texture to the right
 of the central copy.
-</P><P>
+
 Right, now that you're practically a native of the two-dimensional world that is texture space, we can start to warp this 
 space to our own ends. We're going to translate it, rotate it, scale it, and squish it about in all sorts of ways. This 
 world gives us the power to textures any object we like, any way we like. Great.
-</P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Texture transformations</FONT><P>
-<P>
+
+## Texture transformations
+
 You remember the <STRONG>Appearance</STRONG> node? Well, when we did it the first time, there's something I didn't tell you about it.
 You remember that it can contain a <STRONG>Material</STRONG> node, an <STRONG>ImageTexture</STRONG> node or a <STRONG>MovieTexture</STRONG> node? Well, if
 you have either of the texture nodes in the <EM>texture</EM> field, you can also have a <STRONG>TextureTransform</STRONG> node in the
 <EM>textureTransform</EM> field. This is what I'm going to cover now. The syntax of a <STRONG>TextureTransform</STRONG> is as follows:
-</P>
+
 <PRE>
 TextureTransform {
    exposedField   SFVec2f     center            0 0
@@ -47,12 +47,12 @@ TextureTransform {
    exposedField   SFVec2f     translation       0 0
 }
 </PRE>
-<P>
+
 Notice that all the fields are the two-dimensional equivalents of the normal <STRONG>Transform</STRONG> node. The <EM>center</EM> field
 specifies the centre point used for rotation and scaling, in texture coordinates. The <EM>rotation</EM> field specifies a rotation
 angle about this centre. The <EM>scale</EM> is a pair of values, specifying scale factors relative to the centre in the s and t 
 directions. Finally, the <EM>translation</EM> is a pair of values specifying a two-dimensional translation in the s and t directions.
-</P><P>
+
 There's one really important point to remember about <STRONG>TextureTransform</STRONG>s. They operate on texture <EM>coordinates</EM>, not on the
 texture itself. For instance, you might expect a <EM>scale</EM> of 2 2 to make a texture twice as large in both directions, but really it
 transforms the coordinate (0.5,0.5) to (1,1), and (1,1) to (2,2). This has the effect of <EM>shrinking</EM> the texture by 2 in both 
@@ -60,31 +60,31 @@ directions. While being the opposite of what you might expect, this isn't a prob
 and translations. What you do to the coordinates will have the opposite effect on the actual texture. Take a look at this <A HREF="../worlds/tut27a.wrl" TARGET=_new>example</A>
 world, for a few examples of texture transformations. You can also take a
 look at the <A HREF="../source/tut27a.html">code</A>.
-</P>
-<P>
+
+
 In the example, the centre box is the original texture, unmodified. On the left, the texture has been scaled by 5 in both directions and rotated by 0.78 radians.
 On the right, the texture has been translated by 0.5 in both the s and t directions. As you can see, these transformations have the opposite effect from what you
 would expect.
-</P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Texture coordinates</FONT><P>
-<P>
+
+## Texture coordinates
+
 The advanced objects, as well as having <EM>color</EM> and <EM>normal</EM> fields, have a <EM>texCoord</EM> field. This can contain a 
 <STRONG>TextureCoordinate</STRONG> node.
-</P>
+
 <PRE>
 TextureCoordinate {
    exposedField   MFVec2f     point             []
 }
 </PRE>
-<P>
+
 This is simply a list of coordinates in texture space, which are then used by a <EM>texCoordIndex</EM> field in the IFS (IndexedFaceSet). If you do not specify
 <EM>texCoordIndex</EM> data in the IFS, the texture coordinates are mapped to the coordinates of the IFS in order. However, if you do, you can map any part of the image onto
 any part of the object. For instance, in the example shown below, the square that the 6 is in is mapped onto one face of a cube.
-</P>
+
 <IMG SRC="../pics/texcoord.gif" WIDTH=320 HEIGHT=200 ALT="Texture Coordinates">
-<P>
+
 For a change now, I'm actually going to quote a big piece of code. I'll explain after. Take a look at this...
-</P>
+
 <PRE>
 Shape {
    appearance Appearance {
@@ -120,7 +120,7 @@ Shape {
    }
 }
 </PRE>
-<P>
+
 Right then. The <STRONG>IndexedFaceSet</STRONG> is simply a cube, two metres along each side. This
 takes care of the <EM>coordinate</EM> and <EM>coordIndex</EM> fields. The texture in the
 <STRONG>ImageTexture</STRONG> node is the image shown above, the net of a cube. Right then. If you
@@ -134,8 +134,8 @@ They are ordered the same as the coordinates in the <EM>coordIndex</EM> field. T
 formatted in exactly the same way, as well, with a value of -1 between each face. You can actually
 see what this looks like in reality by looking at the <A HREF="../worlds/tut27b.wrl"
 TARGET=_new>example</A> in 3D, and also its associated <A HREF="../source/tut27b.html">code</A>.
-</P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Back down to Earth</FONT><P>
-<P>
+
+## Back down to Earth
+
 Well, that's it for this one. Next, we're going to cover the <STRONG>NavigationInfo</STRONG> node, which you can use to customise how the user views your world.
-</P>
+

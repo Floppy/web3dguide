@@ -3,21 +3,21 @@ title: "VRML97 Tutorial 6: Types, Events, ROUTE, PROTO, EXTERNPROTO"
 keywords: SFBool, SFColor, MFColor, SFFloat, MFFloat, SFImage, SFInt32, MFInt32, SFNode, MFNode, SFRotation, MFRotation, SFString, MFString, SFTime, MFTime, SFVec2f, MFVec2f, SFVec3f, MFVec3f
 ---
 
-<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Techy Stuff</FONT></TD></TR></TABLE>
-<P>
+# Techy Stuff
+
 OK. We're starting to get into the guts of VRML now. We've covered the basics, and got something going. Now, we
 need to start getting serious about all this. This tutorial is going to go into the details of the types of
 fields and events a node can have, and explain about Prototyping, which is useful for code reuse. Then, we'll 
 cover routes, which are the basis for all animation in VRML. We're not really going to apply this stuff until
 later, but it's useful to get it out of the way.
-</P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Fields & Types</FONT><P>
-<P>
+
+## Fields & Types
+
 Right then. As you've probably picked up from the previous tutorials, VRML files consist of groups of nodes.
 These nodes can also contain other nodes, and also can contain fields. Each field has a type, which governs 
 what data it can contain, and how much of it. There are a number of different types in VRML, which are 
 described below. You'd best get used to these, because I'm going to use them to describe the nodes from now on.
-</P>
+
 <dl>
 <dt><STRONG>SFBool</STRONG>
 <dd>This is a single boolean value, which can take the value "TRUE" or "FALSE".
@@ -62,21 +62,21 @@ described below. You'd best get used to these, because I'm going to use them to 
 <dt><STRONG>SFVec3f & MFVec3f</STRONG>
 <dd>A single or list of 3D vectors. A 3D vector is a triple of floating-point numbers. 
 </dl>
-<P>
+
 Right, now that you know all the field types and how to specify them, we can go on to cover events. We're getting
 to the stage now where you need some kind of detailed node reference. I'll hopefully produce one in time, but not
 just at the moment. If you use Windows, get hold of Dr. Clue's VRML Helpfile. If not, you can use the VRML
 specifications. Both are linked from the <A HREF="http://web3d.vapourtech.com/links.php">Links</A>
 section. Also, check the VRML Repository for information.
-</P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Events</FONT><P>
-<P>
+
+## Events
+
 Right then, events. As well as a number of fields, most nodes contain <EM>events</EM>. There are two types, <STRONG>eventIn</STRONG>
 and <STRONG>eventOut</STRONG>. <STRONG>eventOut</STRONG>s are outgoing events, which generate information such as the changing of a value, 
 or the time of a mouse click. <STRONG>eventIn</STRONG>s are incoming events, which accept information from outside the node and
 do something with it. Each event has a data type associated with it, as described above.
-</P>
-<P>
+
+
 Some nodes have fields that are <EM>exposed</EM>. This means that the node has two events defined for that field,
 <STRONG>set_fieldname</STRONG> and <STRONG>fieldname_changed</STRONG>. These are an <STRONG>eventIn</STRONG> and <STRONG>eventOut</STRONG> for the field that
 can be used to set its value and notify the outside world when it has been changed. If you use <STRONG>set_fieldname</STRONG> to
@@ -87,18 +87,18 @@ the one used at all times. To see which fields are exposed in each node, get hol
 the places on the <A HREF="http://web3d.vapourtech.com/links.php">links</A> page, or take a look
 at the <A HREF="nodes.html">node reference</A> in the appendices to this
 tutorial.
-</P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Routes</FONT><P>
-<P>
+
+## Routes
+
 In order to do useful things with events, we need to somehow wire them together. This wiring is known as a <STRONG>ROUTE</STRONG>.
 For example, to route a <STRONG>touchTime eventOut</STRONG> to a <STRONG>startTime eventIn</STRONG> (for instance to play a sound on a mouse
 click), we would route the event as follows:
-</P>
+
 <PRE>
 ROUTE SENSOR.touchTime TO SOUND.startTime
 </PRE>
 <IMG SRC="../pics/route.gif" WIDTH=320 HEIGHT=200 ALT="Route">
-<P>
+
 So, this bit of code will route the <STRONG>touchTime</STRONG> event from a TouchSensor (covered later) to a <STRONG>startTime</STRONG> event
 in a sound node (also covered later). Therefore, when the TouchSensor is clicked, the sound will play. You need to use 
 DEF for each node that you route to or from, so that it has an individual name. So, the TouchSensor and Sound nodes would
@@ -110,22 +110,22 @@ DEF SENSOR TouchSensor {
 DEF SOUND Sound {
 }
 </PRE>
-<P>
+
 Except with fields inside them, obviously. If you have a number of objects with the same name (by using USE), and route to
 or from them, all objects are affected, so if you just want one to be affected, give it a unique name or use a PROTO, as
 explained below.
-</P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">PROTO</FONT><P>
-<P>
+
+## PROTO
+
 Just one more thing to cover, and that's prototyping. This isn't really related to events and routes, but now that I've
 explained the fields, it's easier to explain.
-</P>
-<P>
+
+
 Prototyping is a way of reusing your code. If you want a number of objects of the same type, you can use DEF and USE.
 However, what if you want a number of objects that are very similar, but with slight differences, say different heights?
 In that case, you can use PROTO instead. To define a prototype, you define your object, and define fields and events 
 for it. Here is an example of a PROTO for a box with variable colour.
-</P>
+
 <PRE>
 PROTO VBox [
    field SFColor boxColour 1 0 0
@@ -142,7 +142,7 @@ PROTO VBox [
    }
 }
 </PRE>
-<P>
+
 The field in square brackets at the start of the declaration is the interface for the object, and the numbers are the
 default values for the field. When an instance of VBox is declared, the value assigned to the field boxColour is placed 
 into the <STRONG>diffuseColor</STRONG> field of the <STRONG>Material</STRONG> node. Therefore, to declare a red VBox and a green VBox, we
@@ -155,7 +155,7 @@ VBox {
    boxColour 0 1 0
 }
 </PRE>
-<P>
+
 The first use defines a default red VBox, the second gives a green one. You can define eventIns,
 eventOuts and exposedFields for prototypes in the same way, using IS to map the PROTO field to a
 field in the implementation. A PROTO field has to be mapped to the same type of field/event (you
@@ -163,20 +163,20 @@ can't map an eventIn to an eventOut), and also has to be the same data type (can
 an SFFloat). The only exception to this is that you can map a normal field in the PROTO definition
 to an exposedField in the implementation, as a normal field is, if you like, a subset of an
 exposedField, so mapping the two together does no harm. You can't go the other way though...
-</P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">EXTERNPROTO</FONT><P>
-<P>
+
+## EXTERNPROTO
+
 If you want to define PROTOs elsewhere than in your main file, you can use EXTERNPROTO. This just tells the browser that
 the bulk of the object definition is in another file. In your main file, you include an EXTERNPROTO definition, and have
 the full PROTO in the other file. The EXTERNPROTO syntax is shown below:
-</P>
+
 <PRE>
 EXTERNPROTO VBox [
    field SFColor boxColour
 ]
 "proto.wrl"
 </PRE>
-<P>
+
 The file, "proto.wrl" in this case, must contain the VRML header and the prototype definitions, nothing else. If you
 have more than one PROTO in the file, you must declare which one you are using like so: <PRE>"proto.wrl#VBox"</PRE>
 Note that you don't need to include the default values in the EXTERNPROTO definition, just the field
@@ -191,15 +191,14 @@ EXTERNPROTO VBox [
    "http://www.mydomain.com/protos/proto.wrl"
 ]
 </PRE>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Terminus</FONT>
-<P>
+## Terminus</FONT>
+
 You can take a look at the world so far if you like. I've replaced the four cone definitions with a PROTO, 
 so it all looks the same, but is more efficient, and is a slightly smaller file.
 <BR><A HREF="../worlds/tut17.wrl" TARGET=_new>Tutorial 1.7 World</A>
 + <A HREF="../source/tut17.html">code</A>.
-</P>
-<P>
+
+
 That's about that then. We'll use all this stuff from now on, with animation and scripting and so on. In the next couple
 of tutorials however, I'm going to cover lighting, cameras, sound, and a few other fancy effects to make your worlds more
 realistic and useful.
-</P>

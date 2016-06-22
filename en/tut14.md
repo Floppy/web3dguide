@@ -3,12 +3,12 @@ title: "VRML97 Tutorial 1.4: Appearance, Material, ImageTexture, MovieTexture, P
 keywords: Appearance, Material, ImageTexture, MovieTexture, PixelTexture, textures, diffuseColor, diffuse, specular, ambient, shininess, shine, transparency
 ---
 
-<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Keeping Up Appearances</FONT></TD></TR></TABLE>
-<P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Appearance Nodes</FONT><P>
+# Keeping Up Appearances
+
+## Appearance Nodes
 OK. As you saw with the FBOX object we defined earlier, a <STRONG>Shape</STRONG> node has a field within it called <STRONG>appearance</STRONG>.
 This is used to contain an <STRONG>Appearance</STRONG> node, as shown below:
-</P>
+
 <PRE>
 DEF FBOX Shape {
    appearance Appearance {
@@ -19,14 +19,14 @@ DEF FBOX Shape {
    }
 }
 </PRE>
-<P>
+
 This example has one field within its <STRONG>Appearance</STRONG> node, a <STRONG>material</STRONG> field. This way of having nodes within
 nodes may seem awkward, but it allows you to globally define appearances by using DEF and USE. This is useful for having many objects with the same look.
 An <STRONG>Appearance</STRONG> node can contain a material field or a texture field. A <STRONG>material</STRONG> field contains a <STRONG>Material</STRONG> node, surprisingly enough. 
 A <STRONG>texture</STRONG> node contains one of a number of kinds of texturing nodes. These will be described later. First, we will deal with the <STRONG>Material</STRONG> node.
-</P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Material Nodes</FONT><P>
-<P>
+
+## Material Nodes
+
 The <STRONG>Material</STRONG> node can contain any of six fields. These are:
 	<dl>
 	<dt><STRONG>diffuseColor</STRONG>
@@ -42,7 +42,7 @@ The <STRONG>Material</STRONG> node can contain any of six fields. These are:
 	<dt><STRONG>transparency</STRONG>
 	<dd>How transparent the object is. Note, some browsers will not support partly-transparent objects.
 	</dl>
-<P>
+
 The first three of these are colour values, and the last three are a single number between 0 and 1.
 Colours are specified as red green and blue components, as in HTML. You can make any colour you like
 from a combination of red, green and blue. The individual colour values are numbers between 0 (no
@@ -50,10 +50,10 @@ colour) and 1 (full colour), so full red would be defined as 1 0 0, white as 1 1
 0.5 and so on. This way of specifying colours can take a while to get used to, but you can use a
 colour selector in PaintShop Pro or something to pick out colours that you like and then convert
 them into VRML values.
-</P>
-<P>
+
+
 So, if we want to make our original cube a glowing semi-transparent green colour, we would define an appearance for it thus:
-</P>
+
 <PRE>
 Shape {
    appearance Appearance {
@@ -66,12 +66,12 @@ Shape {
    }
 }
 </PRE>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">ImageTexture</FONT><P>
-<P>
+## ImageTexture
+
 Pretty colours are all very well, but to look <EM>really</EM> good, we need to texture-map our objects. This is done using the <STRONG>texture</STRONG> field of the
 <STRONG>Appearance</STRONG> node. This field contains one of three types of texture node.
-</P>
-<P>
+
+
 The first one of these that we will cover is <STRONG>ImageTexture</STRONG>. This is a basic texture map, mapping a still image onto an object.
 The node can texture-map an object with a JPEG or PNG file, so no GIFs round here! Some browsers support it, but it's not standard.
 The node contains three fields. The first, <STRONG>url</STRONG> specifies the image to use in a standard URL format. You can specify a list of
@@ -81,10 +81,10 @@ of TRUE or FALSE. They are only really useful when combined with a <STRONG>Textu
 transparency information in the images used, in which case it replaces the original object's transparency. If you use a greyscale texture, the diffuseColor 
 is multiplied by the intensity of the texture to create the actual texture. In fact, you can create many effects by combining a <STRONG>Material</STRONG> node and an
  <STRONG>ImageTexture</STRONG>. In general, they do just what you'd expect, so experiment a little and see what you can create.
-</P>
-<P>
+
+
 So, to texture our second Box with a brick texture, we would use the following:
-</P>
+
 <PRE>
 Appearance {
    texture ImageTexture {
@@ -92,11 +92,11 @@ Appearance {
    }
 }
 </PRE>
-<P>
+
 as the <STRONG>appearance</STRONG> node of our second box.
-</P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">MovieTexture</FONT><P>
-<P>
+
+## MovieTexture
+
 <STRONG>MovieTexture</STRONG> takes a MPEG movie and texture-maps it onto an object in the same way as <STRONG>ImageTexture</STRONG> It has the same three fields, but also
 a number of others. These are:
 	<dl>
@@ -109,17 +109,17 @@ a number of others. These are:
 	<dt><STRONG>stopTime</STRONG>
 	<dd>When to stop the movie, in seconds since midnight on 1st Jan 1970.
 	</dl>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">PixelTexture</FONT><P>
-<P>
+## PixelTexture
+
 This node allows you to define your own textures by hand in the VRML file. This seems incredibly
 inefficient, but it does have it's uses, as you'll see later. It has an <STRONG>image</STRONG> field instead of a URL.
-</P>
-<P>
+
+
 The <STRONG>image</STRONG> field consists of two numbers specifying the width and height of the texture, followed by another number giving the number of components.
 One-component colours are greyscale, two-component colours are greyscale with transparency, three is RGB colour, and four is RGB with transparency.
 After these arguments, there follows a list of pixels, which are hexadecimal numbers with the one byte per component. So, a 4-component pixel that is
 red and 50% transparent would be 0xFF00007F. The pixels are ordered from bottom-left to top-right. An example is shown below:
-</P>
+
 <PRE>
 DEF PIXMAP Appearance {
    texture PixelTexture {
@@ -128,7 +128,7 @@ DEF PIXMAP Appearance {
 }
 </PRE>
 <IMG SRC="../pics/pixmap.gif" width=100 height=100 ALT="PixelTexture">
-<P>
+
 We just need a quick description of hexadecimal numbers here. Often in computer-land, it's
 convenient to specify numbers not in normal decimal numbers (0-9) or binary (0-1), but in another
 type of number called <EM>hexadecimal</EM>. This is base 16, and the numbers go like this:
@@ -151,20 +151,19 @@ type of number called <EM>hexadecimal</EM>. This is base 16, and the numbers go 
 <TR><TD ALIGN="CENTER">E</TD><TD ALIGN="CENTER">14</TD></TR>
 <TR><TD ALIGN="CENTER">F</TD><TD ALIGN="CENTER">15</TD></TR>
 </TABLE>
-<P>
+
 So, F in hexadecimal is 15 in decimal. 10 in hex is 16 in decimal. Hexadecimal numbers are normally
 specified with a 0x on the front for easy recognition. So, 0x10 = 16, 0xFF = 255, and 0x7F = 127.
 You get the idea, I'm sure. You don't need to use these much, so don't worry about it too much if
 you don't. You can pick it up later.
-</P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">The End is Nigh</FONT><P>
+
+## The End is Nigh
 Right then, that's about it for this one, all that remains is the description and <A HREF="../source/tut14.html">the code</A> for what we have so far, and a link to 
 the WRL file. We have two boxes as before, one transparent green, and another with a brick texture. Notice that we can't use DEF on the 
 <STRONG>Shape</STRONG> nodes any more, as they have different textures, so are no longer identical.
-<P>
+
 Take a look at the overall effect by clicking here:<BR><A HREF="../worlds/tut14.wrl" TARGET=_new>Tutorial 1.4 World</A>.
-</P>
-<P>
+
+
 That's the basics of colour and texture. There's more advanced info on textures later on, with different ways of mapping them, and so on
 but that comes later. A lot later.
-</P>

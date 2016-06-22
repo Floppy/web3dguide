@@ -3,20 +3,20 @@ title: "VRML97 Tutorial 4.3: VRML Scripting Functions"
 keywords: VRML Scripting functions, initialize, shutdown, eventsProcessed,
 ---
 
-<TABLE WIDTH="100%"><TR><TD BGCOLOR="#BB0000"><FONT FACE="Arial" SIZE="+2" COLOR="#FFFFFF">Bodily Functions</FONT></TD></TR></TABLE>
-<P>
+# Bodily Functions
+
 By now, you know enough about ECMAScript to start creating VRML <STRONG>Script</STRONG> nodes that perform
 useful operations. This tutorial will take you through the general structure of a VRML script,
 explaining how it all works and fits together. By the end, you should be able to produce simple
 scripts of your own! Which is nice...
-</P><P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Script Layout</FONT><P>
-</P><P>
+
+## Script Layout
+
 The first thing we're going to look at is the layout of a VRML script. You've already seen the
 <STRONG>Script</STRONG> node, and you know a bit about ECMAScript, so there should be no problems here. A VRML
 script basically consists of a set of functions, each of which execute at specific times. All the
 functions in the script have access to the fields and events defined in the <STRONG>Script</STRONG> node.
-</P><PRE>
+<PRE>
 url "javascript:
    function initialize() {
       // initialisation code
@@ -28,39 +28,39 @@ url "javascript:
       // event handling code
    }
 "
-</PRE><P>
+</PRE>
 Above is the general sort of structure you have in a normal script. Let's now take a look at some of
 the functions you will have in your scripts.
-</P><P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Startup and Shutdown</FONT><P>
-</P><P>
+
+## Startup and Shutdown
+
 First of all, we'll take a look at the <EM>initialize()</EM> function. This is called as soon as the
 world is loaded, before it is displayed. The world is displayed when it has finished executing. The
 function is declared as shown below:
-</P><PRE>
+<PRE>
 function initialize() {
    // initialization code
 }
-</PRE><P>
+</PRE>
 The statements you want to execute on startup go inside the function body, instead of the comment.
-</P><P>
+
 To go with the <EM>initialize()</EM> function, there is a <EM>shutdown()</EM> function. This is executed
 when the script is shut down, so when the browser is closed or when another URL is loaded.
-</P><PRE>
+<PRE>
 function shutdown() {
    // shutdown code
 }
-</PRE><P>
+</PRE>
 This is useful for clearing up any mess that the script may have left behind it. You don't really
 need to use it very often though, only when you start doing quite complex things.
-</P><P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Event Handling</FONT><P>
-</P><P>
+
+## Event Handling
+
 Now we get to the really useful bit, the event handlers. Your scripts will almost always react to
 the outside world, by receiving eventIns from other nodes. You need some code that is executed when
 these events are received. These are your event handler functions. Let's have a little example to
 see how this works.
-</P><PRE>
+<PRE>
 Script {
    eventIn SFTime touchTime
    url "javascript:
@@ -69,27 +69,27 @@ Script {
       }
    "
 }
-</PRE><P>
+</PRE>
 In this example, you can see that your event handlers have the same name as the eventIns that they
 correspond to. They have two parameters, which you can give whatever name you want, but I've used
 <EM>value</EM> and <EM>time</EM>. <EM>value</EM> is the value of the event received, and <EM>time</EM> is
 the timestamp of the event. In the example above, when a <EM>touchTime</EM> event is received, the
 code in the <EM>touchTime</EM> function is executed. All very simple.
-</P><P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">eventsProcessed and eventOuts</FONT><P>
-</P><P>
+
+## eventsProcessed and eventOuts
+
 There are a couple more things to cover. Firstly, the <EM>eventsProcessed()</EM> function is another standard
 function. This is called after a set of events have been processed. How often this happens is browser-
 dependent, unfortunately. It can be after every event, or less often. In general, if you have a
 calculation that doesn't need to be performed for <EM>every</EM> event, put it in here.
-</P><PRE>
+<PRE>
 function eventsProcessed() {
    // post-event handler code
 }
-</PRE><P>
+</PRE>
 Just the one more thing, and that is how do we send events in ECMAScript? It's very, very easy, even
 compared to the rest of this tutorial.
-</P><PRE>
+<PRE>
 Script {
    eventOut SFInt32 choice
    url "javascript:
@@ -98,12 +98,12 @@ Script {
       }
    "
 }
-</PRE><P>
+</PRE>
 To send an eventOut, simply assign a value to the name of the eventOut. It's amazingly easy. This is
 why I teach you ECMAScript first, Java is slightly more complex.
-</P><P>
-<FONT FACE="Arial" SIZE="+1" COLOR="#FF0000">Function Dysfunction</FONT><P>
-</P><P>
+
+## Function Dysfunction
+
 Well, that's covered the basic setup of a VRML script. I've shown you the functions you can use to
 create your scripts, and govern how they behave. The <A HREF="../worlds/tut43.wrl" TARGET=_new>example</A> for this
 tutorial and its <A HREF="../source/tut43.html">code</A> show you how these all work together. When
@@ -117,13 +117,13 @@ function executes, the text in the world is updated. If <EM>eventsProcessed</EM>
 every <EM>touchTime()</EM>, the numbers will the same, otherwise they will be different, and you may
 have to click more than once to update the display. This shows how your browser deals with
 <EM>eventsProcessed()</EM>.
-</P><P>
+
 <STRONG>NOTE:</STRONG> The example above uses the <EM>print()</EM> function to print to the VRML console.
 However, not all VRML browsers support this function. If you have problems, try this alternative
 <A HREF="../worlds/tut43a.wrl" TARGET=_new>example</A> and <A HREF="../source/tut43a.html">code</A>. Also,
 please <A HREF="http://web3d.vapourtech.com/contact/index.html">mail me</A> and tell me which
 browser you are using and the error it reports. Thanks!
-</P><P>
+
 Next time out, we're going to cover the relationship between VRML and ECMAScript types. We're going
 to need a bit of an introduction to objects as well. See you there!
-</P>
+
